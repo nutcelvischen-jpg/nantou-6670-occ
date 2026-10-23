@@ -1,0 +1,46 @@
+{
+  "synthetic": true,
+  "fixture_id": "minimum-cost-v1",
+  "currency": "TWD",
+  "journey": {
+    "stops": ["A", "B", "C"],
+    "departure_time_s": 28800,
+    "latest_arrival_s": 34200,
+    "transfer_buffer_s": 300,
+    "services": [
+      {"trip_id":"direct","from":"A","to":"C","depart_s":28800,"arrive_s":31200,"fare_minor":120},
+      {"trip_id":"feed","from":"A","to":"B","depart_s":29100,"arrive_s":30300,"fare_minor":40},
+      {"trip_id":"connect","from":"B","to":"C","depart_s":30600,"arrive_s":32400,"fare_minor":50},
+      {"trip_id":"missed","from":"B","to":"C","depart_s":30000,"arrive_s":31800,"fare_minor":20}
+    ],
+    "expected": {"fare_minor":90,"trip_ids":["feed","connect"],"arrival_s":32400},
+    "rejected_trip_ids": ["missed"]
+  },
+  "fleet": {
+    "demand_people":40,
+    "vehicle_candidates":[
+      {"vehicle_id":"L","seats":40,"operating_cost":1000},
+      {"vehicle_id":"S1","seats":20,"operating_cost":600},
+      {"vehicle_id":"S2","seats":20,"operating_cost":600}
+    ],
+    "expected_minimum_cost":1000,
+    "expected_vehicle_ids":["L"]
+  },
+  "road": {
+    "edges":[
+      {"edge_id":"highway","distance_km":10,"travel_s":600,"variable_cost":100,"driver_cost":20,"toll":60,"total_cost":180},
+      {"edge_id":"local","distance_km":12,"travel_s":1200,"variable_cost":120,"driver_cost":40,"toll":0,"total_cost":160}
+    ],
+    "expected_cost_route":"local",
+    "expected_time_constrained_route":"highway"
+  },
+  "carbon": {
+    "distance_km":100,
+    "diesel_l_per_km":0.4424778761,
+    "diesel_kgco2e_per_l":2.650,
+    "ev_kwh_per_km":1.4285714286,
+    "ev_kgco2e_per_kwh":0.509,
+    "expected_diesel_kgco2e_approx":117.257,
+    "expected_ev_kgco2e_approx":72.714
+  }
+}

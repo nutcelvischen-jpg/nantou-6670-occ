@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "ticket-data-readiness",
+      "title": "兩年刷卡資料能支援什麼規劃？",
+      "queries": [
+        {
+          "id": "tickets-2024",
+          "source": {
+            "label": "2024 年 6670 刷卡資料",
+            "files": [
+              {
+                "label": "2024年_6670刷卡資料.xlsx"
+              }
+            ],
+            "metricDefinitions": [
+              {
+                "label": "資料規模",
+                "definition": "資料筆數計算各工作表除標題外的非空列，尚未去重；日期覆蓋依上車時間統計。"
+              }
+            ],
+            "caveats": [
+              "交易列數不是獨立乘客數或全部運量；計費站名不是已驗證的實體站牌。",
+              "缺少紀錄的日期原因未確認，不能自動視為零需求。"
+            ],
+            "evidenceFlow": [
+              {
+                "kind": "validation",
+                "title": "已執行檢查",
+                "detail": "全列掃描兩份檔案；每個工作表的上車月份皆與表名一致，兩年各工作表均有相同的 18 欄。"
+              }
+            ]
+          },
+          "reportingPeriod": "2024-01-01 至 2024-12-31",
+          "columns": [
+            "year",
+            "records",
+            "days_with_records",
+            "route_variants",
+            "fare_stop_names"
+          ],
+          "rows": [
+            {
+              "year": "2024",
+              "records": 875149,
+              "days_with_records": 361,
+              "route_variants": 6,
+              "fare_stop_names": 16
+            }
+          ],
+          "methods": [
+            {
+              "language": "python",
+              "code": "\"\"\"Read-only full-row profile for SPEC v0.1; no card/driver identifiers exported.\"\"\"\nfrom pathlib import Path\nfrom collections import Counter\nfrom datetime import datetime, timedelta\nimport zipfile, json, re\nfrom lxml import etree as E\n\nROOT = Path(__file__).resolve().parents[1]\nN = '{http://schemas.openxmlformats.org/spreadsheetml/2006/main}'\ndef profile(p):\n    out = {'file': p.name, 'sheets': [], 'rows': 0}\n    routes, dates, stops, od, hours, nulls = [Counter() for _ in range(6)]\n    bad_time = Counter()\n    with zipfile.ZipFile(p) as z:\n        ss = []\n        for _, e in E.iterparse(z.open('xl/sharedStrings.xml'), tag=N+'si'):\n            ss.append(''.join(e.itertext())); e.clear()\n        book = E.fromstring(z.read('xl/workbook.xml'))\n        epoch = datetime(1904,1,1) if book.find(N+'workbookPr') is not None and book.find(N+'workbookPr').get('date1904') in ('1','true') else datetime(1899,12,30)\n        rels = {e.get('Id'):e.get('Target') for e in E.fromstring(z.read('xl/_rels/workbook.xml.rels'))}\n        for sh in book.find(N+'sheets'):\n            target = rels[sh.get('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id')]\n            target = target.lstrip('/') if target.startswith('/') else 'xl/'+target\n            item = {'name':sh.get('name'), 'rows':0, 'actual_months':Counter()}\n            for _, row in E.iterparse(z.open(target), tag=N+'row'):\n                vals = [None]*18\n                for c in row:\n                    letter = re.match('[A-Z]+',c.get('r','')).group()\n                    index = 0\n                    for ch in letter: index = index*26+ord(ch)-64\n                    v=c.find(N+'v')\n                    value=v.text if v is not None else None\n                    if c.get('t')=='s' and value is not None: value=ss[int(value)]\n                    if index<=18: vals[index-1]=value.strip() if isinstance(value,str) else value\n                if row.get('r')=='1':\n                    item['headers']=vals\n                elif any(v is not None for v in vals):\n                    item['rows']+=1;out['rows']+=1\n                    for i,v in enumerate(vals):\n                        if v in (None,''):nulls[str(i)]+=1\n                    routes[vals[5]]+=1;stops[vals[10]]+=1;stops[vals[13]]+=1\n                    od[(vals[10],vals[13])]+=1\n                    try:\n                        t=epoch+timedelta(days=float(vals[8]));u=epoch+timedelta(days=float(vals[11]))\n                        dates[t.date().isoformat()]+=1; hours[str(t.hour)]+=1\n                        item['actual_months'][t.strftime('%Y-%m')]+=1\n                        mins=(u-t).total_seconds()/60\n                        if mins<0:bad_time['negative_duration']+=1\n                        if mins==0:bad_time['zero_duration']+=1\n                        if mins>360:bad_time['over_6h_duration']+=1\n                        if vals[10]==vals[13]:bad_time['same_board_alight_name']+=1\n                    except (ValueError,TypeError,OverflowError):bad_time['unparseable_time']+=1\n                row.clear()\n                while row.getprevious() is not None: del row.getparent()[0]\n            item['actual_months']=dict(item['actual_months']);out['sheets'].append(item)\n            print(p.name,item['name'],item['rows'],item['actual_months'],flush=True)\n    out.update(routes=dict(routes),daily=dict(sorted(dates.items())),date_min=min(dates),date_max=max(dates),days_with_records=len(dates),hours=dict(hours),station_name_count=len(stops),station_names=dict(stops),top_od=[{'from':k[0],'to':k[1],'records':v} for k,v in od.most_common(12)],nulls_by_column_index=dict(nulls),time_flags=dict(bad_time))\n    return out\n\nif __name__=='__main__':\n    results=[profile(p) for p in sorted((ROOT/'data/raw').glob('*.xlsx'))]\n    target=ROOT/'analysis/ticket_profile.json';target.parent.mkdir(exist_ok=True)\n    target.write_text(json.dumps(results,ensure_ascii=False,indent=2))\n    print('Saved',target)\n"
+            }
+          ]
+        },
+        {
+          "id": "tickets-2025",
+          "source": {
+            "label": "2025 年 6670 刷卡資料",
+            "files": [
+              {
+                "label": "2025年_6670刷卡資料.xlsx"
+              }
+            ],
+            "metricDefinitions": [
+              {
+                "label": "資料規模",
+                "definition": "資料筆數計算各工作表除標題外的非空列，尚未去重；日期覆蓋依上車時間統計。"
+              }
+            ],
+            "caveats": [
+              "交易列數不是獨立乘客數或全部運量；計費站名不是已驗證的實體站牌。",
+              "缺少紀錄的日期原因未確認，不能自動視為零需求。"
+            ],
+            "evidenceFlow": [
+              {
+                "kind": "validation",
+                "title": "已執行檢查",
+                "detail": "全列掃描兩份檔案；每個工作表的上車月份皆與表名一致，兩年各工作表均有相同的 18 欄。"
+              }
+            ]
+          },
+          "reportingPeriod": "2025-01-01 至 2025-12-31",
+          "columns": [
+            "year",
+            "records",
+            "days_with_records",
+            "route_variants",
+            "fare_stop_names"
+          ],
+          "rows": [
+            {
+              "year": "2025",
+              "records": 925761,
+              "days_with_records": 364,
+              "route_variants": 6,
+              "fare_stop_names": 16
+            }
+          ],
+          "methods": [
+            {
+              "language": "python",
+              "code": "\"\"\"Read-only full-row profile for SPEC v0.1; no card/driver identifiers exported.\"\"\"\nfrom pathlib import Path\nfrom collections import Counter\nfrom datetime import datetime, timedelta\nimport zipfile, json, re\nfrom lxml import etree as E\n\nROOT = Path(__file__).resolve().parents[1]\nN = '{http://schemas.openxmlformats.org/spreadsheetml/2006/main}'\ndef profile(p):\n    out = {'file': p.name, 'sheets': [], 'rows': 0}\n    routes, dates, stops, od, hours, nulls = [Counter() for _ in range(6)]\n    bad_time = Counter()\n    with zipfile.ZipFile(p) as z:\n        ss = []\n        for _, e in E.iterparse(z.open('xl/sharedStrings.xml'), tag=N+'si'):\n            ss.append(''.join(e.itertext())); e.clear()\n        book = E.fromstring(z.read('xl/workbook.xml'))\n        epoch = datetime(1904,1,1) if book.find(N+'workbookPr') is not None and book.find(N+'workbookPr').get('date1904') in ('1','true') else datetime(1899,12,30)\n        rels = {e.get('Id'):e.get('Target') for e in E.fromstring(z.read('xl/_rels/workbook.xml.rels'))}\n        for sh in book.find(N+'sheets'):\n            target = rels[sh.get('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id')]\n            target = target.lstrip('/') if target.startswith('/') else 'xl/'+target\n            item = {'name':sh.get('name'), 'rows':0, 'actual_months':Counter()}\n            for _, row in E.iterparse(z.open(target), tag=N+'row'):\n                vals = [None]*18\n                for c in row:\n                    letter = re.match('[A-Z]+',c.get('r','')).group()\n                    index = 0\n                    for ch in letter: index = index*26+ord(ch)-64\n                    v=c.find(N+'v')\n                    value=v.text if v is not None else None\n                    if c.get('t')=='s' and value is not None: value=ss[int(value)]\n                    if index<=18: vals[index-1]=value.strip() if isinstance(value,str) else value\n                if row.get('r')=='1':\n                    item['headers']=vals\n                elif any(v is not None for v in vals):\n                    item['rows']+=1;out['rows']+=1\n                    for i,v in enumerate(vals):\n                        if v in (None,''):nulls[str(i)]+=1\n                    routes[vals[5]]+=1;stops[vals[10]]+=1;stops[vals[13]]+=1\n                    od[(vals[10],vals[13])]+=1\n                    try:\n                        t=epoch+timedelta(days=float(vals[8]));u=epoch+timedelta(days=float(vals[11]))\n                        dates[t.date().isoformat()]+=1; hours[str(t.hour)]+=1\n                        item['actual_months'][t.strftime('%Y-%m')]+=1\n                        mins=(u-t).total_seconds()/60\n                        if mins<0:bad_time['negative_duration']+=1\n                        if mins==0:bad_time['zero_duration']+=1\n                        if mins>360:bad_time['over_6h_duration']+=1\n                        if vals[10]==vals[13]:bad_time['same_board_alight_name']+=1\n                    except (ValueError,TypeError,OverflowError):bad_time['unparseable_time']+=1\n                row.clear()\n                while row.getprevious() is not None: del row.getparent()[0]\n            item['actual_months']=dict(item['actual_months']);out['sheets'].append(item)\n            print(p.name,item['name'],item['rows'],item['actual_months'],flush=True)\n    out.update(routes=dict(routes),daily=dict(sorted(dates.items())),date_min=min(dates),date_max=max(dates),days_with_records=len(dates),hours=dict(hours),station_name_count=len(stops),station_names=dict(stops),top_od=[{'from':k[0],'to':k[1],'records':v} for k,v in od.most_common(12)],nulls_by_column_index=dict(nulls),time_flags=dict(bad_time))\n    return out\n\nif __name__=='__main__':\n    results=[profile(p) for p in sorted((ROOT/'data/raw').glob('*.xlsx'))]\n    target=ROOT/'analysis/ticket_profile.json';target.parent.mkdir(exist_ok=True)\n    target.write_text(json.dumps(results,ensure_ascii=False,indent=2))\n    print('Saved',target)\n"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

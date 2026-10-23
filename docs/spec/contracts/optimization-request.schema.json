@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "optimization-request.schema.json",
+  "title": "Minimum operating cost optimization",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["scenario_id", "scenario_revision", "objective", "policy_id", "demand_version", "timetable_version", "vehicle_version", "cost_profile_id", "candidate_generation", "time_limit_s", "random_seed"],
+  "properties": {
+    "scenario_id":{"type":"string"},
+    "scenario_revision":{"type":"integer","minimum":1},
+    "objective":{"const":"operating_cost_min"},
+    "policy_id":{"type":"string","minLength":1},
+    "demand_version":{"type":"string"},
+    "timetable_version":{"type":"string"},
+    "vehicle_version":{"type":"string"},
+    "cost_profile_id":{"type":"string"},
+    "candidate_generation":{"type":"object","additionalProperties":false,"required":["shift_minutes","grid_minutes","extra_trip_limit"],"properties":{"shift_minutes":{"type":"array","items":{"type":"integer","minimum":0,"maximum":120},"uniqueItems":true},"grid_minutes":{"type":"integer","minimum":1,"maximum":60},"extra_trip_limit":{"type":"integer","minimum":0,"maximum":50}}},
+    "time_limit_s":{"type":"integer","minimum":1,"maximum":3600},
+    "random_seed":{"type":"integer","minimum":0,"maximum":2147483647},
+    "synthetic_fixture_id":{"type":["string","null"]}
+  }
+}

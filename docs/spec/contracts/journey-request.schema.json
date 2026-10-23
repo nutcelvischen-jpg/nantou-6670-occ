@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "journey-request.schema.json",
+  "title": "Cheapest journey search",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["origin_stop_id", "destination_stop_id", "departure_date", "earliest_departure_s", "objective", "max_transfers", "max_walk_m", "versions"],
+  "properties": {
+    "origin_stop_id": {"type":"string", "minLength":1},
+    "destination_stop_id": {"type":"string", "minLength":1},
+    "departure_date": {"type":"string", "format":"date"},
+    "earliest_departure_s": {"type":"integer", "minimum":0, "maximum":172800},
+    "latest_arrival_s": {"type":["integer","null"], "minimum":0, "maximum":259200},
+    "objective": {"const":"fare_min"},
+    "ticket_profile": {"type":"string", "default":"adult"},
+    "owned_products": {"type":"array", "items":{"type":"string"}, "uniqueItems":true},
+    "max_transfers": {"type":"integer", "minimum":0, "maximum":5},
+    "max_walk_m": {"type":"integer", "minimum":0, "maximum":10000},
+    "wheelchair_required": {"type":"boolean", "default":false},
+    "required_poi_ids": {"type":"array", "items":{"type":"string"}},
+    "versions": {"type":"object", "additionalProperties":false, "required":["network","timetable","fare"], "properties":{"network":{"type":"string"},"timetable":{"type":"string"},"fare":{"type":"string"}}}
+  }
+}

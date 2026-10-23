@@ -1,0 +1,23 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"run-result.schema.json",
+  "title":"Optimization run result",
+  "type":"object",
+  "required":["run_id","status","algorithm","algorithm_version","objective","search_scope","input_versions","operational_ready","warnings"],
+  "properties":{
+    "run_id":{"type":"string"},
+    "status":{"enum":["optimal","feasible","infeasible","timeout_no_solution","incomplete_data","model_invalid","cancelled"]},
+    "algorithm":{"type":"string"},
+    "algorithm_version":{"type":"string"},
+    "objective":{"enum":["operating_cost_min","fare_min","road_cost_min"]},
+    "search_scope":{"type":"string"},
+    "search_complete":{"type":"boolean"},
+    "objective_minor":{"type":["integer","null"]},
+    "best_bound_minor":{"type":["integer","null"]},
+    "relative_gap":{"type":["number","null"],"minimum":0},
+    "operational_ready":{"type":"boolean"},
+    "simulation_verification":{"enum":["passed","failed","not_run"]},
+    "input_versions":{"type":"object","additionalProperties":{"type":"string"}},
+    "warnings":{"type":"array","items":{"type":"string"}}
+  }
+}

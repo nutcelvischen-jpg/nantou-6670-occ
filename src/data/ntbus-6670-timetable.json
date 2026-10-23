@@ -1,0 +1,2998 @@
+{
+  "dataset_id": "ntbus-6670-public-timetable-snapshot",
+  "dataset_status": "published_snapshot_unverified_for_today",
+  "source_url": "http://www.ntbus.com.tw/hsr6.html",
+  "source_sha256": "15057f04151f009c23fcf138de7a527d07930c55d74f9c93d08603175a76d2c1",
+  "effective_from": "2024-11-01",
+  "snapshot_file": "data/ntbus_site/html/hsr6.html",
+  "snapshot_captured_at": "2026-10-23",
+  "route_name": "6670 國道六號線（時刻主表；不含另列九人座班次）",
+  "vehicle_service_scope": "main timetable only; separate 9-seat timetable excluded",
+  "stops_outbound": [
+    "台中 干城站",
+    "台中 火車站",
+    "高鐵 台中站",
+    "埔里站",
+    "暨南 大學",
+    "九族 文化村",
+    "日月潭",
+    "向山 行政中心"
+  ],
+  "stops_inbound": [
+    "向山 行政中心",
+    "日月潭",
+    "九族 文化村",
+    "暨南 大學",
+    "埔里站",
+    "高鐵 台中站",
+    "台中 火車站",
+    "台中 干城站"
+  ],
+  "time_quality": "首站為表列發車時間；中間站與終點為業者公告之預估到站時間；道路壅塞可能造成誤點",
+  "fare_status": "not_joined_unverified",
+  "service_calendar_status": "weekday_class_from_source_colors; unspecified_rows_require_review",
+  "warnings": [
+    "此為官網公開頁面快照，非即時班表 API；部署前應重新核對頁面與生效日期。",
+    "此解析範圍為一般時刻主表，未納入頁面另外列出的九人座班表及其公告調整。",
+    "班表頁標示的中間站時間為預估到站時間，且業者不保證因壅塞造成的準點。",
+    "此資料未含經核對的 OD 票價，不能據此計算或宣稱最低票價。",
+    "同一方向之空白停靠時間表示該班表未列該站，不推定可停靠。"
+  ],
+  "trips": [
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-01-H",
+      "route_code": "6670H",
+      "route_code_raw": "H",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "07:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "07:18",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "07:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "08:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-01-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "05:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "06:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "06:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "06:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-02-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "07:20",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "07:23",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "07:45",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "08:30",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "09:05",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-02-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "06:00",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "06:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "07:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "07:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-03-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "07:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "07:33",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "07:55",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "08:40",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "09:15",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-03-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "06:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "07:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "07:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "07:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-04-A",
+      "route_code": "6670A",
+      "route_code_raw": "A",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "07:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "07:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "08:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "09:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "九族 文化村",
+          "time": "09:25",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "09:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-04-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "07:00",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "07:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "08:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "08:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-05-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "08:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "08:18",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "08:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "09:25",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "10:05",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-05-H",
+      "route_code": "6670H",
+      "route_code_raw": "H",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "07:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "08:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "08:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "08:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-06-F",
+      "route_code": "6670F",
+      "route_code_raw": "F",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "08:20",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "08:23",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "08:45",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "09:30",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "10:05",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "向山 行政中心",
+          "time": "10:15",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-06-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "07:25",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "埔里站",
+          "time": "08:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "08:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "09:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "09:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-07-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "mon_thu",
+      "service_note": "週一至週四班次標記",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "08:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "08:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "09:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-07-H",
+      "route_code": "6670H",
+      "route_code_raw": "H",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "08:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "09:05",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "09:22",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "09:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-08-A",
+      "route_code": "6670A",
+      "route_code_raw": "A",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "08:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "08:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "09:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "10:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "九族 文化村",
+          "time": "10:25",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "10:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-08-H",
+      "route_code": "6670H",
+      "route_code_raw": "H",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "08:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "09:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "09:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "09:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-09-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "mon_thu",
+      "service_note": "週一至週四班次標記",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "09:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "09:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "10:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-09-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "08:25",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "埔里站",
+          "time": "09:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "09:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "10:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "10:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-10-F",
+      "route_code": "6670F",
+      "route_code_raw": "F",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "09:20",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "09:23",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "09:45",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "10:30",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "11:05",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "向山 行政中心",
+          "time": "11:15",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-10-H",
+      "route_code": "6670H",
+      "route_code_raw": "H",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "09:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "10:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "10:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "10:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-11-A",
+      "route_code": "6670A",
+      "route_code_raw": "A",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "09:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "09:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "10:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "11:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "九族 文化村",
+          "time": "11:25",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "11:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-11-A",
+      "route_code": "6670A",
+      "route_code_raw": "A",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "09:10",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "九族 文化村",
+          "time": "09:25",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "10:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "10:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "11:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "11:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-12-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "mon_thu",
+      "service_note": "週一至週四班次標記",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "09:55",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "10:15",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "11:05",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-12-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "09:40",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "10:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "11:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "11:17",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "11:20",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-13-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "10:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "10:18",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "10:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "11:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-13-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "10:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "11:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "11:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "11:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-14-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "10:20",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "10:23",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "10:45",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "11:30",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "12:05",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-14-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "10:00",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "10:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "11:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "11:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "11:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-15-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "10:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "10:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "11:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "12:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "12:30",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-15-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "10:25",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "埔里站",
+          "time": "11:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "11:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "12:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "12:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-16-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "mon_thu",
+      "service_note": "週一至週四班次標記",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "11:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "11:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "12:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-16-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "10:40",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "11:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "12:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "12:17",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "12:20",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-17-F",
+      "route_code": "6670F",
+      "route_code_raw": "F",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "11:20",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "11:23",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "11:45",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "12:30",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "13:05",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "向山 行政中心",
+          "time": "13:15",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-17-H",
+      "route_code": "6670H",
+      "route_code_raw": "H",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "11:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "12:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "12:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "12:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-18-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "11:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "11:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "12:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "13:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "13:30",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-18-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "11:00",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "11:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "12:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "12:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "12:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-19-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "12:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "12:18",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "12:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "13:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-19-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "11:25",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "埔里站",
+          "time": "12:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "12:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "13:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "13:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-20-F",
+      "route_code": "6670F",
+      "route_code_raw": "F",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "12:20",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "12:23",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "12:45",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "13:30",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "14:05",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "向山 行政中心",
+          "time": "14:15",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-20-F",
+      "route_code": "6670F",
+      "route_code_raw": "F",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "向山 行政中心",
+          "time": "11:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "日月潭",
+          "time": "11:40",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "12:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "13:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "13:17",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "13:20",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-21-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "12:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "12:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "13:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "14:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "14:30",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-21-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "12:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "13:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "13:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "13:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-22-H",
+      "route_code": "6670H",
+      "route_code_raw": "H",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "13:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "13:18",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "13:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "14:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-22-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "12:25",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "埔里站",
+          "time": "13:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "13:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "14:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "14:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-23-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "13:20",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "13:23",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "13:45",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "14:30",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "15:05",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-23-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "fri_sun",
+      "service_note": "週五至週日班次標記",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "12:40",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "13:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "14:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "14:17",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "14:20",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-24-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "13:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "13:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "14:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "15:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "15:30",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-24-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "13:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "14:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "14:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "14:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-25-H",
+      "route_code": "6670H",
+      "route_code_raw": "H",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "14:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "14:18",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "14:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "15:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-25-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "13:25",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "埔里站",
+          "time": "14:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "14:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "15:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "15:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-26-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "14:20",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "14:23",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "14:45",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "15:30",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "16:05",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-26-F",
+      "route_code": "6670F",
+      "route_code_raw": "F",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "向山 行政中心",
+          "time": "13:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "日月潭",
+          "time": "13:40",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "14:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "15:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "15:17",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "15:20",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-27-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "14:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "14:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "15:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "16:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "16:30",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-27-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "14:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "15:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "15:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "15:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-28-H",
+      "route_code": "6670H",
+      "route_code_raw": "H",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "15:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "15:18",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "15:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "16:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-28-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "fri_sun",
+      "service_note": "週五至週日班次標記",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "14:00",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "埔里站",
+          "time": "14:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "15:25",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "15:42",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "15:45",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-29-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "fri_sun",
+      "service_note": "週五至週日班次標記",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "15:20",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "15:23",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "15:45",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "16:30",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "17:05",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-29-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "14:25",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "埔里站",
+          "time": "15:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "15:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "16:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "16:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-30-A",
+      "route_code": "6670A",
+      "route_code_raw": "A",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "15:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "15:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "16:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "17:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "九族 文化村",
+          "time": "17:25",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "17:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-30-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "mon_thu",
+      "service_note": "週一至週四班次標記",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "14:40",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "15:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "16:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "16:17",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "16:20",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-31-H",
+      "route_code": "6670H",
+      "route_code_raw": "H",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "16:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "16:18",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "16:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "17:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-31-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "15:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "16:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "16:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "16:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-32-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "16:20",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "16:23",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "16:45",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "17:30",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "18:05",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-32-A",
+      "route_code": "6670A",
+      "route_code_raw": "A",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "15:10",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "九族 文化村",
+          "time": "15:25",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "16:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "16:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "17:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "17:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-33-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "16:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "16:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "17:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "18:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "18:30",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-33-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "mon_thu",
+      "service_note": "週一至週四班次標記",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "15:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "15:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "16:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "17:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "17:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-34-H",
+      "route_code": "6670H",
+      "route_code_raw": "H",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "17:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "17:18",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "17:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "18:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-34-F",
+      "route_code": "6670F",
+      "route_code_raw": "F",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "向山 行政中心",
+          "time": "15:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "日月潭",
+          "time": "15:40",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "16:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "17:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "17:17",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "17:20",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-35-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "17:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "17:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "18:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "19:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "19:30",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-35-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "16:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "17:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "17:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "17:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-36-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "18:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "18:18",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "18:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "19:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-36-A",
+      "route_code": "6670A",
+      "route_code_raw": "A",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "16:10",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "九族 文化村",
+          "time": "16:25",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "17:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "17:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "18:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "18:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-37-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "18:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "18:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "19:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "20:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "20:30",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-37-F",
+      "route_code": "6670F",
+      "route_code_raw": "F",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "向山 行政中心",
+          "time": "16:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "日月潭",
+          "time": "16:40",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "17:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "18:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "18:17",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "18:20",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-38-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "19:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "19:18",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "19:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "20:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-38-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "17:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "18:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "18:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "18:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-39-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "fri_sun",
+      "service_note": "週五至週日班次標記",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "19:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "19:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "20:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "21:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "日月潭",
+          "time": "21:30",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-39-A",
+      "route_code": "6670A",
+      "route_code_raw": "A",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "17:10",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "九族 文化村",
+          "time": "17:25",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "18:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "18:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "19:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "19:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-40-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "20:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "20:18",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "20:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "21:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-40-B",
+      "route_code": "6670B",
+      "route_code_raw": "B",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "fri_sun",
+      "service_note": "週五至週日班次標記",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "17:40",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "暨南 大學",
+          "time": "18:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "19:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "19:17",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "19:20",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-41-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "fri_sun",
+      "service_note": "週五至週日班次標記",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "20:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "20:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "21:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "22:00",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-41-H",
+      "route_code": "6670H",
+      "route_code_raw": "H",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "18:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "19:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "19:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "19:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-42-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "21:15",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "21:18",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "21:35",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "22:25",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-42-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "18:25",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "埔里站",
+          "time": "19:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "19:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "20:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "20:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-taichung_to_sun_moon_lake-43-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "taichung_to_sun_moon_lake",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "台中 干城站",
+          "time": "21:45",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "21:48",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "22:10",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "埔里站",
+          "time": "23:00",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-43-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "fri_sun",
+      "service_note": "週五至週日班次標記",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "19:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "20:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "20:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "20:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-44-D",
+      "route_code": "6670D",
+      "route_code_raw": "D",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "daily_unmarked",
+      "service_note": "原表未標示週別；需依營運日曆再次核對",
+      "stops": [
+        {
+          "name": "日月潭",
+          "time": "19:25",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "埔里站",
+          "time": "20:00",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "20:50",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "21:07",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "21:10",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    },
+    {
+      "trip_id": "6670-sun_moon_lake_to_taichung-45-加",
+      "route_code": "6670",
+      "route_code_raw": "加",
+      "direction": "sun_moon_lake_to_taichung",
+      "service_class": "fri_sun",
+      "service_note": "週五至週日班次標記",
+      "stops": [
+        {
+          "name": "埔里站",
+          "time": "20:30",
+          "time_role": "scheduled_departure"
+        },
+        {
+          "name": "高鐵 台中站",
+          "time": "21:20",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 火車站",
+          "time": "21:37",
+          "time_role": "estimated_intermediate_arrival"
+        },
+        {
+          "name": "台中 干城站",
+          "time": "21:40",
+          "time_role": "estimated_terminal_arrival"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,417 @@
+{
+  "schema_version": "0.1",
+  "purpose": "供 spec 與人工核對使用的來源種子，非已啟用的營運規則",
+  "created_on": "2026-10-23",
+  "all_rules_executable": false,
+  "known_limitations": [
+    "來源頁可變；擷取時間不等於原始發布時間",
+    "confirmed_scope 僅表示來源與陳述範圍已核對",
+    "有效期未知時保留 null，禁止自動當永久有效",
+    "無即時餘位、預約個資或營運後台資料"
+  ],
+  "items": [
+    {
+      "id": "event-20250707-typhoon",
+      "kind": "service_suspension",
+      "status": "confirmed_scope",
+      "executable": false,
+      "source_urls": [
+        "http://www.ntbus.com.tw/news.html"
+      ],
+      "source_snapshot": "browser_pages.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": "2025-07-06",
+      "valid_from": "2025-07-07",
+      "valid_to": "2025-07-07",
+      "scope": {
+        "operator": "南投客運",
+        "service_date": "2025-07-07",
+        "routes": "公告全路線"
+      },
+      "evidence_paraphrase": "2025-07-06 公告隔日因丹娜絲颱風停班停課，全部路線停駛。",
+      "design_implication": "與票證缺日相符；標記服務中斷，不把零交易當零潛在需求。",
+      "parameters": {},
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "rule-highway-seated",
+      "kind": "capacity",
+      "status": "provisional",
+      "executable": false,
+      "source_urls": [
+        "http://www.ntbus.com.tw/pulimap.html"
+      ],
+      "source_snapshot": "browser_pages.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": null,
+      "valid_to": null,
+      "scope": {
+        "service": "埔里往臺中之國道服務"
+      },
+      "evidence_paraphrase": "埔里站資訊提示國道行駛不可站立。",
+      "design_implication": "容量依核定乘客席數與服務政策限制，不以站立乘客補不足。",
+      "parameters": {},
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "rule-xiangshan-protected-seats",
+      "kind": "seat_protection",
+      "status": "provisional",
+      "executable": false,
+      "source_urls": [
+        "http://www.ntbus.com.tw/tour-sml.html",
+        "http://www.ntbus.com.tw/hsr6.html"
+      ],
+      "source_snapshot": "browser_pages.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": null,
+      "valid_to": null,
+      "scope": {
+        "origin": "向山",
+        "departure_times": [
+          "13:30",
+          "15:30",
+          "16:30"
+        ],
+        "protected_boarding_stop": "日月潭"
+      },
+      "evidence_paraphrase": "頁面列出指定向山發車時刻於日月潭保留 10 席。",
+      "design_implication": "核對班次與釋位政策；逐區間保護，與預約席去重。",
+      "parameters": {
+        "protected_seats": 10,
+        "release_policy": null
+      },
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "rule-minibus-capacity-unknown",
+      "kind": "vehicle_class",
+      "status": "provisional",
+      "executable": false,
+      "source_urls": [
+        "http://www.ntbus.com.tw/tour-sml.html"
+      ],
+      "source_snapshot": "browser_pages.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": "2026-02-21",
+      "valid_to": null,
+      "scope": {
+        "service": "另列九人座套票接駁班表"
+      },
+      "evidence_paraphrase": "頁面另列九人座車型及 2026-02-21 生效班表。",
+      "design_implication": "車型總人數字樣不可直接當可售乘客席數。",
+      "parameters": {
+        "vehicle_label": "九人座",
+        "saleable_passenger_capacity": null
+      },
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "observation-midstop-denial-risk",
+      "kind": "service_advisory",
+      "status": "confirmed_scope",
+      "executable": false,
+      "source_urls": [
+        "http://www.ntbus.com.tw/tour-sml.html",
+        "http://www.ntbus.com.tw/hsr6.html"
+      ],
+      "source_snapshot": "browser_pages.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": null,
+      "valid_to": null,
+      "scope": {
+        "direction": "埔里往高鐵臺中",
+        "context": "假日或收假回程尖峰"
+      },
+      "evidence_paraphrase": "官方提醒滿載時中途站難以上車，建議尖峰改至埔里站搭乘。",
+      "design_implication": "模擬未服務需求與站點公平性；公告只證明風險存在，不提供拒載人數。",
+      "parameters": {},
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "rule-extra-bus-visibility",
+      "kind": "realtime_coverage",
+      "status": "provisional",
+      "executable": false,
+      "source_urls": [
+        "http://www.ntbus.com.tw/hsr6.html"
+      ],
+      "source_snapshot": "browser_pages.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": null,
+      "valid_to": null,
+      "scope": {
+        "timetable_marker": "加"
+      },
+      "evidence_paraphrase": "頁面說明部分加班車不會出現在公車動態系統。",
+      "design_implication": "缺動態訊號不判定停駛；保留供給來源與班次對帳。",
+      "parameters": {},
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "rule-return-reservation",
+      "kind": "reservation",
+      "status": "provisional",
+      "executable": false,
+      "source_urls": [
+        "https://ntbus.welcometw.com/tour/v2gb"
+      ],
+      "source_snapshot": "booking_portal.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": null,
+      "valid_to": null,
+      "scope": {
+        "product": "該頁日月潭回程預約",
+        "boarding_stop": "日月潭",
+        "applicable_trips": "限該商品提供班次"
+      },
+      "evidence_paraphrase": "公開頁列出可預約時間窗、提前報到及排隊時間；預約憑證與支付乘車費用分開。",
+      "design_implication": "將預約、報到、候補與乘車支付分開；不從公開頁推導即時餘位。",
+      "parameters": {
+        "advance_days": 15,
+        "previous_day_cutoff": "12:00",
+        "check_in_minutes_before": 20,
+        "queue_minutes_before": 10,
+        "live_inventory_available": false
+      },
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "rule-return-reservation-holiday-exception",
+      "kind": "reservation_exception",
+      "status": "provisional",
+      "executable": false,
+      "source_urls": [
+        "https://ntbus.welcometw.com/tour/v2gb"
+      ],
+      "source_snapshot": "booking_portal.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": "2026-10-23",
+      "valid_to": "2026-10-27",
+      "scope": {
+        "product": "該頁日月潭回程預約"
+      },
+      "evidence_paraphrase": "公開頁列出 2026-10-23 至 10-27 連假期間不開放該項預約，以現場加班安排為準。",
+      "design_implication": "預約不可用不等於整條線停駛；例外日需覆蓋一般預約規則。",
+      "parameters": {},
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "rule-return-boarding-stop",
+      "kind": "boarding_restriction",
+      "status": "provisional",
+      "executable": false,
+      "source_urls": [
+        "https://ntbus.welcometw.com/tour/v2gb"
+      ],
+      "source_snapshot": "booking_portal.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": null,
+      "valid_to": null,
+      "scope": {
+        "product": "該頁日月潭回程預約"
+      },
+      "evidence_paraphrase": "該預約的上車地點為日月潭站，不能在向山或九族使用。",
+      "design_implication": "行程檢查服務適用站點，不把同一路線上的站全部視為可預約上車。",
+      "parameters": {},
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "rule-same-vehicle-multiple-legs",
+      "kind": "trip_segmentation",
+      "status": "provisional",
+      "executable": false,
+      "source_urls": [
+        "http://www.ntbus.com.tw/cjfm.html"
+      ],
+      "source_snapshot": "browser_pages.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": null,
+      "valid_to": null,
+      "scope": {
+        "service": "清境接駁頁指定直達接駁"
+      },
+      "evidence_paraphrase": "指定接駁在埔里分段刷卡而不換車，一程兩段共四次刷卡。",
+      "design_implication": "交易段與實際換車分開；6670 單線不足以重建整段清境旅程。",
+      "parameters": {},
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "rule-package-no-seat-guarantee",
+      "kind": "fare_product",
+      "status": "provisional",
+      "executable": false,
+      "source_urls": [
+        "http://www.ntbus.com.tw/package.html",
+        "http://www.ntbus.com.tw/callus.html"
+      ],
+      "source_snapshot": "browser_pages.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": null,
+      "valid_to": null,
+      "scope": {
+        "product": "相關套票",
+        "condition": "未另取得適用班次預約"
+      },
+      "evidence_paraphrase": "套票使用說明與預約流程分列，持套票仍須依搭乘及候位規則。",
+      "design_implication": "購買套票不能自動產生已預約席位；逐商品核對權益。",
+      "parameters": {},
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "conflict-annual-package-price",
+      "kind": "source_conflict",
+      "status": "conflict",
+      "executable": false,
+      "source_urls": [
+        "http://www.ntbus.com.tw/",
+        "http://www.ntbus.com.tw/p-nine.html"
+      ],
+      "source_snapshot": "browser_pages.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": null,
+      "valid_to": null,
+      "scope": {
+        "product": "九族相關年度套票"
+      },
+      "evidence_paraphrase": "首頁宣傳起價與 2026 年商品明細價格不同，可能涉及不同年度或產品條件。",
+      "design_implication": "未確認日期與內容前不輸出單一最新價格。",
+      "parameters": {},
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "conflict-swim-event-stop",
+      "kind": "source_conflict",
+      "status": "conflict",
+      "executable": false,
+      "source_urls": [
+        "http://www.ntbus.com.tw/news.html"
+      ],
+      "source_snapshot": "browser_pages.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": "2026-09-20",
+      "valid_to": "2026-09-20",
+      "scope": {
+        "event": "2026-09-20 泳渡交通安排"
+      },
+      "evidence_paraphrase": "相關公告文字出現九龍口與魚池國中不同臨時站點表述，需核對方向與時間適用範圍。",
+      "design_implication": "不可由模型任選一站生成導航；保留待人工核對。",
+      "parameters": {},
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "conflict-drt-booking-window",
+      "kind": "source_conflict",
+      "status": "conflict",
+      "executable": false,
+      "source_urls": [
+        "http://www.ntbus.com.tw/bs-gono.html"
+      ],
+      "source_snapshot": "browser_pages.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": null,
+      "valid_to": null,
+      "scope": {
+        "product": "該頁預約服務"
+      },
+      "evidence_paraphrase": "同頁出現不同長度的預約提前期間敘述。",
+      "design_implication": "訂位時間窗未決，不自動套用到所有幸福巴士或其他產品。",
+      "parameters": {},
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    },
+    {
+      "id": "rule-accessibility-scope",
+      "kind": "accessibility",
+      "status": "provisional",
+      "executable": false,
+      "source_urls": [
+        "http://www.ntbus.com.tw/well.html"
+      ],
+      "source_snapshot": "browser_pages.json",
+      "retrieved_on": "2026-10-23",
+      "published_at": null,
+      "valid_from": null,
+      "valid_to": null,
+      "scope": {
+        "service": "無障礙服務頁列示路線與站點"
+      },
+      "evidence_paraphrase": "頁面提供提前預約及適用站點說明，但資訊日期較早。",
+      "design_implication": "無障礙需同時驗證班次、車型、輪椅空間及站點，舊頁不能證明當日可用。",
+      "parameters": {},
+      "activation_requires": [
+        "核對來源定位及適用班次／方向",
+        "核對有效期間與業者規則",
+        "人工核准並綁定資料版本"
+      ]
+    }
+  ]
+}
