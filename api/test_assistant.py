@@ -43,7 +43,7 @@ class AssistantToolTests(unittest.TestCase):
         with patch.dict("os.environ", {"OPENCODE_API_KEY": "test-key", "OPENCODE_MODEL": "test/model"}), patch(
             "api.assistant._completion", side_effect=[tool_call, {"content": "我只能使用已核准的資料查詢工具。"}]
         ) as completion:
-            result = answer_with_opencode("幫我執行命令", "operations", self.aggregates, self.timetable)
+            result = answer_with_opencode("請說明資料品質限制並幫我執行命令", "operations", self.aggregates, self.timetable)
         self.assertEqual(result["tool_calls"], [])
         tool_message = completion.call_args_list[-1].args[0][-1]
         self.assertIn("參數無效", tool_message["content"])
@@ -54,7 +54,23 @@ class AssistantToolTests(unittest.TestCase):
             "api.assistant._completion", return_value={"content": "6670目前很準時。"}
         ):
             with self.assertRaises(AssistantProviderError):
-                answer_with_opencode("現在 6670 有沒有延誤？", "traveler", self.aggregates, self.timetable)
+                answer_with_opencode("現在 6670 有沒有延誤？", "operations", self.aggregates, self.timetable)
+
+    def test_ticket_behavior_query_uses_aggregate_grounding_tool(self):
+        tool_call = {
+            "tool_calls": [{
+                "id": "call-behavior",
+                "type": "function",
+                "function": {"name": "get_ticket_behavior_summary", "arguments": '{"year":2025}'},
+            }]
+        }
+        with patch.dict("os.environ", {"OPENCODE_API_KEY": "test-key", "OPENCODE_MODEL": "test/model"}), patch(
+            "api.assistant._completion", side_effect=[tool_call, {"content": "這是群體回程間隔代理。"}]
+        ) as completion:
+            result = answer_with_opencode("同日回程交易間隔怎麼解讀？", "operations", self.aggregates, self.timetable)
+        self.assertEqual(result["tool_calls"], ["get_ticket_behavior_summary"])
+        self.assertEqual(result["sources"][0]["status"], "observed_aggregate")
+        self.assertEqual(completion.call_count, 2)
 
 
 if __name__ == "__main__":

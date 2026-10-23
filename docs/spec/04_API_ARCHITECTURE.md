@@ -77,13 +77,13 @@ HTTP 狀態：400格式／範圍、401/403認證／權限、404未知資源、40
 | GET | /carbon/factors?year=&category= | 係數及來源，不提供寫入 |
 | POST | /assistant/answer | 只對可引用知識作答 |
 
-`POST /assistant/answer` 目前使用伺服器端 OpenCode OpenAI 相容 adapter，不讓瀏覽器直接連 provider；模型預設 `deepseek-v4.1-flash`。請求帶 `mode`（traveler／operations）、`message`、目前頁面允許的篩選條件及 request ID；伺服器套用工具 allowlist。模型回傳的工具名稱與參數會在伺服器重新驗證後才執行；LLM 只能整理工具回傳的證據，數字、日期、來源時間戳來自資料服務。
+`POST /assistant/answer` 目前使用伺服器端 OpenCode OpenAI 相容 adapter，不讓瀏覽器直接連 provider；模型預設 `deepseek-v4.1-flash`。請求帶固定 `mode=operations`、`message` 與目前頁面允許的篩選條件；伺服器在呼叫模型前套用營運範圍白名單，並使用工具 allowlist。模型回傳的工具名稱與參數會在伺服器重新驗證後才執行；LLM 只能整理工具回傳的證據，數字、日期、來源時間戳來自資料服務。
 
-工具按權限分級：旅客模式可查已發布班表快照、公開服務狀態和安全聚合；營運模式可讀需求聚合、預測和資料健康，並預覽命名的最佳化情境。任何啟動長任務的操作都由 UI 顯示輸入摘要並由使用者按鈕送出，API 不接受模型自行呼叫任意工具。初版禁止通用 SQL／程式碼執行、shell、任意 URL fetch、資料修改和車輛派遣寫入。模型／provider 故障時可對結構化查詢退回模板摘要；即時服務缺來源時回傳 `LIVE_FEED_UNAVAILABLE`，禁止生成推測車況。
+助理僅供內部營運使用，支援需求預測、尖離峰、票證行為聚合、班次與成本最佳化、儀表板資料狀態；不提供旅遊規劃或旅客客服。超出範圍的問題在本機以固定說明回覆，不送至 LLM。核准工具可讀需求與票證行為安全聚合、查詢即時資料來源狀態，並預覽命名的最佳化情境。任何啟動長任務的操作都由 UI 顯示輸入摘要並由使用者按鈕送出，API 不接受模型自行呼叫任意工具。初版禁止通用 SQL／程式碼執行、shell、任意 URL fetch、資料修改和車輛派遣寫入。模型／provider 故障時可對結構化查詢退回模板摘要；即時服務缺來源時回傳 `LIVE_FEED_UNAVAILABLE`，禁止生成推測車況。
 
 OpenCode API key、model 設定、系統提示和 provider endpoint 僅存在伺服器環境設定；不可回傳到 HTML、JavaScript bundle、日誌或錯誤訊息。HTTP 402 時回傳可辨識的額度提示並降級至可追溯本機示範。記錄應保存意圖、工具名、資料版本、耗時、成功狀態和 request ID；預設不持久保存原始對話文字，若產品要保存需另定期限、告知和刪除機制。
 
-建議回應結構：`answer`、`mode`、`data_status`、`as_of`、`sources[]`、`tool_calls[]`（隱去敏感參數）、`suggested_actions[]`、`request_id`。來源資料不足時 `answer` 必須保留未知狀態，不能以 LLM 常識補足班表或車況。
+建議回應結構：`answer`、`mode`、`data_status`、`as_of`、`sources[]`、`tool_calls[]`（隱去敏感參數）、`suggested_actions[]`、`request_id`。來源資料不足時 `answer` 必須保留未知狀態，不能以 LLM 常識補足即時車況。
 
 路線規劃API不保證公開行人／底圖routing服務的SLA；核心正式演算法跑自有快照／供應商合約服務。互動搜尋有 timeout，完整長任務走 jobs。
 

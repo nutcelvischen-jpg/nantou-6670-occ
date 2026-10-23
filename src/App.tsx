@@ -36,6 +36,7 @@ import { TransitMap } from "./components/TransitMap";
 import { TourismGuide } from "./components/TourismGuide";
 import { PublishedTimetableSearch } from "./components/PublishedTimetableSearch";
 import { OperationsAssistant } from "./components/OperationsAssistant";
+import { ModelMethodology } from "./components/ModelMethodology";
 const DigitalTwinLab = lazy(() =>
   import("./components/DigitalTwinLab").then((m) => ({
     default: m.DigitalTwinLab,
@@ -62,6 +63,7 @@ type Page =
   | "數位孿生"
   | "旅遊資訊"
   | "成本最佳化"
+  | "模型方法"
   | "智慧小幫手"
   | "旅客行程"
   | "低碳評估"
@@ -73,6 +75,7 @@ const nav: { name: Page; icon: typeof Activity; group: string }[] = [
   { name: "運量分析", icon: BarChart3, group: "工作台" },
   { name: "數位孿生", icon: Bus, group: "工作台" },
   { name: "成本最佳化", icon: SlidersHorizontal, group: "規劃" },
+  { name: "模型方法", icon: FileCheck2, group: "規劃" },
   { name: "智慧小幫手", icon: MessageCircleMore, group: "智慧服務" },
   { name: "旅遊資訊", icon: Sparkles, group: "智慧服務" },
   { name: "旅客行程", icon: Route, group: "智慧服務" },
@@ -548,6 +551,7 @@ export function App() {
     }],
   };
   const content = () => {
+    if (page === "模型方法") return <ModelMethodology onNavigate={setPage} />;
     if (page === "智慧小幫手") return <OperationsAssistant year={year} route={route} onNavigate={setPage} />;
     if (page === "數位孿生")
       return (

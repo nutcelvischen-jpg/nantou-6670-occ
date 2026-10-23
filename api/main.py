@@ -15,7 +15,7 @@ from api.road_fixtures import build_nantou_road_demo, demo_profiles
 from api.road_router import find_least_operating_cost_path
 from api.fleet_optimizer import FleetCandidate, solve_candidate_set
 from api.tdx_adapter import TdxClient, TdxError
-from api.assistant import AssistantProviderError, answer_demo, answer_with_opencode
+from api.assistant import AssistantProviderError, answer_demo, answer_out_of_scope, answer_with_opencode, is_operations_question
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 AGGREGATES_PATH = PROJECT_ROOT / "src" / "data" / "ticket-aggregates.json"
@@ -48,7 +48,7 @@ class FleetOptimizationRequest(BaseModel):
 
 
 class AssistantRequest(BaseModel):
-    mode: str = Field(default="operations", pattern="^(operations|traveler)$")
+    mode: str = Field(default="operations", pattern="^operations$")
     message: str = Field(min_length=1, max_length=2000)
     year: int = Field(default=2025, ge=2024, le=2025)
     route: str = Field(default="全部", max_length=24)
@@ -190,15 +190,18 @@ def assistant_answer(request: AssistantRequest) -> JSONResponse:
         timetable = json.loads(TIMETABLE_PATH.read_text(encoding="utf-8"))
     except (RuntimeError, OSError, json.JSONDecodeError):
         return _error("ASSISTANT_DATA_UNAVAILABLE", "助理目前無法讀取所需資料。", 503)
-    try:
-        if os.getenv("OPENCODE_API_KEY"):
-            answer = answer_with_opencode(message, request.mode, aggregates, timetable)
-        else:
+    if not is_operations_question(message):
+        answer = answer_out_of_scope(request.mode)
+    else:
+        try:
+            if os.getenv("OPENCODE_API_KEY"):
+                answer = answer_with_opencode(message, request.mode, aggregates, timetable)
+            else:
+                answer = answer_demo(message, request.mode, aggregates, timetable, request.year, request.route)
+        except AssistantProviderError as provider_error:
             answer = answer_demo(message, request.mode, aggregates, timetable, request.year, request.route)
-    except AssistantProviderError as provider_error:
-        answer = answer_demo(message, request.mode, aggregates, timetable, request.year, request.route)
-        answer["engine"] = "demo_fallback"
-        answer["provider_notice"] = f"{provider_error}；已退回可追溯的本機資料示範回覆。"
+            answer["engine"] = "demo_fallback"
+            answer["provider_notice"] = f"{provider_error}；已退回可追溯的本機資料示範回覆。"
     answer["dataset_version"] = digest
     answer["request_id"] = hashlib.sha256(f"{datetime.now(timezone.utc).isoformat()}:{message}".encode()).hexdigest()[:16]
     return JSONResponse(content=answer, headers={"Cache-Control": "no-store"})

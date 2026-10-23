@@ -41,12 +41,12 @@ TOOLS = [
     {
         "type": "function",
         "function": {
-            "name": "get_timetable_summary",
-            "description": "查詢本機保存的6670官網班表快照及其有效日期、驗證限制。",
+            "name": "get_ticket_behavior_summary",
+            "description": "查詢公開安全聚合的卡片交易頻次與同日反向OD回程間隔分布；只能作群體行為代理，不可辨識個人或確定旅程。",
             "parameters": {
                 "type": "object",
-                "properties": {"direction": {"type": "string", "enum": ["taichung_to_sun_moon_lake", "sun_moon_lake_to_taichung", "all"]}},
-                "required": ["direction"],
+                "properties": {"year": {"type": "integer", "enum": [2024, 2025]}},
+                "required": ["year"],
                 "additionalProperties": False,
             },
         },
@@ -69,6 +69,30 @@ TOOLS = [
         },
     },
 ]
+
+
+SUPPORTED_TOPIC = re.compile(
+    r"預測|尖峰|離峰|運量|交易|票證|回程|頻次|od|乘載|載客率|需求|班次|班距|配置|最佳化|最佳化|成本|情境|候選|車隊|營運|儀表板|即時|延誤|誤點|gps|eta|車況|資料狀態|資料品質|來源|回測|wape|mae|碳排|排放|最多|最高|時段|查需求|查運量",
+    re.IGNORECASE,
+)
+
+
+def is_operations_question(message: str) -> bool:
+    """A deterministic scope gate; unsupported prompts never reach the LLM."""
+    return bool(SUPPORTED_TOPIC.search(message))
+
+
+def answer_out_of_scope(mode: str = "operations") -> dict[str, Any]:
+    return {
+        "answer": "我目前是內部營運分析助理，只支援需求預測、尖離峰、票證彙總與行為、班次配置與成本情境，以及儀表板資料狀態。旅遊行程、旅客客服及其他一般問題目前不在支援範圍。",
+        "mode": mode,
+        "engine": "demo",
+        "data_status": "general",
+        "as_of": datetime.now(timezone.utc).isoformat(),
+        "sources": [],
+        "tool_calls": [],
+        "suggested_actions": ["查詢尖離峰票證交易", "檢視班次最低成本情境", "確認即時資料來源狀態"],
+    }
 
 FLEET_CANDIDATES = [
     FleetCandidate("T-1510", "15:10", 910, 45, 2020, "6670-03"),
@@ -133,6 +157,24 @@ def _execute_tool(name: str, arguments: dict[str, Any], aggregates: dict[str, An
                 "interpretation": "票證交易數不是完整乘客數，也不含拒載或現金乘客。",
             },
             [_source(f"ticket-aggregate-{source_date}", f"{source_date}年6670票證彙總", "observed_aggregate", generated_at, "/資料品質")],
+        )
+    if name == "get_ticket_behavior_summary":
+        year = arguments.get("year")
+        if year not in (2024, 2025):
+            raise ValueError("invalid ticket behavior arguments")
+        record = _find_year(aggregates, year)
+        if not record:
+            raise ValueError("requested year is unavailable")
+        source_date = record.get("source", "")[:4]
+        return (
+            {
+                "year": year,
+                "unit": "privacy_safe_aggregates",
+                "card_transaction_frequency": record.get("card_transaction_frequency", []),
+                "same_day_return_interval": record.get("same_day_return_interval", []),
+                "interpretation": "群體聚合行為代理；同卡同日反向OD配對並非確定同一旅程或身份辨識；小樣本區間已抑制。",
+            },
+            [_source(f"ticket-aggregate-{source_date}", f"{source_date}年6670票證行為彙總", "observed_aggregate", aggregates.get("generated_at"), "/運量分析")],
         )
     if name == "get_timetable_summary":
         direction = arguments.get("direction")
@@ -223,11 +265,13 @@ def _required_tool(message: str) -> str | None:
     text = message.lower()
     if re.search(r"現在|即時|延誤|誤點|車到了|車在哪|gps|eta|有沒有來|車況", text):
         return "get_service_status"
-    if re.search(r"班次|時刻|末班|發車|時刻表", text):
-        return "get_timetable_summary"
     if re.search(r"最佳化|配置|需求.*(增加|提高|上升)|增加.*%|提高.*%|情境", text):
         return "preview_fleet_optimization"
-    if re.search(r"尖峰|離峰|需求|運量|交易量|哪個時段|最高", text):
+    if re.search(r"回程|頻次|od|票證行為|交易頻次|乘載行為", text):
+        return "get_ticket_behavior_summary"
+    if re.search(r"回程|頻次|od|票證行為|交易頻次|乘載行為", text):
+        return "get_demand_summary"
+    if re.search(r"尖峰|離峰|需求|運量|交易量|哪個時段|最高|票證", text):
         return "get_demand_summary"
     return None
 
@@ -237,12 +281,14 @@ def answer_with_opencode(message: str, mode: str, aggregates: dict[str, Any], ti
     model = os.getenv("OPENCODE_MODEL", "deepseek-v4.1-flash").strip()
     if not api_key or not model:
         raise AssistantProviderError("OpenCode is not configured")
+    if not is_operations_question(message):
+        return answer_out_of_scope(mode)
     system = (
-        "你是潭行 Twin 的交通資訊助理。只用工具回傳的資料回答南投6670公共運輸問題。"
-        "需要時選擇提供的唯讀工具；不得猜測即時車況、餘位、票價或班表有效性。"
-        "若工具回報沒有GPS/ETA，就清楚說無法確認即時行車狀態。最佳化預覽使用合成車輛、容量、班次和成本時，必須說明這些假設，並且不能稱為實際可執行排班。"
-        "將票證交易稱為交易，不可稱為完整乘客人數。用繁體中文簡短回答，並尊重來源的日期和限制。"
-        f"使用者模式：{mode}。"
+        "你是潭行 Twin 的內部營運分析助理，只處理需求預測、尖離峰、票證彙總與行為、班次與成本最佳化、儀表板資料狀態。"
+        "不得回答旅遊規劃、旅客客服或一般無關問題；若意外收到，簡短列出支援範圍。"
+        "只用核准工具資料回答可查詢的事實；不得猜即時車況、餘位、票價、GPS或ETA。沒有GPS/ETA時明確說無法確認。"
+        "最佳化候選車輛、容量、班次和成本皆為合成假設，不能稱為真實可執行排班。票證筆數是交易數，不是完整乘客數。"
+        "用繁體中文，標示來源與資料限制。"
     )
     messages: list[dict[str, Any]] = [{"role": "system", "content": system}, {"role": "user", "content": message}]
     first = _completion(messages, api_key, model)
@@ -300,22 +346,28 @@ answer_with_openrouter = answer_with_opencode
 
 
 def answer_demo(message: str, mode: str, aggregates: dict[str, Any], timetable: dict[str, Any], year: int, route: str) -> dict[str, Any]:
+    if not is_operations_question(message):
+        return answer_out_of_scope(mode)
     text = message.lower()
     if re.search(r"現在|即時|延誤|誤點|車到了|車在哪|gps|eta|有沒有來|車況", text):
         data, sources = _execute_tool("get_service_status", {}, aggregates, timetable)
         answer = data["message"] + " 可查到的是公開班表快照，但它沒有即時行車資訊。"
         status = "missing"
-        actions = ["查看6670班表快照", "改查歷史尖峰交易"]
+        actions = ["查看目前資料來源限制", "改查歷史尖峰交易"]
+    elif re.search(r"回程|頻次|od|票證行為|交易頻次|乘載行為", text):
+        data, sources = _execute_tool("get_ticket_behavior_summary", {"year": year}, aggregates, timetable)
+        returns = data["same_day_return_interval"]
+        visible = [item for item in returns if not item.get("suppressed")]
+        best = max(visible, key=lambda item: item.get("return_count", 0), default=None)
+        peak_interval = f"最多的回程間隔組是「{best['label']}」（{best['return_count']:,} 對）" if best else "回程間隔資料目前無可公開的群體區間"
+        answer = f"{year} 年票證聚合中，{peak_interval}。配對條件為同卡、同日、反向 OD、間隔不超過 12 小時；這只是群體回程代理，不代表確認同一段旅程或辨識個人。小樣本區間已抑制。"
+        status = "sourced"
+        actions = ["在需求分析查看回程間隔圖", "查看資料品質與隱私門檻"]
     elif re.search(r"尖峰|離峰|需求|運量|交易量|哪個時段|最高", text) and not re.search(r"增加|提高|上升|最佳化|配置|情境", text):
         data, sources = _execute_tool("get_demand_summary", {"year": year, "route": route}, aggregates, timetable)
         answer = f"{data['year']} 年 {data['route']} 的票證交易最高時段是 {data['peak_hour']:02d}:00–{data['peak_hour'] + 1:02d}:00，共 {data['peak_transactions']:,} 筆交易。這是歷史票證彙總，交易數不等於完整乘客數，也不能代表目前候車量。"
         status = "sourced"
         actions = ["在需求分析查看24小時曲線", "切換年度或子線"]
-    elif re.search(r"班次|時刻|末班|發車|時刻表", text):
-        data, sources = _execute_tool("get_timetable_summary", {"direction": "all"}, aggregates, timetable)
-        answer = f"本機保存的6670主表快照含 {data['trip_count']} 個雙向班次列，頁面標示自 {data['effective_from']} 起生效，快照擷取日為 {data['snapshot_captured_at']}。目前未核實它今天仍有效，也未含另外列出的九人座班表；請以業者公告為準。"
-        status = "stale"
-        actions = ["開啟旅遊資訊班表查詢", "查看原始來源限制"]
     elif re.search(r"最佳化|配置|需求.*(增加|提高|上升)|增加.*%|提高.*%|情境", text):
         match = re.search(r"(\d{1,3})\s*%|百分之\s*(\d{1,3})", text)
         increase_pct = int(next(value for value in match.groups() if value)) if match else 15
@@ -328,10 +380,10 @@ def answer_demo(message: str, mode: str, aggregates: dict[str, Any], timetable: 
         status = "assumed"
         actions = ["前往班次最佳化查看限制", "在需求分析查看歷史分布"]
     else:
-        answer = "我目前在公開資料示範模式，可以查歷史尖離峰票證彙總、6670班表快照，或說明為什麼目前無法確認即時車況。你可以點選下方範例問題。"
+        answer = "我可以查歷史尖離峰票證彙總、班次與成本情境，或說明目前營運資料來源限制。你可以點選下方範例問題。"
         sources = []
         status = "demo"
-        actions = ["哪個時段票證交易最多？", "現在 6670 有沒有延誤？", "6670 班表快照有哪些限制？"]
+        actions = ["哪個時段票證交易最多？", "同日回程交易間隔怎麼解讀？", "尖峰需求提高 15% 會怎樣？"]
     return {
         "answer": answer,
         "mode": mode,

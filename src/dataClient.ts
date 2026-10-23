@@ -40,10 +40,9 @@ export type TdxStatus = {
   token_expires_at?: string;
 };
 
-export type AssistantMode = "operations" | "traveler";
 export type AssistantReply = {
   answer: string;
-  mode: AssistantMode;
+  mode: "operations";
   engine: "opencode" | "demo" | "demo_fallback";
   data_status: string;
   as_of: string;
@@ -55,7 +54,7 @@ export type AssistantReply = {
 };
 
 export async function askTransitAssistant(
-  input: { message: string; mode: AssistantMode; year: number; route: string },
+  input: { message: string; year: number; route: string },
   fetcher: typeof fetch = fetch,
 ): Promise<AssistantReply> {
   const response = await fetcher("/api/v1/assistant/answer", {
@@ -90,7 +89,7 @@ export async function askTransitAssistant(
   });
   return {
     answer: row.answer,
-    mode: row.mode === "traveler" ? "traveler" : "operations",
+    mode: "operations",
     engine: row.engine === "opencode" || row.engine === "demo_fallback" ? row.engine : "demo",
     data_status: String(row.data_status ?? "unknown"),
     as_of: String(row.as_of ?? ""),

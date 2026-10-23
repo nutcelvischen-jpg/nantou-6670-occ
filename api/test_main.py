@@ -179,7 +179,7 @@ class AggregateApiTests(unittest.TestCase):
     def test_assistant_reports_missing_live_vehicle_feed_without_guessing(self):
         with patch.dict(os.environ, {"OPENCODE_API_KEY": ""}):
             response = self.client.post("/api/v1/assistant/answer", json={
-                "mode": "traveler",
+                "mode": "operations",
                 "message": "現在 6670 有沒有延誤？",
                 "year": 2025,
                 "route": "6670A",
@@ -227,6 +227,16 @@ class AggregateApiTests(unittest.TestCase):
         self.assertEqual(invalid_route.status_code, 422)
         self.assertEqual(invalid_route.json()["error"]["code"], "INVALID_ASSISTANT_FILTER")
         self.assertEqual(oversized.status_code, 422)
+
+    def test_assistant_rejects_traveler_mode_and_out_of_scope_questions(self):
+        invalid_mode = self.client.post("/api/v1/assistant/answer", json={"mode": "traveler", "message": "現在 6670 有沒有延誤？"})
+        self.assertEqual(invalid_mode.status_code, 422)
+        with patch.dict(os.environ, {"OPENCODE_API_KEY": "test-key"}), patch("api.main.answer_with_opencode") as provider:
+            response = self.client.post("/api/v1/assistant/answer", json={"message": "請幫我規劃日月潭兩天一夜行程"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["engine"], "demo")
+        self.assertIn("不在支援範圍", response.json()["answer"])
+        provider.assert_not_called()
 
 
 if __name__ == "__main__":
