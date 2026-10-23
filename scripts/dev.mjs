@@ -11,7 +11,7 @@ let stopping = false;
 function loadBackendSecrets() {
   const path = resolve(root, ".env.local");
   if (!existsSync(path)) return {};
-  const allowed = new Set(["TDX_CLIENT_ID", "TDX_CLIENT_SECRET", "OPENCODE_API_KEY", "OPENCODE_MODEL", "OPENCODE_BASE_URL"]);
+  const allowed = new Set(["TDX_CLIENT_ID", "TDX_CLIENT_SECRET", "OPENROUTER_API_KEY", "OPENROUTER_MODEL", "OPENROUTER_BASE_URL"]);
   const values = {};
   for (const line of readFileSync(path, "utf8").split(/\r?\n/)) {
     const match = /^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$/.exec(line);

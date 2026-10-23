@@ -65,7 +65,7 @@ export function OperationsAssistant({ year, route, onNavigate }: { year: number;
       </div>
 
       <div className="assistant-mode-switch assistant-scope-strip">
-        <span><ShieldCheck size={14}/> 僅限內部營運使用</span><span><span className="assistant-demo-dot" /> OpenCode 未設定時使用可追溯示範資料</span>
+        <span><ShieldCheck size={14}/> 僅限內部營運使用</span><span><span className="assistant-demo-dot" /> OpenRouter · DeepSeek V4.1 Flash</span>
       </div>
 
       <div className="assistant-layout">
@@ -83,7 +83,7 @@ export function OperationsAssistant({ year, route, onNavigate }: { year: number;
                   <p>{message.text}</p>
                   {message.pending && <span className="assistant-pending"><i /> 查詢票證彙總、營運情境與來源狀態</span>}
                   {message.reply && <>
-                    <div className={`assistant-status ${message.reply.data_status}`}><i />{statusText[message.reply.data_status] ?? "資料狀態"}<span>{message.reply.engine === "opencode" ? "OpenCode · DeepSeek V4.1 Flash" : message.reply.engine.includes("fallback") ? "本機降級" : "本機示範"}</span></div>
+                    <div className={`assistant-status ${message.reply.data_status}`}><i />{statusText[message.reply.data_status] ?? "資料狀態"}<span>{message.reply.engine === "openrouter" ? "OpenRouter · DeepSeek V4.1 Flash" : message.reply.engine === "opencode" ? "舊版 OpenCode" : message.reply.engine.includes("fallback") ? "本機降級" : "本機示範"}</span></div>
                     {message.reply.provider_notice && <small className="assistant-notice">{message.reply.provider_notice}</small>}
                     {message.reply.sources.length > 0 && <div className="assistant-sources">
                       <b>依據資料</b>

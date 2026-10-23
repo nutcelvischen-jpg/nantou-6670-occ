@@ -177,7 +177,7 @@ class AggregateApiTests(unittest.TestCase):
         self.assertEqual(response.json()["error"]["code"], "INVALID_OPTIMIZATION_INPUT")
 
     def test_assistant_reports_missing_live_vehicle_feed_without_guessing(self):
-        with patch.dict(os.environ, {"OPENCODE_API_KEY": ""}):
+        with patch.dict(os.environ, {"OPENROUTER_API_KEY": ""}):
             response = self.client.post("/api/v1/assistant/answer", json={
                 "mode": "operations",
                 "message": "現在 6670 有沒有延誤？",
@@ -192,7 +192,7 @@ class AggregateApiTests(unittest.TestCase):
         self.assertEqual(body["sources"], [])
 
     def test_assistant_demand_answer_has_aggregate_citation_and_scope(self):
-        with patch.dict(os.environ, {"OPENCODE_API_KEY": ""}):
+        with patch.dict(os.environ, {"OPENROUTER_API_KEY": ""}):
             response = self.client.post("/api/v1/assistant/answer", json={
                 "mode": "operations",
                 "message": "2025年哪個時段票證交易最多？",
@@ -207,7 +207,7 @@ class AggregateApiTests(unittest.TestCase):
         self.assertEqual(body["sources"][0]["title"], "2025年6670票證彙總")
 
     def test_assistant_runs_a_clearly_labeled_synthetic_fleet_preview(self):
-        with patch.dict(os.environ, {"OPENCODE_API_KEY": ""}):
+        with patch.dict(os.environ, {"OPENROUTER_API_KEY": ""}):
             response = self.client.post("/api/v1/assistant/answer", json={
                 "mode": "operations",
                 "message": "尖峰需求提高 15% 會怎樣？",
@@ -231,7 +231,7 @@ class AggregateApiTests(unittest.TestCase):
     def test_assistant_rejects_traveler_mode_and_out_of_scope_questions(self):
         invalid_mode = self.client.post("/api/v1/assistant/answer", json={"mode": "traveler", "message": "現在 6670 有沒有延誤？"})
         self.assertEqual(invalid_mode.status_code, 422)
-        with patch.dict(os.environ, {"OPENCODE_API_KEY": "test-key"}), patch("api.main.answer_with_opencode") as provider:
+        with patch.dict(os.environ, {"OPENROUTER_API_KEY": "test-key"}), patch("api.main.answer_with_openrouter") as provider:
             response = self.client.post("/api/v1/assistant/answer", json={"message": "請幫我規劃日月潭兩天一夜行程"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["engine"], "demo")

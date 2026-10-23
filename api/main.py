@@ -15,7 +15,7 @@ from api.road_fixtures import build_nantou_road_demo, demo_profiles
 from api.road_router import find_least_operating_cost_path
 from api.fleet_optimizer import FleetCandidate, solve_candidate_set
 from api.tdx_adapter import TdxClient, TdxError
-from api.assistant import AssistantProviderError, answer_demo, answer_out_of_scope, answer_with_opencode, is_operations_question
+from api.assistant import AssistantProviderError, answer_demo, answer_out_of_scope, answer_with_openrouter, is_operations_question
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 AGGREGATES_PATH = PROJECT_ROOT / "src" / "data" / "ticket-aggregates.json"
@@ -47,11 +47,33 @@ class FleetOptimizationRequest(BaseModel):
     max_time_seconds: float = Field(default=5, ge=0.05, le=30)
 
 
+class SimulationBus(BaseModel):
+    id: str = Field(pattern=r"^B\d{2,3}$")
+    state: str = Field(pattern=r"^(run|idle|lay|dh|done|rest)$")
+    load: float = Field(ge=0, le=100)
+    capacity: float = Field(ge=0, le=100)
+    delay_minutes: float = Field(ge=0, le=1440)
+    next_stop: str | None = Field(default=None, pattern=r"^(TC|HSR|PULI|JNU|YC|SML|XS|J9)$")
+
+class SimulationQueue(BaseModel):
+    station: str = Field(pattern=r"^(TC|HSR|PULI|JNU|YC|SML|XS|J9)$")
+    waiting: float = Field(ge=0, le=1e7)
+    oldest_wait_minutes: float = Field(ge=0, le=1500)
+
+class SimulationSnapshot(BaseModel):
+    date: str = Field(pattern=r"^\d{4}-\d{2}-\d{2}$")
+    minute: float = Field(ge=0, le=1500)
+    plan: str = Field(pattern=r"^(cur|opt)$")
+    congestion: bool = False
+    vehicles: list[SimulationBus] = Field(default_factory=list, max_length=100)
+    queues: list[SimulationQueue] = Field(default_factory=list, max_length=10)
+
 class AssistantRequest(BaseModel):
     mode: str = Field(default="operations", pattern="^operations$")
     message: str = Field(min_length=1, max_length=2000)
     year: int = Field(default=2025, ge=2024, le=2025)
     route: str = Field(default="全部", max_length=24)
+    simulation: SimulationSnapshot | None = None
 
 
 def validate_aggregate_payload(payload: Any) -> dict[str, Any]:
@@ -194,8 +216,8 @@ def assistant_answer(request: AssistantRequest) -> JSONResponse:
         answer = answer_out_of_scope(request.mode)
     else:
         try:
-            if os.getenv("OPENCODE_API_KEY"):
-                answer = answer_with_opencode(message, request.mode, aggregates, timetable)
+            if os.getenv("OPENROUTER_API_KEY"):
+                answer = answer_with_openrouter(message, request.mode, aggregates, timetable, request.simulation.model_dump() if request.simulation else None)
             else:
                 answer = answer_demo(message, request.mode, aggregates, timetable, request.year, request.route)
         except AssistantProviderError as provider_error:

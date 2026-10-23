@@ -45,7 +45,7 @@ export type TdxStatus = {
 export type AssistantReply = {
   answer: string;
   mode: "operations";
-  engine: "opencode" | "demo" | "demo_fallback";
+  engine: "openrouter" | "opencode" | "demo" | "demo_fallback";
   data_status: string;
   as_of: string;
   sources: Array<{ id: string; title: string; status: string; status_label: string; as_of: string | null; url: string | null }>;
@@ -100,7 +100,7 @@ export async function askTransitAssistant(
   return {
     answer: row.answer,
     mode: "operations",
-    engine: row.engine === "opencode" || row.engine === "demo_fallback" ? row.engine : "demo",
+    engine: row.engine === "openrouter" || row.engine === "opencode" || row.engine === "demo_fallback" ? row.engine : "demo",
     data_status: String(row.data_status ?? "unknown"),
     as_of: String(row.as_of ?? ""),
     sources,
@@ -163,7 +163,7 @@ function localAssistantFallback(input: { message: string; year: number; route: s
     sources,
     tool_calls: [],
     suggested_actions,
-    ...(kind === "offline" ? { provider_notice: "離線示範模式：公開靜態站尚未連接營運 API／OpenCode LLM。" } : {}),
+    ...(kind === "offline" ? { provider_notice: "離線示範模式：目前無法連接營運 API／OpenRouter，以下為本機資料回覆。" } : {}),
     request_id: `local-${Date.now().toString(36)}`,
   };
 }

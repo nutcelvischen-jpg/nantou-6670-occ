@@ -10,7 +10,7 @@ from openai import APIConnectionError, APIStatusError, APITimeoutError, OpenAI
 from api.fleet_optimizer import FleetCandidate, solve_candidate_set
 
 
-OPENCODE_BASE_URL = os.getenv("OPENCODE_BASE_URL", "https://opencode.ai/inference/openai/v1").rstrip("/")
+OPENROUTER_BASE_URL = os.getenv("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1").rstrip("/")
 ALLOWED_ROUTES = {"全部", "6670A", "6670B", "6670D", "6670E", "6670F", "6670H"}
 
 TOOLS = [
@@ -72,7 +72,7 @@ TOOLS = [
 
 
 SUPPORTED_TOPIC = re.compile(
-    r"預測|尖峰|離峰|運量|交易|票證|回程|頻次|od|乘載|載客率|需求|班次|班距|配置|最佳化|最佳化|成本|情境|候選|車隊|營運|儀表板|即時|延誤|誤點|gps|eta|車況|資料狀態|資料品質|來源|回測|wape|mae|碳排|排放|最多|最高|時段|查需求|查運量",
+    r"預測|尖峰|離峰|運量|交易|票證|回程|頻次|od|乘載|載客率|需求|班次|班距|配置|最佳化|最佳化|成本|情境|候選|車隊|營運|儀表板|即時|延誤|誤點|gps|eta|車況|資料狀態|資料品質|來源|回測|wape|mae|碳排|排放|最多|最高|時段|查需求|查運量|B\s?\d|號車|排隊|候車|加開|調度|滿載|異常|告警|現況|狀況|最擠|人數",
     re.IGNORECASE,
 )
 
@@ -125,6 +125,7 @@ def _execute_tool(name: str, arguments: dict[str, Any], aggregates: dict[str, An
                 "state": "unavailable",
                 "message": "目前系統未接入車輛 GPS／ETA 即時資料，無法確認是否延誤或車輛位置。",
                 "available_sources": ["6670 官網班表靜態快照", "TDX 靜態路線資料"],
+                "simulation": timetable.get("_simulation"),
             },
             [],
         )
@@ -240,24 +241,25 @@ def _completion(messages: list[dict[str, Any]], api_key: str, model: str, includ
         "model": model,
         "messages": messages,
         "temperature": 0.1,
-        "max_tokens": 500,
+        "max_tokens": 2400,
+        "extra_body": {"reasoning": {"enabled": True}},
         "stream": False,
     }
     if include_tools:
         body["tools"] = TOOLS
         body["tool_choice"] = "auto"
         body["parallel_tool_calls"] = False
-    client = OpenAI(base_url=OPENCODE_BASE_URL, api_key=api_key, timeout=25)
+    client = OpenAI(base_url=OPENROUTER_BASE_URL, api_key=api_key, timeout=45, max_retries=0)
     try:
         response = client.chat.completions.create(**body)
     except APIStatusError as error:
         if error.status_code == 402:
-            raise AssistantProviderError("OpenCode HTTP 402：帳戶額度不足或上游付款尚未啟用") from error
-        raise AssistantProviderError(f"OpenCode HTTP {error.status_code}") from error
+            raise AssistantProviderError("OpenRouter HTTP 402：帳戶額度不足或上游付款尚未啟用") from error
+        raise AssistantProviderError(f"OpenRouter HTTP {error.status_code}") from error
     except (APIConnectionError, APITimeoutError) as error:
-        raise AssistantProviderError("OpenCode request failed") from error
+        raise AssistantProviderError("OpenRouter request failed") from error
     if not response.choices or response.choices[0].message is None:
-        raise AssistantProviderError("OpenCode response did not include a message")
+        raise AssistantProviderError("OpenRouter response did not include a message")
     return response.choices[0].message.model_dump(exclude_none=True)
 
 
@@ -276,11 +278,13 @@ def _required_tool(message: str) -> str | None:
     return None
 
 
-def answer_with_opencode(message: str, mode: str, aggregates: dict[str, Any], timetable: dict[str, Any]) -> dict[str, Any]:
-    api_key = os.getenv("OPENCODE_API_KEY", "").strip()
-    model = os.getenv("OPENCODE_MODEL", "deepseek-v4.1-flash").strip()
+def answer_with_openrouter(message: str, mode: str, aggregates: dict[str, Any], timetable: dict[str, Any], simulation: dict[str, Any] | None = None) -> dict[str, Any]:
+    if simulation:
+        timetable = {**timetable, "_simulation": simulation}
+    api_key = os.getenv("OPENROUTER_API_KEY", "").strip()
+    model = os.getenv("OPENROUTER_MODEL", "deepseek/deepseek-v4.1-flash-1017").strip()
     if not api_key or not model:
-        raise AssistantProviderError("OpenCode is not configured")
+        raise AssistantProviderError("OpenRouter is not configured")
     if not is_operations_question(message):
         return answer_out_of_scope(mode)
     system = (
@@ -288,7 +292,7 @@ def answer_with_opencode(message: str, mode: str, aggregates: dict[str, Any], ti
         "不得回答旅遊規劃、旅客客服或一般無關問題；若意外收到，簡短列出支援範圍。"
         "只用核准工具資料回答可查詢的事實；不得猜即時車況、餘位、票價、GPS或ETA。沒有GPS/ETA時明確說無法確認。"
         "最佳化候選車輛、容量、班次和成本皆為合成假設，不能稱為真實可執行排班。票證筆數是交易數，不是完整乘客數。"
-        "用繁體中文，標示來源與資料限制。"
+        "用繁體中文，標示來源與資料限制。若get_service_status含simulation，可解讀使用者瀏覽器的模擬快照，但必須明確標為模擬，不能稱為真實車況。"
     )
     messages: list[dict[str, Any]] = [{"role": "system", "content": system}, {"role": "user", "content": message}]
     first = _completion(messages, api_key, model)
@@ -318,9 +322,9 @@ def answer_with_opencode(message: str, mode: str, aggregates: dict[str, Any], ti
         answer = first.get("content")
     required_tool = _required_tool(message)
     if required_tool and required_tool not in used_tools:
-        raise AssistantProviderError("OpenCode did not use the required data tool")
+        raise AssistantProviderError("OpenRouter did not use the required data tool")
     if not isinstance(answer, str) or not answer.strip():
-        raise AssistantProviderError("OpenCode returned an empty answer")
+        raise AssistantProviderError("OpenRouter returned an empty answer")
     if "get_service_status" in used_tools:
         data_status = "missing"
     elif "preview_fleet_optimization" in used_tools:
@@ -332,7 +336,7 @@ def answer_with_opencode(message: str, mode: str, aggregates: dict[str, Any], ti
     return {
         "answer": answer.strip(),
         "mode": mode,
-        "engine": "opencode",
+        "engine": "openrouter",
         "data_status": data_status,
         "as_of": datetime.now(timezone.utc).isoformat(),
         "sources": sources,
@@ -341,8 +345,6 @@ def answer_with_opencode(message: str, mode: str, aggregates: dict[str, Any], ti
     }
 
 
-# Keep the previous import name available for local tests and downstream callers.
-answer_with_openrouter = answer_with_opencode
 
 
 def answer_demo(message: str, mode: str, aggregates: dict[str, Any], timetable: dict[str, Any], year: int, route: str) -> dict[str, Any]:

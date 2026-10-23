@@ -2227,12 +2227,45 @@ const CHIPS = {
   pax: ['高鐵站下一班去日月潭幾點？', '現在高鐵站排隊幾人？', '高鐵到日月潭的那班擠嗎？', '日月潭回高鐵要多久、多少錢？', '今天日月潭回台中末班幾點？', '有沒有誤點？', '明天人會很多嗎？'],
   ops: ['現在有哪些異常？', '哪一班最擠？', '需要加開嗎？', '誤點車輛怎麼處理？', 'B03 現在在哪？', '明天預測人數', '今天尖峰是幾點？'],
 };
-function setMode(m) { m = 'ops'; BOT.mode = m; for (const b of $('#botMode').children) b.setAttribute('aria-pressed', b.dataset.m === m); $('#botLead').textContent = m === 'pax' ? '給旅客：查班次、候車人數、擠不擠、車程票價。回答依模擬現況與官網班表快照。' : '給客服與調度：看異常、延誤、滿載與加開建議，也能查單一車輛。'; $('#botChips').innerHTML = CHIPS[m].map((c) => `<button>${c}</button>`).join(''); }
-function ask(q) {
-  q = q.trim(); if (!q) return;
-  const box = $('#chat'); box.insertAdjacentHTML('beforeend', `<div class="msg me"></div>`); box.lastElementChild.textContent = q;
-  let a; try { a = answer(q); } catch (e) { a = '這題我算不出來，請換個說法。'; console.error(e); }
-  box.insertAdjacentHTML('beforeend', `<div class="msg bot">${a.replace(/</g, '&lt;').replace(/&lt;span class="why">/g, '<span class="why">').replace(/&lt;\/span>/g, '</span>')}</div>`);
+function setMode(m) { m = 'ops'; BOT.mode = m; for (const b of $('#botMode').children) b.setAttribute('aria-pressed', b.dataset.m === m); $('#botLead').textContent = m === 'pax' ? '給旅客：查班次、候車人數、擠不擠、車程票價。回答依模擬現況與官網班表快照。' : 'OpenRouter · DeepSeek V4.1 Flash。查詢票證、需求與當下畫面的模擬車況；僅限內部營運。'; $('#botChips').innerHTML = CHIPS[m].map((c) => `<button>${c}</button>`).join(''); }
+let assistantBusy = false;
+function assistantSnapshot(q) {
+  const s = SIM(), date = isoD(LIVE.date);
+  if (/明天/.test(q)) date.setDate(date.getDate() + 1);
+  if (/後天/.test(q)) date.setDate(date.getDate() + 2);
+  const ds = iso(date);
+  return { date: LIVE.date, minute: nowT(), plan: LIVE.plan, congestion: LIVE.cong,
+    vehicles: s.buses.map(b => ({ id: b.id, state: b.state, load: b.load, capacity: CAP,
+      delay_minutes: b.trip ? Math.max(0, Math.round(tripLateness(b.trip))) : 0,
+      next_stop: b.trip ? busLoc(b).next : b.term })),
+    queues: ['TC','HSR','PULI','SML'].map(station => ({station,waiting:s.queueAt(station),oldest_wait_minutes:Math.round(s.oldestWait(station))})),
+    forecast: [0,1].map(dir => { const f = forecast(ds,dir);return {date:ds,direction:dir ? 'in':'out',mean:f.mean,low:f.lo,high:f.hi}; }),
+  };
+}
+async function ask(q) {
+  q = q.trim(); if (!q || assistantBusy) return;
+  const box = $('#chat');
+  const user = document.createElement('div'); user.className = 'msg me'; user.textContent = q; box.append(user);
+  const bot = document.createElement('div'); bot.className = 'msg bot'; bot.textContent = '正在查詢營運資料…'; box.append(bot);
+  if (q.length > 2000) {bot.textContent = '請將問題縮短至2000字內。';return;}
+  assistantBusy = true;
+  const buttons = [...$('#askForm').querySelectorAll('button'), ...$('#botChips').querySelectorAll('button')];
+  buttons.forEach(b => b.disabled = true);
+  try {
+    const r = await fetch('/api/v1/assistant/answer', {method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:q,mode:'operations',year:2025,route:'全部',simulation:assistantSnapshot(q)}),signal:AbortSignal.timeout(100000)});
+    if (!r.ok) throw new Error('API '+r.status);
+    const data = await r.json(); if (typeof data.answer !== 'string') throw new Error('invalid answer');
+    bot.textContent = data.answer;
+    const why = document.createElement('span'); why.className = 'why';
+    why.textContent = (data.engine === 'openrouter' ? 'OpenRouter · DeepSeek V4.1 Flash' : '規則／範圍回覆') + ' · ' + (data.sources || []).map(s=>s.title).join('；');
+    bot.append(why);
+  } catch (e) {
+    let fallback; try {fallback = answer(q).replace(/<[^>]*>/g, '');} catch {fallback='請查看相關分析分頁或稍後重試。';}
+    bot.textContent = 'AI連線暫時無法使用，以下為本機規則回覆（非LLM）：\n\n' + fallback;
+  } finally {
+    assistantBusy = false; buttons.forEach(b => b.disabled = false); $('#body').scrollTop = 1e9;
+  }
   $('#body').scrollTop = 1e9;
 }
 $('#botMode').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) setMode(b.dataset.m); });

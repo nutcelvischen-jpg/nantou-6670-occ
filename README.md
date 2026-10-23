@@ -4,7 +4,7 @@
 
 ## 本機啟動
 
-需求：Node.js 20+、Python 3.10+。
+需求：Node.js 22.13+、Python 3.10+。
 
 ```bash
 npm ci
@@ -25,8 +25,8 @@ npm run dev
 
 ```bash
 npm test       # domain、預測與模擬器單元測試
-npm run build  # TypeScript 型別檢查與正式前端打包
-npm run preview
+npm run build  # 前端 + Sites 伺服器打包（先在 hosting 安裝套件）
+npm --prefix hosting run start  # 完整部署產物預覽
 npm audit --omit=dev --audit-level=high
 ```
 
@@ -46,7 +46,7 @@ npm audit --omit=dev --audit-level=high
 - **GIS 與數位孿生**：Three.js 3D 場景採霧綠地形與白色營運面板，可選 6670 子線、查看車隊清單、點選車輛看方向／載客／進度；車輛由同一固定步進模擬狀態推動。總覽會自動嘗試載入 TDX 官方線形與站序（已取樣 1 路線、18 線段、846 筆站牌）；若 API 不可用或部署為靜態頁，改用 2026-10-23 官方公開快照，畫面顯示快照日期，車輛位置仍是模擬，不是 GPS。路形 API 後端快取 6 小時，瀏覽器也快取成功的公開路線資料並合併同時請求；山形、等高線、林地與聚落均為示意情境，非 DEM／土地覆蓋測量資料。MapLibre Vite worker 已修正；瀏覽器可同時顯示 MapTiler 街道底圖與 TDX 線形。部署前仍需限制 allowed origins 與用量。
 - **低碳情境**：柴油/電動車的每公里係數和電力排碳係數可調整。係數為情境假設，決策報告需指定來源、年份、車型與運轉條件後再採用。
 - **觀光與公車整合**：可依方向、起訖站、最早出發時間和官網日別標記，查詢 6670 歷史快照內的直達班次；另可配對同日往返班次，檢查最低停留時間與最晚回程，並為每個去程列出最晚可搭回程。結果保留來源連結與限制，不能代替特定日期營運確認；票價、餘位和九人座班次未核實或未納入。
-- **智慧小幫手**：旅客資訊／營運分析雙模式；歷史運量回答帶聚合來源，尖峰需求情境呼叫 CP-SAT 合成班次預覽，延誤問題明確指出沒有 GPS／ETA。後端已接 OpenCode OpenAI 相容端點，模型為 `deepseek-v4.1-flash`，目前帳戶回 HTTP 402 時使用標示清楚的本機資料示範回覆。
+- **智慧小幫手**：僅限內部營運。OpenRouter 模型 `deepseek/deepseek-v4.1-flash-1017`，公開網站由 Sites 後端呼叫。先讀取票證、預測基線、有限候選最低成本結果，再生成有來源的回答。3D 小幫手額外傳送經白名單驗證的數值快照，明確標示非真實 GPS。
 - **智慧旅遊資訊**：依網站快照中的官方文章做關鍵字檢索，提供來源連結；不會預約、售票或確認即時服務狀態。
 
 畫面必須把來源區分為**來源資料、可設定假設、合成模擬**。請勿將模擬改善百分比、示意路線或預設票價當成業者實績。
@@ -55,7 +55,7 @@ npm audit --omit=dev --audit-level=high
 
 - `.env.local` 不得提交到版控。前端只使用 `VITE_` 公開金鑰；限制 MapTiler 網域、style 權限和用量。
 - TDX `TDX_CLIENT_ID` / `TDX_CLIENT_SECRET` 僅由 `scripts/dev.mjs` 從 `.env.local` 白名單轉交本機 FastAPI，絕不以 `VITE_` 前綴傳入瀏覽器。TDX 若限流，介面會顯示狀態並使用有效快取或示意路線降級。部署時請使用安全環境變數管理，不要將憑證提交到版控或分享在聊天。
-- 問答助理使用 OpenCode OpenAI 相容 API，預設模型 `deepseek-v4.1-flash`。在 `.env.local` 設定 `OPENCODE_API_KEY`（可選 `OPENCODE_MODEL`、`OPENCODE_BASE_URL`）；後端 FastAPI 呼叫 OpenCode，瀏覽器不持有金鑰。端點請求已驗證，但目前服務回 HTTP 402（額度不足），故使用本機公開資料示範回覆；恢復額度後再驗收實際模型工具呼叫。即時 GPS／ETA 未接入時會直接說無法確認。模型工具只有歷史票證查詢、6670班表快照、即時來源狀態和合成車隊方案預覽，不提供任意程式執行或派車寫入。
+- 助理使用 OpenRouter；本機 `.env.local` 設定 `OPENROUTER_API_KEY`、`OPENROUTER_MODEL`、`OPENROUTER_BASE_URL`。公開版金鑰僅存在 Sites Secret。每次呼叫都帶伺服器端 Authorization；啟用 reasoning，工具輪次原樣保留 reasoning_details，不向前端傳回。只有核准資料工具，沒有任意程式執行或實際派車。
 - 接入即時公車、GTFS/GTFS-RT 或正式業者資料前，先依 `SPEC.md` 與 `docs/spec/` 核對授權、欄位、時間戳、座標、更新頻率及資料品質。
 
 ## 規格文件
@@ -70,3 +70,13 @@ npm audit --omit=dev --audit-level=high
 ## 驗收現況
 
 目前已實作前端 demo、可重現的核心 domain/模擬器測試及正式 build；單元測試覆蓋最低票價搜尋、最低成本候選解、需求回測及模擬守恆。正式上線前仍須完成 TDX/API 後端 adapter、真實路網與站位、經業者確認的時刻/容量/票價/營運成本資料、權限與部署安全、以及瀏覽器端到端驗收。詳情見 `docs/spec/06_ACCEPTANCE.md` 和 `docs/spec/07_IMPLEMENTATION.md`。
+
+## OpenRouter 公開版（2026-10-23）
+
+`hosting/` 為 Sites Vinext 後端；保留原 Vite 前端於 `/dashboard/index.html`，首頁全頁載入該工作台。`/scenario-lab/` 保留原網址。公開版唯一已接入的業務 API 為 `POST /api/v1/assistant/answer`；其他 API 回 404，讓前端沿用來源快照與既有本機計算，不宣稱雲端已部署 FastAPI 或 CP-SAT。
+
+初次準備：先安裝根目錄套件，再在 `hosting/` 依 Sites skill 的 install-dependencies helper 安裝。`npm run build:frontend` 只建前端；`npm run build` 完成兩層打包並產生根目錄 `dist/server`、`dist/client`。
+
+公開版工具 `get_operations_context` 讀取聚合檔及共用領域函式。模型最多兩次呼叫，每次45秒、2400輸出token；無任意URL、SQL或shell。每個Worker實例依使用者／IP每分鐘6次、全實例最多4個進行中請求（best effort，非跨實例總額度保證）。正式使用仍應在OpenRouter設金鑰額度上限。API錯誤不回傳供應商原始payload或金鑰；3D介面明確標示本機規則降級。瀏覽器快照未與真實車機交叉驗證，只能用來解讀該畫面，不用來實際調度。
+
+真實API驗收：指定模型回HTTP200；兩輪資料工具呼叫成功、保留推理欄位、回答將B03示範快照標為模擬。合約測試覆蓋兩輪驗證標頭、拒絕未知工具、範圍外不呼叫、快照欄位過濾、錯誤不洩漏、共用成本求解器。
