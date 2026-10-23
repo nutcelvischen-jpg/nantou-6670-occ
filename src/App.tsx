@@ -1,18 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   Activity,
-  ArrowDownRight,
   ArrowLeftRight,
-  ArrowUpRight,
-  BarChart3,
   Bus,
-  CalendarDays,
   Check,
   ChevronDown,
   ChevronRight,
   Clock3,
-  CloudSun,
-  Download,
   FileCheck2,
   Filter,
   Leaf,
@@ -24,19 +18,17 @@ import {
   ShieldCheck,
   SlidersHorizontal,
   Sparkles,
-  Ticket,
   TrendingDown,
-  Users,
   Wind,
   MessageCircleMore,
 } from "lucide-react";
 import type { EChartsOption } from "echarts";
 import { Chart } from "./components/Chart";
-import { TransitMap } from "./components/TransitMap";
 import { TourismGuide } from "./components/TourismGuide";
 import { PublishedTimetableSearch } from "./components/PublishedTimetableSearch";
 import { OperationsAssistant } from "./components/OperationsAssistant";
 import { TimetableScenarioLab, type ScenarioPanel } from "./components/TimetableScenarioLab";
+import { BaselineDetails } from "./components/BaselineDetails";
 import { AnnualComparison } from "./components/AnnualComparison";
 import { availableYears } from "./annualComparison";
 import { ModelMethodology } from "./components/ModelMethodology";
@@ -57,7 +49,6 @@ import {
 
 type Page =
   | "營運總覽"
-  | "運量分析"
   | "數位孿生"
   | "旅遊資訊"
   | "成本最佳化"
@@ -70,7 +61,6 @@ const bundledData = aggregatesJson as Aggregates;
 type PublishedTimetable = typeof timetableJson;
 const nav: { name: Page; icon: typeof Activity; group: string }[] = [
   { name: "營運總覽", icon: MapIcon, group: "工作台" },
-  { name: "運量分析", icon: BarChart3, group: "工作台" },
   { name: "數位孿生", icon: Bus, group: "工作台" },
   { name: "成本最佳化", icon: SlidersHorizontal, group: "規劃" },
   { name: "模型方法", icon: FileCheck2, group: "規劃" },
@@ -80,7 +70,7 @@ const nav: { name: Page; icon: typeof Activity; group: string }[] = [
   { name: "低碳評估", icon: Leaf, group: "永續與資料" },
   { name: "資料品質", icon: FileCheck2, group: "永續與資料" },
 ];
-const routes = ["全部", "6670A", "6670B", "6670D", "6670E", "6670F", "6670H"];
+
 const fmt = (n: number) => new Intl.NumberFormat("zh-TW").format(Math.round(n));
 const money = (n: number) =>
   new Intl.NumberFormat("zh-TW", {
@@ -160,7 +150,7 @@ export function App() {
   const [twinVisited, setTwinVisited] = useState(false);
   useEffect(() => { if (page === '數位孿生') setTwinVisited(true); }, [page]);
   const [route, setRoute] = useState("全部");
-  const [selectedStop, setSelectedStop] = useState("puli");
+  
   const [solution, setSolution] = useState<ScheduleSolution | null>(null);
   const [optimizerRunning, setOptimizerRunning] = useState(false);
   const [demandBoost, setDemandBoost] = useState(1);
@@ -184,33 +174,20 @@ export function App() {
         ? 2.123
         : undefined;
   const yearData = data.years.find((x) => x.source.startsWith(String(year)))!;
-  const totalRows = yearData.rows;
+  
   const totalBoth = data.years.reduce((s, x) => s + x.rows, 0);
   const hourData = useMemo(
     () => aggregateHours(data, year, route),
     [year, route],
   );
-  const routeData = yearData.routes.slice(0, 6);
-  const ticketData = yearData.ticket_types.slice(0, 8);
-  const daily = yearData.daily.slice(-30);
+  
+  
+  
   const forecast = buildDailyForecast(yearData.daily);
-  const od = yearData.top_od.slice(0, 8);
-  const selected =
-    yearData.top_stations.find((x) =>
-      x.name.includes(
-        selectedStop === "puli"
-          ? "埔里"
-          : selectedStop === "sml"
-            ? "日月潭"
-            : selectedStop === "ncnu"
-              ? "暨南"
-              : "高鐵",
-      ),
-    ) || yearData.top_stations[0];
+  
+  
   const weightedHour = hourData.reduce((s, x) => s + x.count, 0);
-  const peak = hourData
-    .filter((x) => x.hour >= 6 && x.hour <= 11)
-    .reduce((s, x) => s + x.count, 0);
+  
   const evening = hourData
     .filter((x) => x.hour >= 15 && x.hour < 19)
     .reduce((s, x) => s + x.count, 0);
@@ -267,74 +244,9 @@ export function App() {
       setOptimizerRunning(false);
     }
   };
-  const exportCSV = () => {
-    const rows = [
-      ["date", "route", "hour", "ticket_transactions"],
-      ...hourData.map((x) => [year, route, x.hour, x.count]),
-    ];
-    const text = rows.map((r) => r.join(",")).join("\n");
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(
-      new Blob(["\ufeff" + text], { type: "text/csv;charset=utf-8" }),
-    );
-    a.download = "nantou-demand-hourly.csv";
-    a.click();
-    URL.revokeObjectURL(a.href);
-  };
-  const hourOption: EChartsOption = {
-    ...chartBase,
-    grid: { left: 58, right: 18, top: 24, bottom: 34 },
-    xAxis: {
-      ...chartBase.xAxis,
-      data: hourData.map((x) => String(x.hour).padStart(2, "0")),
-      name: "時",
-    },
-    yAxis: {
-      ...chartBase.yAxis,
-      name: "票證交易",
-      nameTextStyle: { padding: [0, 0, 0, 30], fontSize: 10 },
-    },
-    series: [
-      {
-        type: "bar",
-        data: hourData.map((x) => x.count),
-        barMaxWidth: 21,
-        itemStyle: {
-          borderRadius: [5, 5, 0, 0],
-          color: (p: unknown) => {
-            const idx = (p as { dataIndex: number }).dataIndex;
-            return idx >= 15 && idx <= 18 ? "#c88b49" : "#20816b";
-          },
-        },
-        emphasis: { itemStyle: { color: "#145d50" } },
-      },
-    ],
-    visualMap: {
-      show: false,
-      min: 0,
-      max: Math.max(1, ...hourData.map((x) => x.count)),
-      inRange: { color: ["#cfe6da", "#2d816c"] },
-    },
-  };
-  const dailyOption: EChartsOption = {
-    ...chartBase,
-    grid: { left: 38, right: 18, top: 16, bottom: 40 },
-    xAxis: {
-      ...chartBase.xAxis,
-      data: daily.map((x) => x.date.slice(5)),
-      axisLabel: { ...chartBase.xAxis.axisLabel, rotate: 40 },
-    },
-    series: [
-      {
-        type: "line",
-        data: daily.map((x) => x.transactions),
-        smooth: 0.25,
-        symbol: "none",
-        lineStyle: { width: 2.5, color: "#287e68" },
-        areaStyle: { color: "#83bca344" },
-      },
-    ],
-  };
+  
+  
+  
   const forecastTestOption: EChartsOption = {
     ...chartBase,
     grid: { left: 46, right: 18, top: 28, bottom: 34 },
@@ -382,99 +294,9 @@ export function App() {
       },
     ],
   };
-  const routeOption: EChartsOption = {
-    ...chartBase,
-    grid: { left: 58, right: 18, top: 12, bottom: 20 },
-    xAxis: {
-      type: "value",
-      axisLine: { show: false },
-      axisLabel: { formatter: (x: number) => fmt(x) },
-      splitLine: { lineStyle: { color: "#edf0ed", type: "dashed" } },
-    },
-    yAxis: {
-      type: "category",
-      data: routeData.map((x) => x.route),
-      axisLine: { show: false },
-      axisTick: { show: false },
-      axisLabel: { color: "#566963", fontSize: 12 },
-    },
-    series: [
-      {
-        type: "bar",
-        data: routeData.map((x) => x.transactions),
-        barWidth: 14,
-        itemStyle: { color: "#398b73", borderRadius: [0, 5, 5, 0] },
-      },
-    ],
-  };
-  const odOption: EChartsOption = {
-    ...chartBase,
-    grid: { left: 78, right: 14, top: 12, bottom: 26 },
-    xAxis: {
-      type: "value",
-      axisLine: { show: false },
-      axisLabel: {
-        fontSize: 10,
-        formatter: (x: number) =>
-          x >= 1000 ? (x / 1000).toFixed(0) + "k" : String(x),
-      },
-      splitLine: { lineStyle: { color: "#edf0ed", type: "dashed" } },
-    },
-    yAxis: {
-      type: "category",
-      data: od.map((x) => x.origin + " → " + x.destination).reverse(),
-      axisLine: { show: false },
-      axisTick: { show: false },
-      axisLabel: {
-        fontSize: 10,
-        color: "#566963",
-        width: 130,
-        overflow: "truncate",
-      },
-    },
-    series: [
-      {
-        type: "bar",
-        data: od.map((x) => x.transactions).reverse(),
-        barWidth: 13,
-        itemStyle: { color: "#9caa78", borderRadius: [0, 4, 4, 0] },
-      },
-    ],
-  };
-  const ticketOption: EChartsOption = {
-    ...chartBase,
-    grid: { left: 102, right: 18, top: 12, bottom: 18 },
-    xAxis: {
-      type: "value",
-      axisLine: { show: false },
-      axisLabel: {
-        fontSize: 10,
-        formatter: (x: number) =>
-          x >= 1000 ? `${(x / 1000).toFixed(0)}k` : String(x),
-      },
-      splitLine: { lineStyle: { color: "#edf0ed", type: "dashed" } },
-    },
-    yAxis: {
-      type: "category",
-      data: ticketData.map((x) => x.type).reverse(),
-      axisLine: { show: false },
-      axisTick: { show: false },
-      axisLabel: {
-        fontSize: 9,
-        color: "#566963",
-        width: 85,
-        overflow: "truncate",
-      },
-    },
-    series: [
-      {
-        type: "bar",
-        data: ticketData.map((x) => x.transactions).reverse(),
-        barWidth: 12,
-        itemStyle: { color: "#829a79", borderRadius: [0, 4, 4, 0] },
-      },
-    ],
-  };
+  
+  
+  
   const behaviorData = yearData.card_transaction_frequency;
   const returnData = yearData.same_day_return_interval;
   const behaviorOption: EChartsOption = {
@@ -554,95 +376,19 @@ export function App() {
       },
     }],
   };
-  const annualView = (mode: 'overview' | 'analysis') => <AnnualComparison data={data} mode={mode} baseYear={compareYear} targetYear={year}
-    onYears={(base,target)=>{setCompareYear(base);setYear(target);}}
-    onAsk={(question)=>{setAssistantQuestion(question);setRoute('全部');setPage('智慧小幫手');}}
-    onNavigate={()=>setPage(mode==='overview'?'運量分析':'營運總覽')} />;
+  const askBaseline = (question:string) => {setAssistantQuestion(question);setRoute('全部');setPage('智慧小幫手');};
+  const annualView = () => <AnnualComparison data={data} baseYear={compareYear} targetYear={year}
+    onYears={(base,target)=>{setCompareYear(base);setYear(target);}} onAsk={askBaseline} />;
   const content = () => {
     if (page === "模型方法") return <ModelMethodology onNavigate={setPage} onOpenScenario={(panel) => { setScenarioPanel(panel); setPanelRequest(n => n + 1); setPage("數位孿生"); }} />;
     if (page === "智慧小幫手") return <OperationsAssistant year={year} route={route} compareYear={compareYear} initialQuestion={assistantQuestion} years={availableYears(data)} onYears={(b,t)=>{setCompareYear(b);setYear(t);}} onNavigate={setPage} />;
     if (page === "旅遊資訊") return <TourismGuide timetable={publishedTimetable} timetableSource={timetableSource} departAfter={journeyDeparture} onDepartAfterChange={setJourneyDeparture} />;
-    if (page === "運量分析")
-      return (
-        <>
-          {annualView("analysis")}
-          <details className="annual-legacy"><summary>單年票證、OD、行為與預測明細</summary>
-          <div className="page-intro">
-            <div>
-              <div className="eyebrow">HISTORICAL DEMAND</div>
-              <h1>運量分析</h1>
-              <p>從 180 萬筆電子票證交易，找出需求時段與主要起訖。</p>
-            </div>
-            <button className="button-secondary" onClick={exportCSV}>
-              <Download size={16} /> 匯出時段資料
-            </button>
-          </div>
-          <div className="toolbar-card">
-            <label>
-              <CalendarDays size={15} /> 資料年度
-              <select
-                value={year}
-                onChange={(e) => setYear(Number(e.target.value))}
-              >
-                <option>2025</option>
-                <option>2024</option>
-              </select>
-            </label>
-            <label>
-              <Route size={15} /> 子線
-              <select value={route} onChange={(e) => setRoute(e.target.value)}>
-                {routes.map((r) => (
-                  <option key={r}>{r}</option>
-                ))}
-              </select>
-            </label>
-            <span className="quality-note">
-              <span className="quality-dot" />
-              原始票證聚合 · 票證交易不等同乘客
-            </span>
-          </div>
-          <div className="metric-row four">
-            <Metric
-              label="納入票證交易"
-              value={fmt(totalRows)}
-              icon={Ticket}
-              foot={year + " 年原始非空列"}
-            />
-            <Metric
-              label="尖峰 06–11"
-              value={fmt(peak)}
-              icon={ArrowUpRight}
-              foot="依上車刷卡時刻彙總"
-            />
-            <Metric
-              label="回程 15–19"
-              value={fmt(evening)}
-              icon={ArrowDownRight}
-              foot="並非候車或拒載人數"
-            />
-            <Metric
-              label="主要 OD"
-              value={od[0]?.origin + " → " + od[0]?.destination}
-              icon={ArrowLeftRight}
-              foot={fmt(od[0]?.transactions || 0) + " 筆票證交易"}
-            />
-          </div>
-          <div className="grid-2">
-            <Panel title="時段需求分布" tag={year + " · 每小時"}>
-              <Chart option={hourOption} />
-            </Panel>
-            <Panel title="近 30 日交易量" tag="每日">
-              <Chart option={dailyOption} />
-            </Panel>
-            <Panel title="子線交易量" tag="年度累計">
-              <Chart option={routeOption} />
-            </Panel>
-            <Panel title="主要計費站 OD" tag="不代表乘客目的">
-              <Chart option={odOption} />
-            </Panel>
-            <Panel title="票種標籤交易量" tag="原始類別 · 不推定年齡或身分">
-              <Chart option={ticketOption} />
-            </Panel>
+    if (page === "營運總覽") return <>
+      {annualView()}
+      <BaselineDetails data={data} baseYear={compareYear} targetYear={year} onAsk={askBaseline}/>
+      <details className="annual-legacy"><summary>延伸分析：卡片頻次、回程間隔與需求預測</summary>
+      <p className="panel-note">本區使用 {year} 年全部子線；頻次為卡片欄位代理，不能推論觀光、通勤、年齡或身分。預測沿用既有單年基線。</p>
+      <div className="grid-2">
             <Panel title="每卡年度刷卡頻次" tag="行為代理指標 · 不代表獨立旅次">
               <Chart option={behaviorOption} className="chart chart-medium" />
               <p className="panel-note">
@@ -687,10 +433,8 @@ export function App() {
                 每個預測日只使用前 28 個日曆日內的有效同星期資料；至少 2 個樣本才取中位數，否則保留空值。
               </p>
             </Panel>
-          </div>
-          </details>
-        </>
-      );
+      </div></details>
+    </>;
     if (page === "成本最佳化")
       return (
         <>
@@ -1470,194 +1214,7 @@ export function App() {
           </Panel>
         </>
       );
-    return (
-      <>
-        {annualView("overview")}
-        <details className="annual-legacy"><summary>單年營運與地圖明細</summary>
-        <div className="page-intro">
-          <div>
-            <div className="eyebrow">NANTOU TRANSIT OPERATIONS</div>
-            <h1>把運量，變成更好的發車決策。</h1>
-            <p>6670 路線家族 · 歷史票證需求與 GIS 情境推演</p>
-          </div>
-          <div className="date-pill">
-            <CalendarDays size={15} /> 歷史資料年度{" "}
-            <select
-              value={year}
-              onChange={(e) => setYear(Number(e.target.value))}
-            >
-              {availableYears(data).map(y=><option key={y}>{y}</option>)}
-            </select>
-            <ChevronDown size={13} />
-          </div>
-        </div>
-        <div className="mode-banner">
-          <div className="mode-mark">
-            <Activity size={15} />
-          </div>
-          <div>
-            <b>歷史分析模式</b>
-            <span>資料源：2024–2025 年 6670 電子票證 · {year} 年篩選中</span>
-          </div>
-          <span className="mode-source">
-            <i /> ORIGINAL DATA
-          </span>
-        </div>
-        <div className="metric-row">
-          <Metric
-            label="票證交易"
-            value={fmt(totalRows)}
-            icon={Ticket}
-            foot={year + " 年已彙總原始紀錄"}
-            trend={year === 2025 ? "+5.8%" : "基準年度"}
-          />
-          <Metric
-            label="主要方向 OD"
-            value="埔里 → 高鐵臺中"
-            icon={ArrowLeftRight}
-            foot={fmt(yearData.top_od[0]?.transactions || 0) + " 筆計費站交易"}
-          />
-          <Metric
-            label="尖峰交易集中"
-            value={((peak / Math.max(1, weightedHour)) * 100).toFixed(1) + "%"}
-            icon={Clock3}
-            foot="06:00–11:59 上車刷卡時段"
-          />
-          <Metric
-            label="資料涵蓋子線"
-            value="6 種"
-            icon={Route}
-            foot="A · B · D · E · F · H"
-          />
-        </div>
-        <div className="dashboard-layout">
-          <section className="map-card">
-            <div className="map-head">
-              <div>
-                <h2>日月潭公共運輸廊帶</h2>
-                <p>選取站點查看票證需求與資料品質</p>
-              </div>
-              <button className="icon-button" title="圖層設定">
-                <LayersIcon />
-              </button>
-            </div>
-            <TransitMap selected={selectedStop} onSelect={setSelectedStop} />
-            <div className="map-legend">
-              <span>
-                <i className="legend-hub" />
-                轉運節點
-              </span>
-              <span>
-                <i className="legend-stop" />
-                中途站
-              </span>
-              <span>
-                <i className="legend-poi" />
-                觀光景點
-              </span>
-              <span>
-                <i className="legend-route" />
-                6670 拓樸
-              </span>
-            </div>
-            <div className="selected-stop">
-              <span className="selected-stop-icon">
-                <Bus size={15} />
-              </span>
-              <div>
-                <b>
-                  {selectedStop === "puli"
-                    ? "埔里轉運站"
-                    : selectedStop === "sml"
-                      ? "日月潭站"
-                      : selectedStop === "ncnu"
-                        ? "暨南大學"
-                        : selectedStop === "nine"
-                          ? "九族文化村"
-                          : selectedStop === "xiangshan"
-                            ? "向山遊客中心"
-                            : "高鐵臺中站"}
-                </b>
-                <small>計費站聚合 · 非實體站牌對照</small>
-              </div>
-              <div className="selected-volume">
-                <b>{fmt(selected?.touches || 0)}</b>
-                <small>年度上下車端觸及數</small>
-              </div>
-            </div>
-          </section>
-          <section className="right-stack">
-            <div className="panel">
-              <div className="panel-head">
-                <div>
-                  <h3>尖峰需求時段</h3>
-                  <span>{year} 年 · 每小時票證交易</span>
-                </div>
-                <button
-                  className="text-button"
-                  onClick={() => setPage("運量分析")}
-                >
-                  詳細分析 <ChevronRight size={14} />
-                </button>
-              </div>
-              <Chart option={hourOption} className="chart chart-tall" />
-            </div>
-            <div className="panel compact-panel">
-              <div className="panel-head">
-                <div>
-                  <h3>營運提醒</h3>
-                  <span>來自公開資料與品質檢查</span>
-                </div>
-                <MoreHorizontal size={17} />
-              </div>
-              <div className="insight-row">
-                <span className="insight-icon amber">
-                  <Users size={15} />
-                </span>
-                <div>
-                  <b>回程尖峰中途站有滿載風險</b>
-                  <small>官網建議假日 14–18 時於埔里轉運站候車</small>
-                </div>
-                <span className="insight-tag">服務風險</span>
-              </div>
-              <div className="insight-row">
-                <span className="insight-icon sage">
-                  <CloudSun size={15} />
-                </span>
-                <div>
-                  <b>2025-07-07 屬官方公告停駛日</b>
-                  <small>勿將刷卡缺日當成正常零需求樣本</small>
-                </div>
-                <span className="insight-tag green-tag">已查證</span>
-              </div>
-            </div>
-          </section>
-        </div>
-        <div className="lower-grid">
-          <Panel title="子線運量結構" tag={year + " 年票證交易"}>
-            <Chart option={routeOption} className="chart chart-medium" />
-          </Panel>
-          <Panel title="主要計費站 OD" tag="計費站名非旅遊目的">
-            <Chart option={odOption} className="chart chart-medium" />
-          </Panel>
-          <div className="action-card">
-            <div className="action-glyph">
-              <Sparkles size={18} />
-            </div>
-            <div className="eyebrow">SCENARIO LAB</div>
-            <h3>要是尖峰需求增加 20%？</h3>
-            <p>調整需求情境，觀察候車、未服務人數與候選成本如何變化。</p>
-            <button
-              className="button-primary"
-              onClick={() => setPage("成本最佳化")}
-            >
-              開啟成本最佳化 <ChevronRight size={15} />
-            </button>
-          </div>
-        </div>
-        </details>
-      </>
-    );
+    return null;
   };
   return (
     <>
@@ -1847,11 +1404,4 @@ function QualityCard({
     </div>
   );
 }
-function LayersIcon() {
-  return (
-    <>
-      <MapIcon size={16} />
-      <span className="button-label">圖層</span>
-    </>
-  );
-}
+

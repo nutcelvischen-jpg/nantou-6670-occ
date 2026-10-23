@@ -143,7 +143,7 @@ function localAssistantFallback(input: { message: string; year: number; route: s
     answer = `${input.year} 年同日反向 OD 回程間隔中，${top ? `「${top.label}」最多（${top.return_count?.toLocaleString("zh-TW")} 對）` : "目前沒有可公開的有效區間"}。票證頻次最高的前三個交易次數分組為 ${freq.map((item) => `${item.label} ${item.card_count?.toLocaleString("zh-TW")} 張卡`).join("、") || "無"}。這些是匿名群體代理：同卡、同日、反向計費站 OD、間隔不超過 12 小時，不代表確定旅程或實際上下車。`;
     status = "sourced";
     sources = [source];
-    suggested_actions = ["在運量分析查看回程間隔圖", "查看資料品質與隱私門檻"];
+    suggested_actions = ["在營運總覽查看回程間隔圖", "查看資料品質與隱私門檻"];
   } else if (/最佳化|配置|需求.*(增加|提高|上升)|增加.*%|提高.*%|情境|候選/.test(text)) {
     const match = text.match(/(\d{1,3})\s*%|百分之\s*(\d{1,3})/);
     const increase = Math.min(100, Number(match?.[1] ?? match?.[2] ?? 15));

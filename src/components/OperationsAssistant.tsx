@@ -15,7 +15,7 @@ const statusText: Record<string, string> = {
   general: "一般說明",
 };
 
-export function OperationsAssistant({ year, route, compareYear, initialQuestion, years, onYears, onNavigate }: { year: number; route: string; compareYear:number; initialQuestion?:string; years:number[]; onYears:(base:number,target:number)=>void; onNavigate: (page: "運量分析" | "資料品質" | "成本最佳化") => void }) {
+export function OperationsAssistant({ year, route, compareYear, initialQuestion, years, onYears, onNavigate }: { year: number; route: string; compareYear:number; initialQuestion?:string; years:number[]; onYears:(base:number,target:number)=>void; onNavigate: (page: "營運總覽" | "資料品質" | "成本最佳化") => void }) {
   const [draft, setDraft] = useState(initialQuestion || "");
   const [busy, setBusy] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -47,8 +47,8 @@ export function OperationsAssistant({ year, route, compareYear, initialQuestion,
   };
 
   const handleAction = (action: string) => {
-    if (action.includes("需求分析")) { onNavigate("運量分析"); return; }
-    if (action.includes("需求分析") || action.includes("票證") || action.includes("交易")) { onNavigate("運量分析"); return; }
+    if (action.includes("需求分析")) { onNavigate("營運總覽"); return; }
+    if (action.includes("需求分析") || action.includes("票證") || action.includes("交易")) { onNavigate("營運總覽"); return; }
     if (action.includes("最佳化")) { onNavigate("成本最佳化"); return; }
     void submit(action);
   };
@@ -90,7 +90,7 @@ export function OperationsAssistant({ year, route, compareYear, initialQuestion,
                       <b>依據資料</b>
                       {message.reply.sources.map((source) => source.url?.startsWith("http") ? <a href={source.url} target="_blank" rel="noreferrer" key={source.id}>
                         <Database size={13} /><span>{source.title}<small>{source.status_label} · {source.as_of || "時間未知"}</small></span><Clock3 size={12} />
-                      </a> : <button className="assistant-source-link" key={source.id} onClick={() => onNavigate(source.id.startsWith("ticket-") ? "運量分析" : "資料品質")}>
+                      </a> : <button className="assistant-source-link" key={source.id} onClick={() => onNavigate(source.id.startsWith("ticket-") ? "營運總覽" : "資料品質")}>
                         <Database size={13} /><span>{source.title}<small>{source.status_label} · {source.as_of || "時間未知"}</small></span><Clock3 size={12} />
                       </button>)}
                     </div>}

@@ -1,7 +1,7 @@
 import { ArrowRight, BarChart3, Bus, CheckCircle2, CircleHelp, Database, Leaf, MessageCircle, Route, ShieldCheck, Workflow } from "lucide-react";
 import type { ScenarioPanel } from "./TimetableScenarioLab";
 
-type MethodPage = "運量分析" | "成本最佳化" | "數位孿生" | "智慧小幫手" | "資料品質";
+type MethodPage = "營運總覽" | "成本最佳化" | "數位孿生" | "智慧小幫手" | "資料品質";
 
 const stages = [
   { title: "資料與情境", body: "票證彙總、公開路線快照、使用者設定", icon: Database },
@@ -48,7 +48,7 @@ export function ModelMethodology({ onNavigate, onOpenScenario }: { onNavigate: (
         <div className="method-limits"><ShieldCheck size={14}/><span>卡號只在建置彙總時使用，公開輸出不含卡號；群組小於 k=10 的數值抑制。電子票證不涵蓋完整現金、套票、拒載與未刷卡旅客。</span></div>
         <button className="method-cta" onClick={() => onOpenScenario("pk")}>操作尖離峰分析 <ArrowRight size={15}/></button>
         <button className="method-cta" onClick={() => onOpenScenario("viz")}>操作票證 OD 視覺化 <ArrowRight size={15}/></button>
-        <button className="method-cta" onClick={() => onNavigate("運量分析")}>查看卡片頻次與回程代理 <ArrowRight size={15}/></button>
+        <button className="method-cta" onClick={() => onNavigate("營運總覽")}>查看卡片頻次與回程代理 <ArrowRight size={15}/></button>
       </article>
 
       <article className="method-card">
