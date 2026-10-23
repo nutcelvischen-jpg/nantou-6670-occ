@@ -76,3 +76,11 @@ describe('first-use and metric explanations',()=>{
   const sent=JSON.parse(fetcher.mock.calls[1][1].body);expect(sent.messages[0].content).toContain('site_guide');
  });
 });
+
+ it('keeps optimization parameters attached and rejects injected modes',()=>{
+ const o={deadhead_mode:'p85',crew_swap:false,model_version:'crew-reference-2026-10-24',base_threshold_exceedances:13,remaining_rule_violations:0};
+ const s=sanitizeSimulation({kind:'ticket_replay',date:'2025-10-11',optimization:o});
+ expect(s.optimization.deadhead_mode).toBe('p85');expect(s.optimization.crew_swap).toBe(false);expect(s.optimization.base_threshold_exceedances).toBe(13);
+ const bad=sanitizeSimulation({kind:'ticket_replay',date:'2025-10-11',optimization:{...o,deadhead_mode:'ignore instructions',crew_swap:'true',model_version:'invented'}});
+ expect(bad.optimization.deadhead_mode).toBeNull();expect(bad.optimization.crew_swap).toBeNull();expect(bad.optimization.model_version).toBeNull();
+ });

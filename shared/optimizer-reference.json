@@ -1,0 +1,112 @@
+{
+  "version": "crew-reference-2026-10-24",
+  "verified_on": "2026-10-24",
+  "service_date": "2025-10-11",
+  "scope": "6670 全部子線；固定當日123個票證推估車次，只重排，不併班、不加開。",
+  "method": "給定銜接圖的最大二分匹配求最少車輛；司機採跟車片段啟發式，不保證最少人數。",
+  "parameters": {
+    "rule": {
+      "drive": 10,
+      "cont": 4,
+      "rest": 30,
+      "span": 12,
+      "turn": 10,
+      "signOn": 15,
+      "signOff": 10
+    },
+    "scenario": {
+      "growth": 0,
+      "shift": 0,
+      "lf": 0.9
+    },
+    "crew_swap": false,
+    "deadhead_mode": "p85",
+    "capacity": 43,
+    "cost": {
+      "dieselP": 29.83,
+      "lpk": 0.33,
+      "maint": 8,
+      "sal": 52000,
+      "emp": 0.18,
+      "days": 22,
+      "ot": "add",
+      "bus": 3200
+    },
+    "fuel_week": "2026/10/11 ~ 2026/10/17",
+    "delay": {
+      "min": 30,
+      "win": [
+        900,
+        1080
+      ]
+    },
+    "timetable_tolerance_minutes": 10
+  },
+  "results": [
+    {
+      "mode": "p85",
+      "base": {
+        "trips": 123,
+        "buses": 41,
+        "drivers": 38,
+        "threshold_exceedances": 13
+      },
+      "replanned": {
+        "trips": 123,
+        "buses": 28,
+        "drivers": 34,
+        "threshold_exceedances": 0
+      }
+    },
+    {
+      "mode": "p50",
+      "base": {
+        "trips": 123,
+        "buses": 41,
+        "drivers": 38,
+        "threshold_exceedances": 13
+      },
+      "replanned": {
+        "trips": 123,
+        "buses": 28,
+        "drivers": 35,
+        "threshold_exceedances": 0
+      }
+    },
+    {
+      "mode": "fixed",
+      "base": {
+        "trips": 123,
+        "buses": 41,
+        "drivers": 38,
+        "threshold_exceedances": 13
+      },
+      "replanned": {
+        "trips": 123,
+        "buses": 27,
+        "drivers": 35,
+        "threshold_exceedances": 0
+      }
+    }
+  ],
+  "source_sha256": {
+    "src/a_geo.js": "9a4e9d844e93e55631dfba79af8261ef0d28d1828688f54ad988ab14efab9096",
+    "parts/utils.js": "6777c2083e60467a736db7c3783a8fbd0619da0fb55ba1d93fcb1ab698c4dab1",
+    "src/d_sim.js": "a653d41e0f01075a417d877478fd78cf8ca9add9a566f6773f65139562fa5a85",
+    "src/d_replay.js": "e5e810108cdc84eca53f4aa02f77a8c196985790d6b6c424dae36cb243e6605c",
+    "src/e_forecast.js": "8061103ec41b2432a60df318e4e9732335c8203ba66315e4f529e37b31bc8b23",
+    "src/f_opt.js": "003e356555e5d7bf50c145b0ec60ce76c59fabb174194ff92c1e7e5665683b15",
+    "data/ops-aggregates.json": "7b9e55da26081602da2bb7585828cefc8382541904586c2c9cd9bc746bcd57af",
+    "data/route-6670.json": "b2f13a00c8467660227f09a5449e50854ec02f9fdf7c7b4721b30243ea0a7ce3",
+    "data/timetable-6670.json": "b10fc923178d890e2bf2245db2d4658c14341a6be4ebaaadfcd6719aa4db7c24",
+    "data/replay-all.json": "7305665115f25dd052ecdeefbf7cae93751e25cc6e20ef993daffd2ae233478b",
+    "data/driver-headway-compact.json": "f17b022a472f90f1f7a76ffd3adb305cba40f00ffa5bdc456bbdcf310735eb34",
+    "data/fuel-price.json": "42ace647b106a11c2a36fe80fd6369081c92e338e2f5d7edb75cf97661a761b5"
+  },
+  "limits": [
+    "超出設定門檻是模型檢核，不是法律認定；0也不代表正式合規。",
+    "基準與重排的值勤門檻皆不含整備；前15分、後10分只用於薪資試算，並非完整工時紀錄。",
+    "空駛時間以票證區間時刻差作代理；缺樣本時回退固定45km/h加5分估計。",
+    "不將不同日期、空駛模式或允許換車情境的結果互相代用；CP-SAT離線研究數字不是本網站預設結果。"
+  ]
+}

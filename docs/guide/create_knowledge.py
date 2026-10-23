@@ -76,7 +76,7 @@ add('assistant','智慧小幫手：導覽、指標解釋與營運問答','智慧
 '小幫手現在也能當操作導覽。問它一個指標，答案應說清楚在哪裡看、資料怎麼來、如何計算和有哪些限制。3D裡的助理還能讀取當次重播快照，但它不會真的執行調度。')
 add('other','其餘頁面：方法、旅遊、旅客行程、低碳、品質','模型方法／旅遊資訊／旅客行程／低碳評估／資料品質','辨識輔助功能的定位，不把示範資料當作即時正式服務。',
 ['模型方法：先閱讀流程、公式與限制，再按功能入口前往操作。','旅遊資訊：查看整理的南投客運及觀光連結、公開班表快照；需要出行仍回原站核實。','旅客行程：調整出發時間、最晚抵達與轉乘條件，觀察合成時刻圖的最低票價路徑。','低碳評估：調整車公里與係數，觀察柴油／電動排放差額。','資料品質：查看來源、更新時間、串接狀態與限制；API設定成功不等於已接入GPS。'],
-['旅客路徑搜尋：有限時刻圖的標籤搜尋；票價優先，抵達時間作平手判定；需滿足出發、轉乘、最晚抵達與轉乘次數限制。搜尋預算用盡不能宣稱最優。','旅客行程目前使用合成fixture，非全臺真實路網或可購買票價。','柴油排放 = 車公里 / km每公升 × 2.65 kgCO2e每公升；也可用每公里排放情境覆寫。','電動排放 = 車公里 / km每kWh × 電力排放係數；減排 = 柴油−電動。係數需標年份與情境，非正式盤查。','預設函式參數：柴油2.26 km/L、電動0.7 km/kWh、電力0.467 kgCO2e/kWh；畫面可調值才是當次計算輸入，不自動代表最新年度官方值。','3D品質檢查示例：2025鄰接推估車次重疊178/25,742，負在車量29段；異常提醒不是實際違規裁定。'],
+['旅客路徑搜尋：有限時刻圖的標籤搜尋；票價優先，抵達時間作平手判定；需滿足出發、轉乘、最晚抵達與轉乘次數限制。搜尋預算用盡不能宣稱最優。','旅客行程目前使用合成fixture，非全臺真實路網或可購買票價。','柴油排放 = 車公里 / km每公升 × 2.65 kgCO2e每公升；也可用每公里排放情境覆寫。','電動排放 = 車公里 / km每kWh × 電力排放係數；減排 = 柴油−電動。係數需標年份與情境，非正式盤查。','預設函式參數：柴油2.26 km/L、電動0.7 km/kWh、電力0.467 kgCO2e/kWh；畫面可調值才是當次計算輸入，不自動代表最新年度官方值。','3D品質檢查示例：2025鄰接推估車次重疊178/25,742，負在車量29段；異常提醒不是法律裁定。'],
 '保留方法與資料透明度；附加功能可展示未來整合方向，同時讓使用者知道可依賴到什麼程度。',
 ['網站導覽可說明所有頁面，並不擴大助理為一般旅遊客服。','碳排情境沒有完整生命週期、發電時段或實測油耗，不能當作碳權或正式減碳成果。'],
 ['src/components/ModelMethodology.tsx','src/components/TourismGuide.tsx','src/domain.ts','scenario-lab/data/check.log'],
@@ -88,5 +88,15 @@ add('recording','拍攝流程與故障排除','使用說明','以約8分鐘示�
 ['舊版影片中的人工旅客生成、固定30分鐘發車與套用3D班表，已不適用目前票證重播版。','目前沒有成片；本包提供手冊、講稿、分鏡與截圖，成片後再上首頁。'],
 ['docs/guide','scenario-lab/SPEC_REPLAY.md'],
 '最後整理重點：先看資料品質，再分析差異；用重播理解現象，用預測和重排產生候選，再交由營運人員核對。潭行 Twin 是決策輔助工具，所有改善都應保留資料來源與假設。')
-out={'version':'2026-10-23-replay-guide','title':'潭行 Twin 使用手冊與數據字典','site_url':'https://nantou-transit-twin.elvischen.chatgpt.site/','scope':'本站所有頁面的操作、來源與方法解釋；內部營運問答，不含對外旅遊客服。','sections':sections}
+reference=json.loads((R/'shared/optimizer-reference.json').read_text())
+optimizer=next(s for s in sections if s['id']=='optimizer')
+rr=reference['results']; base=rr[0]['base']; best=rr[0]['replanned']; mid=rr[1]['replanned']; fixed=rr[2]['replanned']
+optimizer['steps'].insert(0,'重現文件示範：選2025-10-11、全部子線；空車調度P85、司機不換車；每日駕車10時、連續4時、休息30分、值勤12時、折返10分；運量+0%、改搭±0分、容量43人、併班上限90%。')
+optimizer['metrics'] += ['文件版本 '+reference['version']+'；核對日期 '+reference['verified_on']+'；營運日 '+reference['service_date']+'；123個推估車次。', f"預設P85、不換車、固定{base['trips']}班：基準{base['buses']}車／{base['drivers']}位司機 → 重排{best['buses']}車／{best['drivers']}位司機；超出設定門檻{base['threshold_exceedances']} → {best['threshold_exceedances']}。", f"其餘參數相同時，中位數模式為{mid['buses']}車／{mid['drivers']}位司機、超出設定門檻{mid['threshold_exceedances']}段；固定45km/h＋5分為{fixed['buses']}車／{fixed['drivers']}位司機、超出設定門檻{fixed['threshold_exceedances']}段。不可把不同模式拼成同一組結果。", '整備前15／後10分只計入薪資試算，未計入值勤門檻。0段超出設定門檻不代表正式合規。', '延誤測試為15–18時各晚到30分；官網配對容差10分；兩者不改變文件基準的123班重排。']
+c=reference['parameters']['cost'];w=reference['parameters']['fuel_week']
+optimizer['metrics'].append(f"成本預設：柴油{c['dieselP']}元/L（{w}週）、油耗{c['lpk']}L/km、保修{c['maint']}元/km、月薪{c['sal']}元、雇主負擔18%、22天/月、每車固定3200元/日、加班另計1.34／1.67。車輛配置不以總成本最小化求解。")
+optimizer['sources'] += ['shared/optimizer-reference.json','docs/OPTIMIZER_REFERENCE.md']
+optimizer['limits'].append('本頁一律使用「超出設定門檻」，不作法律裁定。參數改變後，引用當次結果與當次參數，不能沿用文件示範數字。')
+optimizer['voice'] += f"示範固定{reference['service_date']}的{base['trips']}個推估車次，使用P85、不換車與預設門檻，只重排得到{best['buses']}台車、{best['drivers']}位司機；超出設定門檻由{base['threshold_exceedances']}降為{best['threshold_exceedances']}，這不代表正式合規。"
+out={'version':'2026-10-24-consistent-optimizer-guide' ,'title':'潭行 Twin 使用手冊與數據字典','site_url':'https://nantou-transit-twin.elvischen.chatgpt.site/','scope':'本站所有頁面的操作、來源與方法解釋；內部營運問答，不含對外旅遊客服。','sections':sections}
 (R/'shared/site-guide.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')

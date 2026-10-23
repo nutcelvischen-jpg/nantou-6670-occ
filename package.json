@@ -8,7 +8,8 @@
     "build": "node scripts/build-hosted.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run && node scripts/test-python.mjs",
-    "build:frontend": "python3 scenario-lab/build.py public/scenario-lab/index.html && tsc -b && vite build"
+    "build:frontend": "python3 scenario-lab/build.py public/scenario-lab/index.html && tsc -b && vite build",
+    "check:optimizer-reference": "TZ=Asia/Taipei node scripts/build_optimizer_reference.mjs --check"
   },
   "dependencies": {
     "echarts": "^6.1.0",

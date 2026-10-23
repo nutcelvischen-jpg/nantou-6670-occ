@@ -379,6 +379,8 @@ details.more{margin-top:8px;font-size:18.75px}details.more summary{cursor:pointe
       <!-- 05 班次最佳化 -->
       <section class="pane" id="p-opt" hidden>
         <p class="lead" id="optQc"></p>
+        <p class="note" id="optContext"></p>
+        <details><summary>文件示範基準與版本</summary><p class="note" id="optReference"></p></details>
         <p class="replay-note">車輛數只對目前銜接圖求最少，並非總成本最低；司機為啟發式重排。門檻用於情境檢核，未完整計入備勤、空駛、待命及休息認定，不構成法規合規判斷。成本係數與車型容量需業者確認。</p><p class="lead">分三層：<b>基準</b>是選定營運日依切班規則重建的票證資料；<b>可調因素</b>每一項都標出來源；<b>最佳化</b>只對當天的票證推估車次重排車輛與司機，必要時併班或加開。</p>
         <div class="ctl"><span>營運日</span><select id="optDay" style="min-width:0;max-width:100%;font:12px var(--mono)"></select><span></span></div>
         <h2>可調因素</h2>
@@ -386,7 +388,7 @@ details.more{margin-top:8px;font-size:18.75px}details.more summary{cursor:pointe
           <span>每日駕車上限<em class="tagL">設定門檻</em></span><input type="range" id="rDrive" min="6" max="10" step="0.5" value="10"><output id="rDriveOut">10 時</output>
           <span>連續駕車上限<em class="tagL">設定門檻</em></span><input type="range" id="rCont" min="2" max="4" step="0.5" value="4"><output id="rContOut">4 時</output>
           <span>中間休息至少<em class="tagL">設定門檻</em></span><input type="range" id="rRest" min="30" max="60" step="5" value="30"><output id="rRestOut">30 分</output>
-          <span>一日工時上限<em class="tagL">設定門檻</em></span><input type="range" id="rSpan" min="8" max="12" step="0.5" value="12"><output id="rSpanOut">12 時</output>
+          <span>值勤跨度上限<em class="tagL">設定門檻</em></span><input type="range" id="rSpan" min="8" max="12" step="0.5" value="12"><output id="rSpanOut">12 時</output>
           <span class="note">預設為情境門檻：每日駕車 10 小時、連續 4 小時後休息 30 分、值勤跨度 12 小時。完整工時、休息及適用規範需業者另行核對，不能以此認定違法或合規。</span>
           <span>司機月薪<em class="tagE">外部</em></span><input type="range" id="cSal" min="40000" max="65000" step="1000" value="52000"><output id="cSalOut">$52,000</output>
           <span>柴油價<em class="tagE">外部</em></span><input type="range" id="cDiesel" min="24" max="36" step="0.01" value="29.83"><output id="cDieselOut">$29.83/L</output>
@@ -413,7 +415,7 @@ details.more{margin-top:8px;font-size:18.75px}details.more summary{cursor:pointe
         <div class="callout" id="optCall"></div>
         <h2>司機值勤時間分布（人）</h2>
         <svg class="chart" id="optSpan" viewBox="0 0 400 150"></svg>
-        <div class="legend"><span><i class="sw" style="background:var(--muted);border-radius:2px"></i>票證基準（當日匿名序號）</span><span><i class="sw" style="background:var(--accent);border-radius:2px"></i>最佳化</span><span><i class="sl" style="background:var(--lit)"></i>工時上限</span></div>
+        <div class="legend"><span><i class="sw" style="background:var(--muted);border-radius:2px"></i>票證基準（當日匿名序號）</span><span><i class="sw" style="background:var(--accent);border-radius:2px"></i>最佳化</span><span><i class="sl" style="background:var(--lit)"></i>設定跨度上限</span></div>
         <h2>官網主表 vs 當日刷卡車次</h2>
         <div id="ttMatch"></div>
         <h2>使用的演算法</h2>
@@ -442,7 +444,7 @@ details.more{margin-top:8px;font-size:18.75px}details.more summary{cursor:pointe
         <div id="ovDuty"></div>
         <h2>選定營運日票收最低的 8 班</h2>
         <div style="overflow-x:auto"><table class="tbl" id="ovTrips"></table></div>
-        <p class="foot">來源標籤：<em class="tagD">資料</em>兩個刷卡 Excel；<em class="tagL">設定門檻</em>本沙盤設定值，非合規認證；<em class="tagE">外部</em>經濟部能源署柴油週均價、南投客運徵才月薪；<em class="tagA">假設</em>需業者提供。車公里＝每班首末站的 TDX 線形距離；空車調度時間＝沿線距離 ÷ 45 km/h ＋ 5 分（推估，資料沒有空車紀錄）。</p>
+        <p class="foot">來源標籤：<em class="tagD">資料</em>兩個刷卡 Excel；<em class="tagL">設定門檻</em>本沙盤設定值，非合規認證；<em class="tagE">外部</em>經濟部能源署柴油週均價、南投客運徵才月薪；<em class="tagA">假設</em>需業者提供。車公里＝每班首末站的 TDX 線形距離；空車調度時間依所選 P85／中位數票證區間時間代理；固定模式或樣本不足時，回退沿線距離 ÷ 45 km/h ＋ 5 分（推估，資料沒有空車紀錄）。</p>
       </section>
       <!-- 06 小幫手 -->
       <section class="pane" id="p-bot" hidden>

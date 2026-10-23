@@ -321,7 +321,7 @@ def answer_with_openrouter(message: str, mode: str, aggregates: dict[str, Any], 
         "只用核准工具資料回答可查詢的事實；不得猜即時車況、餘位、票價、GPS或ETA。沒有GPS/ETA時明確說無法確認。"
         "成本最佳化頁的8個候選車輛、容量、班次與成本為合成假設；3D重排依當日票證推估車次與成本假設，兩者不能混用，都不能直接稱真實可執行排班。票證筆數是交易數，不是完整乘客數。"
         "站點、OD、票種與實扣金額使用baseline_evidence，注意全子線範圍及前十大OD限制；實扣不是營收、優惠額度不是已核付補貼、票種不代表身分或政策效果、刷卡時間差不是延誤。年度差異必須呼叫get_annual_comparison，用兩年總量、日均及涵蓋日數回答，說明缺日與基期為零；未提供年度不能用其他年替代，不能捏造原因。"
-        "用繁體中文，標示來源與資料限制。若get_service_status含simulation，可解讀瀏覽器快照；kind=ticket_replay時稱票證重播，車次與在車量為規則推估，位置為內插，容量是假設，負值為資料異常。候車與延誤未知，不以零代替；不得當作GPS真實車況。若快照帶optimization，重排問題先用這些當日全線數值，非另一個合成候選集合；成本邊界不同，不能稱實證節省或合規。span_limit是值勤跨度上限，不是班距；重排司機數是啟發式候選，不能稱下限。"
+        "用繁體中文，標示來源與資料限制。若get_service_status含simulation，可解讀瀏覽器快照；kind=ticket_replay時稱票證重播，車次與在車量為規則推估，位置為內插，容量是假設，負值為資料異常。候車與延誤未知，不以零代替；不得當作GPS真實車況。若快照帶optimization，重排問題先用這些當日全線數值，非另一個合成候選集合；成本邊界不同，不能稱實證節省或合規。span_limit是值勤跨度上限，不是班距；重排司機數是啟發式候選，不能稱下限。排班檢核一律稱「超出設定門檻」，不得稱違規或全部合規；remaining_rule_violations為相容舊欄位，意義也是超出設定門檻。回答重排數字需附營運日、空車調度模式、司機是否換車與門檻；缺參數就說未知，不套用文件預設。文件示範僅限2025-10-11與其列出的參數；不同日期與模式不能代用。"
     )
     messages: list[dict[str, Any]] = [{"role": "system", "content": system}, {"role": "user", "content": message}]
     first = _completion(messages, api_key, model)

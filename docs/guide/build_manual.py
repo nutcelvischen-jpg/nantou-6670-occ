@@ -11,13 +11,13 @@ from reportlab.pdfbase.ttfonts import TTFont
 R=Path(__file__).resolve().parents[2]
 G=json.loads((R/'shared/site-guide.json').read_text())
 P=R/'public/manual'; P.mkdir(exist_ok=True)
-O=R/'output/使用手冊與拍攝包_2026-10-23';O.mkdir(parents=True,exist_ok=True)
+O=R/'output/使用手冊與拍攝包_2026-10-24';O.mkdir(parents=True,exist_ok=True)
 shots={'start':'guide','overview':'overview','baseline':'baseline','replay':'replay','forecast':'forecast','peak':'peak','tickets':'tickets','optimizer':'optimizer','cost':'cost','assistant':'assistant','other':'quality','recording':'guide'}
 for name in set(shots.values()): assert (P/f'assets/{name}.png').exists(),name
 E=html.escape
 css='''*{box-sizing:border-box}body{margin:0;background:#f3f4ee;color:#243b33;font-family:"Noto Sans TC",system-ui,sans-serif;font-size:18px;line-height:1.85}main{max-width:1120px;margin:auto;padding:40px 24px}header{padding:42px;background:#dfe8d9;border-radius:24px}h1{font-size:38px;line-height:1.4}h2{font-size:28px}h3{font-size:21px;margin-top:30px}a{color:#2e6d56}nav{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0}nav a{background:white;padding:7px 13px;border-radius:8px;text-decoration:none}article{background:white;border:1px solid #dce4d8;border-radius:20px;padding:30px;margin:28px 0;scroll-margin-top:20px}img{width:100%;height:auto;border-radius:12px;border:1px solid #ddd}figure{margin:20px 0}figcaption,small{color:#65776b;font-size:16px;overflow-wrap:anywhere}.flow{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}.flow span{background:#e9eee4;padding:12px;border-radius:10px}.note{border-left:4px solid #b98662;background:#faf4ec;padding:16px}li{margin:10px 0}.voice{background:#eff3ed;padding:22px;border-radius:12px}.tag{font-size:16px;letter-spacing:2px;color:#526953}table{border-collapse:collapse;width:100%}td,th{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid #ddd}@media print{body{background:white;font-size:12pt}nav{display:none}article{break-before:page;border:0;padding:0}header{background:white}img{max-height:13cm;object-fit:contain}a{color:inherit}main{padding:0}}'''
 flow=['來源與品質','年度／子線差異','票證規則重播','需求預測回測','限制下重排','人工核對']
-parts=['<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>潭行 Twin｜圖文使用手冊與拍攝分鏡</title><style>'+css+'</style><main>', '<header><div class="tag">TANXING TWIN · USER MANUAL · 2026-10-23</div><h1>把資料看懂，<br>再做營運決策。</h1><p>票證重播新版｜12 章操作說明、數據字典、公式與錄影講稿</p><p><a href="'+G['site_url']+'">開啟網站 ↗</a>　<a href="潭行Twin_使用手冊.pdf">下載 PDF</a></p><p>此版取代舊版人工旅客生成與固定班表情境的錄影說明。截圖為本次更新的實際介面；日期與數值以你操作時的畫面為準。</p></header>', '<div class="flow">'+' → '.join('<span>'+x+'</span>' for x in flow)+'</div>', '<div class="note">觀測 ≠ 推估 ≠ 預測 ≠ 情境。所有車輛位置均非即時 GPS；沒有候車或延誤實測；排班結果只供候選比較。</div>', '<nav>'+''.join('<a href="#'+s['id']+'">'+str(i+1).zfill(2)+' '+E(s['title'].split('：')[0])+'</a>' for i,s in enumerate(G['sections']))+'<a href="#film">拍攝時間軸</a></nav>']
+parts=['<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>潭行 Twin｜圖文使用手冊與拍攝分鏡</title><style>'+css+'</style><main>', '<header><div class="tag">TANXING TWIN · USER MANUAL · 2026-10-24</div><h1>把資料看懂，<br>再做營運決策。</h1><p>票證重播新版｜12 章操作說明、數據字典、公式與錄影講稿</p><p><a href="'+G['site_url']+'">開啟網站 ↗</a>　<a href="潭行Twin_使用手冊.pdf">下載 PDF</a>　<a href="6670_電子票證數據分析報告_2024-2025.docx">下載 Word 分析報告</a></p><p>此版取代舊版人工旅客生成與固定班表情境的錄影說明。班次最佳化截圖更新於2026-10-24；其他章節沿用前版實際畫面。數值以當次日期與參數為準。</p></header>', '<div class="flow">'+' → '.join('<span>'+x+'</span>' for x in flow)+'</div>', '<div class="note">觀測 ≠ 推估 ≠ 預測 ≠ 情境。所有車輛位置均非即時 GPS；沒有候車或延誤實測；排班結果只供候選比較。</div>', '<nav>'+''.join('<a href="#'+s['id']+'">'+str(i+1).zfill(2)+' '+E(s['title'].split('：')[0])+'</a>' for i,s in enumerate(G['sections']))+'<a href="#film">拍攝時間軸</a></nav>']
 md=['# 潭行 Twin 圖文使用手冊','版本：'+G['version'],'網站：'+G['site_url'],'本版取代舊版人工旅客生成、固定30分鐘發車與套用班表的說明。','流程：'+' → '.join(flow)]
 for i,s in enumerate(G['sections']):
  shot='assets/'+shots[s['id']]+'.png'
@@ -69,12 +69,12 @@ def para(s,k='body'):return Paragraph(escape(clean(s)).replace('\n','<br/>'),sty
 def img(name,maxh=305):
  path=P/f'assets/{name}.png';w,h=PILImage.open(path).size;scale=min(507/w,maxh/h)
  return Image(str(path),width=w*scale,height=h*scale)
-story=[para('潭行 Twin','h1'),para('圖文使用手冊\n與軟體操作影片拍攝指南','h1'),para('2026-10-23｜票證重播新版'),img('overview',330),Spacer(1,16),para('12章：操作、公式、來源、好處、限制與逐字講稿。'),para(G['site_url'],'small'),para('本版取代舊版人工需求模擬手冊。車況是票證推估，非即時 GPS。原始「潭行3D」專案未改動。'),PageBreak(),para('使用順序與目錄','h1')]
+story=[para('潭行 Twin','h1'),para('圖文使用手冊\n與軟體操作影片拍攝指南','h1'),para('2026-10-24｜票證重播新版'),img('overview',330),Spacer(1,16),para('12章：操作、公式、來源、好處、限制與逐字講稿。'),para(G['site_url'],'small'),para('本版取代舊版人工需求模擬手冊。車況是票證推估，非即時 GPS。班次最佳化口徑已同步至網站與原始「潭行3D」文件。'),PageBreak(),para('使用順序與目錄','h1')]
 for i,x in enumerate(flow):story.append(para(f'{i+1:02d}  {x}','h2'))
 story.append(para('先確認資料，再看差異；從觀察產生候選，最後由業者核對。'))
 for i,s in enumerate(G['sections']):story.append(para(f'{i+1:02d}  {s["title"]}','small'))
 for i,s in enumerate(G['sections']):
- story += [PageBreak(),para(f'{i+1:02d}  {s["title"]}','h1'),para('入口：'+s['page'],'small'),para(s['purpose']),img(shots[s['id']]),para('圖：本次更新的實際介面；畫面數值依日期與參數而變。','small'),para('操作步驟','h2')]
+ story += [PageBreak(),para(f'{i+1:02d}  {s["title"]}','h1'),para('入口：'+s['page'],'small'),para(s['purpose']),img(shots[s['id']]),para('圖：班次最佳化畫面更新於2026-10-24，其餘沿用前版；數值依當次日期與參數而變。','small'),para('操作步驟','h2')]
  for j,x in enumerate(s['steps']):story.append(para(f'{j+1}. {x}'))
  story.append(para('數據、公式與單位','h2'))
  for x in s['metrics']:story.append(para('• '+x))
@@ -85,13 +85,13 @@ story += [PageBreak(),para('8分鐘影片分鏡','h1'),para('每段約40秒；�
 for i,s in enumerate(G['sections']):
  story += [para(f'{i*40//60:02d}:{i*40%60:02d} - {(i+1)*40//60:02d}:{(i+1)*40%60:02d}  '+s['title'],'h2'),para('畫面：'+s['page']),para('操作：'+s['steps'][0]),para('旁白：'+s['voice'])]
 def footer(c,d):
- c.setFont('CJK',8);c.setFillColor(HexColor('#65776b'));c.drawString(44,26,'潭行 Twin | 票證重播版 | 2026-10-23');c.drawRightString(551,26,str(d.page))
+ c.setFont('CJK',8);c.setFillColor(HexColor('#65776b'));c.drawString(44,26,'潭行 Twin | 票證重播版 | 2026-10-24');c.drawRightString(551,26,str(d.page))
 PDF=R/'output/pdf/潭行Twin_使用手冊_票證重播版.pdf';PDF.parent.mkdir(parents=True,exist_ok=True)
 SimpleDocTemplate(str(PDF),pagesize=(595.276,841.89),leftMargin=44,rightMargin=44,topMargin=40,bottomMargin=48,title='潭行Twin 使用手冊與拍攝指南',author='潭行Twin').build(story,onFirstPage=footer,onLaterPages=footer)
 shutil.copy2(PDF,P/'潭行Twin_使用手冊.pdf');shutil.copy2(PDF,O/'潭行Twin_使用手冊.pdf')
 shutil.copy2(P/'index.html',O/'圖文操作手冊與分鏡.html');shutil.copytree(P/'assets',O/'assets',dirs_exist_ok=True)
 shutil.copy2(R/'shared/site-guide.json',O/'05_網站數據字典.json')
-Z=R/'output/潭行Twin_操作手冊與影片拍攝包_2026-10-23.zip'
+Z=R/'output/潭行Twin_操作手冊與影片拍攝包_2026-10-24.zip'
 with zipfile.ZipFile(Z,'w',zipfile.ZIP_DEFLATED) as z:
  for f in O.rglob('*'):
   if f.is_file():z.write(f,f.relative_to(O))

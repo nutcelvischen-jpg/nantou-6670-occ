@@ -12,6 +12,8 @@ if os.path.exists(R+'data/'+FILES['route']):
     data={k:json.load(open(R+'data/'+f)) for k,f in FILES.items() if os.path.exists(R+'data/'+f)}
 else:
     data=json.load(open(R+'bundle.json'))
+ref_path = R + 'data/optimizer-reference.json'
+if os.path.exists(ref_path): data['optref'] = json.load(open(ref_path))
 # 重播資料 gzip＋base64 內嵌，開頁時用瀏覽器 DecompressionStream 解壓（7 MB → 1.5 MB）
 if 'rp' in data: data['rpz']=base64.b64encode(gzip.compress(json.dumps(data.pop('rp'),ensure_ascii=False,separators=(',',':')).encode(),9,mtime=0)).decode()
 t=open(R+'template.html').read()

@@ -1,5 +1,5 @@
 /* ============================================================
-   05 班次檢核用的參數（不做模擬比較）
+   05 班次最佳化：全年載客檢核、當日車輛與司機重排參數
    ============================================================ */
 function hourlyDemand(date, dir) { const info = dayInfo(date), hs = hourShare(info, dir), tot = demandOf(date, dir); return hs.map((s) => s * tot); }   // 02 需求預測用
 const DH = DATA.dh;                 // 票證推得的司機值勤與班距（聚合）
@@ -32,7 +32,7 @@ function obsWait(sta, dir, off) { const a = Array(24).fill(null); for (const r o
    班次最佳化：基準＝資料 1:1；情境＝可調因素；最佳化＝演算法
    只動「同一天的實際車次」：重排車輛、重排司機、併班、加班車
    ============================================================ */
-// 法規預設（可調嚴）：汽車運輸業管理規則 §19-2（2026-05-08 施行）、勞基法 §32、§24
+// 可調情境門檻；未涵蓋完整工時與休息認定，不構成法規合規判斷。
 const RULE = { drive: 10, cont: 4, rest: 30, span: 12, turn: 10, signOn: 15, signOff: 10 };
 const SCN = { growth: 0, shift: 0, lf: .9 };   // 運量外推 %、旅客可接受改搭 ± 分、併班後載客上限
 // 空車調度時間：由兩年刷卡實測「A 區第一筆刷卡 → B 區第一筆刷卡」的行車時間，依出發小時取 P85（或中位）；樣本不足退回 45 km/h 推估
@@ -85,7 +85,7 @@ function minFleet(T) {
   let dh = 0; for (const B of blocks) for (let i = 1; i < B.length; i++) dh += dhKmOf(B[i - 1].endZ, B[i].startZ);
   return { blocks, dhKm: dh };
 }
-// 演算法 2：司機排班（啟發式）。先在每台車的串接上，於端點切成符合法規的片段；再把同端點、休息足夠的片段接成一人一天
+// 演算法 2：司機排班（啟發式）。先在每台車的串接上，於端點切成未超出設定門檻的片段；再把同端點、休息足夠的片段接成一人一天
 function crewSchedule(blocks) {
   const pieces = [];
   for (const B of blocks) {
@@ -102,7 +102,7 @@ function crewSchedule(blocks) {
   }
   return duties.map(chainStats);
 }
-// 演算法 2b：司機不綁車（可在端點換車），依發車時間逐班指派給「人在該端點、休息夠、加上這班仍合規」且最晚空出的司機
+// 演算法 2b：司機不綁車（可在端點換車），依發車時間逐班指派給「人在該端點、休息夠、加上這班仍未超出設定門檻」且最晚空出的司機
 function crewFree(T) {
   const L = T.slice().sort((a, b) => a.dep - b.dep), D = [];
   for (const t of L) {

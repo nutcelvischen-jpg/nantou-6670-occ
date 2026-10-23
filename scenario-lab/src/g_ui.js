@@ -727,10 +727,20 @@ function renderDayCost() {
   $('#ovTrips').innerHTML = `<tr><th>發車</th><th>車</th><th>子線</th><th>方向</th><th>上車</th><th>最大在車</th><th>票收</th><th>車公里</th></tr>` + L.map((t) => `<tr><td>${fmt(t.dep)}</td><td>${t.bus}</td><td>${t.code}</td><td style="font-family:inherit">${dirTxt(t)}</td><td>${t.board}</td><td>${t.peak}</td><td>${money(t.rev)}</td><td>${DUR_KM(t).toFixed(0)}</td></tr>`).join('');
   renderOptDay();
 }
+function renderOptContext() {
+  const e = DATA.optref;
+  const mode = DHM.mode === 'p85' ? '票證區間時間代理 P85' : DHM.mode === 'p50' ? '票證區間時間代理中位數' : '固定 45 km/h＋5 分';
+  const text = `本次計算：${LIVE.date}，6670 全部子線；空車調度＝${mode}；司機${CREW.sw ? '允許端點換車' : '不換車（同車片段優先）'}；每日駕車 ${RULE.drive} 時、連續 ${RULE.cont} 時、休息 ${RULE.rest} 分、值勤跨度 ${RULE.span} 時、折返 ${RULE.turn} 分；需求 +${SCN.growth}%、改搭 ±${SCN.shift} 分、併班容量上限 ${Math.round(SCN.lf*100)}%、假設容量 ${CAP} 人；15–18 時延誤測試 ${DELAY.min} 分。`;
+  $('#optContext').textContent = text + ` 成本參數：柴油 ${COST.dieselP} 元/L（來源週 ${FUEL.week}）、油耗 ${COST.lpk} L/km、保修 ${COST.maint} 元/km、月薪 ${COST.sal} 元、雇主負擔 ${Math.round(COST.emp*100)}%、每月出勤 ${COST.days} 天、每車固定 ${COST.bus} 元/日、加班費${COST.ot === 'add' ? '另計 1.34／1.67' : '含於月薪'}。整備前 ${RULE.signOn}／後 ${RULE.signOff} 分只納入薪資試算，不納入值勤門檻。`;
+  if (!e) return;
+  const d=e.results.find(r=>r.mode==='p85');
+  $('#optReference').textContent = `文件基準 ${e.version}，核對日 ${e.verified_on}；營運日 ${e.service_date}、全部子線、P85、不換車、需求 +0%、改搭 ±0 分、每日駕車10／連續4／值勤12時、休息30／折返10分。固定 ${d.base.trips} 個推估車次：${d.base.buses} 車／${d.base.drivers} 位司機 → ${d.replanned.buses} 車／${d.replanned.drivers} 位司機；超出設定門檻 ${d.base.threshold_exceedances} → ${d.replanned.threshold_exceedances}。結果僅適用上述參數；0不代表法律合規。`;
+}
 let OPTR = null;
 function renderOptDay() {
   const R = OPTR = optimizeDay(LIVE.date), { base: A, re: M, opt: B } = R, scn = SCN.growth > 0 || SCN.shift > 0;
   $('#optSrc').textContent = rpLabel(LIVE.date);
+  renderOptContext();
   { const q = RP.days[LIVE.date].qc || [0, 0, 0, 0]; $('#optQc').innerHTML = `<small>資料檢查（${LIVE.date}）：旅次時間 ≤0 或 >4 小時 <b>${q[0]}</b> 筆未計入在車量；同站上下車 <b>${q[1]}</b> 筆（上下相抵）；缺車號 <b>${q[2]}</b> 筆；與同車大車次時間重疊的小片段 <b>${q[3] || 0}</b> 段已併入。車次切分＝同車同方向，車上票證乘客全部下車 30 分鐘後才算下一班。</small>`; }
   const nBad = (x) => x.duties.filter((d) => d.bad).length, gt10 = (x) => x.duties.filter((d) => d.span > 10).length, mx = (x) => Math.max(...x.duties.map((d) => d.span));
   const i0 = (v) => Math.round(v).toLocaleString(), f1 = (v) => v.toFixed(1);
@@ -749,7 +759,7 @@ function renderOptDay() {
   const bad = A.duties.filter((d) => d.bad), why = (d) => [d.span > RULE.span && '工時', d.drive > RULE.drive && '駕車', d.maxCont > RULE.cont && '連續駕車'].filter(Boolean);
   const cnt = (k) => bad.filter((d) => why(d).includes(k)).length;
   const LB = driverLB(scn ? B.T : M.T), got = (scn ? B : M).duties.length;
-  $('#optCall').innerHTML = `票證基準：${A.buses} 台車、${A.duties.length} 位司機，其中 <b>${bad.length}</b> 位的值勤超出目前規則（工時 ${cnt('工時')}、每日駕車 ${cnt('駕車')}、連續駕車 ${cnt('連續駕車')}；值勤時間由切班規則推估，需業者核對）。` +
+  $('#optCall').innerHTML = `票證基準：${A.buses} 台車、${A.duties.length} 位司機，其中 <b>${bad.length}</b> 位的值勤超出設定門檻（工時 ${cnt('工時')}、每日駕車 ${cnt('駕車')}、連續駕車 ${cnt('連續駕車')}；值勤時間由切班規則推估，需業者核對）。` +
     `<br>不改任何車次、只重排：需要 <b>${M.buses}</b> 台車、<b>${M.duties.length}</b> 位司機，尚有 ${nBad(M)} 段值勤超出設定門檻；試算成本 ${money(M.cost.total)}（${M.cost.total <= A.cost.total ? '少' : '多'} ${money(Math.abs(M.cost.total - A.cost.total))}）。` +
     `<br>司機人數理論下限 <b>${LB.lb}</b> 位（取大者：同一時刻最多 ${LB.conc} 班在路上；總駕駛時數 ÷ 每日駕車上限 ${RULE.drive} 小時＝${LB.byDrive} 位），演算法排出 ${got} 位（${(scn ? B : M).duties.method}）。${CREWOPT[LIVE.date] && CREW.sw && !scn && RULE.span === 12 && RULE.drive === 10 && RULE.cont === 4 && RULE.rest === 30 && RULE.turn === 10 ? ` 以 CP-SAT 整數規劃離線求得的精確最佳（可換車、預設設定門檻）為 <b>${CREWOPT[LIVE.date][0]}</b> 位。` : ''}` + `<br>延誤 ${DELAY.min} 分測試：票證基準串接連鎖晚發 ${A.cas.affected} 班、重排後 ${M.cas.affected} 班${M.cas.affected > A.cas.affected ? '——省下的車輛是用緩衝換來的，可調高「端點最短折返」找平衡點' : ''}。` + (scn ? `<br>情境（${SCN.growth ? '運量 +' + SCN.growth + '%' : ''}${SCN.growth && SCN.shift ? '、' : ''}${SCN.shift ? '改搭 ±' + SCN.shift + ' 分' : ''}）：加開 ${B.added.length} 班、併掉 ${B.merged.length} 班，需要 ${B.buses} 台車、${B.duties.length} 位司機。` : '');
   // 值勤分布
@@ -761,10 +771,10 @@ function renderOptDay() {
       `<div class="callout">官網快照參考 <b>${m.sched}</b> 班，在容差規則下匹配到 <b>${m.matched}</b> 班；<b>${m.miss.length}</b> 班未匹配到票證推估車次（原因未確認）；另有 <b>${m.extra.length}</b> 個推估車次未匹配（原因未確認）。比對規則：同方向、任一共同停靠區的時刻相差 ≤ ${MATCH_TOL} 分。</div>` +
       (m.miss.length ? `<div style="overflow-x:auto"><table class="tbl"><tr><th>表定發車</th><th>子線</th><th>方向</th><th>起訖</th></tr>${m.miss.slice(0, 12).map((t) => `<tr><td>${fmt(t.dep)}</td><td>${t.code}</td><td style="font-family:inherit">${t.dir ? '往台中' : '往潭／埔里'}</td><td style="font-family:inherit">${ZNAME[t.startZ]}→${ZNAME[t.endZ]}</td></tr>`).join('')}</table></div>` : ''); }
   $('#optAlgo').innerHTML = `<div><b>1. 最少車輛：最小路徑覆蓋（二分圖最大匹配）</b><br>把當天每一班當成一個點；若 A 班到站後，加上折返 ${RULE.turn} 分與空車調度時間（${DHM.mode === 'fixed' ? '固定 45 km/h 推估' : '兩年刷卡實測行車時間，依出發小時取 ' + (DHM.mode === 'p85' ? 'P85' : '中位數')}）仍趕得上 B 班，就連一條邊。最大匹配數 M 對應最少車輛＝車次數 − M，僅對給定銜接圖成立。先只用不需空車調度的銜接求匹配，再放寬，讓空車公里盡量少（空車公里不保證最少）。</div>
-    <div><b>2. 司機排班：先切再接（啟發式）</b><br>司機跟車，在端點把車輛串接切成不違反「工時 ${RULE.span}、駕車 ${RULE.drive}、連續 ${RULE.cont} 小時須休 ${RULE.rest} 分」的片段；再把同端點、休息夠長的片段接給同一人。不保證最少人數；正式排班可改用集合覆蓋整數規劃（set covering）。</div>
+    <div><b>2. 司機排班：先切再接（啟發式）</b><br>司機跟車，在端點把車輛串接切成未超出設定門檻「工時 ${RULE.span}、駕車 ${RULE.drive}、連續 ${RULE.cont} 小時須休 ${RULE.rest} 分」的片段；再把同端點、休息夠長的片段接給同一人。不保證最少人數；正式排班可改用集合覆蓋整數規劃（set covering）。</div>
     <div><b>3. 併班（貪婪）</b><br>從載客最少的班開始，找 ±${SCN.shift || 'N'} 分鐘內、同方向、涵蓋其起訖、合併後不超過 ${Math.round(SCN.lf * 100)}% 座位的班次併入。旅客改搭是假設，資料只告訴我們他們實際搭了哪一班。</div>
     <div><b>4. 運量外推與加班車</b><br>每班載客 ×(1＋外推%)，超過 43 人就在同一時刻加開一班，再交給 1、2 重排。</div>`;
-  const mg = B.merged.slice(0, 10), ad = B.added.slice(0, 10);
+  const mg = scn ? B.merged.slice(0, 10) : [], ad = scn ? B.added.slice(0, 10) : [];
   $('#optChanges').innerHTML = (mg.length ? `<h2>併班清單（前 10）</h2><div style="overflow-x:auto"><table class="tbl"><tr><th>被併班次</th><th>併入</th><th>方向</th><th>受影響人數</th><th>時間差</th></tr>${mg.map((m) => `<tr><td>${fmt(m.a.dep)} ${m.a.code}</td><td>${fmt(m.b.dep)} ${m.b.code}</td><td style="font-family:inherit">${dirTxt(m.a)}</td><td>${Math.round(m.a.board)}</td><td>${m.dt >= 0 ? '+' : ''}${Math.round(m.dt)} 分</td></tr>`).join('')}</table></div>` : '') +
     (ad.length ? `<h2>加班車（前 10）</h2><div style="overflow-x:auto"><table class="tbl"><tr><th>時刻</th><th>子線</th><th>方向</th><th>外推後每班人數</th></tr>${ad.map((t) => `<tr><td>${fmt(t.dep)}</td><td>${t.code}</td><td style="font-family:inherit">${dirTxt(t)}</td><td>${Math.round(t.peak)}</td></tr>`).join('')}</table></div>` : '');
 }
@@ -820,7 +830,7 @@ function answer(q) {
   }
   if (/加開|加班|減班|併班|調度|建議|怎麼辦|處理|調整/.test(q)) {
     const R = tripCells('2025', s.info.off ? 1 : 0), hi = R.cells.filter((c) => c.perDay >= .3 && c.over > 0).sort((a, b) => b.over / b.n - a.over / a.n).slice(0, 3), lo = R.cells.filter((c) => c.perDay >= .5 && c.low / c.n >= .6).sort((a, b) => b.low / b.n - a.low / a.n).slice(0, 3);
-    return `2025 年${s.info.off ? '假日' : '平日'}的票證推估車次：\n高載（超過 43 人的比例高）：\n` + (hi.map((c) => `· ${c.dir ? '往台中' : '往潭'} ${c.h} 時 ${c.code}：${(c.over / c.n * 100).toFixed(1)}% 的班次超過 43 人`).join('\n') || '· 無') + `\n低載（全程不到 10 人的比例高）：\n` + (lo.map((c) => `· ${c.dir ? '往台中' : '往潭'} ${c.h} 時 ${c.code}：${Math.round(c.low / c.n * 100)}% 的班次不到 10 人，每日 ${c.perDay.toFixed(1)} 班`).join('\n') || '· 無') + '\n詳見「05 班次檢核」。' + src('刷卡還原車次的最大票證在車量');
+    return `2025 年${s.info.off ? '假日' : '平日'}的票證推估車次：\n高載（超過 43 人的比例高）：\n` + (hi.map((c) => `· ${c.dir ? '往台中' : '往潭'} ${c.h} 時 ${c.code}：${(c.over / c.n * 100).toFixed(1)}% 的班次超過 43 人`).join('\n') || '· 無') + `\n低載（全程不到 10 人的比例高）：\n` + (lo.map((c) => `· ${c.dir ? '往台中' : '往潭'} ${c.h} 時 ${c.code}：${Math.round(c.low / c.n * 100)}% 的班次不到 10 人，每日 ${c.perDay.toFixed(1)} 班`).join('\n') || '· 無') + '\n詳見「05 班次最佳化」。' + src('刷卡還原車次的最大票證在車量');
   }
   if (/異常|告警|狀況|現況/.test(q)) { const al = liveAlerts(); return (al.length ? al.map((x) => `· ${x.txt}`).join('\n') : '目前沒有超載、大量上車或低載事件。') + src(day); }
   if (/下一班|幾點|班次|末班|最後一班|首班|第一班|什麼時候有車|發車/.test(q) || zs.length) {

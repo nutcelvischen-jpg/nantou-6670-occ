@@ -61,6 +61,12 @@ class SimulationQueue(BaseModel):
     oldest_wait_minutes: float = Field(ge=0, le=1500)
 
 class ReplayOptimization(BaseModel):
+    deadhead_mode: str | None = Field(default=None, pattern=r"^(p85|p50|fixed)$")
+    crew_swap: bool | None = None
+    model_version: str | None = Field(default=None, pattern=r"^crew-reference-2026-10-24$")
+    capacity: float | None = Field(default=None, ge=0, le=100)
+    scenario_load_limit: float | None = Field(default=None, ge=0, le=1)
+    base_threshold_exceedances: float | None = Field(default=None, ge=0, le=1e8)
     trips: float = Field(ge=0, le=1e8)
     base_buses: float = Field(ge=0, le=1e8)
     replanned_buses: float = Field(ge=0, le=1e8)
