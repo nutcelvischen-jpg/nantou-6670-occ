@@ -156,7 +156,7 @@ export function App() {
     });
     return () => { active = false; };
   }, []);
-  const [page, setPage] = useState<Page>("營運總覽");
+  const [page, setPage] = useState<Page>("班表情境");
   const [year, setYear] = useState(2025);
   const [route, setRoute] = useState("全部");
   const [selectedStop, setSelectedStop] = useState("puli");
@@ -1666,6 +1666,11 @@ export function App() {
       </>
     );
   };
+  if (page === "班表情境") return <TimetableScenarioLab
+    onMethod={() => setPage("模型方法")}
+    onOptimize={() => setPage("成本最佳化")}
+    onOverview={() => setPage("營運總覽")}
+  />;
   return (
     <div className="app-shell">
       <aside className="sidebar">

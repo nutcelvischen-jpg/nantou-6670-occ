@@ -294,3 +294,17 @@
 @media(max-width:800px) { .scenario-frame { height:1100px; } .scenario-guide { gap:8px; } }
 
 .scenario-workspace .secondary-button { display:inline-flex; align-items:center; gap:7px; color:#346c5a; background:#fff; border:1px solid #dce4db; border-radius:10px; padding:10px 14px; text-decoration:none; font-size:13px; }
+
+/* Reference-style full-page digital twin: calm terrain, generous readable panel. */
+.twin-fullscreen {height:100dvh;display:flex;flex-direction:column;background:#f2f2ef;color:#57575a;}
+.twin-toolbar {display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 24px 4px;flex:none;}
+.twin-wordmark {font-size:21px;color:#18181a;white-space:nowrap;}
+.twin-wordmark b {font-weight:500;margin-left:6px;}
+.twin-wordmark small {font-size:16px;color:#79797d;margin-left:16px;}
+.twin-toolbar>div {display:flex;gap:8px;flex-wrap:wrap;}
+.twin-toolbar button {display:inline-flex;align-items:center;gap:7px;font-size:18px;min-height:42px;padding:7px 12px;border:1px solid #e6e6e2;background:#fbfbfa;color:#57575a;border-radius:9px;cursor:pointer;}
+.twin-toolbar button:hover {background:#e6e6e2;color:#18181a;}
+.twin-toolbar button:focus-visible {outline:2px solid #3e63dd;outline-offset:2px;}
+.twin-fullscreen-frame {width:100%;flex:1;min-height:0;border:0;display:block;}
+.twin-loading {position:absolute;top:90px;left:28px;font-size:21px;}
+@media(max-width:700px){.twin-toolbar{padding:10px 12px 4px;gap:8px}.twin-wordmark small{display:none}.twin-toolbar button{font-size:16px;padding:6px 8px}.twin-toolbar>div{gap:6px}}

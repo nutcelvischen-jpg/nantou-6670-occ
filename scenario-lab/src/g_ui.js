@@ -190,7 +190,7 @@ function updateMini() {
   const L = busLoc(b); let facts;
   if (tr) {
     const nz = L.next, eta = nz ? etaAt(tr, nz) : null;
-    facts = [['在車人數', `${b.load}<small style="font-size:10px;color:var(--muted)"> / ${CAP}</small>`], ['目前位置', `${ZNAME[L.prev]}→${nz ? ZNAME[nz] : '終點'}`], ['下一站預計', eta ? fmt(eta) : '—'],
+    facts = [['在車人數', `${b.load}<small style="font-size:15px;color:var(--muted)"> / ${CAP}</small>`], ['目前位置', `${ZNAME[L.prev]}→${nz ? ZNAME[nz] : '終點'}`], ['下一站預計', eta ? fmt(eta) : '—'],
       ['表定發車', fmt(tr.dep)], ['本班已上車', tr.st.board + ' 人'], ['終點預計', fmt(tr.arr + late)]];
     $('#miniSeat').style.width = (b.load / CAP * 100) + '%'; $('#miniSeat').style.background = b.load > CAP * .9 ? 'var(--lit)' : 'var(--accent)';
   } else {
@@ -321,7 +321,7 @@ function renderList(force) {
     let d;
     if (tr) { const L = busLoc(b); d = `${tr.code} ${tr.dir ? '往台中' : '往' + ZNAME[tr.zones.at(-1)]} · ${ZNAME[L.prev]}→${L.next ? ZNAME[L.next] : '終點'}`; }
     else { const nx = b.plan[b.k]; d = `${ZNAME[b.state === 'dh' ? b.dh.to : b.term]}${nx ? ' · 下一班 ' + fmt(nx.dep) : ' · 今日收班'}`; }
-    return `<button class="vr" data-id="${b.id}" aria-current="${LIVE.sel === b.id}"><span class="id">${b.id}</span><span><span class="d" style="color:var(--strong);font-size:12.5px">${d}</span>${tr ? `<div class="load"><i class="${b.load > CAP * .9 ? 'hot' : ''}" style="width:${b.load / CAP * 100}%"></i></div>` : ''}</span><span class="r">${tr ? `<span style="font:500 12px var(--mono);color:var(--strong)">${b.load}/${CAP}</span><br>` : ''}<span class="chip ${late >= 5 ? 'late' : cls}">${late >= 5 ? '延 ' + late + ' 分' : stz}</span></span></button>`;
+    return `<button class="vr" data-id="${b.id}" aria-current="${LIVE.sel === b.id}"><span class="id">${b.id}</span><span><span class="d" style="color:var(--strong);font-size:18.75px">${d}</span>${tr ? `<div class="load"><i class="${b.load > CAP * .9 ? 'hot' : ''}" style="width:${b.load / CAP * 100}%"></i></div>` : ''}</span><span class="r">${tr ? `<span style="font:500 18px var(--mono);color:var(--strong)">${b.load}/${CAP}</span><br>` : ''}<span class="chip ${late >= 5 ? 'late' : cls}">${late >= 5 ? '延 ' + late + ' 分' : stz}</span></span></button>`;
   }).join('');
 }
 $('#vlist').addEventListener('click', (e) => { const r = e.target.closest('.vr'); if (!r) return; select(LIVE.sel === r.dataset.id ? null : r.dataset.id); });
@@ -330,7 +330,7 @@ function drawTimeline() {
   const r = tlc.getBoundingClientRect(); if (!r.width) return; const dpr = Math.min(devicePixelRatio, 2);
   if (tlc.width !== Math.round(r.width * dpr)) { tlc.width = Math.round(r.width * dpr); tlc.height = Math.round(r.height * dpr); }
   const w = tlc.width, h = tlc.height, s = SIM(), X = (m) => 10 * dpr + (m - 300) / (1380 - 300) * (w - 20 * dpr);
-  tlx.clearRect(0, 0, w, h); tlx.font = `${9.5 * dpr}px JetBrains Mono, monospace`; tlx.fillStyle = C('--muted'); tlx.strokeStyle = C('--muted');
+  tlx.clearRect(0, 0, w, h); tlx.font = `${14.25 * dpr}px JetBrains Mono, monospace`; tlx.fillStyle = C('--muted'); tlx.strokeStyle = C('--muted');
   for (let hr = 6; hr <= 22; hr += 2) { const x = X(hr * 60); tlx.globalAlpha = .35; tlx.fillRect(x, 4 * dpr, dpr, h - 20 * dpr); tlx.globalAlpha = 1; tlx.fillText(pad2(hr), x - 6 * dpr, h - 4 * dpr); }
   const rows = [16, 34].map((v) => v * dpr);
   for (const tr of s.trips) {
@@ -340,7 +340,7 @@ function drawTimeline() {
     const len = tr.zones.at(-1) === 'PULI' || tr.zones[0] === 'PULI' ? 4 : 7;
     tlx.fillRect(X(tr.dep) - dpr, y - len * dpr / 2 - 2 * dpr, 2 * dpr, (len + 4) * dpr);
   }
-  tlx.fillStyle = C('--muted'); tlx.font = `${9 * dpr}px Noto Sans TC, sans-serif`; tlx.fillText('往潭', w - 30 * dpr, rows[0] + 3 * dpr); tlx.fillText('往中', w - 30 * dpr, rows[1] + 3 * dpr);
+  tlx.fillStyle = C('--muted'); tlx.font = `${13.5 * dpr}px Noto Sans TC, sans-serif`; tlx.fillText('往潭', w - 42 * dpr, rows[0] + 3 * dpr); tlx.fillText('往中', w - 42 * dpr, rows[1] + 3 * dpr);
   const x = X(nowT()); tlx.fillStyle = C('--strong'); tlx.fillRect(x - dpr * .75, 2 * dpr, 1.5 * dpr, h - 17 * dpr);
 }
 tlc.addEventListener('click', (e) => { const r = tlc.getBoundingClientRect(); jumpTo(300 + (e.clientX - r.left - 10) / (r.width - 20) * (1380 - 300)); });
