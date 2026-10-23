@@ -65,7 +65,7 @@ export function ModelMethodology({ onNavigate }: { onNavigate: (page: MethodPage
         <div className="method-subhead">車隊與需求規則</div><Formula>Nrequired = ceil((2L/v × 60) / h)　·　λstop = (q/3600 × m × s(hour)) / Nstop</Formula>
         <p>L 為單程長度、v 為平均速度、h 為班距；q 為基礎需求率、m 為情境倍率、s(hour) 為時段係數。每 0.5 秒固定步進一次，模擬時間倍率為 1×/2×/4×；站點採 FIFO 排隊，載客不超過容量，通過中間站依設定比例下車。</p>
         <div className="method-subhead">狀態與碳排</div><Formula>載客率 = 車上人數 / 車輛容量　·　CO₂ = 柴油 km·EFdiesel + 電動 km·kWh/km·EFgrid</Formula>
-        <p>車輛位置、排隊與載客 KPI 都由相同的模擬狀態推導。柴油與電動排放因子可切換情境；目前輸入是估算假設，非車隊實測能耗。</p>
+        <p>車輛位置、排隊與載客 KPI 都由相同的模擬狀態推導。依目前提供的情境參數，柴油公車約 1.172 kg CO₂e/km（一般估算），SORT 1–3 約 1.585–2.123 kg/km；電動公車以 1.53 kWh/km × 臺灣電力係數 0.474 kg/kWh，估為 0.727 kg/km。以 1.172 kg/km 為柴油基準，每公里減量約 0.445 kg；若採 SORT 範圍，減量約 0.858–1.396 kg/km。請依車型、載客、能耗測試及年度電力係數校正後再作正式 ESG 揭露。</p>
         <div className="method-limits"><CircleHelp size={14}/><span>這是可互動的模擬場景，不是即時監控。未接入 GPS／ETA、實際班次與即時載客資料前，不會顯示成已驗證的現況或預測到站時間。</span></div>
         <button className="method-cta" onClick={() => onNavigate("數位孿生")}>進入 3D 數位孿生 <ArrowRight size={15}/></button>
       </article>
