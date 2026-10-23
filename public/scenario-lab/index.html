@@ -2286,7 +2286,9 @@ setMode('ops');
    分頁與控制
    ============================================================ */
 let TAB = 'ops';
+const PANELS = ['ops', 'fc', 'pk', 'viz', 'opt', 'bot'];
 function setTab(t) {
+  if (!PANELS.includes(t)) return;
   TAB = t; for (const b of $('#tabs').children) b.setAttribute('aria-selected', b.dataset.t === t);
   for (const p of document.querySelectorAll('.pane')) p.hidden = p.id !== 'p-' + t;
   if (t === 'fc') renderFC(); if (t === 'pk') renderPK(); if (t === 'viz') renderVZ(); if (t === 'opt') renderOPT(false); if (t === 'ops') refreshUI(true);
@@ -2338,7 +2340,10 @@ function resize() {
 }
 new ResizeObserver(resize).observe(host); resize();
 buildLive(390);
-try { const t = localStorage.getItem('tx-tab'); if (t && t !== 'ops') setTab(t); } catch (e) {}
+// A method-page link takes priority over the previously viewed panel.
+const linkedPanel = new URLSearchParams(location.search).get('panel');
+if (PANELS.includes(linkedPanel)) setTab(linkedPanel);
+else try { const t = localStorage.getItem('tx-tab'); if (t && t !== 'ops') setTab(t); } catch (e) {}
 applyTheme();
 let lastT = performance.now(), uiT = 0;
 function loop(now) {

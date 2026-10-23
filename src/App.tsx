@@ -36,7 +36,7 @@ import { TransitMap } from "./components/TransitMap";
 import { TourismGuide } from "./components/TourismGuide";
 import { PublishedTimetableSearch } from "./components/PublishedTimetableSearch";
 import { OperationsAssistant } from "./components/OperationsAssistant";
-import { TimetableScenarioLab } from "./components/TimetableScenarioLab";
+import { TimetableScenarioLab, type ScenarioPanel } from "./components/TimetableScenarioLab";
 import { ModelMethodology } from "./components/ModelMethodology";
 const DigitalTwinLab = lazy(() =>
   import("./components/DigitalTwinLab").then((m) => ({
@@ -157,6 +157,7 @@ export function App() {
     return () => { active = false; };
   }, []);
   const [page, setPage] = useState<Page>("班表情境");
+  const [scenarioPanel, setScenarioPanel] = useState<ScenarioPanel>();
   const [year, setYear] = useState(2025);
   const [route, setRoute] = useState("全部");
   const [selectedStop, setSelectedStop] = useState("puli");
@@ -555,7 +556,7 @@ export function App() {
   };
   const content = () => {
     if (page === "班表情境") return <TimetableScenarioLab onMethod={() => setPage("模型方法")} onOptimize={() => setPage("成本最佳化")} />;
-    if (page === "模型方法") return <ModelMethodology onNavigate={setPage} />;
+    if (page === "模型方法") return <ModelMethodology onNavigate={setPage} onOpenScenario={(panel) => { setScenarioPanel(panel); setPage("班表情境"); }} />;
     if (page === "智慧小幫手") return <OperationsAssistant year={year} route={route} onNavigate={setPage} />;
     if (page === "數位孿生")
       return (
@@ -1667,6 +1668,7 @@ export function App() {
     );
   };
   if (page === "班表情境") return <TimetableScenarioLab
+    initialPanel={scenarioPanel}
     onMethod={() => setPage("模型方法")}
     onOptimize={() => setPage("成本最佳化")}
     onOverview={() => setPage("營運總覽")}

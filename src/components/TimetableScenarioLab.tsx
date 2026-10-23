@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { ArrowUpRight, BookOpen, BarChart3 } from "lucide-react";
 
-export function TimetableScenarioLab({ onMethod, onOptimize, onOverview }: {
-  onMethod: () => void; onOptimize: () => void; onOverview?: () => void;
+export type ScenarioPanel = "ops" | "fc" | "pk" | "viz" | "opt" | "bot";
+
+export function TimetableScenarioLab({ onMethod, onOptimize, onOverview, initialPanel }: {
+  onMethod: () => void; onOptimize: () => void; onOverview?: () => void; initialPanel?: ScenarioPanel;
 }) {
   const [loaded, setLoaded] = useState(false);
   return <section className="twin-fullscreen">
@@ -15,6 +17,6 @@ export function TimetableScenarioLab({ onMethod, onOptimize, onOverview }: {
       </div>
     </nav>
     {!loaded && <p className="twin-loading" role="status">正在載入 3D 場景…</p>}
-    <iframe className="twin-fullscreen-frame" title="6670 班表情境與三維模擬工作台" src="/scenario-lab/index.html" onLoad={() => setLoaded(true)} />
+    <iframe className="twin-fullscreen-frame" title="6670 班表情境與三維模擬工作台" src={`/scenario-lab/index.html${initialPanel ? `?panel=${initialPanel}` : ""}`} onLoad={() => setLoaded(true)} />
   </section>;
 }
