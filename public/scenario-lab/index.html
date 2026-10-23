@@ -101,6 +101,7 @@ button,input,select{font:inherit;color:inherit}
 .mini .foot{display:flex;gap:6px;margin-top:8px}
 .mini .foot button{flex:1;border:0;background:var(--chip);border-radius:8px;padding:5px;cursor:pointer;font-size:18px}
 .mini .note{font-size:15.75px;color:var(--muted);margin-top:6px}
+details.scenario-extra{margin-top:12px;padding:10px;border:1px solid var(--rule);border-radius:10px} details.scenario-extra summary{cursor:pointer;font-size:18px} #scenarioLabel{float:right;color:var(--accent);font-size:16px}
 /* 面板 */
 .panel{display:flex;flex-direction:column;min-height:0;overflow:hidden}
 .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:10px 10px 0}
@@ -121,7 +122,7 @@ button,input,select{font:inherit;color:inherit}
 .ctl{display:grid;grid-template-columns:auto 1fr auto;gap:6px 10px;align-items:center;margin-top:10px;font-size:19.5px}
 .ctl output{font:18px var(--mono);color:var(--strong);min-width:40px;text-align:right}
 input[type=range]{width:100%;accent-color:var(--strong)}
-input[type=date],select{background:var(--chip);border:0;border-radius:8px;padding:4px 8px;font:18px var(--mono);color:var(--strong)}
+input[type=date],input[type=time],select{background:var(--chip);border:0;border-radius:8px;padding:4px 8px;font:18px var(--mono);color:var(--strong)}
 .tg{position:relative;width:34px;height:20px;border-radius:10px;background:var(--chip);border:0;cursor:pointer;box-shadow:inset 0 0 0 1px var(--rule);justify-self:end}
 .tg::after{content:"";position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--muted);transition:transform .25s var(--ease),background .25s}
 .tg[aria-checked="true"]{background:var(--strong)}
@@ -185,7 +186,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .tab{min-height:48px;padding:9px 6px}
 .panel h2{margin-top:24px;flex-wrap:wrap;letter-spacing:.06em}
 .ctl{grid-template-columns:auto minmax(0,1fr) auto;gap:12px}
-input[type=date],select{min-width:0;max-width:100%}
+input[type=date],input[type=time],select{min-width:0;max-width:100%}
 .btn,.btn2,.seg button{min-height:40px}
 .kpi{padding:12px}
 .vr{grid-template-columns:44px minmax(0,1fr) 90px;min-height:74px;gap:10px}
@@ -293,12 +294,12 @@ input[type=date],select{min-width:0;max-width:100%}
       <button class="tab" role="tab" data-t="opt"><span class="n">05</span>班次情境建議</button>
       <button class="tab" role="tab" data-t="bot"><span class="n">06</span>小幫手</button>
     </div>
-    <div class="body" id="body"><p class="lead">情境實驗室 · 車輛位置、候車與延誤均為模擬；班表為公開快照，非該歷史日實際排班。以刷卡需求測試供給，不代表完整運量。</p>
+    <div class="body" id="body"><p class="lead">數位孿生 × 班表情境 · 共用日期、需求、車隊與時鐘。車輛位置、候車與延誤均為模擬；班表為公開快照，非該歷史日實際排班。以刷卡需求測試供給，不代表完整運量。</p>
       <!-- 01 模擬營運 -->
       <section class="pane" id="p-ops">
-        <h2>模擬控制</h2>
+        <h2>共用情境 · 3D 與班表同步</h2>
         <div class="row">
-          <button class="btn" id="play">暫停</button>
+          <button class="btn" id="play">暫停</button><button class="btn2" id="reset">重播 06:30</button>
           <div class="seg" id="speed"><button data-s="60">×60</button><button data-s="180">×180</button><button data-s="360" aria-pressed="true">×360</button><button data-s="900">×900</button></div>
         </div>
         <div class="ctl">
@@ -308,6 +309,12 @@ input[type=date],select{min-width:0;max-width:100%}
           <span class="note">開啟時，假日上午往埔里、下午往台中的國道段車速降 40%</span>
           <span>深色主題</span><span></span><button class="tg" id="theme" role="switch" aria-checked="false" aria-label="深色主題"></button>
         </div>
+        <details class="scenario-extra"><summary>需求情境與時間定位 <span id="scenarioLabel">基準 1.00×</span></summary><div class="ctl">
+          <label for="preset">需求情境</label><select id="preset"><option value="" disabled>自訂倍率</option><option value="1">基準需求 1.00×</option><option value="1.5">需求加壓 1.50×</option><option value="0.72">低需求 0.72×</option><option value="1.28">觀光增量 1.28×</option></select><span></span>
+          <label for="demand">需求倍率</label><input type="range" id="demand" min="0.5" max="2" step="0.05" value="1"><output id="demandOut">1.00×</output>
+          <span class="note">倍率同時作用於旅客生成、班次建議與方案比較；歷史統計與回測保持原值。預設情境是壓力測試假設。</span>
+          <label for="seek">跳至時間</label><input type="time" id="seek" value="12:00" min="05:00" max="23:59"><button class="btn2" id="seekGo">定位</button>
+        </div></details>
         <h2>模擬指標<span class="src" id="opsSrc"></span></h2>
         <div class="kpis" id="kpis"></div>
         <h2>告警與建議</h2>
@@ -1656,11 +1663,13 @@ function demandOf(date, dir) {
 /* ============================================================
    班次最佳化：每小時所需班次 → 建議班表 → 車輛串接
    ============================================================ */
+const SCENARIO = { demandMultiplier: 1 };
+function scenarioDemand(date, dir) { return demandOf(date, dir) * SCENARIO.demandMultiplier; }
 const OPT = { lf: .75, floor: 1, buf: .15, fuel: 'd', fleet: 0 };
 const PEAK_RATIO = (() => { // 每班「最大區段在車」/「上車人數」，由推估車次求得
   let a = 0, b = 0; for (const r of Y25.trip_hour) { a += r.peak_mean * r.trips_per_day; b += r.pax_mean * r.trips_per_day; } return a / b;
 })();
-function hourlyDemand(date, dir) { const info = dayInfo(date), hs = hourShare(info, dir), tot = demandOf(date, dir); return hs.map((s) => s * tot); }
+function hourlyDemand(date, dir) { const info = dayInfo(date), hs = hourShare(info, dir), tot = scenarioDemand(date, dir); return hs.map((s) => s * tot); }
 function currentByHour(trips, dir) { const n = Array(24).fill(0); for (const t of trips) if (t.dir === dir) n[Math.floor(t.dep / 60)]++; return n; }
 const TEMPLATES = {};   // `${dir}|${code}` → 範本班次（各站相對時間）
 DATA.tt.trips.forEach(([dir, code, , stops]) => { const k = dir + '|' + code + '|' + TT2Z[stops[0][0]]; if (!TEMPLATES[k]) { const t0 = hm(stops[0][1]); TEMPLATES[k] = stops.map(([n, t]) => [n, hm(t) - t0]); } });
@@ -1701,8 +1710,8 @@ function proposeTrips(date) {
   return { trips, plan, fleet, curFleet, limit, feasible: fleet <= limit };
 }
 const CO2 = (vkm) => OPT.fuel === 'd' ? vkm * 1.585 : vkm * 1.25 * .474;
-function evalPlan(date, trips, cong, seed = 11) {
-  const s = new Sim({ date, trips, demand: demandOf, cong, seed, start: 300 });
+function evalPlan(date, trips, cong, seed = 7) {
+  const s = new Sim({ date, trips, demand: scenarioDemand, cong, seed, start: 300 });
   s.run(24 * 60 + 60);
   const r = s.summary(); r.co2 = CO2(r.vkm); return r;
 }
@@ -1715,7 +1724,7 @@ function tripsFor(plan) { return plan === 'opt' ? (LIVE.opt ||= proposeTrips(LIV
 function buildLive(startMin = 360) {
   if (LIVE.plan === 'opt' && !(LIVE.opt ||= proposeTrips(LIVE.date)).feasible) LIVE.plan = 'cur';
   for (const x of $('#plan').children) x.setAttribute('aria-pressed', x.dataset.p === LIVE.plan);
-  LIVE.sim = new Sim({ date: LIVE.date, trips: tripsFor(LIVE.plan), demand: demandOf, cong: LIVE.cong, seed: 7, start: 300 });
+  LIVE.sim = new Sim({ date: LIVE.date, trips: tripsFor(LIVE.plan), demand: scenarioDemand, cong: LIVE.cong, seed: 7, start: 300 });
   LIVE.sim.run(startMin); LIVE.acc = 0;
   for (const v of Object.values(VIS)) v.root.visible = false;
   if (LIVE.sel && !LIVE.sim.buses.find((b) => b.id === LIVE.sel)) select(null);
@@ -2301,6 +2310,29 @@ segPick($('#plan'), 'p', (v) => { if (v === 'opt' && !(LIVE.opt ||= proposeTrips
 segPick($('#pkYear'), 'y', (v) => { PK.y = +v; renderPK(); }); segPick($('#pkDir'), 'd', (v) => { PK.d = +v; renderPK(); });
 segPick($('#vzYear'), 'y', (v) => { VZ.y = +v; renderVZ(); });
 segPick($('#fuel'), 'f', (v) => { OPT.fuel = v; OPTRES = null; renderOPT(true); });
+let workbenchActive = true;
+window.addEventListener('message', (event) => {
+  if (event.origin !== location.origin || event.source !== window.parent || event.data?.channel !== 'tanxing-workbench') return;
+  if (event.data.type === 'visibility' && typeof event.data.active === 'boolean') {
+    workbenchActive = event.data.active;
+    if (workbenchActive) { resize(); refreshUI(true); }
+  }
+  if (event.data.type === 'panel' && PANELS.includes(event.data.panel)) setTab(event.data.panel);
+});
+function setDemandMultiplier(value) {
+  if (!Number.isFinite(value) || value < .5 || value > 2) return;
+  SCENARIO.demandMultiplier = value;
+  $('#preset').value = [1, 1.5, .72, 1.28].includes(value) ? String(value) : '';
+  $('#scenarioLabel').textContent = '需求 ' + value.toFixed(2) + '×';
+  $('#demand').value = value; $('#demandOut').textContent = value.toFixed(2) + '×';
+  LIVE.opt = null; OPTRES = null;
+  buildLive(SIM().t);
+}
+$('#demand').oninput = (e) => { $('#demandOut').textContent = (+e.target.value).toFixed(2) + '×'; };
+$('#demand').onchange = (e) => setDemandMultiplier(+e.target.value);
+$('#preset').onchange = (e) => setDemandMultiplier(+e.target.value);
+$('#reset').onclick = () => { LIVE.paused = true; $('#play').textContent = '播放'; buildLive(391); refreshUI(true); };
+$('#seekGo').onclick = () => { if (!/^\d{2}:\d{2}$/.test($('#seek').value)) return; LIVE.paused = true; $('#play').textContent = '播放'; jumpTo(hm($('#seek').value) + 1); };
 $('#play').onclick = () => { LIVE.paused = !LIVE.paused; $('#play').textContent = LIVE.paused ? '播放' : '暫停'; };
 $('#day').onchange = () => { LIVE.plan = 'cur'; for (const x of $('#plan').children) x.setAttribute('aria-pressed', x.dataset.p === 'cur'); OPT.fleet = 0; LIVE.date = $('#day').value || '2025-11-01'; LIVE.opt = null; OPTRES = null; buildLive(SIM().t); if (TAB !== 'ops') setTab(TAB); };
 const tgl = (el, fn) => el.onclick = () => { const on = el.getAttribute('aria-checked') !== 'true'; el.setAttribute('aria-checked', on); fn(on); };
@@ -2324,7 +2356,7 @@ function applyTheme() {
 function refreshUI(force) {
   const s = SIM(); if (!s) return; const i = s.info;
   $('#clock').textContent = fmt(nowT());
-  $('#meta').textContent = `${i.date} 週${DOW_ZH[i.dow]} · ${i.label} · ×${LIVE.speed}${LIVE.paused ? ' · 暫停' : ''}`;
+  $('#meta').textContent = `${i.date} 週${DOW_ZH[i.dow]} · ${i.label} · 需求 ${SCENARIO.demandMultiplier.toFixed(2)}× · ×${LIVE.speed}${LIVE.paused ? ' · 暫停' : ''}`;
   $('#dayType').textContent = `週${DOW_ZH[i.dow]}`;
   if (TAB === 'ops') { renderOps(); renderList(force); }
   updateMini();
@@ -2335,11 +2367,11 @@ function refreshUI(force) {
    ============================================================ */
 let homeFit = false;
 function resize() {
-  const r = host.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix();
+  const r = host.getBoundingClientRect(); if (!r.width || !r.height) return; renderer.setSize(r.width, r.height, false); camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix();
   if (!homeFit && r.width) { homeFit = true; const k = camera.aspect < 1.25 ? 1.25 / camera.aspect : 1; HOME.p.sub(HOME.t).multiplyScalar(k).add(HOME.t); camera.position.copy(HOME.p); }
 }
 new ResizeObserver(resize).observe(host); resize();
-buildLive(390);
+buildLive(391);
 // A method-page link takes priority over the previously viewed panel.
 const linkedPanel = new URLSearchParams(location.search).get('panel');
 if (PANELS.includes(linkedPanel)) setTab(linkedPanel);
@@ -2347,7 +2379,9 @@ else try { const t = localStorage.getItem('tx-tab'); if (t && t !== 'ops') setTa
 applyTheme();
 let lastT = performance.now(), uiT = 0;
 function loop(now) {
-  const dt = Math.min(.1, (now - lastT) / 1000); lastT = now; const s = SIM();
+  const dt = Math.min(.1, (now - lastT) / 1000); lastT = now;
+  if (!workbenchActive || document.hidden) { requestAnimationFrame(loop); return; }
+  const s = SIM();
   if (!LIVE.paused && s.t < 24 * 60 + 30) { LIVE.acc += dt * LIVE.speed / 60; let n = 0; while (LIVE.acc >= 1 && n < 30) { s.step(); LIVE.acc -= 1; n++; } if (LIVE.acc > 1) LIVE.acc = 0; }
   updateVehicles(LIVE.acc);
   const bt = now / 1000;
@@ -2371,6 +2405,7 @@ function loop(now) {
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
+if (window.parent !== window) window.parent.postMessage({ channel: 'tanxing-workbench', type: 'ready' }, location.origin);
 window.__tx = { LIVE, SIM, jumpTo, select, flyTo, viewOf, setTab, ask, FC, evalPlan, proposeTrips, camera, controls, FACS, OPT };
 
 </script>

@@ -2,11 +2,13 @@
 /* ============================================================
    班次最佳化：每小時所需班次 → 建議班表 → 車輛串接
    ============================================================ */
+const SCENARIO = { demandMultiplier: 1 };
+function scenarioDemand(date, dir) { return demandOf(date, dir) * SCENARIO.demandMultiplier; }
 const OPT = { lf: .75, floor: 1, buf: .15, fuel: 'd', fleet: 0 };
 const PEAK_RATIO = (() => { // 每班「最大區段在車」/「上車人數」，由推估車次求得
   let a = 0, b = 0; for (const r of Y25.trip_hour) { a += r.peak_mean * r.trips_per_day; b += r.pax_mean * r.trips_per_day; } return a / b;
 })();
-function hourlyDemand(date, dir) { const info = dayInfo(date), hs = hourShare(info, dir), tot = demandOf(date, dir); return hs.map((s) => s * tot); }
+function hourlyDemand(date, dir) { const info = dayInfo(date), hs = hourShare(info, dir), tot = scenarioDemand(date, dir); return hs.map((s) => s * tot); }
 function currentByHour(trips, dir) { const n = Array(24).fill(0); for (const t of trips) if (t.dir === dir) n[Math.floor(t.dep / 60)]++; return n; }
 const TEMPLATES = {};   // `${dir}|${code}` → 範本班次（各站相對時間）
 DATA.tt.trips.forEach(([dir, code, , stops]) => { const k = dir + '|' + code + '|' + TT2Z[stops[0][0]]; if (!TEMPLATES[k]) { const t0 = hm(stops[0][1]); TEMPLATES[k] = stops.map(([n, t]) => [n, hm(t) - t0]); } });
@@ -47,8 +49,8 @@ function proposeTrips(date) {
   return { trips, plan, fleet, curFleet, limit, feasible: fleet <= limit };
 }
 const CO2 = (vkm) => OPT.fuel === 'd' ? vkm * 1.585 : vkm * 1.25 * .474;
-function evalPlan(date, trips, cong, seed = 11) {
-  const s = new Sim({ date, trips, demand: demandOf, cong, seed, start: 300 });
+function evalPlan(date, trips, cong, seed = 7) {
+  const s = new Sim({ date, trips, demand: scenarioDemand, cong, seed, start: 300 });
   s.run(24 * 60 + 60);
   const r = s.summary(); r.co2 = CO2(r.vkm); return r;
 }

@@ -62,3 +62,24 @@ describe('integrated timetable scenario model', () => {
     expect(keys.some(k=>/card_?id|plate|身分證|卡號|車牌|api.?key|secret/i.test(k))).toBe(false);
   });
 });
+
+describe('unified demand scenario', () => {
+  it('uses the same scaled demand for live simulation, planning and repeatable comparison', () => {
+    const result = run(`(() => {
+      const date = '2025-11-01', trips = ttTripsFor(dayInfo(date));
+      SCENARIO.demandMultiplier = 1;
+      const base = hourlyDemand(date, 0).reduce((a,b)=>a+b,0);
+      SCENARIO.demandMultiplier = 1.5;
+      const scaled = hourlyDemand(date, 0).reduce((a,b)=>a+b,0);
+      const live = new Sim({date, trips, demand:scenarioDemand, cong:false, seed:7, start:300});
+      live.run(1500);
+      const a = evalPlan(date, trips, false), b = evalPlan(date, trips, false);
+      const expected = live.summary();
+      SCENARIO.demandMultiplier = 1;
+      return {base,scaled,a,b,expected};
+    })()`);
+    expect(result.scaled).toBeCloseTo(result.base * 1.5, 6);
+    expect(result.a).toEqual(result.b);
+    for (const key of Object.keys(result.expected)) expect(result.a[key]).toEqual(result.expected[key]);
+  });
+});

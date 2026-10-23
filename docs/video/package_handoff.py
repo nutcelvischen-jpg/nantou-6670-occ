@@ -84,9 +84,9 @@ if REF.exists():
 original = Path.home() / 'Downloads/taichung-nantou.html'
 if original.exists():
     add(original, Path('參考原型/最早單檔版/taichung-nantou.html'))
-manual = OUT / 'pdf/潭行Twin系統操作手冊.pdf'
+manual = OUT / 'pdf/潭行Twin_整合版系統操作手冊.pdf'
 if manual.exists():
-    add(manual, Path('參考文件/舊版_v5_系統操作手冊.pdf'))
+    add(manual, Path('系統操作手冊/潭行Twin_整合版系統操作手冊.pdf'))
 
 guide = '''# 潭行 Twin｜完整專案與製片交付
 
@@ -103,7 +103,7 @@ guide = '''# 潭行 Twin｜完整專案與製片交付
 | 主專案/hosting | Sites後端與入口；目前只部署助理業務API，其餘使用前端快照／本機計算 |
 | 主專案/data、analysis | 公開網站研究、班表／路線快照、資料分析紀錄 |
 | 主專案/docs/spec、SPEC.md、PRODUCT.md | 詳細規格、公式、介面契約與驗收條件；部分是未實作規劃 |
-| 主專案/docs/manual | 舊版手冊來源與圖片，搭配參考文件中的v5 PDF |
+| 主專案/docs/manual | 歷史手冊來源，僅作參考；現行手冊由docs/video/build_unified_manual.py產生 |
 | 主專案/docs/video | 本次講稿與封裝的產生腳本 |
 | 影片製作素材 | 6分鐘11段分鏡、旁白、字幕草稿、公式與實際網站畫面 |
 | 參考原型 | 使用者提供的潭行3D與最早HTML；保留作參考，不是現行上線版本 |
@@ -139,7 +139,7 @@ npm test
 
 本包是可分享程式與拍攝素材，不是磁碟備份。不含有效金鑰、`.env.local`、Git歷史、套件快取、虛擬環境、逐筆票證XLSX、暫存與日誌；原電腦上的原始檔沒有修改。公開網站下載資料與聚合檔仍保留來源及既有授權限制，提供給剪輯者不等同可任意再散布。
 
-舊版v5 PDF與原始參考原型可能描述較早功能；錄影以「影片製作素材」中的最新說明為準。3D是情境模擬；成本為合成候選集合內的最低成本；小幫手限內部營運。未產生影片、未更換首頁；收到成片後再整合。
+整合版PDF與圖文分鏡對應目前的單一數位孿生工作台。原始參考原型及主專案/docs/manual是歷史來源，錄影以本次整合版說明為準。3D是情境模擬；成本為合成候選集合內的最低成本；小幫手限內部營運。未產生影片、未更換首頁；收到成片後再整合。
 
 `檔案清單.csv` 的SHA-256涵蓋交付的實際位元組，若字串因去除金鑰而改寫，redacted欄標true。`全部文字檔內容.txt`涵蓋清單中text_exported=true的檔案；清單自身不列入清單，以避免循環校驗。Git快照識別與本次附加產物分別見版本紀錄。
 '''

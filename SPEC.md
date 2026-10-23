@@ -190,3 +190,7 @@ UI 全域固定顯示模式、服務日期、資料版本；live 未接通時不
 使用者提供的柴油 SORT 1–3 範圍 1.585–2.123 kg/km 先保留為未查證敏感度參數。已查核的另一組歷史資料為柴油 1.173、電巴0.727 kg/km；其推導使用 0.509 kg/kWh、0.7 km/kWh，不和0.474／0.467年度電力係數直接混算。官方2025係數依一般公用售電業、產業盤查、住宅用途各有不同，須依使用者／服務適用類別選用。詳見[05碳排成本](docs/spec/05_CARBON_COST.md)及[來源表](docs/spec/09_SOURCES.md)。
 
 底圖使用MapLibre＋MapTiler public key；已修正Vite worker URL並於本機瀏覽器驗收街道圖磚和官方GeoJSON疊圖同時顯示。正式部署仍須設定Allowed Origins及用量限制。TDX OAuth與Bus v2 InterCity靜態路線／站序／WKT線形已於2026-10-23取樣成功；這不表示時刻表、GPS、ETA、餘位或票價即時連線。詳細狀態見[服務準備](docs/spec/08_SERVICES.md)。
+
+
+## 2026-10-23 數位孿生整合更新（目前實作優先）
+主站「數位孿生」已合併原「班表情境」，使用 scenario-lab 的單一引擎，43人容量、一分鐘步進。舊簡化孿生已退出主站執行路徑；此前雙模型描述僅作歷史參考。需求倍率、日期、現行／建議班表和壅塞共用；離開工作台暫停，返回保留狀態。獨立的合成候選最低成本求解仍是研究範例，未接正式營運調度。詳細實作與界線見 scenario-lab/README.md、docs/IMPLEMENTATION_STATUS.md。

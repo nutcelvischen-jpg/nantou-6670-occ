@@ -101,6 +101,7 @@ button,input,select{font:inherit;color:inherit}
 .mini .foot{display:flex;gap:6px;margin-top:8px}
 .mini .foot button{flex:1;border:0;background:var(--chip);border-radius:8px;padding:5px;cursor:pointer;font-size:18px}
 .mini .note{font-size:15.75px;color:var(--muted);margin-top:6px}
+details.scenario-extra{margin-top:12px;padding:10px;border:1px solid var(--rule);border-radius:10px} details.scenario-extra summary{cursor:pointer;font-size:18px} #scenarioLabel{float:right;color:var(--accent);font-size:16px}
 /* 面板 */
 .panel{display:flex;flex-direction:column;min-height:0;overflow:hidden}
 .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:10px 10px 0}
@@ -121,7 +122,7 @@ button,input,select{font:inherit;color:inherit}
 .ctl{display:grid;grid-template-columns:auto 1fr auto;gap:6px 10px;align-items:center;margin-top:10px;font-size:19.5px}
 .ctl output{font:18px var(--mono);color:var(--strong);min-width:40px;text-align:right}
 input[type=range]{width:100%;accent-color:var(--strong)}
-input[type=date],select{background:var(--chip);border:0;border-radius:8px;padding:4px 8px;font:18px var(--mono);color:var(--strong)}
+input[type=date],input[type=time],select{background:var(--chip);border:0;border-radius:8px;padding:4px 8px;font:18px var(--mono);color:var(--strong)}
 .tg{position:relative;width:34px;height:20px;border-radius:10px;background:var(--chip);border:0;cursor:pointer;box-shadow:inset 0 0 0 1px var(--rule);justify-self:end}
 .tg::after{content:"";position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--muted);transition:transform .25s var(--ease),background .25s}
 .tg[aria-checked="true"]{background:var(--strong)}
@@ -185,7 +186,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .tab{min-height:48px;padding:9px 6px}
 .panel h2{margin-top:24px;flex-wrap:wrap;letter-spacing:.06em}
 .ctl{grid-template-columns:auto minmax(0,1fr) auto;gap:12px}
-input[type=date],select{min-width:0;max-width:100%}
+input[type=date],input[type=time],select{min-width:0;max-width:100%}
 .btn,.btn2,.seg button{min-height:40px}
 .kpi{padding:12px}
 .vr{grid-template-columns:44px minmax(0,1fr) 90px;min-height:74px;gap:10px}
@@ -293,12 +294,12 @@ input[type=date],select{min-width:0;max-width:100%}
       <button class="tab" role="tab" data-t="opt"><span class="n">05</span>班次情境建議</button>
       <button class="tab" role="tab" data-t="bot"><span class="n">06</span>小幫手</button>
     </div>
-    <div class="body" id="body"><p class="lead">情境實驗室 · 車輛位置、候車與延誤均為模擬；班表為公開快照，非該歷史日實際排班。以刷卡需求測試供給，不代表完整運量。</p>
+    <div class="body" id="body"><p class="lead">數位孿生 × 班表情境 · 共用日期、需求、車隊與時鐘。車輛位置、候車與延誤均為模擬；班表為公開快照，非該歷史日實際排班。以刷卡需求測試供給，不代表完整運量。</p>
       <!-- 01 模擬營運 -->
       <section class="pane" id="p-ops">
-        <h2>模擬控制</h2>
+        <h2>共用情境 · 3D 與班表同步</h2>
         <div class="row">
-          <button class="btn" id="play">暫停</button>
+          <button class="btn" id="play">暫停</button><button class="btn2" id="reset">重播 06:30</button>
           <div class="seg" id="speed"><button data-s="60">×60</button><button data-s="180">×180</button><button data-s="360" aria-pressed="true">×360</button><button data-s="900">×900</button></div>
         </div>
         <div class="ctl">
@@ -308,6 +309,12 @@ input[type=date],select{min-width:0;max-width:100%}
           <span class="note">開啟時，假日上午往埔里、下午往台中的國道段車速降 40%</span>
           <span>深色主題</span><span></span><button class="tg" id="theme" role="switch" aria-checked="false" aria-label="深色主題"></button>
         </div>
+        <details class="scenario-extra"><summary>需求情境與時間定位 <span id="scenarioLabel">基準 1.00×</span></summary><div class="ctl">
+          <label for="preset">需求情境</label><select id="preset"><option value="" disabled>自訂倍率</option><option value="1">基準需求 1.00×</option><option value="1.5">需求加壓 1.50×</option><option value="0.72">低需求 0.72×</option><option value="1.28">觀光增量 1.28×</option></select><span></span>
+          <label for="demand">需求倍率</label><input type="range" id="demand" min="0.5" max="2" step="0.05" value="1"><output id="demandOut">1.00×</output>
+          <span class="note">倍率同時作用於旅客生成、班次建議與方案比較；歷史統計與回測保持原值。預設情境是壓力測試假設。</span>
+          <label for="seek">跳至時間</label><input type="time" id="seek" value="12:00" min="05:00" max="23:59"><button class="btn2" id="seekGo">定位</button>
+        </div></details>
         <h2>模擬指標<span class="src" id="opsSrc"></span></h2>
         <div class="kpis" id="kpis"></div>
         <h2>告警與建議</h2>

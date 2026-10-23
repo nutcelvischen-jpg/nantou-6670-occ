@@ -48,3 +48,7 @@ MapTiler 街道底圖與 TDX 6670 官方靜態線形已在本機瀏覽器驗收�
 已公開部署於 https://nantou-transit-twin.elvischen.chatgpt.site 。公開Worker僅提供助理業務API，其餘使用快照與前端計算；本機FastAPI與CP-SAT未部署雲端。沒有對營運車隊執行任何操作。首頁影片待使用者提供成片。詳細功能契約與分期驗收請見 [SPEC.md](SPEC.md) 與 [docs/spec/06_ACCEPTANCE.md](docs/spec/06_ACCEPTANCE.md)。
 
 最新完成範圍、驗證與未達成的正式營運門檻，見 [docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md)。
+
+
+## 2026-10-23 數位孿生整合更新（目前實作優先）
+主站「數位孿生」已合併原「班表情境」，使用 scenario-lab 的單一引擎，43人容量、一分鐘步進。舊簡化孿生已退出主站執行路徑；此前雙模型描述僅作歷史參考。需求倍率、日期、現行／建議班表和壅塞共用；離開工作台暫停，返回保留狀態。獨立的合成候選最低成本求解仍是研究範例，未接正式營運調度。詳細實作與界線見 scenario-lab/README.md、docs/IMPLEMENTATION_STATUS.md。

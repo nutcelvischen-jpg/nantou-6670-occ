@@ -7,7 +7,7 @@ function tripsFor(plan) { return plan === 'opt' ? (LIVE.opt ||= proposeTrips(LIV
 function buildLive(startMin = 360) {
   if (LIVE.plan === 'opt' && !(LIVE.opt ||= proposeTrips(LIVE.date)).feasible) LIVE.plan = 'cur';
   for (const x of $('#plan').children) x.setAttribute('aria-pressed', x.dataset.p === LIVE.plan);
-  LIVE.sim = new Sim({ date: LIVE.date, trips: tripsFor(LIVE.plan), demand: demandOf, cong: LIVE.cong, seed: 7, start: 300 });
+  LIVE.sim = new Sim({ date: LIVE.date, trips: tripsFor(LIVE.plan), demand: scenarioDemand, cong: LIVE.cong, seed: 7, start: 300 });
   LIVE.sim.run(startMin); LIVE.acc = 0;
   for (const v of Object.values(VIS)) v.root.visible = false;
   if (LIVE.sel && !LIVE.sim.buses.find((b) => b.id === LIVE.sel)) select(null);
@@ -593,6 +593,29 @@ segPick($('#plan'), 'p', (v) => { if (v === 'opt' && !(LIVE.opt ||= proposeTrips
 segPick($('#pkYear'), 'y', (v) => { PK.y = +v; renderPK(); }); segPick($('#pkDir'), 'd', (v) => { PK.d = +v; renderPK(); });
 segPick($('#vzYear'), 'y', (v) => { VZ.y = +v; renderVZ(); });
 segPick($('#fuel'), 'f', (v) => { OPT.fuel = v; OPTRES = null; renderOPT(true); });
+let workbenchActive = true;
+window.addEventListener('message', (event) => {
+  if (event.origin !== location.origin || event.source !== window.parent || event.data?.channel !== 'tanxing-workbench') return;
+  if (event.data.type === 'visibility' && typeof event.data.active === 'boolean') {
+    workbenchActive = event.data.active;
+    if (workbenchActive) { resize(); refreshUI(true); }
+  }
+  if (event.data.type === 'panel' && PANELS.includes(event.data.panel)) setTab(event.data.panel);
+});
+function setDemandMultiplier(value) {
+  if (!Number.isFinite(value) || value < .5 || value > 2) return;
+  SCENARIO.demandMultiplier = value;
+  $('#preset').value = [1, 1.5, .72, 1.28].includes(value) ? String(value) : '';
+  $('#scenarioLabel').textContent = '需求 ' + value.toFixed(2) + '×';
+  $('#demand').value = value; $('#demandOut').textContent = value.toFixed(2) + '×';
+  LIVE.opt = null; OPTRES = null;
+  buildLive(SIM().t);
+}
+$('#demand').oninput = (e) => { $('#demandOut').textContent = (+e.target.value).toFixed(2) + '×'; };
+$('#demand').onchange = (e) => setDemandMultiplier(+e.target.value);
+$('#preset').onchange = (e) => setDemandMultiplier(+e.target.value);
+$('#reset').onclick = () => { LIVE.paused = true; $('#play').textContent = '播放'; buildLive(391); refreshUI(true); };
+$('#seekGo').onclick = () => { if (!/^\d{2}:\d{2}$/.test($('#seek').value)) return; LIVE.paused = true; $('#play').textContent = '播放'; jumpTo(hm($('#seek').value) + 1); };
 $('#play').onclick = () => { LIVE.paused = !LIVE.paused; $('#play').textContent = LIVE.paused ? '播放' : '暫停'; };
 $('#day').onchange = () => { LIVE.plan = 'cur'; for (const x of $('#plan').children) x.setAttribute('aria-pressed', x.dataset.p === 'cur'); OPT.fleet = 0; LIVE.date = $('#day').value || '2025-11-01'; LIVE.opt = null; OPTRES = null; buildLive(SIM().t); if (TAB !== 'ops') setTab(TAB); };
 const tgl = (el, fn) => el.onclick = () => { const on = el.getAttribute('aria-checked') !== 'true'; el.setAttribute('aria-checked', on); fn(on); };
@@ -616,7 +639,7 @@ function applyTheme() {
 function refreshUI(force) {
   const s = SIM(); if (!s) return; const i = s.info;
   $('#clock').textContent = fmt(nowT());
-  $('#meta').textContent = `${i.date} 週${DOW_ZH[i.dow]} · ${i.label} · ×${LIVE.speed}${LIVE.paused ? ' · 暫停' : ''}`;
+  $('#meta').textContent = `${i.date} 週${DOW_ZH[i.dow]} · ${i.label} · 需求 ${SCENARIO.demandMultiplier.toFixed(2)}× · ×${LIVE.speed}${LIVE.paused ? ' · 暫停' : ''}`;
   $('#dayType').textContent = `週${DOW_ZH[i.dow]}`;
   if (TAB === 'ops') { renderOps(); renderList(force); }
   updateMini();
@@ -627,11 +650,11 @@ function refreshUI(force) {
    ============================================================ */
 let homeFit = false;
 function resize() {
-  const r = host.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix();
+  const r = host.getBoundingClientRect(); if (!r.width || !r.height) return; renderer.setSize(r.width, r.height, false); camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix();
   if (!homeFit && r.width) { homeFit = true; const k = camera.aspect < 1.25 ? 1.25 / camera.aspect : 1; HOME.p.sub(HOME.t).multiplyScalar(k).add(HOME.t); camera.position.copy(HOME.p); }
 }
 new ResizeObserver(resize).observe(host); resize();
-buildLive(390);
+buildLive(391);
 // A method-page link takes priority over the previously viewed panel.
 const linkedPanel = new URLSearchParams(location.search).get('panel');
 if (PANELS.includes(linkedPanel)) setTab(linkedPanel);
@@ -639,7 +662,9 @@ else try { const t = localStorage.getItem('tx-tab'); if (t && t !== 'ops') setTa
 applyTheme();
 let lastT = performance.now(), uiT = 0;
 function loop(now) {
-  const dt = Math.min(.1, (now - lastT) / 1000); lastT = now; const s = SIM();
+  const dt = Math.min(.1, (now - lastT) / 1000); lastT = now;
+  if (!workbenchActive || document.hidden) { requestAnimationFrame(loop); return; }
+  const s = SIM();
   if (!LIVE.paused && s.t < 24 * 60 + 30) { LIVE.acc += dt * LIVE.speed / 60; let n = 0; while (LIVE.acc >= 1 && n < 30) { s.step(); LIVE.acc -= 1; n++; } if (LIVE.acc > 1) LIVE.acc = 0; }
   updateVehicles(LIVE.acc);
   const bt = now / 1000;
@@ -663,4 +688,5 @@ function loop(now) {
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
+if (window.parent !== window) window.parent.postMessage({ channel: 'tanxing-workbench', type: 'ready' }, location.origin);
 window.__tx = { LIVE, SIM, jumpTo, select, flyTo, viewOf, setTab, ask, FC, evalPlan, proposeTrips, camera, controls, FACS, OPT };

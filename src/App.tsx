@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Activity,
   ArrowDownRight,
@@ -38,11 +38,6 @@ import { PublishedTimetableSearch } from "./components/PublishedTimetableSearch"
 import { OperationsAssistant } from "./components/OperationsAssistant";
 import { TimetableScenarioLab, type ScenarioPanel } from "./components/TimetableScenarioLab";
 import { ModelMethodology } from "./components/ModelMethodology";
-const DigitalTwinLab = lazy(() =>
-  import("./components/DigitalTwinLab").then((m) => ({
-    default: m.DigitalTwinLab,
-  })),
-);
 import aggregatesJson from "./data/ticket-aggregates.json";
 import timetableJson from "./data/ntbus-6670-timetable.json";
 import { loadAggregates, loadRoadDemo, loadTimetable, loadTdxStatus, solveFleetMinimumCost, type AggregateSource, type RoadDemoResponse, type TdxStatus } from "./dataClient";
@@ -62,7 +57,6 @@ type Page =
   | "營運總覽"
   | "運量分析"
   | "數位孿生"
-  | "班表情境"
   | "旅遊資訊"
   | "成本最佳化"
   | "模型方法"
@@ -76,7 +70,6 @@ const nav: { name: Page; icon: typeof Activity; group: string }[] = [
   { name: "營運總覽", icon: MapIcon, group: "工作台" },
   { name: "運量分析", icon: BarChart3, group: "工作台" },
   { name: "數位孿生", icon: Bus, group: "工作台" },
-  { name: "班表情境", icon: CalendarDays, group: "工作台" },
   { name: "成本最佳化", icon: SlidersHorizontal, group: "規劃" },
   { name: "模型方法", icon: FileCheck2, group: "規劃" },
   { name: "智慧小幫手", icon: MessageCircleMore, group: "智慧服務" },
@@ -156,8 +149,9 @@ export function App() {
     });
     return () => { active = false; };
   }, []);
-  const [page, setPage] = useState<Page>("班表情境");
+  const [page, setPage] = useState<Page>("數位孿生");
   const [scenarioPanel, setScenarioPanel] = useState<ScenarioPanel>();
+  const [panelRequest, setPanelRequest] = useState(0);
   const [year, setYear] = useState(2025);
   const [route, setRoute] = useState("全部");
   const [selectedStop, setSelectedStop] = useState("puli");
@@ -555,25 +549,8 @@ export function App() {
     }],
   };
   const content = () => {
-    if (page === "班表情境") return <TimetableScenarioLab onMethod={() => setPage("模型方法")} onOptimize={() => setPage("成本最佳化")} />;
-    if (page === "模型方法") return <ModelMethodology onNavigate={setPage} onOpenScenario={(panel) => { setScenarioPanel(panel); setPage("班表情境"); }} />;
+    if (page === "模型方法") return <ModelMethodology onNavigate={setPage} onOpenScenario={(panel) => { setScenarioPanel(panel); setPanelRequest(n => n + 1); setPage("數位孿生"); }} />;
     if (page === "智慧小幫手") return <OperationsAssistant year={year} route={route} onNavigate={setPage} />;
-    if (page === "數位孿生")
-      return (
-        <Suspense
-          fallback={
-            <section className="panel">
-              <div className="panel-head">
-                <div>
-                  <h3>正在載入數位孿生</h3>
-                </div>
-              </div>
-            </section>
-          }
-        >
-          <DigitalTwinLab />
-        </Suspense>
-      );
     if (page === "旅遊資訊") return <TourismGuide timetable={publishedTimetable} timetableSource={timetableSource} departAfter={journeyDeparture} onDepartAfterChange={setJourneyDeparture} />;
     if (page === "運量分析")
       return (
@@ -1667,14 +1644,12 @@ export function App() {
       </>
     );
   };
-  if (page === "班表情境") return <TimetableScenarioLab
-    initialPanel={scenarioPanel}
-    onMethod={() => setPage("模型方法")}
-    onOptimize={() => setPage("成本最佳化")}
-    onOverview={() => setPage("營運總覽")}
-  />;
   return (
-    <div className="app-shell">
+    <>
+      <TimetableScenarioLab active={page === "數位孿生"} initialPanel={scenarioPanel} requestId={panelRequest}
+        onMethod={() => setPage("模型方法")} onOptimize={() => setPage("成本最佳化")}
+        onOverview={() => setPage("營運總覽")} />
+      {page !== "數位孿生" && <div className="app-shell">
       <aside className="sidebar">
         <div className="brand">
           <div className="brand-symbol">
@@ -1768,7 +1743,8 @@ export function App() {
           </footer>
         </div>
       </main>
-    </div>
+    </div>}
+    </>
   );
 }
 function Metric({

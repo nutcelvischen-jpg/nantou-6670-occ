@@ -1,7 +1,7 @@
 import { ArrowRight, BarChart3, Bus, CheckCircle2, CircleHelp, Database, Leaf, MessageCircle, Route, ShieldCheck, Workflow } from "lucide-react";
 import type { ScenarioPanel } from "./TimetableScenarioLab";
 
-type MethodPage = "班表情境" | "運量分析" | "成本最佳化" | "數位孿生" | "智慧小幫手" | "資料品質";
+type MethodPage = "運量分析" | "成本最佳化" | "數位孿生" | "智慧小幫手" | "資料品質";
 
 const stages = [
   { title: "資料與情境", body: "票證彙總、公開路線快照、使用者設定", icon: Database },
@@ -65,14 +65,13 @@ export function ModelMethodology({ onNavigate, onOpenScenario }: { onNavigate: (
 
       <article className="method-card">
         <div className="method-card-top"><div className="method-icon teal"><Bus size={18}/></div><span className="method-status simulated">離散情境模擬</span></div>
-        <h2>即時營運儀表板與數位孿生</h2><p className="method-lead">首頁的班表情境以一分鐘步進處理車輛、排隊與班次，畫面逐幀插值。地圖與 KPI 共用當頁狀態；完整規則在下方「班表情境」。另保留原始簡化孿生供比較，其參數如下，兩頁狀態不互通。</p>
-        <div className="method-subhead">車隊與需求規則</div><Formula>Nrequired = ceil((2L/v × 60) / h)　·　λstop = (q/3600 × m × s(hour)) / Nstop</Formula>
-        <p>L 為單程長度、v 為平均速度、h 為班距；q 為基礎需求率、m 為情境倍率、s(hour) 為時段係數。每 0.5 秒固定步進一次，模擬時間倍率為 1×/2×/4×；站點採 FIFO 排隊，載客不超過容量，通過中間站依設定比例下車。</p>
-        <div className="method-subhead">狀態與碳排</div><Formula>載客率 = 車上人數 / 車輛容量　·　CO₂ = 柴油 km·EFdiesel + 電動 km·kWh/km·EFgrid</Formula>
-        <p>原始簡化孿生預設柴油效率 2.26 km/L 與排放係數 2.65 kg/L，等於 2.65 ÷ 2.26 ≈ 1.173 kg/km；電巴 0.7 km/kWh、電力係數 0.474 kg/kWh，等於 0.474 ÷ 0.7 ≈ 0.677 kg/km。能耗以「每公里用電」表示時用乘法，以「每度電可行駛公里」表示時用除法。常見的 0.727 kg/km 示例對應 0.509 ÷ 0.7，不可與 0.474 的情境混用。首頁班表情境另用柴油 1.585 kg/km、電巴 1.25 × 0.474 ≈ 0.593 kg/km；以上皆為示範參數，非業者實測或當年度官方係數聲明，不跨頁直接比較減碳績效。</p>
+        <h2>數位孿生與班表情境：同一個工作台</h2><p className="method-lead">3D 車輛、班表、候車與載客指標共用同一個模擬狀態。切換六個分頁不換模型；前往公式或成本分析時暫停背景模擬，返回後保留時間、參數、選車與鏡頭。</p>
+        <div className="method-subhead">從需求到車隊的閉環</div><Formula>日期與需求倍率 → 每分鐘旅客 → 班次與 FIFO 上車 → 車輛位置與 KPI → 建議班表 → 同一場景驗證</Formula>
+        <p>一分鐘固定步進，每車 43 人、端點整備至少 10 分鐘。需求情境提供 1.00／1.50／0.72／1.28 倍假設，也可在 0.5–2 倍間調整。倍率同步用於旅客生成、班次建議和雙方案比較，不改寫歷史票證圖表與回測。重播保留設定，以相同種子從當日重新計算到 06:30 並暫停；跳時會計算中間事件。</p>
+        <div className="method-subhead">狀態與碳排</div><Formula>載客率 = 車上人數 / 43　·　CO₂ = 車公里 × 排放係數</Formula>
+        <p>工作台柴油假設 1.585 kg/km；電巴假設 1.25 kWh/km × 0.474 kg/kWh ≈ 0.593 kg/km。這些是固定示範參數，非業者實測或當年度官方係數聲明。其他低碳頁的獨立試算不可直接當作本情境的排放成果。</p>
         <div className="method-limits"><CircleHelp size={14}/><span>這是可互動的模擬場景，不是即時監控。未接入 GPS／ETA、實際班次與即時載客資料前，不會顯示成已驗證的現況或預測到站時間。</span></div>
         <button className="method-cta" onClick={() => onOpenScenario("ops")}>操作目前的 3D 營運工作台 <ArrowRight size={15}/></button>
-        <button className="method-cta" onClick={() => onNavigate("數位孿生")}>查看原始簡化孿生 <ArrowRight size={15}/></button>
       </article>
 
       <article className="method-card method-card-assistant">
@@ -86,16 +85,16 @@ export function ModelMethodology({ onNavigate, onOpenScenario }: { onNavigate: (
     </div>
 
     <article className="method-card" style={{ marginTop: 20 }}>
-      <div className="method-card-top"><div className="method-icon teal"><Workflow size={18}/></div><span className="method-status simulated">潭行 3D · 獨立情境工作台</span></div>
+      <div className="method-card-top"><div className="method-icon teal"><Workflow size={18}/></div><span className="method-status simulated">潭行 3D · 共用營運情境</span></div>
       <h2>班表情境：從票證需求到可回放的車隊</h2>
-      <p className="method-lead">這個進階工作台使用 2024–2025 年票證彙總與 6670 公開班表快照；班表快照套用到選定日期測試供需，不代表當天真實班表。與上方簡化孿生的步進及參數不同。</p>
+      <p className="method-lead">這個進階工作台使用 2024–2025 年票證彙總與 6670 公開班表快照；班表快照套用到選定日期測試供需，不代表當天真實班表。所有操作連回同一個數位孿生；班次建議套用後立即以相同日期與需求重新計算。</p>
       <div className="method-subhead">① 方向需求與可驗證回測</div>
       <Formula>{"z = log(1+y)；β* = argmin Σ(zᵢ−xᵢᵀβ)² + 0.3Σⱼ₌₁ βⱼ²；ŷ = max(0, exp(xᵀβ*)−1)"}</Formula>
       <p>y 是每日、每方向刷卡筆數；x 含截距、年度趨勢、星期、月份、假日與連假特徵（共 24 維），截距不正則化。先擬合後以殘差的 1.4826 × MAD 偵測超過 3.5 倍的異常，移除後重擬合；低運量日不會只因少於 50 筆便遭排除。異常可能是資料缺漏或真實事件，需要人工覆核。</p>
       <Formula>{"WAPE = Σ|y−ŷ| / Σy；MAE = Σ|y−ŷ| / 有效比較日數"}</Formula>
       <p>2025 年 11–12 月採逐日滾動回測：迴歸與近四週同星期中位數基準都只能讀取預測日前資料；基準至少有兩筆歷史值才納入同日評分。另以全資料擬合展示情境，歷史日期的擬合值不能當作當時可得的預測。exp(μ ± 1.2816σ)−1 為訓練殘差參考帶，截零且未校準，不宣稱 80% 預測涵蓋率。</p>
       <div className="method-subhead">② 需求如何進入模擬</div>
-      <Formula>{"q(d,h,o,dst) = Y(d,dir) × 時段占比(h|星期,dir) × OD占比(o,dst|dir)；Nminute ~ Poisson(λminute)"}</Formula>
+      <Formula>{"q(d,h,o,dst) = 需求倍率 m × Y(d,dir) × 時段占比(h|星期,dir) × OD占比(o,dst|dir)；Nminute ~ Poisson(λminute)"}</Formula>
       <p>歷史日使用當日刷卡總數，其他日期使用模型估計；時段與 OD 占比來自聚合資料，因此歷史日回放是事後情境分析。以一分鐘步進處理班表、排隊、上下車、端點整備與空車調度；畫面逐幀沿路線插值。旅客先到先上，每車 43 人，等待超過 90 分鐘離隊。停站時間為 0.4 + 0.05 ×（上車＋下車）分鐘；端點至少整備 10 分鐘。壅塞情境在指定假日方向／時段的國道速度降低 40%。以上均為可檢視的示範假設，尚未經業者校準。</p>
       <div className="method-subhead">③ 班次建議的目標與限制</div>
       <Formula>{"n(h,dir) = max(nmin, ceil(q(h,dir) × rpeak × (1+b) / (43 × Ltarget)))"}</Formula>
