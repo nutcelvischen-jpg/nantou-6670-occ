@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="zh-Hant" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>潭行 6670 營運決策</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#f2f2ef;--card:#fbfbfa;--text:#57575a;--strong:#18181a;--muted:#8c8c90;--rule:#e6e6e2;--chip:#f0f0ec;
+  --lift:inset 0 1px 0 0 #fff,0 0 0 1px #0000000f,0 1px 1px -.5px #0000000a,0 3px 3px -1.5px #0000000a,0 6px 6px -3px #0000000a,0 12px 12px -6px #0000000a;
+  --ease:cubic-bezier(.32,.72,0,1);
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --t-plain:#e2e5d9;--t-hill:#d6dacb;--t-mount:#cdcec2;--t-peak:#e8e7e0;--t-river:#e7e4d9;--t-contour:#8d9086;
+  --t-wall:#e3e1d9;--t-strata:#cfccc2;--t-base:#f4f4f1;--water:#b3c3cd;--halo:#77776e;
+  --road-line:#8a8b8f;--road-line-hw:#4a4b50;--road-hw:#8e8f93;--road:#9d9ea1;--road-mt:#a5a5a1;--shoulder:#d0cfc8;--mark:#ffffff;--mark-y:#e3be4a;--median:#d9d8d2;
+  --bldg:#f6f6f3;--bldg-roof:#e2e2dd;--bldg-band:#c3c7cc;--tree:#b5bfa7;--tree2:#a6b296;--conifer:#98a48d;--palm:#aab59b;--trunk:#8d8374;
+  --f-paving:#ecebe6;--f-asphalt:#a9aaad;--f-concrete:#dddcd6;--f-wall:#f5f5f2;--f-wall2:#e6e6e1;--f-roof:#d3d3ce;--f-steel:#9fa0a4;
+  --f-glass:#7d8994;--f-green:#b9c5a9;--f-wood:#c8a878;--f-carton:#d9bb8c;--f-rail:#707175;--f-ballast:#bfbdb5;--f-train:#fafaf8;
+  --car-a:#f1f1ee;--car-b:#9b9da1;--car-c:#5d6c7d;--car-d:#303134;
+  --v-bus:#fbfbf8;--v-cab:#ecece8;--v-box:#f7f7f4;--v-glass:#39404a;--v-dark:#47474c;--v-tire:#2a2a2d;--v-rim:#babbbe;--v-chrome:#dadbdd;
+  --v-lightw:#fffbea;--v-lightr:#e5484d;--v-lighta:#ffb224;--v-sign:#ffb224;--paint-w:#ffffff;--paint-y:#e3be4a;
+  --accent:#3e63dd;--accent2:#e2803a;--lit:#e5484d;--ok:#30a46c;--warn:#d9890b;--edge:#5a5a60;--sky:#ffffff;--gnd:#d8d6cc;
+  --route:#3e63dd;--route-b:#30a46c;--route-h:#8e4ec6;
+}
+:root[data-theme="dark"]{
+  --page:#0b0b0b;--card:#131313;--text:#a3a3a3;--strong:#e6e6e6;--muted:#6e6e6e;--rule:#222;--chip:#1b1b1b;
+  --lift:inset 0 1px 0 0 #ffffff0a,inset 0 0 0 1px #ffffff06,0 0 0 1px #00000026,0 3px 3px -1.5px #00000014,0 12px 12px -6px #00000014;
+  --t-plain:#2a2c27;--t-hill:#2c2e28;--t-mount:#30302c;--t-peak:#3a3a35;--t-river:#33322d;--t-contour:#6b6e64;
+  --t-wall:#232321;--t-strata:#2b2a27;--t-base:#1c1c1b;--water:#25323b;--halo:#000000;
+  --road-line:#6a6b6f;--road-line-hw:#b0b1b5;--road-hw:#45464a;--road:#4a4b4e;--road-mt:#4d4d4a;--shoulder:#363632;--mark:#d8d8d8;--mark-y:#b8983a;--median:#3a3a37;
+  --bldg:#3a3a39;--bldg-roof:#454543;--bldg-band:#25272a;--tree:#3c4535;--tree2:#36402f;--conifer:#323b2d;--palm:#3d4637;--trunk:#4a443c;
+  --f-paving:#3a3a37;--f-asphalt:#2e2f31;--f-concrete:#3f3e3b;--f-wall:#444442;--f-wall2:#3c3c3a;--f-roof:#4a4a47;--f-steel:#5d5e62;
+  --f-glass:#2b333b;--f-green:#3a4534;--f-wood:#6b5a40;--f-carton:#6f5f45;--f-rail:#8a8b8f;--f-ballast:#3c3b37;--f-train:#d6d6d3;
+  --car-a:#bdbdba;--car-b:#6b6d71;--car-c:#3d4a58;--car-d:#202123;
+  --v-bus:#d8d8d5;--v-cab:#c4c4c0;--v-box:#d2d2cf;--v-glass:#1c2128;--v-dark:#2c2c30;--v-tire:#141416;--v-rim:#7c7d80;--v-chrome:#9b9c9f;
+  --v-lightw:#fff6d6;--v-lightr:#ff6b6b;--v-lighta:#ffb224;--v-sign:#ffb224;--paint-w:#cfcfcf;--paint-y:#b8983a;
+  --accent:#6b8bff;--accent2:#f0934d;--lit:#ff6b6b;--ok:#4cc38a;--warn:#f1a10d;--edge:#9a9a9e;--sky:#c9ccd6;--gnd:#2a2924;
+  --route:#6b8bff;--route-b:#4cc38a;--route-h:#b07fe0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--page);color:var(--text);font:14px/1.5 "Noto Sans TC",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:14px;padding:14px;height:100vh}
+.card{background:var(--card);border-radius:16px;box-shadow:var(--lift)}
+.stage{position:relative;overflow:hidden;min-height:0}
+#gl{position:absolute;inset:0}
+#gl canvas{display:block;width:100%;height:100%;outline:none;cursor:grab}
+#gl canvas:active{cursor:grabbing}
+.labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lb{position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;white-space:nowrap;will-change:transform}
+.lb b{font-weight:500;font-size:12px;color:var(--strong);background:color-mix(in srgb,var(--card) 84%,transparent);padding:1px 6px;border-radius:5px;box-shadow:0 0 0 1px var(--rule)}
+.lb b em{font-style:normal;font:500 10px var(--mono);margin-left:5px;color:var(--accent)}
+.lb b em.hot{color:var(--lit)}
+.lb i{display:block;width:1px;height:12px;background:var(--muted)}
+.lb s{display:block;width:5px;height:5px;border-radius:50%;background:var(--strong);margin-top:-1px}
+.lb.stop b{font-size:11px;font-weight:400;color:var(--text)}
+.lb.minor b{font-size:11px;font-weight:400;color:var(--text);box-shadow:none;background:transparent}
+.lb.minor i,.lb.minor s{display:none}
+.tick{position:absolute;left:0;top:0;font:10px var(--mono);color:var(--muted)}
+.vm{position:absolute;left:0;top:0;height:16px;min-width:16px;padding:0 4px;border-radius:8px;border:1.5px solid var(--card);box-shadow:0 0 0 1px #0003;pointer-events:auto;cursor:pointer;font:500 9px/13px var(--mono);color:#fff;background:var(--accent)}
+.vm.in{background:var(--accent2)}
+.vm.idle{background:var(--muted)}
+.vm.on{background:var(--lit);z-index:2;transform-origin:center}
+.vtag{position:absolute;left:0;top:0;font:500 11px var(--mono);color:#fff;background:var(--lit);padding:2px 7px;border-radius:5px;white-space:nowrap}
+.corner{position:absolute;pointer-events:none}
+.tl{top:16px;left:18px;max-width:58%}
+.tl .fig{font:500 10px var(--mono);letter-spacing:.12em;color:var(--muted)}
+.tl h1{margin:2px 0 0;font-size:17px;font-weight:700;color:var(--strong)}
+.tl p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+.tr{top:14px;right:16px;text-align:right}
+.clock{font:500 30px/1 var(--mono);color:var(--strong);letter-spacing:-.02em}
+.meta{font:11px var(--mono);color:var(--muted);margin-top:4px}
+.bl{left:18px;bottom:14px;font-size:11px;color:var(--muted)}
+.br{right:16px;bottom:12px;display:flex;gap:12px;font-size:11px;color:var(--text);align-items:center}
+.br span{display:flex;align-items:center;gap:5px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:6px}
+.sl{display:inline-block;width:18px;height:3px;border-radius:2px}
+.views{position:absolute;left:18px;top:92px;display:flex;flex-direction:column;gap:4px}
+.views button,.ghost{background:var(--card);border:0;box-shadow:var(--lift);border-radius:8px;padding:4px 10px;font-size:12px;cursor:pointer;text-align:left;color:var(--text)}
+.views button:hover,.ghost:hover{color:var(--strong)}
+.views .sep{height:6px}
+.views button[aria-pressed="true"]{color:var(--strong);box-shadow:var(--lift),inset 2px 0 0 var(--accent)}
+/* 平面圖 */
+.mini{position:absolute;right:16px;top:70px;width:360px;background:var(--card);box-shadow:var(--lift);border-radius:14px;padding:10px 12px 12px;transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.mini[hidden]{display:block;opacity:0;transform:translateY(-6px);pointer-events:none}
+.mini .hd{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.mini .hd b{color:var(--strong);font-size:14px}
+.mini .hd .chip{margin-left:auto}
+.mini .hd button{border:0;background:var(--chip);border-radius:6px;padding:1px 7px;cursor:pointer;font-size:12px}
+.mini svg{display:block;width:100%;height:auto}
+.mini .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border-radius:9px;overflow:hidden;margin-top:8px}
+.mini .facts div{background:var(--card);padding:6px 8px}
+.mini .facts .k{font-size:10.5px;color:var(--muted)}
+.mini .facts .v{font:500 14px/1.25 var(--mono);color:var(--strong)}
+.mini .seat{height:6px;border-radius:3px;background:var(--chip);overflow:hidden;margin-top:8px}
+.mini .seat i{display:block;height:100%;background:var(--accent);transition:width .4s var(--ease)}
+.mini .foot{display:flex;gap:6px;margin-top:8px}
+.mini .foot button{flex:1;border:0;background:var(--chip);border-radius:8px;padding:5px;cursor:pointer;font-size:12px}
+.mini .note{font-size:10.5px;color:var(--muted);margin-top:6px}
+/* 面板 */
+.panel{display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:10px 10px 0}
+.tab{border:0;background:transparent;padding:7px 6px;border-radius:9px;font-size:12.5px;cursor:pointer;color:var(--muted);display:flex;gap:5px;align-items:center;justify-content:center}
+.tab[aria-selected="true"]{background:var(--chip);color:var(--strong);font-weight:500}
+.tab .n{font:500 9.5px var(--mono);opacity:.6}
+.body{overflow:auto;padding:4px 18px 22px;flex:1}
+.pane[hidden]{display:none}
+.panel h2{font:500 10px var(--mono);letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin:18px 0 8px;display:flex;align-items:center;gap:8px}
+.panel h2 .src{margin-left:auto;text-transform:none;letter-spacing:0;font-family:"Noto Sans TC";font-size:10.5px}
+.lead{font-size:12.5px;color:var(--text);margin:10px 0 0}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.seg{display:inline-flex;background:var(--chip);border-radius:9px;padding:3px}
+.seg button{border:0;background:transparent;padding:4px 9px;border-radius:7px;font:500 12px var(--mono);cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--strong);box-shadow:var(--lift)}
+.btn{border:0;background:var(--strong);color:var(--card);border-radius:9px;padding:6px 12px;font-weight:500;cursor:pointer;min-width:64px}
+.btn2{border:0;background:var(--chip);color:var(--strong);border-radius:9px;padding:6px 12px;cursor:pointer}
+.ctl{display:grid;grid-template-columns:auto 1fr auto;gap:6px 10px;align-items:center;margin-top:10px;font-size:13px}
+.ctl output{font:12px var(--mono);color:var(--strong);min-width:40px;text-align:right}
+input[type=range]{width:100%;accent-color:var(--strong)}
+input[type=date],select{background:var(--chip);border:0;border-radius:8px;padding:4px 8px;font:12px var(--mono);color:var(--strong)}
+.tg{position:relative;width:34px;height:20px;border-radius:10px;background:var(--chip);border:0;cursor:pointer;box-shadow:inset 0 0 0 1px var(--rule);justify-self:end}
+.tg::after{content:"";position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--muted);transition:transform .25s var(--ease),background .25s}
+.tg[aria-checked="true"]{background:var(--strong)}
+.tg[aria-checked="true"]::after{transform:translateX(14px);background:var(--card)}
+.note{font-size:11px;color:var(--muted);grid-column:1/-1;margin-top:-2px}
+.kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--rule);border-radius:10px;overflow:hidden}
+.kpis.two{grid-template-columns:1fr 1fr}
+.kpi{background:var(--card);padding:8px 10px}
+.kpi .k{font-size:11px;color:var(--muted)}
+.kpi .v{font:500 17px/1.25 var(--mono);color:var(--strong)}
+.kpi .v small{font-size:10.5px;color:var(--muted);font-weight:400;margin-left:2px}
+.kpi .v.bad{color:var(--lit)}.kpi .v.good{color:var(--ok)}
+.alerts{display:flex;flex-direction:column;gap:4px}
+.al{display:grid;grid-template-columns:8px 1fr auto;gap:8px;align-items:center;font-size:12.5px;padding:6px 8px;border-radius:8px;background:var(--chip)}
+.al i{width:8px;height:8px;border-radius:50%;background:var(--warn)}
+.al.hi i{background:var(--lit)}
+.al.ok i{background:var(--ok)}
+.al small{font:11px var(--mono);color:var(--muted)}
+.vl{display:flex;flex-direction:column;gap:2px}
+.vr{display:grid;grid-template-columns:30px 1fr 64px;gap:8px;align-items:center;padding:6px 8px;border-radius:9px;cursor:pointer;border:0;background:transparent;text-align:left;width:100%}
+.vr:hover{background:var(--chip)}
+.vr[aria-current="true"]{background:var(--chip);box-shadow:inset 2px 0 0 var(--lit)}
+.vr .id{font:500 11px var(--mono);color:var(--strong)}
+.vr .n{font-weight:500;color:var(--strong);font-size:13px}
+.vr .d{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.load{height:5px;border-radius:3px;background:var(--chip);overflow:hidden;margin-top:3px}
+.load i{display:block;height:100%;background:var(--accent)}
+.load i.hot{background:var(--lit)}
+.vr .r{text-align:right}
+.chip{font-size:11px;padding:1px 7px;border-radius:6px;background:var(--chip);color:var(--text);white-space:nowrap}
+.chip.run{color:var(--accent)}.chip.in{color:var(--accent2)}.chip.late{color:var(--lit)}.chip.ok{color:var(--ok)}
+.chart{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font:10px var(--mono);fill:var(--muted)}
+.chart .lbl{font-family:"Noto Sans TC";font-size:10.5px}
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th{font:500 10.5px var(--mono);color:var(--muted);text-align:right;padding:4px 4px;border-bottom:1px solid var(--rule)}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl td{padding:4px 4px;text-align:right;font-family:var(--mono);color:var(--strong);border-bottom:1px solid var(--rule)}
+.tbl td.up{color:var(--lit)}.tbl td.dn{color:var(--ok)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--text);margin-top:4px}
+.legend span{display:flex;align-items:center;gap:5px}
+.callout{background:var(--chip);border-radius:10px;padding:10px 12px;font-size:12.5px;margin-top:10px}
+.callout b{color:var(--strong)}
+.foot{font-size:11px;color:var(--muted);margin-top:14px;line-height:1.6}
+/* 小幫手 */
+.chat{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.msg{max-width:92%;padding:8px 11px;border-radius:12px;font-size:13px;line-height:1.55;white-space:pre-wrap}
+.msg.me{align-self:flex-end;background:var(--strong);color:var(--card);border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start;background:var(--chip);color:var(--strong);border-bottom-left-radius:4px}
+.msg.bot .why{display:block;margin-top:6px;font-size:10.5px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips button{border:0;background:var(--chip);border-radius:14px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--text)}
+.chips button:hover{color:var(--strong)}
+.ask{display:flex;gap:6px;margin-top:10px;position:sticky;bottom:0;background:var(--card);padding-top:6px}
+.ask input{flex:1;background:var(--chip);border:0;border-radius:10px;padding:8px 10px;font-size:13px;outline:none}
+button:disabled{opacity:.4;cursor:not-allowed}
+@media (min-width:801px) and (max-width:1100px){
+  .app{grid-template-columns:minmax(0,1fr) 340px;gap:10px;padding:10px}
+  .tl h1{font-size:14px}.tl .fig{font-size:8px}.tl p,.meta{display:none}
+  .clock{font-size:24px}.br{display:none}.views{top:74px}
+  .mini{width:min(320px,calc(100% - 32px));top:70px}
+  .tab{font-size:11px;padding:7px 3px}.body{padding:4px 12px 18px}
+}
+@media (max-width:800px){
+  .app{grid-template-columns:1fr;height:auto}
+  .stage{height:64vh;min-height:440px}
+  .panel{max-height:none}
+  .mini{width:min(340px,calc(100% - 32px));top:auto;bottom:40px}
+  .tl p,.meta{display:none}.tl .fig{font-size:9px}.tl{max-width:62%}
+  .br{display:none}.views{top:auto;bottom:40px;flex-direction:row;flex-wrap:wrap;left:12px;right:12px}
+  .views .sep{display:none}
+}
+</style>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+</head>
+<body>
+<div class="app">
+  <main class="stage card" id="stage">
+    <div id="gl"></div>
+    <div class="labels" id="labels"></div>
+    <header class="corner tl">
+      <div class="fig">FIG. 1 · 6670 TAICHUNG — SUN MOON LAKE</div>
+      <h1>潭行 6670 · 營運數位孿生</h1>
+      <p>TDX 線形快照與近似延伸 · 2024–2025 票證驅動情境</p>
+    </header>
+    <div class="corner tr"><div class="clock" id="clock">06:00</div><div class="meta" id="meta"></div></div>
+    <nav class="views" id="views">
+      <button data-v="all">全景</button>
+      <button data-v="HSR">高鐵台中站</button>
+      <button data-v="PL">埔里站</button>
+      <button data-v="SML">日月潭</button>
+      <button data-v="GC">台中干城</button>
+      <span class="sep"></span>
+      <button id="only" aria-pressed="false">只顯示選取車輛</button>
+    </nav>
+    <section class="mini" id="mini" hidden aria-label="車輛平面圖">
+      <div class="hd"><b id="miniName">—</b><span class="chip" id="miniState"></span><button id="miniClose" aria-label="關閉">✕</button></div>
+      <svg id="miniMap" viewBox="0 0 340 250"></svg>
+      <div class="seat"><i id="miniSeat"></i></div>
+      <div class="facts" id="miniFacts"></div>
+      <div class="foot"><button id="miniFollow">在 3D 跟隨</button><button id="miniAsk">問小幫手這台車</button></div>
+      <div class="note" id="miniNote"></div>
+    </section>
+    <div class="corner bl">拖曳旋轉 · 右鍵平移 · 滾輪縮放 · 點車輛看平面圖</div>
+    <div class="corner br">
+      <span><i class="sw" style="background:var(--accent)"></i>往日月潭／埔里</span>
+      <span><i class="sw" style="background:var(--accent2)"></i>往台中</span>
+      <span><i class="sl" style="background:var(--route)"></i>6670D/A</span>
+      <span><i class="sl" style="background:var(--route-b)"></i>6670B/F</span>
+      <span><i class="sl" style="background:var(--route-h)"></i>6670H</span>
+    </div>
+  </main>
+  <aside class="panel card">
+    <div class="tabs" role="tablist" id="tabs">
+      <button class="tab" role="tab" data-t="ops" aria-selected="true"><span class="n">01</span>模擬營運</button>
+      <button class="tab" role="tab" data-t="fc"><span class="n">02</span>需求預測</button>
+      <button class="tab" role="tab" data-t="pk"><span class="n">03</span>尖離峰</button>
+      <button class="tab" role="tab" data-t="viz"><span class="n">04</span>票證分析</button>
+      <button class="tab" role="tab" data-t="opt"><span class="n">05</span>班次情境建議</button>
+      <button class="tab" role="tab" data-t="bot"><span class="n">06</span>小幫手</button>
+    </div>
+    <div class="body" id="body"><p class="lead">情境實驗室 · 車輛位置、候車與延誤均為模擬；班表為公開快照，非該歷史日實際排班。以刷卡需求測試供給，不代表完整運量。</p>
+      <!-- 01 模擬營運 -->
+      <section class="pane" id="p-ops">
+        <h2>模擬控制</h2>
+        <div class="row">
+          <button class="btn" id="play">暫停</button>
+          <div class="seg" id="speed"><button data-s="60">×60</button><button data-s="180">×180</button><button data-s="360" aria-pressed="true">×360</button><button data-s="900">×900</button></div>
+        </div>
+        <div class="ctl">
+          <span>營運日</span><input type="date" id="day" value="2025-11-01"><output id="dayType"></output>
+          <span>班表</span><div class="seg" id="plan"><button data-p="cur" aria-pressed="true">現行</button><button data-p="opt">建議</button></div><span></span>
+          <span>國道壅塞</span><span></span><button class="tg" id="cong" role="switch" aria-checked="false" aria-label="國道壅塞"></button>
+          <span class="note">開啟時，假日上午往埔里、下午往台中的國道段車速降 40%</span>
+          <span>深色主題</span><span></span><button class="tg" id="theme" role="switch" aria-checked="false" aria-label="深色主題"></button>
+        </div>
+        <h2>模擬指標<span class="src" id="opsSrc"></span></h2>
+        <div class="kpis" id="kpis"></div>
+        <h2>告警與建議</h2>
+        <div class="alerts" id="alerts"></div>
+        <h2>全天班次 · 點一下跳到該時間</h2>
+        <canvas id="tl" style="display:block;width:100%;height:76px;border-radius:8px;background:var(--chip);cursor:pointer"></canvas>
+        <h2>車隊 · 點車輛看平面圖</h2>
+        <div class="vl" id="vlist"></div>
+      </section>
+      <!-- 02 需求預測 -->
+      <section class="pane" id="p-fc" hidden>
+        <p class="lead">以 2024–2025 每日刷卡上車數，擬合「趨勢 × 星期 × 月份 × 國定假日／連假」的對數迴歸，並與「近 4 週同星期中位數」基準模型做相同資訊窗口的逐日滾動回測。</p>
+        <h2>回測（2025-11-01 至 12-31，逐日滾動；僅使用預測日前資料）</h2>
+        <div class="kpis" id="fcKpi"></div>
+        <svg class="chart" id="fcBack" viewBox="0 0 400 150"></svg>
+        <div class="legend"><span><i class="sl" style="background:var(--muted)"></i>實際</span><span><i class="sl" style="background:var(--accent)"></i>迴歸模型</span><span><i class="sl" style="background:var(--accent2);height:2px"></i>基準</span></div>
+        <h2>擬合／外推 · <span id="fcDayLbl"></span> 起 14 天</h2>
+        <svg class="chart" id="fcAhead" viewBox="0 0 400 150"></svg>
+        <div class="legend"><span><i class="sl" style="background:var(--accent)"></i>往日月潭／埔里</span><span><i class="sl" style="background:var(--accent2)"></i>往台中</span><span><i class="sw" style="background:var(--chip);border-radius:2px"></i>殘差參考帶（未校準）</span></div>
+        <h2>選定日 · 每小時刷卡需求分配</h2>
+        <svg class="chart" id="fcHour" viewBox="0 0 400 140"></svg>
+        <h2>各因子效果</h2>
+        <svg class="chart" id="fcCoef" viewBox="0 0 400 150"></svg>
+        <h2>異常日偵測（殘差 &gt; 3.5 個穩健標準差）</h2>
+        <div class="alerts" id="fcAnom"></div>
+        <p class="foot" id="fcNote"></p>
+      </section>
+      <!-- 03 尖離峰 -->
+      <section class="pane" id="p-pk" hidden>
+        <div class="row" style="margin-top:10px"><div class="seg" id="pkYear"><button data-y="0">2024</button><button data-y="1" aria-pressed="true">2025</button></div>
+        <div class="seg" id="pkDir"><button data-d="0" aria-pressed="true">往日月潭／埔里</button><button data-d="1">往台中</button></div></div>
+        <h2>星期 × 小時 上車量</h2>
+        <svg class="chart" id="pkHeat" viewBox="0 0 400 190"></svg>
+        <h2>平日 vs 假日 · 每日平均上車（每小時）</h2>
+        <svg class="chart" id="pkLine" viewBox="0 0 400 150"></svg>
+        <div class="legend"><span><i class="sl" style="background:var(--muted)"></i>平日</span><span><i class="sl" style="background:var(--accent)"></i>週末</span></div>
+        <h2>車次載客（推估車次，依刷卡重建）</h2>
+        <svg class="chart" id="pkTrip" viewBox="0 0 400 160"></svg>
+        <div class="legend"><span><i class="sw" style="background:var(--accent);border-radius:2px"></i>每班平均最大在車</span><span><i class="sl" style="background:var(--lit)"></i>P90</span><span><i class="sl" style="background:var(--muted);height:1px"></i>43 座</span></div>
+        <div class="callout" id="pkCall"></div>
+        <h2>月份 × 小時</h2>
+        <svg class="chart" id="pkMonth" viewBox="0 0 400 170"></svg>
+      </section>
+      <!-- 04 票證分析 -->
+      <section class="pane" id="p-viz" hidden>
+        <div class="row" style="margin-top:10px"><div class="seg" id="vzYear"><button data-y="0">2024</button><button data-y="1" aria-pressed="true">2025</button></div></div>
+        <h2>起訖 OD 矩陣（筆數）</h2>
+        <svg class="chart" id="vzOD" viewBox="0 0 400 300"></svg>
+        <h2>各站上下車</h2>
+        <svg class="chart" id="vzSt" viewBox="0 0 400 260"></svg>
+        <div class="legend"><span><i class="sw" style="background:var(--accent);border-radius:2px"></i>上車</span><span><i class="sw" style="background:var(--muted);border-radius:2px"></i>下車</span></div>
+        <h2>主要起訖 · 中位旅行時間與票價</h2>
+        <table class="tbl" id="vzTbl"></table>
+        <h2>每日刷卡（兩年）</h2>
+        <svg class="chart" id="vzDaily" viewBox="0 0 400 130"></svg>
+        <h2>票種（前 10）</h2>
+        <svg class="chart" id="vzTk" viewBox="0 0 400 200"></svg>
+        <h2>車次最大在車人數分布</h2>
+        <svg class="chart" id="vzHist" viewBox="0 0 400 130"></svg>
+        <p class="foot" id="vzNote"></p>
+      </section>
+      <!-- 05 班次情境建議 -->
+      <section class="pane" id="p-opt" hidden>
+        <p class="lead">依選定營運日的預測需求，計算每小時每方向所需班次＝max(服務底線, ⌈尖峰區段人數 ÷ (43 × 目標載客率)⌉)，再以貪婪「車輛串接」估計所需車輛數（未證明最低成本或最少車輛），並用同一模擬器驗證。</p>
+        <div class="ctl">
+          <span>目標載客率</span><input type="range" id="lf" min="0.5" max="0.95" step="0.05" value="0.75"><output id="lfOut">75%</output>
+          <span>服務底線</span><input type="range" id="floor" min="0" max="3" step="1" value="1"><output id="floorOut">1 班/時</output>
+          <span>預留需求</span><input type="range" id="buf" min="0" max="0.4" step="0.05" value="0.15"><output id="bufOut">+15%</output>
+          <span>車隊上限</span><input type="range" id="fleet" min="8" max="40" step="1" value="15"><output id="fleetOut">15 輛</output>
+          <span class="note" id="fleetNote">預設＝現行班表所需車輛數，代表「不增車、只重排班次」</span>
+          <span>車型</span><div class="seg" id="fuel"><button data-f="d" aria-pressed="true">柴油</button><button data-f="e">電巴</button></div><span></span>
+        </div>
+        <h2>每小時班次：現行 vs 建議</h2>
+        <svg class="chart" id="opBars" viewBox="0 0 400 170"></svg>
+        <div class="legend"><span><i class="sw" style="background:var(--muted);border-radius:2px"></i>現行</span><span><i class="sw" style="background:var(--accent);border-radius:2px"></i>建議</span><span><i class="sl" style="background:var(--lit)"></i>預測尖峰區段人數 ÷ 43</span></div>
+        <div class="callout" id="opCall"></div>
+        <h2>方案比較（模擬一整天）</h2><p class="foot">單次情境：需求依現行班表固定服務時窗，旅客到站與行車使用獨立亂數串流；兩方案沿用相同需求與種子，不因減班而刪掉需求。非實證節省效果。柴油 1.585 kg/km；電巴 1.25 kWh/km × 0.474 kg/kWh 為示範假設，未含製造排放。</p>
+        <table class="tbl" id="opTbl"></table>
+        <div class="row" style="margin-top:10px"><button class="btn" id="apply">套用到模擬</button><button class="btn2" id="rerun">重新模擬比較</button></div>
+        <h2>建議班表（往日月潭／埔里）</h2>
+        <div id="opList0" style="font:12px/1.8 var(--mono);color:var(--strong)"></div>
+        <h2>建議班表（往台中）</h2>
+        <div id="opList1" style="font:12px/1.8 var(--mono);color:var(--strong)"></div>
+        <p class="foot">碳排：柴油 1.585 kg CO₂e/車公里（情境值）；電巴 1.25 kWh/km × 0.474 kg/kWh。車輛串接允許端點休息 10 分鐘，埔里站與日月潭之間可空車調度。未含駕駛工時、保修與車型限制，正式排班需業者資料。</p>
+      </section>
+      <!-- 06 小幫手 -->
+      <section class="pane" id="p-bot" hidden>
+        <div class="row" style="margin-top:10px"><div class="seg" id="botMode"><button data-m="ops" aria-pressed="true">內部營運／調度</button></div></div>
+        <p class="lead" id="botLead"></p>
+        <div class="chips" id="botChips"></div>
+        <div class="chat" id="chat"></div>
+        <form class="ask" id="askForm"><input id="askIn" placeholder="例如：B03 現在在哪？哪些時段需要加開？" autocomplete="off"><button class="btn">送出</button></form>
+        <p class="foot">規則式小幫手：只用本頁的模擬狀態、班表快照與票證聚合回答，每個回答都附依據。非即時 GPS，不能訂位或售票。</p>
+      </section>
+    </div>
+  </aside>
+</div>
+<script>window.__DATA = /*__DATA__*/null;</script>
+<script type="module">
+/*__APP__*/
+</script>
+</body>
+</html>

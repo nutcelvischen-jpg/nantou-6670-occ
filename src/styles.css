@@ -283,3 +283,14 @@
 @media(max-width:900px){.method-flow-track{grid-template-columns:repeat(3,minmax(0,1fr))}.method-flow-step:nth-child(3) .method-flow-arrow{display:none}}
 @media(max-width:650px){.method-grid{grid-template-columns:1fr}.method-flow{padding:13px}.method-section-heading{align-items:flex-start;gap:8px;flex-direction:column}.method-flow-track{grid-template-columns:1fr;gap:7px}.method-flow-step{min-height:0;padding:10px 11px 10px 51px}.method-flow-icon{position:absolute;left:10px;top:10px;margin:0}.method-flow-step>p{margin-top:3px}.method-flow-arrow{display:none}.method-flow-foot{flex-wrap:wrap}.method-flow-foot small{width:100%;margin-left:0}.method-hero{align-items:flex-start;flex-direction:column}.method-trust{width:100%}.method-footer-note{align-items:flex-start;flex-wrap:wrap}.method-footer-note>span{min-width:80%}.method-footer-note button{margin-left:23px}}
 .assistant-scope-strip{justify-content:space-between;color:#65806d}.assistant-scope-strip>span:first-child{display:flex;align-items:center;gap:6px;margin:0 0 0 4px;color:#47775a;font-size:9px}.assistant-scope-strip>span:last-child{margin-left:auto}
+
+/* Embedded timetable lab preserves its own simulation state and visual system. */
+.scenario-guide { display:flex; align-items:center; gap:14px; padding:16px 20px; flex-wrap:wrap; font-size:13px; }
+.scenario-guide b { color:#4b6f62; margin-right:6px; }
+.scenario-guide button,.scenario-disclosure button { border:0; background:transparent; color:#346c5a; cursor:pointer; font:inherit; text-decoration:underline; }
+.scenario-guide button { margin-left:auto; }
+.scenario-disclosure { color:#677a73; font-size:12px; line-height:1.8; margin:12px 2px; }
+.scenario-frame { width:100%; height:max(640px, calc(100vh - 260px)); border:1px solid #dce4db; border-radius:16px; background:#f5f5ef; }
+@media(max-width:800px) { .scenario-frame { height:1100px; } .scenario-guide { gap:8px; } }
+
+.scenario-workspace .secondary-button { display:inline-flex; align-items:center; gap:7px; color:#346c5a; background:#fff; border:1px solid #dce4db; border-radius:10px; padding:10px 14px; text-decoration:none; font-size:13px; }

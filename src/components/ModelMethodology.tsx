@@ -1,6 +1,6 @@
 import { ArrowRight, BarChart3, Bus, CheckCircle2, CircleHelp, Database, Leaf, MessageCircle, Route, ShieldCheck, Workflow } from "lucide-react";
 
-type MethodPage = "運量分析" | "成本最佳化" | "數位孿生" | "智慧小幫手" | "資料品質";
+type MethodPage = "班表情境" | "運量分析" | "成本最佳化" | "數位孿生" | "智慧小幫手" | "資料品質";
 
 const stages = [
   { title: "資料與情境", body: "票證彙總、公開路線快照、使用者設定", icon: Database },
@@ -78,6 +78,29 @@ export function ModelMethodology({ onNavigate }: { onNavigate: (page: MethodPage
         <button className="method-cta" onClick={() => onNavigate("智慧小幫手")}>開啟內部營運小幫手 <ArrowRight size={15}/></button>
       </article>
     </div>
+
+    <article className="method-card" style={{ marginTop: 20 }}>
+      <div className="method-card-top"><div className="method-icon teal"><Workflow size={18}/></div><span className="method-status simulated">潭行 3D · 獨立情境工作台</span></div>
+      <h2>班表情境：從票證需求到可回放的車隊</h2>
+      <p className="method-lead">這個進階工作台使用 2024–2025 年票證彙總與 6670 公開班表快照；班表快照套用到選定日期測試供需，不代表當天真實班表。與上方簡化孿生的步進及參數不同。</p>
+      <div className="method-subhead">① 方向需求與可驗證回測</div>
+      <Formula>{"z = log(1+y)；β* = argmin Σ(zᵢ−xᵢᵀβ)² + 0.3Σⱼ₌₁ βⱼ²；ŷ = max(0, exp(xᵀβ*)−1)"}</Formula>
+      <p>y 是每日、每方向刷卡筆數；x 含截距、年度趨勢、星期、月份、假日與連假特徵（共 24 維），截距不正則化。先擬合後以殘差的 1.4826 × MAD 偵測超過 3.5 倍的異常，移除後重擬合；低運量日不會只因少於 50 筆便遭排除。異常可能是資料缺漏或真實事件，需要人工覆核。</p>
+      <Formula>{"WAPE = Σ|y−ŷ| / Σy；MAE = Σ|y−ŷ| / 有效比較日數"}</Formula>
+      <p>2025 年 11–12 月採逐日滾動回測：迴歸與近四週同星期中位數基準都只能讀取預測日前資料；基準至少有兩筆歷史值才納入同日評分。另以全資料擬合展示情境，歷史日期的擬合值不能當作當時可得的預測。exp(μ ± 1.2816σ)−1 為訓練殘差參考帶，截零且未校準，不宣稱 80% 預測涵蓋率。</p>
+      <div className="method-subhead">② 需求如何進入模擬</div>
+      <Formula>{"q(d,h,o,dst) = Y(d,dir) × 時段占比(h|星期,dir) × OD占比(o,dst|dir)；Nminute ~ Poisson(λminute)"}</Formula>
+      <p>歷史日使用當日刷卡總數，其他日期使用模型估計；時段與 OD 占比來自聚合資料，因此歷史日回放是事後情境分析。以一分鐘步進處理班表、排隊、上下車、端點整備與空車調度；畫面逐幀沿路線插值。旅客先到先上，每車 43 人，等待超過 90 分鐘離隊。停站時間為 0.4 + 0.05 ×（上車＋下車）分鐘；端點至少整備 10 分鐘。壅塞情境在指定假日方向／時段的國道速度降低 40%。以上均為可檢視的示範假設，尚未經業者校準。</p>
+      <div className="method-subhead">③ 班次建議的目標與限制</div>
+      <Formula>{"n(h,dir) = max(nmin, ceil(q(h,dir) × rpeak × (1+b) / (43 × Ltarget)))"}</Formula>
+      <p>rpeak 是推估車次的最大區段在車量／上車量加權比；b 是需求緩衝，Ltarget 是目標載客率，nmin 是每小時服務底線。僅在現行首末班發車時間內配置，依候選子線模板安排班次；用貪婪串接計算車輛數。若超過車隊上限，優先刪減每班預期負載最低時段，但不低於服務底線。仍不符合上限時明示不可行並禁止套用。</p>
+      <p>這是降低閒置供給的啟發式方案，沒有金額成本目標，也不保證最少車輛。目標載客率是計算班數的參數，減班後未必達標；必須查看候車、流失與高載班次。未涵蓋司機工時、車種、車庫、保養、充電及逐 OD 最低服務。要以成本為首要目標，請使用「成本最佳化」頁；其最優性仍限於輸入的示範候選集合。</p>
+      <div className="method-subhead">④ 方案比較與資料邊界</div>
+      <Formula>{"全日載客率 = 乘客公里 / 座位公里；碳排 = 車公里 × 車型排放係數"}</Formula>
+      <p>兩方案各從 05:00 模擬到次日 01:00，比較車公里、候車、未能登車人次與 90 分鐘流失。滿載未上車為重複嘗試人次，不能視為獨立旅客。比較固定現行班表的 OD 服務時窗（首班前 20 分至末班前 5 分）與需求亂數；到站串流獨立於行車，兩方案使用相同生成旅客，減班不會刪掉需求。時窗外未生成的需求不計入，總生成量可能小於日刷卡量。單次結果不構成統計顯著或真實節省效益。</p>
+      <p>官網主班表未含完整九人座／加班車；票證以車輛、日期、方向與刷卡間隔重建車次，不能當作實際班次。OD 僅公開至少 10 筆的聚合；刷卡實扣中位數不是公告票價。程序地形並非 DEM；A 線借用線形、F 線延伸與九族定位有近似。示範柴油係數 1.585 kg/km，電巴 1.25 kWh/km × 0.474 kg/kWh，與主站另一組示範參數分開，不跨頁直接比較。2026 年假日尚待核對。</p>
+      <button className="method-cta" onClick={() => onNavigate("班表情境")}>依這套方法開始模擬 <ArrowRight size={15}/></button>
+    </article>
 
     <div className="method-footer-note"><Leaf size={15}/><span>每個頁面都會保留資料來源、資料日期與情境假設標示。若真實 GPS、班次、乘載或營運成本資料尚未提供，結果就只能解讀為公開資料或合成情境的分析。</span><button onClick={() => onNavigate("資料品質")}>查看資料品質 <ArrowRight size={13}/></button></div>
   </section>;

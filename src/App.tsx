@@ -36,6 +36,7 @@ import { TransitMap } from "./components/TransitMap";
 import { TourismGuide } from "./components/TourismGuide";
 import { PublishedTimetableSearch } from "./components/PublishedTimetableSearch";
 import { OperationsAssistant } from "./components/OperationsAssistant";
+import { TimetableScenarioLab } from "./components/TimetableScenarioLab";
 import { ModelMethodology } from "./components/ModelMethodology";
 const DigitalTwinLab = lazy(() =>
   import("./components/DigitalTwinLab").then((m) => ({
@@ -61,6 +62,7 @@ type Page =
   | "營運總覽"
   | "運量分析"
   | "數位孿生"
+  | "班表情境"
   | "旅遊資訊"
   | "成本最佳化"
   | "模型方法"
@@ -74,6 +76,7 @@ const nav: { name: Page; icon: typeof Activity; group: string }[] = [
   { name: "營運總覽", icon: MapIcon, group: "工作台" },
   { name: "運量分析", icon: BarChart3, group: "工作台" },
   { name: "數位孿生", icon: Bus, group: "工作台" },
+  { name: "班表情境", icon: CalendarDays, group: "工作台" },
   { name: "成本最佳化", icon: SlidersHorizontal, group: "規劃" },
   { name: "模型方法", icon: FileCheck2, group: "規劃" },
   { name: "智慧小幫手", icon: MessageCircleMore, group: "智慧服務" },
@@ -551,6 +554,7 @@ export function App() {
     }],
   };
   const content = () => {
+    if (page === "班表情境") return <TimetableScenarioLab onMethod={() => setPage("模型方法")} onOptimize={() => setPage("成本最佳化")} />;
     if (page === "模型方法") return <ModelMethodology onNavigate={setPage} />;
     if (page === "智慧小幫手") return <OperationsAssistant year={year} route={route} onNavigate={setPage} />;
     if (page === "數位孿生")
