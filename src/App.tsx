@@ -1,3 +1,4 @@
+import { UserGuide } from "./components/UserGuide";
 import { useEffect, useMemo, useState } from "react";
 import {
   Activity,
@@ -48,6 +49,7 @@ import {
 } from "./domain";
 
 type Page =
+  | "使用說明"
   | "營運總覽"
   | "數位孿生"
   | "旅遊資訊"
@@ -68,6 +70,7 @@ const nav: { name: Page; icon: typeof Activity; group: string }[] = [
   { name: "旅遊資訊", icon: Sparkles, group: "智慧服務" },
   { name: "旅客行程", icon: Route, group: "智慧服務" },
   { name: "低碳評估", icon: Leaf, group: "永續與資料" },
+  { name: "使用說明", icon: FileCheck2, group: "永續與資料" },
   { name: "資料品質", icon: FileCheck2, group: "永續與資料" },
 ];
 
@@ -380,6 +383,7 @@ export function App() {
   const annualView = () => <AnnualComparison data={data} baseYear={compareYear} targetYear={year}
     onYears={(base,target)=>{setCompareYear(base);setYear(target);}} onAsk={askBaseline} />;
   const content = () => {
+    if (page === "使用說明") return <UserGuide onNavigate={p => {if(nav.some(n=>n.name===p)) setPage(p as Page);}} />;
     if (page === "模型方法") return <ModelMethodology onNavigate={setPage} onOpenScenario={(panel) => { setScenarioPanel(panel); setPanelRequest(n => n + 1); setPage("數位孿生"); }} />;
     if (page === "智慧小幫手") return <OperationsAssistant year={year} route={route} compareYear={compareYear} initialQuestion={assistantQuestion} years={availableYears(data)} onYears={(b,t)=>{setCompareYear(b);setYear(t);}} onNavigate={setPage} />;
     if (page === "旅遊資訊") return <TourismGuide timetable={publishedTimetable} timetableSource={timetableSource} departAfter={journeyDeparture} onDepartAfterChange={setJourneyDeparture} />;

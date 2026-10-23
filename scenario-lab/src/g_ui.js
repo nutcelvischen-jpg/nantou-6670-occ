@@ -545,7 +545,7 @@ tlc.addEventListener('click', (e) => { const r = tlc.getBoundingClientRect(); ju
    ============================================================ */
 function renderFC() {
   const B = FC.back;
-  $('#fcKpi').innerHTML = kpiHtml([['迴歸 WAPE', (B.wapeM * 100).toFixed(1) + '<small>%</small>', B.wapeM < B.wapeB ? 'good' : ''], ['基準 WAPE', (B.wapeB * 100).toFixed(1) + '<small>%</small>'], ['迴歸 MAE', Math.round(B.maeM) + '<small>人/日</small>']]);
+  $('#fcKpi').innerHTML = kpiHtml([['迴歸 WAPE', (B.wapeM * 100).toFixed(1) + '<small>%</small>', B.wapeM < B.wapeB ? 'good' : ''], ['基準 WAPE', (B.wapeB * 100).toFixed(1) + '<small>%</small>'], ['迴歸 MAE', Math.round(B.maeM) + '<small>筆/日</small>']]);
   lineChart($('#fcBack'), { series: [{ y: B.pts.map((p) => p.y), color: C('--muted'), w: 1.3 }, { y: B.pts.map((p) => p.pb), color: C('--accent2'), w: 1.1, dash: '3 2' }, { y: B.pts.map((p) => p.pm), color: C('--accent'), w: 1.8 }], xLabels: B.pts.map((p, i) => i % 10 === 0 ? p.date.slice(5) : ''), marks: B.pts.map((p, i) => dayInfo(p.date).holi ? { i, color: C('--chip') } : null).filter(Boolean) });
   const d0 = isoD(FCD), days = []; for (let i = 0; i < 14; i++) { const d = new Date(d0); d.setDate(d0.getDate() + i); days.push(iso(d)); }
   const f = [0, 1].map((dir) => days.map((d) => forecast(d, dir)));
@@ -564,7 +564,7 @@ function renderFC() {
   const an = [...FC.anomalies.values()].sort((a, b) => a.date < b.date ? 1 : -1).slice(0, 8);
   $('#fcAnom').innerHTML = an.map((a) => { const i = dayInfo(a.date), fx = [0, 1].map((d) => Math.round(Math.exp(predLog(FC.models[d].w, feats(a.date))) - 1));
     return `<div class="al"><i></i><span>${a.date}（週${DOW_ZH[i.dow]}${i.holi ? '・假日' : ''}）<br><small>實際 ${a.y[0] || '—'}／${a.y[1] || '—'} · 模型 ${fx[0]}／${fx[1]}（往潭／往中）</small></span><small>${a.y[0] + a.y[1] < fx[0] + fx[1] ? '偏低' : '偏高'}</small></div>`; }).join('') || '<div class="al ok"><i></i><span>無</span></div>';
-  $('#fcNote').textContent = `訓練資料：${SERIES[0].date} 至 ${SERIES.at(-1).date}，共 ${SERIES.length} 天（缺 ${730 - SERIES.length} 天，未補零）。預測 ${FCD} 需外推趨勢 ${Math.round((isoD(FCD) - isoD(SERIES.at(-1).date)) / 864e5)} 天，區間會低估此不確定性。2026 假日為推算。需求指的是可觀測的刷卡上車數，不含現金與滿載未上車者。`;
+  $('#fcNote').textContent = `訓練資料：${SERIES[0].date} 至 ${SERIES.at(-1).date}，共 ${SERIES.length} 天（缺 ${Math.round((isoD(SERIES.at(-1).date) - isoD(SERIES[0].date)) / 864e5) + 1 - SERIES.length} 天，未補零）。預測 ${FCD} 需外推趨勢 ${Math.round((isoD(FCD) - isoD(SERIES.at(-1).date)) / 864e5)} 天，區間會低估此不確定性。2026 假日為推算。需求指的是可觀測的刷卡上車數，不含現金與滿載未上車者。`;
 }
 
 /* ============================================================
@@ -836,13 +836,22 @@ function answer(q) {
 }
 const CHIPS = {
   pax: ['高鐵站下一班去日月潭幾點？', '高鐵到日月潭的那班擠嗎？', '日月潭回高鐵要多久、多少錢？', '日月潭回台中末班幾點？', '假日尖峰是幾點？', '明天人會很多嗎？'],
-  ops: ['現在有哪些事件？', '哪一班最擠？', '哪些時段需要加班或減班？', 'B03 現在在哪？', '有沒有誤點？', '現在高鐵站排隊幾人？'],
+  ops: ['我是第一次使用，請帶我導覽網站', '票證重播的車上人數怎麼來？', '班次最佳化用了什麼方法？', '現在有哪些事件？', '哪一班最擠？', '哪些時段需要加班或減班？', 'B03 現在在哪？', '有沒有誤點？', '現在高鐵站排隊幾人？'],
 };
 function setMode(m) { m = 'ops'; BOT.mode = m; for (const b of $('#botMode').children) b.setAttribute('aria-pressed', b.dataset.m === m); $('#botLead').textContent = m === 'pax' ? '給旅客：查班次、擠不擠、車程票價。回答只用選定營運日的刷卡重播與兩年刷卡統計。' : '給客服與調度：看超載與低載事件、單一車輛位置、高低載時段。資料沒有的（候車人數、誤點）會直接說沒有。'; $('#botChips').innerHTML = CHIPS[m].map((c) => `<button>${c}</button>`).join(''); }
 /* Hosted ask() is installed by the integration module below. */
 $('#botMode').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) setMode(b.dataset.m); });
 $('#botChips').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) ask(b.textContent); });
-$('#askForm').addEventListener('submit', (e) => { e.preventDefault(); ask($('#askIn').value); $('#askIn').value = ''; });
+const chatGuard = createChatInputGuard();
+$('#askIn').addEventListener('compositionstart', () => chatGuard.start());
+$('#askIn').addEventListener('compositionend', () => chatGuard.end());
+$('#askIn').addEventListener('keydown', e => {
+  if (chatGuard.shouldSend(e)) { e.preventDefault(); $('#askForm').requestSubmit(); }
+});
+$('#askForm').addEventListener('submit', (e) => {
+  e.preventDefault(); if (chatGuard.blocked() || assistantBusy || !$('#askIn').value.trim()) return;
+  ask($('#askIn').value); $('#askIn').value = '';
+});
 setMode('ops');
 
 /* ============================================================

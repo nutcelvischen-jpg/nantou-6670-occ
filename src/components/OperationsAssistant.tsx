@@ -1,10 +1,11 @@
-import { useState, type FormEvent } from "react";
+import { createChatInputGuard } from "../../shared/chat-input.js";
+import { useState, useRef, type FormEvent } from "react";
 import { ArrowUp, Bot, CircleHelp, Clock3, Database, ShieldCheck, UserRound } from "lucide-react";
 import { askTransitAssistant, type AssistantReply } from "../dataClient";
 
 type Message = { id: number; role: "assistant" | "user"; text: string; reply?: AssistantReply; pending?: boolean };
 
-const prompts = ["哪個時段票證交易最多？", "同日回程交易間隔怎麼解讀？", "尖峰需求提高 15% 會怎樣？", "目前能確認即時車況嗎？"];
+const prompts = ["我是第一次使用，請帶我導覽網站", "年度日均量和缺日怎麼算？", "票證重播的車上人數怎麼來？", "哪個時段票證交易最多？", "同日回程交易間隔怎麼解讀？", "尖峰需求提高 15% 會怎樣？", "目前能確認即時車況嗎？"];
 
 const statusText: Record<string, string> = {
   sourced: "已引用資料",
@@ -15,11 +16,12 @@ const statusText: Record<string, string> = {
   general: "一般說明",
 };
 
-export function OperationsAssistant({ year, route, compareYear, initialQuestion, years, onYears, onNavigate }: { year: number; route: string; compareYear:number; initialQuestion?:string; years:number[]; onYears:(base:number,target:number)=>void; onNavigate: (page: "營運總覽" | "資料品質" | "成本最佳化") => void }) {
+export function OperationsAssistant({ year, route, compareYear, initialQuestion, years, onYears, onNavigate }: { year: number; route: string; compareYear:number; initialQuestion?:string; years:number[]; onYears:(base:number,target:number)=>void; onNavigate: (page: "營運總覽" | "資料品質" | "成本最佳化" | "使用說明") => void }) {
+  const inputGuard = useRef(createChatInputGuard());
   const [draft, setDraft] = useState(initialQuestion || "");
   const [busy, setBusy] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { id: 1, role: "assistant", text: "我是內部營運分析助理，可比較年度總量、日均量、月份與子線差異，並協助解讀需求預測、尖離峰、票證彙總、班次與成本情境，以及儀表板資料狀態。即時車況目前沒有 GPS／ETA 來源；旅遊行程與對外客服問題不在支援範圍。" },
+    { id: 1, role: "assistant", text: "我是內部營運分析與網站導覽助理。第一次使用可問「帶我導覽網站」或「這個指標怎麼算」。我可比較年度總量、日均量、月份與子線差異，並協助解讀需求預測、尖離峰、票證彙總、班次與成本情境，以及儀表板資料狀態。即時車況目前沒有 GPS／ETA 來源；旅遊行程與對外客服問題不在支援範圍。" },
   ]);
 
   const submit = async (value = draft) => {
@@ -43,7 +45,7 @@ export function OperationsAssistant({ year, route, compareYear, initialQuestion,
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
-    void submit();
+    if (!inputGuard.current.blocked()) void submit();
   };
 
   const handleAction = (action: string) => {
@@ -59,7 +61,7 @@ export function OperationsAssistant({ year, route, compareYear, initialQuestion,
         <div>
           <div className="eyebrow">TRANSIT COPILOT</div>
           <h1>智慧營運小幫手</h1>
-          <p>僅回答需求預測、尖離峰、票證分析、班次成本情境與儀表板資料狀態。</p>
+          <p>可帶你認識每個頁面、解釋指標來源與公式，再協助內部營運分析。</p>
         </div>
         <div className="assistant-scope"><Database size={14} /> {compareYear} → {year} 年 · {route} · 票證聚合</div>
       </div>
@@ -90,7 +92,7 @@ export function OperationsAssistant({ year, route, compareYear, initialQuestion,
                       <b>依據資料</b>
                       {message.reply.sources.map((source) => source.url?.startsWith("http") ? <a href={source.url} target="_blank" rel="noreferrer" key={source.id}>
                         <Database size={13} /><span>{source.title}<small>{source.status_label} · {source.as_of || "時間未知"}</small></span><Clock3 size={12} />
-                      </a> : <button className="assistant-source-link" key={source.id} onClick={() => onNavigate(source.id.startsWith("ticket-") ? "營運總覽" : "資料品質")}>
+                      </a> : <button className="assistant-source-link" key={source.id} onClick={() => onNavigate(source.id === "site-guide" ? "使用說明" : source.id.startsWith("ticket-") ? "營運總覽" : "資料品質")}>
                         <Database size={13} /><span>{source.title}<small>{source.status_label} · {source.as_of || "時間未知"}</small></span><Clock3 size={12} />
                       </button>)}
                     </div>}
@@ -102,8 +104,8 @@ export function OperationsAssistant({ year, route, compareYear, initialQuestion,
             ))}
           </div>
           <form className="assistant-composer" onSubmit={onSubmit}>
-            <textarea aria-label="輸入問題" placeholder="例如：目前尖峰運量如何？若需求增加 15%，候選班次能否滿足服務底線？" value={draft} onChange={(event) => setDraft(event.target.value)} onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); void submit(); } }} maxLength={2000} />
-            <div><small><CircleHelp size={12} /> 年度問題會同時查兩年；只提供單年／子線資料時會註明限制</small><button className="button-primary" type="submit" disabled={busy || !draft.trim()} aria-label="送出問題"><ArrowUp size={16} /> 詢問</button></div>
+            <textarea aria-label="輸入問題" placeholder="例如：目前尖峰運量如何？若需求增加 15%，候選班次能否滿足服務底線？" value={draft} onChange={(event) => setDraft(event.target.value)} onCompositionStart={() => inputGuard.current.start()} onCompositionEnd={() => inputGuard.current.end()} onKeyDown={(event) => { if (inputGuard.current.shouldSend(event.nativeEvent)) { event.preventDefault(); void submit(); } }} maxLength={2000} />
+            <div><small><CircleHelp size={12} /> Enter 送出 · Shift＋Enter 換行 · 中文選字時不送出</small><button className="button-primary" type="submit" disabled={busy || !draft.trim()} aria-label="送出問題"><ArrowUp size={16} /> 詢問</button></div>
           </form>
         </div>
         <aside className="assistant-side">
@@ -116,7 +118,7 @@ export function OperationsAssistant({ year, route, compareYear, initialQuestion,
             <ul>
               <li><b>即時 GPS／ETA</b><span>尚未接入，不能確認車輛位置或延誤。</span></li>
               <li><b>電子票證</b><span>代表刷卡交易，不含完整現金、套票或拒載量。</span></li>
-              <li><b>支援範圍</b><span>限需求、尖離峰、票證行為、班次最佳化與營運資料狀態。</span></li>
+              <li><b>支援範圍</b><span>本站導覽、來源與公式解釋，以及內部營運分析。</span></li>
             </ul>
           </div>
         </aside>

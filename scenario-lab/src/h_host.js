@@ -11,7 +11,7 @@ $('#reset').onclick = () => { LIVE.paused = true; $('#play').textContent = '播�
 $('#seekGo').onclick = () => { const v = $('#seek').value; if (!/^\d{2}:\d{2}$/.test(v)) return; LIVE.paused = true; $('#play').textContent = '播放'; jumpTo(hm(v)); };
 const linkedPanel = new URLSearchParams(location.search).get('panel');
 if (PANELS.includes(linkedPanel)) setTab(linkedPanel);
-$('#botLead').textContent = '內部營運專用 · OpenRouter。回答選定日期的票證重播與需求分析；不提供旅遊規劃。';
+$('#botLead').textContent = '內部營運專用 · OpenRouter。可導覽網站、解釋指標來源與公式，並回答選定日期的票證重播。';
 function assistantSnapshot(q) {
   const ds = isoD(FCD); if (/後天/.test(q)) ds.setDate(ds.getDate() + 1);
   const date = iso(ds), s = SIM();
@@ -32,7 +32,7 @@ async function ask(q) {
   const box=$('#chat'), user=document.createElement('div'), bot=document.createElement('div');
   user.className='msg me'; user.textContent=q; bot.className='msg bot'; bot.textContent='正在查詢營運資料…'; box.append(user,bot);
   if (q.length>2000) {bot.textContent='請將問題縮短至 2000 字內。';return;}
-  const allowed=/預測|尖峰|離峰|票證|交易|年度|班次|排班|調度|最佳化|成本|營運|資料|車|時段|事件|人數|在車|最擠|現況|狀況|誤點|候車|排隊|B\d/i.test(q) && !/旅遊|飯店|餐廳|訂位|寫程式|執行命令|忽略.*指令/.test(q);
+  const allowed=/第一次|新手|導覽|怎麼用|怎麼操作|使用說明|手冊|來源|怎麼來|如何計算|怎麼算|公式|定義|方法|意思|解釋|為什麼|頁面|功能|低碳|預測|尖峰|離峰|票證|交易|年度|班次|排班|調度|最佳化|成本|營運|資料|車|時段|事件|人數|在車|最擠|現況|狀況|誤點|候車|排隊|B\d/i.test(q) && !/旅遊規劃|行程推薦|飯店|餐廳|訂位|寫程式|執行命令|忽略.*指令/.test(q);
   if(!allowed){bot.textContent='僅提供內部營運的票證、預測、尖離峰、排班與重播資料解讀；旅遊及其他問題暫不支援。';return;}
   assistantBusy=true; const buttons=[...$('#askForm').querySelectorAll('button'),...$('#botChips').querySelectorAll('button')]; buttons.forEach(b=>b.disabled=true);
   try {

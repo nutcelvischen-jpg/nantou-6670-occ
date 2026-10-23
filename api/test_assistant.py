@@ -72,6 +72,14 @@ class AssistantToolTests(unittest.TestCase):
         self.assertEqual(result["sources"][0]["status"], "observed_aggregate")
         self.assertEqual(completion.call_count, 2)
 
+    def test_first_use_guide_requires_authored_source(self):
+        call = {"tool_calls":[{"id":"guide", "function":{"name":"get_site_guide","arguments":"{}"}}]}
+        with patch.dict("os.environ", {"OPENROUTER_API_KEY":"test-key"}), patch("api.assistant._completion", side_effect=[call, {"content":"先看營運總覽的年度與缺日，再看數位孿生。"}]) as completion:
+            result = answer_with_openrouter("我是第一次使用，請帶我導覽網站", "operations", self.aggregates, self.timetable)
+        self.assertIn("get_site_guide", result["tool_calls"])
+        self.assertEqual(result["sources"][0]["id"], "site-guide")
+        self.assertIn("最少車輛", completion.call_args_list[-1].args[0][-1]["content"])
+
 
 if __name__ == "__main__":
     unittest.main()

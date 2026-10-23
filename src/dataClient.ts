@@ -1,3 +1,4 @@
+import { isGuideQuestion } from "./siteGuide";
 import type { Aggregates, ScheduleSolution, TripCandidate } from "./domain";
 import { buildAnnualComparison, comparisonSelection, isAnnualQuestion } from "./annualComparison";
 import { solveMinimumCost } from "./domain";
@@ -60,7 +61,7 @@ export async function askTransitAssistant(
   input: { message: string; year: number; route: string; compare_year?:number },
   fetcher: typeof fetch = fetch,
 ): Promise<AssistantReply> {
-  const inScope = /年度|年增|同比|去年|前年|比較.*20\d{2}|20\d{2}.*20\d{2}|預測|尖峰|離峰|運量|交易|票證|回程|頻次|od|乘載|載客率|需求|班次|班距|配置|最佳化|成本|情境|候選|車隊|營運|儀表板|即時|延誤|誤點|gps|eta|車況|資料狀態|資料品質|來源|回測|wape|mae|碳排|排放|最多|最高|時段|查需求|查運量/i.test(input.message);
+  const inScope = isGuideQuestion(input.message) || /年度|年增|同比|去年|前年|比較.*20\d{2}|20\d{2}.*20\d{2}|預測|尖峰|離峰|運量|交易|票證|回程|頻次|od|乘載|載客率|需求|班次|班距|配置|最佳化|成本|情境|候選|車隊|營運|儀表板|即時|延誤|誤點|gps|eta|車況|資料狀態|資料品質|來源|回測|wape|mae|碳排|排放|最多|最高|時段|查需求|查運量/i.test(input.message);
   if (!inScope) return localAssistantFallback(input, "scope");
   let response: Response;
   try {
@@ -93,7 +94,7 @@ export async function askTransitAssistant(
       id: String(item.id ?? "source"),
       title: String(item.title ?? "資料來源"),
       status,
-      status_label: ({ observed_aggregate: "歷史彙總", published_snapshot_unverified_for_today: "公開快照待核實", assumed: "情境假設" } as Record<string, string>)[status] ?? status,
+      status_label: ({ documented_method: "操作與方法文件", observed_aggregate: "歷史彙總", published_snapshot_unverified_for_today: "公開快照待核實", assumed: "情境假設" } as Record<string, string>)[status] ?? status,
       as_of: typeof item.as_of === "string" ? item.as_of : null,
       url: typeof item.url === "string" ? item.url : null,
     };
@@ -124,6 +125,9 @@ function localAssistantFallback(input: { message: string; year: number; route: s
   let suggested_actions = ["查看尖離峰票證交易", "檢視班次最低成本情境", "確認即時資料來源狀態"];
   if (kind === "scope") {
     answer = "我目前是內部營運分析助理，只支援需求預測、尖離峰、票證彙總與行為、班次配置與成本情境，以及儀表板資料狀態。旅遊行程、旅客客服與一般問題不在支援範圍。";
+  } else if (isGuideQuestion(input.message)) {
+    answer = "離線操作導覽（非LLM）：先從營運總覽比較年度與缺日，再到數位孿生選日期、定位時間，依序看預測、尖離峰、票證和班次重排。各指標的來源、公式及限制請開啟使用說明。重播並非GPS，重排只產生候選。";
+    status="general"; sources=[{id:"site-guide",title:"本站使用手冊與數據字典",status:"documented_method",status_label:"操作與方法文件",as_of:null,url:"/manual/index.html"}]; suggested_actions=[];
   } else if (isAnnualQuestion(input.message)) {
     const selected=comparisonSelection(dataset,input);
     if(selected.missing.length) { answer=`尚無 ${selected.missing.join('、')} 年的聚合資料，無法計算該年度差異。`; status='missing'; }

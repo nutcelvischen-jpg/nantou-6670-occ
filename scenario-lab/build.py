@@ -2,6 +2,7 @@ import json, re, sys, os, gzip, base64
 R=os.path.dirname(os.path.abspath(__file__))+'/'
 part=lambda n: open(R+'parts/'+n+'.js').read()
 src=''.join(open(R+'src/'+f).read() for f in ['a_geo.js','b_scene.js','c_models.js','d_sim.js','d_replay.js','e_forecast.js','f_opt.js','g_ui.js','h_host.js'])
+src=open(R+'../shared/chat-input.js').read().replace('export function ', 'function ')+'\n'+src
 for k,n in [('UTILS','utils'),('MATS','mats'),('TERRAIN','terrain'),('ROAD','road'),('BUS','bus'),('SMALL','small'),('HSR','hsr'),('SML','sml'),('GANTRY','gantry'),('VEG','veg'),('BOATS','boats'),('PEOPLE','people')]:
     src=src.replace('/*__%s__*/'%k, part(n))
 src=src.replace("'TAICHUNG — NANTOU  ·  1 : 100 000  ·  VERT ×1.7'","'6670  TAICHUNG — SUN MOON LAKE  ·  1 : 100 000  ·  VERT ×1.7'")

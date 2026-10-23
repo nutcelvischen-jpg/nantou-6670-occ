@@ -308,3 +308,5 @@
 .twin-fullscreen-frame {width:100%;flex:1;min-height:0;border:0;display:block;}
 .twin-loading {position:absolute;top:90px;left:28px;font-size:21px;}
 @media(max-width:700px){.twin-toolbar{padding:10px 12px 4px;gap:8px}.twin-wordmark small{display:none}.twin-toolbar button{font-size:16px;padding:6px 8px}.twin-toolbar>div{gap:6px}}
+
+.user-guide{max-width:1200px;margin:auto}.guide-start{padding:24px;line-height:1.8}.guide-search{display:block;margin:24px 0}.guide-search input{display:block;width:100%;padding:14px;font:inherit;border:1px solid #ccd7cf;border-radius:10px;margin-top:8px}.guide-section{padding:24px;margin:18px 0;line-height:1.9}.guide-section summary{cursor:pointer;font-weight:700;font-size:1.15em}.guide-section summary small{display:block;font-weight:400;color:#65776b}.guide-section li{margin:8px 0}.guide-section h3{margin-top:24px}.guide-section small{overflow-wrap:anywhere}.guide-actions{display:flex;gap:12px;margin-top:20px}

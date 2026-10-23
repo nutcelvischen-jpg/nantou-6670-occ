@@ -60,3 +60,19 @@ describe('annual assistant grounding',()=>{
  });
  it('rejects unsupported comparison filters before spending',async()=>{const f=vi.fn();expect((await handleAssistant(req({...input,compare_year:2030}),{},f)).status).toBe(422);expect(f).not.toHaveBeenCalled();});
 });
+
+describe('first-use and metric explanations',()=>{
+ it('retrieves authored definitions and page steps, including both optimization scopes',()=>{
+  const c=buildContext({...input,message:'我是第一次使用，最佳化的成本與值勤怎麼算？'});
+  expect(c.site_guide.sections.some(s=>s.id==='start')).toBe(true);
+  expect(c.site_guide.sections.some(s=>s.id==='optimizer')).toBe(true);
+  expect(c.site_guide.sections.some(s=>s.id==='cost')).toBe(true);
+  expect(c.site_guide.pages.some(s=>s.title.includes('其餘頁面'))).toBe(true);
+ });
+ it('lets novice guidance through the scope gate and cites the manual without citing synthetic cost as replay evidence',async()=>{
+  const fetcher=vi.fn().mockResolvedValueOnce(Response.json({choices:[{message:{role:'assistant',tool_calls:[{id:'guide',function:{name:'get_operations_context',arguments:'{}'}}]}}]})).mockResolvedValueOnce(Response.json({choices:[{message:{content:'先開營運總覽。'}}]}));
+  const r=await handleAssistant(req({...input,message:'我是第一次使用，請帶我導覽網站'}),{OPENROUTER_API_KEY:'test'},fetcher);
+  const result=await r.json();expect(result.engine).toBe('openrouter');expect(result.sources.some(s=>s.id==='site-guide')).toBe(true);
+  const sent=JSON.parse(fetcher.mock.calls[1][1].body);expect(sent.messages[0].content).toContain('site_guide');
+ });
+});

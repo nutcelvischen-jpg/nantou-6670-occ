@@ -224,6 +224,7 @@ details.more{margin-top:8px;font-size:18.75px}details.more summary{cursor:pointe
 @media(max-width:1100px){.app{grid-template-columns:1fr;height:auto;gap:12px}.split{display:none}.stage{height:66vh;min-height:530px}.panel{min-height:650px}.body{overflow:visible}.tl p,.tl .fig,.meta,.bl,.br{display:none}.views{top:90px;bottom:auto}.views button{font-size:13px}.mini{top:95px;max-height:calc(100% - 175px)}}
 @media(max-width:600px){.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.ctl{grid-template-columns:1fr minmax(0,1fr)}.ctl output{grid-column:2}.ctl>span:empty{display:none}.tl h1{font-size:20px}.clock{font-size:28px}.tl{right:110px}.body{padding:8px 12px}.tbl{font-size:14px}.tbl th{font-size:12px}}
 .views{align-items:flex-start;gap:5px}.views button{flex:none;min-height:34px;max-height:42px;white-space:nowrap}.views .lines{align-self:flex-start}.mini{bottom:auto}
+.ask textarea{flex:1;min-width:0;resize:vertical;font:inherit;border:1px solid #ddd;border-radius:8px;padding:10px;background:var(--bg);color:var(--fg)}
 </style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
@@ -312,14 +313,14 @@ details.more{margin-top:8px;font-size:18.75px}details.more summary{cursor:pointe
       </section>
       <!-- 02 需求預測 -->
       <section class="pane" id="p-fc" hidden>
-        <p class="lead">以 2024–2025 每日刷卡上車數，擬合「趨勢 × 星期 × 月份 × 國定假日／連假」的對數迴歸，並與「近 4 週同星期中位數」基準模型做留出期回測。</p>
-        <h2>回測（2025-11-01 至 12-31，模型未看過）</h2>
+        <p class="lead">以 2024–2025 每日刷卡上車數，擬合「趨勢 × 星期 × 月份 × 國定假日／連假」的對數迴歸，並與「近 4 週同星期中位數」基準模型做逐日滾動回測。</p>
+        <h2>逐日回測（2025-11-01 至 12-31，僅用當日前資料）</h2>
         <div class="kpis" id="fcKpi"></div>
         <svg class="chart" id="fcBack" viewBox="0 0 400 150"></svg>
         <div class="legend"><span><i class="sl" style="background:var(--muted)"></i>實際</span><span><i class="sl" style="background:var(--accent)"></i>迴歸模型</span><span><i class="sl" style="background:var(--accent2);height:2px"></i>基準</span></div>
         <h2>預測 · <span id="fcDayLbl"></span> 起 14 天</h2>
         <svg class="chart" id="fcAhead" viewBox="0 0 400 150"></svg>
-        <div class="legend"><span><i class="sl" style="background:var(--accent)"></i>往日月潭／埔里</span><span><i class="sl" style="background:var(--accent2)"></i>往台中</span><span><i class="sw" style="background:var(--chip);border-radius:2px"></i>80% 區間</span></div>
+        <div class="legend"><span><i class="sl" style="background:var(--accent)"></i>往日月潭／埔里</span><span><i class="sl" style="background:var(--accent2)"></i>往台中</span><span><i class="sw" style="background:var(--chip);border-radius:2px"></i>未校準參考帶</span></div>
         <h2>選定日 · 每小時上車預測</h2>
         <svg class="chart" id="fcHour" viewBox="0 0 400 140"></svg>
         <h2>各因子效果</h2>
@@ -449,7 +450,7 @@ details.more{margin-top:8px;font-size:18.75px}details.more summary{cursor:pointe
         <p class="lead" id="botLead"></p>
         <div class="chips" id="botChips"></div>
         <div class="chat" id="chat"></div>
-        <form class="ask" id="askForm"><input id="askIn" placeholder="例如：高鐵站下一班去日月潭幾點？現在擠嗎？" autocomplete="off"><button class="btn">送出</button></form>
+        <form class="ask" id="askForm"><textarea id="askIn" aria-label="輸入重播問題" rows="2" placeholder="例如：我是第一次使用；車上人數怎麼算？" autocomplete="off"></textarea><button class="btn">送出</button></form><small>Enter 送出 · Shift＋Enter 換行 · 中文選字時不送出</small>
         <p class="foot">內部營運小幫手 · OpenRouter。只查匿名聚合與本頁重播快照；服務失敗明示本機規則回覆。沒有 GPS、實際延誤或候車人數。</p>
       </section>
     </div>

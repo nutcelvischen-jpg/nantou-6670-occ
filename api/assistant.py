@@ -82,9 +82,14 @@ SUPPORTED_TOPIC = re.compile(
 )
 
 
+GUIDE_PATH = Path(__file__).resolve().parents[1] / "shared/site-guide.json"
+GUIDE_QUERY = re.compile(r"第一次|新手|導覽|怎麼用|怎麼操作|使用說明|手冊|操作|來源|怎麼來|如何計算|怎麼算|公式|定義|方法|意思|解釋|為什麼|怎麼解讀|如何解讀|有哪些頁|功能")
+TOOLS.append({"type":"function","function":{"name":"get_site_guide","description":"讀取本站所有頁面操作、數據來源、單位、公式、理由與限制的正式使用手冊；新手導覽或方法解釋必用。","parameters":{"type":"object","properties":{},"additionalProperties":False}}})
+
+
 def is_operations_question(message: str) -> bool:
     """A deterministic scope gate; unsupported prompts never reach the LLM."""
-    return bool(SUPPORTED_TOPIC.search(message))
+    return bool(SUPPORTED_TOPIC.search(message) or GUIDE_QUERY.search(message))
 
 
 def answer_out_of_scope(mode: str = "operations") -> dict[str, Any]:
@@ -124,6 +129,9 @@ def _find_year(aggregates: dict[str, Any], year: int) -> dict[str, Any] | None:
 
 
 def _execute_tool(name: str, arguments: dict[str, Any], aggregates: dict[str, Any], timetable: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    if name == "get_site_guide":
+        if arguments: raise ValueError("guide accepts no arguments")
+        return json.loads(GUIDE_PATH.read_text()), [_source("site-guide","本站使用手冊與數據字典","documented_method",None,"/manual/index.html")]
     if name == "get_annual_comparison":
         if arguments: raise ValueError("annual comparison does not accept client metrics")
         selected=timetable.get('_annual_selection', {})
@@ -282,6 +290,7 @@ def _completion(messages: list[dict[str, Any]], api_key: str, model: str, includ
 
 def _required_tool(message: str) -> str | None:
     text = message.lower()
+    if re.search(r"第一次|新手|導覽|怎麼用|操作|使用說明|手冊|來源|怎麼來|如何計算|怎麼算|公式|定義|方法|有哪些頁|功能", message): return "get_site_guide"
     if is_annual_question(message): return "get_annual_comparison"
     if re.search(r"現在|即時|延誤|誤點|車到了|車在哪|gps|eta|有沒有來|車況", text):
         return "get_service_status"
@@ -306,10 +315,11 @@ def answer_with_openrouter(message: str, mode: str, aggregates: dict[str, Any], 
     if not is_operations_question(message):
         return answer_out_of_scope(mode)
     system = (
-        "你是潭行 Twin 的內部營運分析助理，只處理需求預測、尖離峰、票證彙總與行為、班次與成本最佳化、儀表板資料狀態。"
+        "你是潭行 Twin 的內部營運分析與網站導覽助理，可解釋本站每個頁面（含旅客行程、旅遊資訊、低碳）的操作與資料方法；營運分析處理需求預測、尖離峰、票證彙總與行為、班次與成本最佳化、儀表板資料狀態。"
         "不得回答旅遊規劃、旅客客服或一般無關問題；若意外收到，簡短列出支援範圍。"
+        "首次導覽先用4至6步說明主要流程，不要一次列出所有公式。首次導覽與方法問題必須使用get_site_guide，依頁面入口、步驟、來源與單位、公式、好處、限制回答；教學可300至600字，用純文字與簡潔條列，勿使用Markdown粗體、LaTeX或程式欄位名。不知道的指標不可編造。沒有跨輪記憶，追問缺上下文時請重述。"
         "只用核准工具資料回答可查詢的事實；不得猜即時車況、餘位、票價、GPS或ETA。沒有GPS/ETA時明確說無法確認。"
-        "最佳化候選車輛、容量、班次和成本皆為合成假設，不能稱為真實可執行排班。票證筆數是交易數，不是完整乘客數。"
+        "成本最佳化頁的8個候選車輛、容量、班次與成本為合成假設；3D重排依當日票證推估車次與成本假設，兩者不能混用，都不能直接稱真實可執行排班。票證筆數是交易數，不是完整乘客數。"
         "站點、OD、票種與實扣金額使用baseline_evidence，注意全子線範圍及前十大OD限制；實扣不是營收、優惠額度不是已核付補貼、票種不代表身分或政策效果、刷卡時間差不是延誤。年度差異必須呼叫get_annual_comparison，用兩年總量、日均及涵蓋日數回答，說明缺日與基期為零；未提供年度不能用其他年替代，不能捏造原因。"
         "用繁體中文，標示來源與資料限制。若get_service_status含simulation，可解讀瀏覽器快照；kind=ticket_replay時稱票證重播，車次與在車量為規則推估，位置為內插，容量是假設，負值為資料異常。候車與延誤未知，不以零代替；不得當作GPS真實車況。若快照帶optimization，重排問題先用這些當日全線數值，非另一個合成候選集合；成本邊界不同，不能稱實證節省或合規。span_limit是值勤跨度上限，不是班距；重排司機數是啟發式候選，不能稱下限。"
     )
@@ -370,7 +380,12 @@ def answer_demo(message: str, mode: str, aggregates: dict[str, Any], timetable: 
     if not is_operations_question(message):
         return answer_out_of_scope(mode)
     text = message.lower()
-    if is_annual_question(message):
+    if GUIDE_QUERY.search(message):
+        data, sources = _execute_tool("get_site_guide", {}, aggregates, timetable)
+        answer = "本機規則導覽（非LLM）：先從營運總覽選兩個年度，確認交易單位與缺日；再到數位孿生選日期與定位時間，依序查看預測、尖離峰、票證與班次最佳化。完整來源、公式與步驟請開使用說明。票證重播不是即時GPS，重排只是候選。"
+        status = "general"
+        actions = []
+    elif is_annual_question(message):
         timetable={**timetable,'_annual_selection':{**timetable.get('_annual_selection',{}),'message':message,'year':year,'route':route}}
         result,sources=_execute_tool('get_annual_comparison',{},aggregates,timetable)
         c=result['annual_comparison'];status='sourced' if c else 'missing';actions=['在營運總覽查看年度差異']
