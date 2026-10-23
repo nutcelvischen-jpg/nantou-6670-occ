@@ -1,5 +1,7 @@
 import type { Aggregates, ScheduleSolution, TripCandidate } from "./domain";
+import { solveMinimumCost } from "./domain";
 import tdxRouteSnapshotUrl from "./data/tdx-route-map-6670.json?url";
+import aggregateFallback from "./data/ticket-aggregates.json";
 
 export type AggregateSource = "api" | "bundled";
 export type RoadDemoResponse = {
@@ -57,11 +59,19 @@ export async function askTransitAssistant(
   input: { message: string; year: number; route: string },
   fetcher: typeof fetch = fetch,
 ): Promise<AssistantReply> {
-  const response = await fetcher("/api/v1/assistant/answer", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input),
-  });
+  const inScope = /預測|尖峰|離峰|運量|交易|票證|回程|頻次|od|乘載|載客率|需求|班次|班距|配置|最佳化|成本|情境|候選|車隊|營運|儀表板|即時|延誤|誤點|gps|eta|車況|資料狀態|資料品質|來源|回測|wape|mae|碳排|排放|最多|最高|時段|查需求|查運量/i.test(input.message);
+  if (!inScope) return localAssistantFallback(input, "scope");
+  let response: Response;
+  try {
+    response = await fetcher("/api/v1/assistant/answer", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...input, mode: "operations" }),
+    });
+  } catch {
+    return localAssistantFallback(input, "offline");
+  }
+  if (response.status === 404 || response.status === 405) return localAssistantFallback(input, "offline");
   const payload: unknown = await response.json().catch(() => null);
   if (!response.ok) {
     const error = payload && typeof payload === "object" ? (payload as Record<string, unknown>).error : null;
@@ -98,6 +108,63 @@ export async function askTransitAssistant(
     suggested_actions: row.suggested_actions.filter((value): value is string => typeof value === "string"),
     provider_notice: typeof row.provider_notice === "string" ? row.provider_notice : undefined,
     request_id: row.request_id,
+  };
+}
+
+function localAssistantFallback(input: { message: string; year: number; route: string }, kind: "scope" | "offline"): AssistantReply {
+  const dataset = aggregateFallback as Aggregates;
+  const year = dataset.years.find((row) => row.source.startsWith(String(input.year))) ?? dataset.years[dataset.years.length - 1];
+  const text = input.message.toLowerCase();
+  const sourceDate = year.source.slice(0, 4);
+  const source = { id: `ticket-aggregate-${sourceDate}`, title: `${sourceDate}年6670票證安全彙總`, status: "observed_aggregate", status_label: "歷史彙總", as_of: dataset.generated_at ?? null, url: null };
+  let answer = "";
+  let status = "demo";
+  let sources: AssistantReply["sources"] = [];
+  let suggested_actions = ["查看尖離峰票證交易", "檢視班次最低成本情境", "確認即時資料來源狀態"];
+  if (kind === "scope") {
+    answer = "我目前是內部營運分析助理，只支援需求預測、尖離峰、票證彙總與行為、班次配置與成本情境，以及儀表板資料狀態。旅遊行程、旅客客服與一般問題不在支援範圍。";
+  } else if (/即時|延誤|誤點|gps|eta|車況|車在哪|有沒有來/.test(text)) {
+    answer = "目前這個公開靜態展示沒有連接即時 GPS／ETA 服務，無法確認車輛位置、到站時間或是否延誤。請將此狀態視為資料來源限制，不要解讀為準點。";
+    status = "missing";
+  } else if (/回程|頻次|od|票證行為|交易頻次|乘載行為/.test(text)) {
+    const bins = year.same_day_return_interval.filter((item) => !item.suppressed && item.return_count != null);
+    const top = bins.sort((a, b) => (b.return_count ?? 0) - (a.return_count ?? 0))[0];
+    const freq = year.card_transaction_frequency.filter((item) => !item.suppressed && item.card_count != null).slice(0, 3);
+    answer = `${input.year} 年同日反向 OD 回程間隔中，${top ? `「${top.label}」最多（${top.return_count?.toLocaleString("zh-TW")} 對）` : "目前沒有可公開的有效區間"}。票證頻次最高的前三個交易次數分組為 ${freq.map((item) => `${item.label} ${item.card_count?.toLocaleString("zh-TW")} 張卡`).join("、") || "無"}。這些是匿名群體代理：同卡、同日、反向計費站 OD、間隔不超過 12 小時，不代表確定旅程或實際上下車。`;
+    status = "sourced";
+    sources = [source];
+    suggested_actions = ["在運量分析查看回程間隔圖", "查看資料品質與隱私門檻"];
+  } else if (/最佳化|配置|需求.*(增加|提高|上升)|增加.*%|提高.*%|情境|候選/.test(text)) {
+    const match = text.match(/(\d{1,3})\s*%|百分之\s*(\d{1,3})/);
+    const increase = Math.min(100, Number(match?.[1] ?? match?.[2] ?? 15));
+    const demand = Math.max(45, Math.round(320 * (1 + increase / 100)));
+    const result = solveMinimumCost(demand, 0.9);
+    const selected = result.selected.map((trip) => trip.label).join("、") || "無可行班次";
+    answer = result.status === "optimal"
+      ? `離線候選班次情境：需求基數 320 人次 × (1 + ${increase}%)，估計 ${demand} 人次；在服務至少 90% 下，前端全枚舉選出 ${selected}，示例成本 NT$${result.objective?.toLocaleString("zh-TW")}，容量服務 ${result.served}/${demand}。車輛、成本、容量與需求基數都是合成假設，這不是實際排班或即時 API 求解結果。`
+      : `需求提高 ${increase}% 後，這組離線合成候選班次無法滿足 90% 服務底線；不代表真實車隊無解。`;
+    status = "assumed";
+    sources = [{ id: "synthetic-fleet-candidates", title: "合成候選班次／車輛／成本", status: "assumed", status_label: "情境假設", as_of: null, url: null }];
+    suggested_actions = ["前往班次最佳化查看限制", "查看需求分析與歷史分布"];
+  } else {
+    const counts = Array.from({ length: 24 }, (_, hour) => ({ hour, transactions: year.hour_by_route.filter((row) => row.hour === hour && (input.route === "全部" || row.route === input.route)).reduce((sum, row) => sum + row.transactions, 0) }));
+    const peak = counts.reduce((best, row) => row.transactions > best.transactions ? row : best, counts[0]);
+    answer = `${input.year} 年 ${input.route} 票證交易最高時段為 ${String(peak.hour).padStart(2, "0")}:00–${String(peak.hour + 1).padStart(2, "0")}:00，共 ${peak.transactions.toLocaleString("zh-TW")} 筆。這是公開彙總交易，不等於完整乘客數或目前候車量。${kind === "offline" ? "目前網站的營運 API 尚未連接，因此使用頁面內安全彙總資料提供示範回答。" : ""}`;
+    status = "sourced";
+    sources = [source];
+    suggested_actions = ["在需求分析查看24小時曲線", "切換年度或子線"];
+  }
+  return {
+    answer,
+    mode: "operations",
+    engine: "demo",
+    data_status: status,
+    as_of: dataset.generated_at ?? new Date().toISOString(),
+    sources,
+    tool_calls: [],
+    suggested_actions,
+    ...(kind === "offline" ? { provider_notice: "離線示範模式：公開靜態站尚未連接營運 API／OpenCode LLM。" } : {}),
+    request_id: `local-${Date.now().toString(36)}`,
   };
 }
 
