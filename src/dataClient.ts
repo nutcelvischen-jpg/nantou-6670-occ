@@ -1,4 +1,5 @@
 import type { Aggregates, ScheduleSolution, TripCandidate } from "./domain";
+import { buildAnnualComparison, comparisonSelection, isAnnualQuestion } from "./annualComparison";
 import { solveMinimumCost } from "./domain";
 import tdxRouteSnapshotUrl from "./data/tdx-route-map-6670.json?url";
 import aggregateFallback from "./data/ticket-aggregates.json";
@@ -56,10 +57,10 @@ export type AssistantReply = {
 };
 
 export async function askTransitAssistant(
-  input: { message: string; year: number; route: string },
+  input: { message: string; year: number; route: string; compare_year?:number },
   fetcher: typeof fetch = fetch,
 ): Promise<AssistantReply> {
-  const inScope = /預測|尖峰|離峰|運量|交易|票證|回程|頻次|od|乘載|載客率|需求|班次|班距|配置|最佳化|成本|情境|候選|車隊|營運|儀表板|即時|延誤|誤點|gps|eta|車況|資料狀態|資料品質|來源|回測|wape|mae|碳排|排放|最多|最高|時段|查需求|查運量/i.test(input.message);
+  const inScope = /年度|年增|同比|去年|前年|比較.*20\d{2}|20\d{2}.*20\d{2}|預測|尖峰|離峰|運量|交易|票證|回程|頻次|od|乘載|載客率|需求|班次|班距|配置|最佳化|成本|情境|候選|車隊|營運|儀表板|即時|延誤|誤點|gps|eta|車況|資料狀態|資料品質|來源|回測|wape|mae|碳排|排放|最多|最高|時段|查需求|查運量/i.test(input.message);
   if (!inScope) return localAssistantFallback(input, "scope");
   let response: Response;
   try {
@@ -111,7 +112,7 @@ export async function askTransitAssistant(
   };
 }
 
-function localAssistantFallback(input: { message: string; year: number; route: string }, kind: "scope" | "offline"): AssistantReply {
+function localAssistantFallback(input: { message: string; year: number; route: string; compare_year?:number }, kind: "scope" | "offline"): AssistantReply {
   const dataset = aggregateFallback as Aggregates;
   const year = dataset.years.find((row) => row.source.startsWith(String(input.year))) ?? dataset.years[dataset.years.length - 1];
   const text = input.message.toLowerCase();
@@ -123,6 +124,15 @@ function localAssistantFallback(input: { message: string; year: number; route: s
   let suggested_actions = ["查看尖離峰票證交易", "檢視班次最低成本情境", "確認即時資料來源狀態"];
   if (kind === "scope") {
     answer = "我目前是內部營運分析助理，只支援需求預測、尖離峰、票證彙總與行為、班次配置與成本情境，以及儀表板資料狀態。旅遊行程、旅客客服與一般問題不在支援範圍。";
+  } else if (isAnnualQuestion(input.message)) {
+    const selected=comparisonSelection(dataset,input);
+    if(selected.missing.length) { answer=`尚無 ${selected.missing.join('、')} 年的聚合資料，無法計算該年度差異。`; status='missing'; }
+    else {
+      const c=buildAnnualComparison(dataset,selected.baseYear,selected.targetYear,input.route);
+      const f=(v:number|null)=>v===null?'無資料':v.toLocaleString('zh-TW',{maximumFractionDigits:1});
+      answer=`${c.baseYear} → ${c.targetYear} 年 ${c.route}：票證交易由 ${f(c.total.base)} 變為 ${f(c.total.target)} 筆，差異 ${f(c.total.delta)} 筆（${f(c.total.percent)}%）。有紀錄日為 ${c.base.observedDays}／${c.target.observedDays} 日；日均 ${f(c.dailyMean.base)} → ${f(c.dailyMean.target)} 筆。缺日不能補零，子線沒有逐日分布時不提供日均；交易數不是獨立人數，增減不證明因果。`;
+      sources=[c.base,c.target].map(y=>({...source,id:`ticket-aggregate-${y.year}`,title:`${y.year}年6670票證聚合`}));status='sourced';
+    }
   } else if (/即時|延誤|誤點|gps|eta|車況|車在哪|有沒有來/.test(text)) {
     answer = "目前這個公開靜態展示沒有連接即時 GPS／ETA 服務，無法確認車輛位置、到站時間或是否延誤。請將此狀態視為資料來源限制，不要解讀為準點。";
     status = "missing";

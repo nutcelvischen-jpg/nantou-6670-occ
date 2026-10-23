@@ -37,6 +37,8 @@ import { TourismGuide } from "./components/TourismGuide";
 import { PublishedTimetableSearch } from "./components/PublishedTimetableSearch";
 import { OperationsAssistant } from "./components/OperationsAssistant";
 import { TimetableScenarioLab, type ScenarioPanel } from "./components/TimetableScenarioLab";
+import { AnnualComparison } from "./components/AnnualComparison";
+import { availableYears } from "./annualComparison";
 import { ModelMethodology } from "./components/ModelMethodology";
 import aggregatesJson from "./data/ticket-aggregates.json";
 import timetableJson from "./data/ntbus-6670-timetable.json";
@@ -149,10 +151,14 @@ export function App() {
     });
     return () => { active = false; };
   }, []);
-  const [page, setPage] = useState<Page>("數位孿生");
+  const [page, setPage] = useState<Page>("營運總覽");
   const [scenarioPanel, setScenarioPanel] = useState<ScenarioPanel>();
   const [panelRequest, setPanelRequest] = useState(0);
-  const [year, setYear] = useState(2025);
+  const [year, setYear] = useState(availableYears(bundledData).at(-1)!);
+  const [compareYear, setCompareYear] = useState(availableYears(bundledData).at(-2) ?? availableYears(bundledData)[0]);
+  const [assistantQuestion, setAssistantQuestion] = useState('');
+  const [twinVisited, setTwinVisited] = useState(false);
+  useEffect(() => { if (page === '數位孿生') setTwinVisited(true); }, [page]);
   const [route, setRoute] = useState("全部");
   const [selectedStop, setSelectedStop] = useState("puli");
   const [solution, setSolution] = useState<ScheduleSolution | null>(null);
@@ -548,13 +554,19 @@ export function App() {
       },
     }],
   };
+  const annualView = (mode: 'overview' | 'analysis') => <AnnualComparison data={data} mode={mode} baseYear={compareYear} targetYear={year}
+    onYears={(base,target)=>{setCompareYear(base);setYear(target);}}
+    onAsk={(question)=>{setAssistantQuestion(question);setRoute('全部');setPage('智慧小幫手');}}
+    onNavigate={()=>setPage(mode==='overview'?'運量分析':'營運總覽')} />;
   const content = () => {
     if (page === "模型方法") return <ModelMethodology onNavigate={setPage} onOpenScenario={(panel) => { setScenarioPanel(panel); setPanelRequest(n => n + 1); setPage("數位孿生"); }} />;
-    if (page === "智慧小幫手") return <OperationsAssistant year={year} route={route} onNavigate={setPage} />;
+    if (page === "智慧小幫手") return <OperationsAssistant year={year} route={route} compareYear={compareYear} initialQuestion={assistantQuestion} years={availableYears(data)} onYears={(b,t)=>{setCompareYear(b);setYear(t);}} onNavigate={setPage} />;
     if (page === "旅遊資訊") return <TourismGuide timetable={publishedTimetable} timetableSource={timetableSource} departAfter={journeyDeparture} onDepartAfterChange={setJourneyDeparture} />;
     if (page === "運量分析")
       return (
         <>
+          {annualView("analysis")}
+          <details className="annual-legacy"><summary>單年票證、OD、行為與預測明細</summary>
           <div className="page-intro">
             <div>
               <div className="eyebrow">HISTORICAL DEMAND</div>
@@ -676,6 +688,7 @@ export function App() {
               </p>
             </Panel>
           </div>
+          </details>
         </>
       );
     if (page === "成本最佳化")
@@ -1459,6 +1472,8 @@ export function App() {
       );
     return (
       <>
+        {annualView("overview")}
+        <details className="annual-legacy"><summary>單年營運與地圖明細</summary>
         <div className="page-intro">
           <div>
             <div className="eyebrow">NANTOU TRANSIT OPERATIONS</div>
@@ -1471,8 +1486,7 @@ export function App() {
               value={year}
               onChange={(e) => setYear(Number(e.target.value))}
             >
-              <option>2025</option>
-              <option>2024</option>
+              {availableYears(data).map(y=><option key={y}>{y}</option>)}
             </select>
             <ChevronDown size={13} />
           </div>
@@ -1641,14 +1655,15 @@ export function App() {
             </button>
           </div>
         </div>
+        </details>
       </>
     );
   };
   return (
     <>
-      <TimetableScenarioLab active={page === "數位孿生"} initialPanel={scenarioPanel} requestId={panelRequest}
+      {(twinVisited || page === "數位孿生") && <TimetableScenarioLab active={page === "數位孿生"} initialPanel={scenarioPanel} requestId={panelRequest}
         onMethod={() => setPage("模型方法")} onOptimize={() => setPage("成本最佳化")}
-        onOverview={() => setPage("營運總覽")} />
+        onOverview={() => setPage("營運總覽")} />}
       {page !== "數位孿生" && <div className="app-shell">
       <aside className="sidebar">
         <div className="brand">

@@ -38,3 +38,19 @@ describe('OpenRouter operations assistant',()=>{
     expect(c.optimization.increase_pct).toBe(15);expect(c.optimization.status).toBe('optimal');expect(c.live_GPS_ETA.available).toBe(false);expect(c.simulation?.status).toContain('not_live_GPS');
   });
 });
+
+describe('annual assistant grounding',()=>{
+ it('provides both years with calculated deltas, missing-day denominators and explicit question precedence',()=>{
+  const c=buildContext({...input,message:'比較 2024 與 2025 年度差異',year:2024,compare_year:2025});
+  expect(c.annual_comparison?.baseYear).toBe(2024);expect(c.annual_comparison?.total.delta).toBe(50612);
+  expect(c.annual_comparison?.base.observedDays).toBe(361);expect(c.annual_comparison?.base.daily).toBeUndefined();
+  const m=buildContext({...input,message:'比較2025與2026的年度差異'});expect(m.annual_comparison).toBeNull();expect(m.unavailable_requested_years).toEqual([2026]);
+ });
+ it('cites both annual sources and marks an annual increase as observed rather than a cost scenario',async()=>{
+  const fetcher=vi.fn().mockResolvedValueOnce(Response.json({choices:[{message:{role:'assistant',tool_calls:[{id:'annual',function:{name:'get_operations_context',arguments:'{}'}}]}}]})).mockResolvedValueOnce(Response.json({choices:[{message:{content:'2025比2024增加50,612筆。'}}]}));
+  const r=await generateAnswer({...input,compare_year:2024,message:'年度交易增加多少？'},'test',fetcher);
+  expect(r.data_status).toBe('sourced');expect(r.sources.filter(s=>s.id.startsWith('ticket-')).map(s=>s.id)).toEqual(['ticket-2024','ticket-2025']);
+  const tool=JSON.parse(JSON.parse(fetcher.mock.calls[1][1].body).messages[3].content);expect(tool.annual_comparison.total.delta).toBe(50612);
+ });
+ it('rejects unsupported comparison filters before spending',async()=>{const f=vi.fn();expect((await handleAssistant(req({...input,compare_year:2030}),{},f)).status).toBe(422);expect(f).not.toHaveBeenCalled();});
+});

@@ -71,7 +71,8 @@ class SimulationSnapshot(BaseModel):
 class AssistantRequest(BaseModel):
     mode: str = Field(default="operations", pattern="^operations$")
     message: str = Field(min_length=1, max_length=2000)
-    year: int = Field(default=2025, ge=2024, le=2025)
+    year: int = Field(default=2025, ge=2000, le=2100)
+    compare_year: int | None = Field(default=None, ge=2000, le=2100)
     route: str = Field(default="全部", max_length=24)
     simulation: SimulationSnapshot | None = None
 
@@ -212,6 +213,10 @@ def assistant_answer(request: AssistantRequest) -> JSONResponse:
         timetable = json.loads(TIMETABLE_PATH.read_text(encoding="utf-8"))
     except (RuntimeError, OSError, json.JSONDecodeError):
         return _error("ASSISTANT_DATA_UNAVAILABLE", "助理目前無法讀取所需資料。", 503)
+    available = {int(row['source'][:4]) for row in aggregates['years']}
+    if request.year not in available or (request.compare_year is not None and request.compare_year not in available):
+        return _error('INVALID_ASSISTANT_YEAR', '該年度尚無聚合資料。', 422)
+    timetable = {**timetable, '_annual_selection': {'message': message, 'year': request.year, 'compare_year': request.compare_year, 'route': request.route}}
     if not is_operations_question(message):
         answer = answer_out_of_scope(request.mode)
     else:

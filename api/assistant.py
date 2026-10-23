@@ -30,7 +30,7 @@ TOOLS = [
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "year": {"type": "integer", "enum": [2024, 2025]},
+                    "year": {"type": "integer", "minimum": 2000, "maximum": 2100},
                     "route": {"type": "string", "enum": sorted(ALLOWED_ROUTES)},
                 },
                 "required": ["year", "route"],
@@ -45,7 +45,7 @@ TOOLS = [
             "description": "查詢公開安全聚合的卡片交易頻次與同日反向OD回程間隔分布；只能作群體行為代理，不可辨識個人或確定旅程。",
             "parameters": {
                 "type": "object",
-                "properties": {"year": {"type": "integer", "enum": [2024, 2025]}},
+                "properties": {"year": {"type": "integer", "minimum": 2000, "maximum": 2100}},
                 "required": ["year"],
                 "additionalProperties": False,
             },
@@ -59,7 +59,7 @@ TOOLS = [
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "year": {"type": "integer", "enum": [2024, 2025]},
+                    "year": {"type": "integer", "minimum": 2000, "maximum": 2100},
                     "route": {"type": "string", "enum": sorted(ALLOWED_ROUTES)},
                     "demand_increase_pct": {"type": "integer", "minimum": 0, "maximum": 100},
                 },
@@ -71,8 +71,12 @@ TOOLS = [
 ]
 
 
+TOOLS.append({"type":"function","function":{"name":"get_annual_comparison","description":"讀取畫面選定的兩年度票證比較，包含總量、日均、月份、時段、子線與缺日；問題指定的年份優先，資料由伺服器重算。","parameters":{"type":"object","properties":{},"additionalProperties":False}}})
+
+from api.annual_comparison import annual_context, is_annual_question, available_years
+
 SUPPORTED_TOPIC = re.compile(
-    r"預測|尖峰|離峰|運量|交易|票證|回程|頻次|od|乘載|載客率|需求|班次|班距|配置|最佳化|最佳化|成本|情境|候選|車隊|營運|儀表板|即時|延誤|誤點|gps|eta|車況|資料狀態|資料品質|來源|回測|wape|mae|碳排|排放|最多|最高|時段|查需求|查運量|B\s?\d|號車|排隊|候車|加開|調度|滿載|異常|告警|現況|狀況|最擠|人數",
+    r"年度|年增|同比|去年|前年|比較.*20\d{2}|20\d{2}.*20\d{2}|預測|尖峰|離峰|運量|交易|票證|回程|頻次|od|乘載|載客率|需求|班次|班距|配置|最佳化|最佳化|成本|情境|候選|車隊|營運|儀表板|即時|延誤|誤點|gps|eta|車況|資料狀態|資料品質|來源|回測|wape|mae|碳排|排放|最多|最高|時段|查需求|查運量|B\s?\d|號車|排隊|候車|加開|調度|滿載|異常|告警|現況|狀況|最擠|人數",
     re.IGNORECASE,
 )
 
@@ -119,6 +123,13 @@ def _find_year(aggregates: dict[str, Any], year: int) -> dict[str, Any] | None:
 
 
 def _execute_tool(name: str, arguments: dict[str, Any], aggregates: dict[str, Any], timetable: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    if name == "get_annual_comparison":
+        if arguments: raise ValueError("annual comparison does not accept client metrics")
+        selected=timetable.get('_annual_selection', {})
+        years=available_years(aggregates)
+        result=annual_context(aggregates, selected.get('message','年度比較'),selected.get('year',years[-1]),selected.get('compare_year'),selected.get('route','全部'))
+        c=result['annual_comparison']
+        return result, [_source(f"ticket-aggregate-{y}",f"{y}年6670票證聚合","observed_aggregate",aggregates.get('generated_at')) for y in dict.fromkeys([c['baseYear'],c['targetYear']])] if c else []
     if name == "get_service_status":
         return (
             {
@@ -132,7 +143,7 @@ def _execute_tool(name: str, arguments: dict[str, Any], aggregates: dict[str, An
     if name == "get_demand_summary":
         year = arguments.get("year")
         route = arguments.get("route")
-        if year not in (2024, 2025) or route not in ALLOWED_ROUTES:
+        if year not in available_years(aggregates) or route not in ALLOWED_ROUTES:
             raise ValueError("invalid demand tool arguments")
         record = _find_year(aggregates, year)
         if not record:
@@ -161,7 +172,7 @@ def _execute_tool(name: str, arguments: dict[str, Any], aggregates: dict[str, An
         )
     if name == "get_ticket_behavior_summary":
         year = arguments.get("year")
-        if year not in (2024, 2025):
+        if year not in available_years(aggregates):
             raise ValueError("invalid ticket behavior arguments")
         record = _find_year(aggregates, year)
         if not record:
@@ -199,7 +210,7 @@ def _execute_tool(name: str, arguments: dict[str, Any], aggregates: dict[str, An
         year = arguments.get("year")
         route = arguments.get("route")
         increase_pct = arguments.get("demand_increase_pct")
-        if year not in (2024, 2025) or route not in ALLOWED_ROUTES or not isinstance(increase_pct, int) or isinstance(increase_pct, bool) or not 0 <= increase_pct <= 100:
+        if year not in available_years(aggregates) or route not in ALLOWED_ROUTES or not isinstance(increase_pct, int) or isinstance(increase_pct, bool) or not 0 <= increase_pct <= 100:
             raise ValueError("invalid optimization preview arguments")
         record = _find_year(aggregates, year)
         if not record:
@@ -265,6 +276,7 @@ def _completion(messages: list[dict[str, Any]], api_key: str, model: str, includ
 
 def _required_tool(message: str) -> str | None:
     text = message.lower()
+    if is_annual_question(message): return "get_annual_comparison"
     if re.search(r"現在|即時|延誤|誤點|車到了|車在哪|gps|eta|有沒有來|車況", text):
         return "get_service_status"
     if re.search(r"最佳化|配置|需求.*(增加|提高|上升)|增加.*%|提高.*%|情境", text):
@@ -292,6 +304,7 @@ def answer_with_openrouter(message: str, mode: str, aggregates: dict[str, Any], 
         "不得回答旅遊規劃、旅客客服或一般無關問題；若意外收到，簡短列出支援範圍。"
         "只用核准工具資料回答可查詢的事實；不得猜即時車況、餘位、票價、GPS或ETA。沒有GPS/ETA時明確說無法確認。"
         "最佳化候選車輛、容量、班次和成本皆為合成假設，不能稱為真實可執行排班。票證筆數是交易數，不是完整乘客數。"
+        "年度差異必須呼叫get_annual_comparison，用兩年總量、日均及涵蓋日數回答，說明缺日與基期為零；未提供年度不能用其他年替代，不能捏造原因。"
         "用繁體中文，標示來源與資料限制。若get_service_status含simulation，可解讀使用者瀏覽器的模擬快照，但必須明確標為模擬，不能稱為真實車況。"
     )
     messages: list[dict[str, Any]] = [{"role": "system", "content": system}, {"role": "user", "content": message}]
@@ -351,7 +364,16 @@ def answer_demo(message: str, mode: str, aggregates: dict[str, Any], timetable: 
     if not is_operations_question(message):
         return answer_out_of_scope(mode)
     text = message.lower()
-    if re.search(r"現在|即時|延誤|誤點|車到了|車在哪|gps|eta|有沒有來|車況", text):
+    if is_annual_question(message):
+        timetable={**timetable,'_annual_selection':{**timetable.get('_annual_selection',{}),'message':message,'year':year,'route':route}}
+        result,sources=_execute_tool('get_annual_comparison',{},aggregates,timetable)
+        c=result['annual_comparison'];status='sourced' if c else 'missing';actions=['在運量分析查看年度差異']
+        if c:
+            t=c['total'];b=c['base'];a=c['target']
+            fmt=lambda v:'無資料' if v is None else f'{v:,.1f}'
+            answer=f"{c['baseYear']} → {c['targetYear']} 年 {route}：交易量 {fmt(t['base'])} → {fmt(t['target'])} 筆，差異 {fmt(t['delta'])} 筆（{fmt(t['percent'])}%）。有紀錄日 {b['observedDays']}／{a['observedDays']}；日均 {fmt(b['dailyMean'])} → {fmt(a['dailyMean'])} 筆。無紀錄日不是零或停駛證據；交易不是獨立旅客，增減不代表因果。子線無逐日分布時不提供日均。"
+        else: answer=f"尚無 {result['unavailable_requested_years']} 年聚合資料，無法比較。"
+    elif re.search(r"現在|即時|延誤|誤點|車到了|車在哪|gps|eta|有沒有來|車況", text):
         data, sources = _execute_tool("get_service_status", {}, aggregates, timetable)
         answer = data["message"] + " 可查到的是公開班表快照，但它沒有即時行車資訊。"
         status = "missing"
