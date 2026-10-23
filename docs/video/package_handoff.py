@@ -154,7 +154,7 @@ version = {
     'additions': ['docs/video scripts', 'filming assets', 'manual sources', 'reference prototypes'],
     'exclusions': ['active credentials', '.env.local', 'Git history', 'dependencies', 'raw ticket XLSX', 'temporary files/logs'],
     'tracked_files_excluded': skipped,
-    'homepage_changed': False, 'video_created': False,
+    'unified_workbench': True, 'homepage_video_installed': False, 'video_created': False,
 }
 temp = OUT / '交付版本暫存.json'
 temp.write_text(json.dumps(version, ensure_ascii=False, indent=2))
