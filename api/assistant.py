@@ -77,7 +77,7 @@ TOOLS.append({"type":"function","function":{"name":"get_annual_comparison","desc
 from api.annual_comparison import annual_context, is_annual_question, available_years
 
 SUPPORTED_TOPIC = re.compile(
-    r"實扣|票種|站點|計費站|年度|年增|同比|去年|前年|比較.*20\d{2}|20\d{2}.*20\d{2}|預測|尖峰|離峰|運量|交易|票證|回程|頻次|od|乘載|載客率|需求|班次|班距|配置|最佳化|最佳化|成本|情境|候選|車隊|營運|儀表板|即時|延誤|誤點|gps|eta|車況|資料狀態|資料品質|來源|回測|wape|mae|碳排|排放|最多|最高|時段|查需求|查運量|B\s?\d|號車|排隊|候車|加開|調度|滿載|異常|告警|現況|狀況|最擠|人數",
+    r"方案|甘特|未安排|車型|加班|實扣|票種|站點|計費站|年度|年增|同比|去年|前年|比較.*20\d{2}|20\d{2}.*20\d{2}|預測|尖峰|離峰|運量|交易|票證|回程|頻次|od|乘載|載客率|需求|班次|班距|配置|最佳化|最佳化|成本|情境|候選|車隊|營運|儀表板|即時|延誤|誤點|gps|eta|車況|資料狀態|資料品質|來源|回測|wape|mae|碳排|排放|最多|最高|時段|查需求|查運量|B\s?\d|號車|排隊|候車|加開|調度|滿載|異常|告警|現況|狀況|最擠|人數",
     re.IGNORECASE,
 )
 
@@ -131,7 +131,7 @@ def _find_year(aggregates: dict[str, Any], year: int) -> dict[str, Any] | None:
 def _execute_tool(name: str, arguments: dict[str, Any], aggregates: dict[str, Any], timetable: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     if name == "get_site_guide":
         if arguments: raise ValueError("guide accepts no arguments")
-        return json.loads(GUIDE_PATH.read_text()), [_source("site-guide","本站使用手冊與數據字典","documented_method",None,"/manual/index.html")]
+        return {**json.loads(GUIDE_PATH.read_text()), "simulation": timetable.get("_simulation")}, [_source("site-guide","本站使用手冊與數據字典","documented_method",None,"/manual/index.html")]
     if name == "get_annual_comparison":
         if arguments: raise ValueError("annual comparison does not accept client metrics")
         selected=timetable.get('_annual_selection', {})
@@ -321,9 +321,11 @@ def answer_with_openrouter(message: str, mode: str, aggregates: dict[str, Any], 
         "只用核准工具資料回答可查詢的事實；不得猜即時車況、餘位、票價、GPS或ETA。沒有GPS/ETA時明確說無法確認。"
         "成本最佳化頁的8個候選車輛、容量、班次與成本為合成假設；3D重排依當日票證推估車次與成本假設，兩者不能混用，都不能直接稱真實可執行排班。票證筆數是交易數，不是完整乘客數。"
         "站點、OD、票種與實扣金額使用baseline_evidence，注意全子線範圍及前十大OD限制；實扣不是營收、優惠額度不是已核付補貼、票種不代表身分或政策效果、刷卡時間差不是延誤。年度差異必須呼叫get_annual_comparison，用兩年總量、日均及涵蓋日數回答，說明缺日與基期為零；未提供年度不能用其他年替代，不能捏造原因。"
-        "用繁體中文，標示來源與資料限制。若get_service_status含simulation，可解讀瀏覽器快照；kind=ticket_replay時稱票證重播，車次與在車量為規則推估，位置為內插，容量是假設，負值為資料異常。候車與延誤未知，不以零代替；不得當作GPS真實車況。若快照帶optimization，重排問題先用這些當日全線數值，非另一個合成候選集合；成本邊界不同，不能稱實證節省或合規。span_limit是值勤跨度上限，不是班距；重排司機數是啟發式候選，不能稱下限。排班檢核一律稱「超出設定門檻」，不得稱違規或全部合規；remaining_rule_violations為相容舊欄位，意義也是超出設定門檻。回答重排數字需附營運日、空車調度模式、司機是否換車與門檻；缺參數就說未知，不套用文件預設。文件示範僅限2025-10-11與其列出的參數；不同日期與模式不能代用。"
+        "用繁體中文，標示來源與資料限制。若get_service_status含simulation，可解讀瀏覽器快照；kind=ticket_replay時稱票證重播，車次與在車量為規則推估，位置為內插，容量是假設，負值為資料異常。候車與延誤未知，不以零代替；不得當作GPS真實車況。若simulation有dispatch，05調度與成本問題只用dispatch的當次候選與fixed比較；附營運日、方向、時窗、車隊上限、改搭窗口及版本。不能沿用舊版optimization或文件示例數字。paid及assignedPaid等是整數分，回答元時除100；cost已是元。說明未安排需求與feasible狀態，未通過不可建議直接採用。B換小車不改原始低載比例；H加班不保證低載改善或每班實扣上升；≥43達容量與>43超出容量要分開。所有車型成本是未核實假設，方案成本差只對fixed算；未安排不等於實際拒載。若快照帶optimization，重排問題先用這些當日全線數值，非另一個合成候選集合；成本邊界不同，不能稱實證節省或合規。span_limit是值勤跨度上限，不是班距；重排司機數是啟發式候選，不能稱下限。排班檢核一律稱「超出設定門檻」，不得稱違規或全部合規；remaining_rule_violations為相容舊欄位，意義也是超出設定門檻。回答重排數字需附營運日、空車調度模式、司機是否換車與門檻；缺參數就說未知，不套用文件預設。文件示範僅限2025-10-11與其列出的參數；不同日期與模式不能代用。"
     )
     messages: list[dict[str, Any]] = [{"role": "system", "content": system}, {"role": "user", "content": message}]
+    if simulation and simulation.get("dispatch"):
+        messages[0]["content"] += "本次含05候選快照；當次方案數值先呼叫get_service_status，操作方法可另呼叫get_site_guide。"
     first = _completion(messages, api_key, model)
     tool_calls = first.get("tool_calls") or []
     sources: list[dict[str, Any]] = []
@@ -350,6 +352,8 @@ def answer_with_openrouter(message: str, mode: str, aggregates: dict[str, Any], 
     else:
         answer = first.get("content")
     required_tool = _required_tool(message)
+    if simulation and simulation.get("dispatch") and not is_annual_question(message) and not GUIDE_QUERY.search(message) and re.search(r"方案|甘特|未安排|車型|加班|排班|重排|配置|最佳化|成本", message):
+        required_tool = "get_service_status"
     if required_tool and required_tool not in used_tools:
         raise AssistantProviderError("OpenRouter did not use the required data tool")
     if not isinstance(answer, str) or not answer.strip():

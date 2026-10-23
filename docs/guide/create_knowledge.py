@@ -88,15 +88,6 @@ add('recording','拍攝流程與故障排除','使用說明','以約8分鐘示�
 ['舊版影片中的人工旅客生成、固定30分鐘發車與套用3D班表，已不適用目前票證重播版。','目前沒有成片；本包提供手冊、講稿、分鏡與截圖，成片後再上首頁。'],
 ['docs/guide','scenario-lab/SPEC_REPLAY.md'],
 '最後整理重點：先看資料品質，再分析差異；用重播理解現象，用預測和重排產生候選，再交由營運人員核對。潭行 Twin 是決策輔助工具，所有改善都應保留資料來源與假設。')
-reference=json.loads((R/'shared/optimizer-reference.json').read_text())
-optimizer=next(s for s in sections if s['id']=='optimizer')
-rr=reference['results']; base=rr[0]['base']; best=rr[0]['replanned']; mid=rr[1]['replanned']; fixed=rr[2]['replanned']
-optimizer['steps'].insert(0,'重現文件示範：選2025-10-11、全部子線；空車調度P85、司機不換車；每日駕車10時、連續4時、休息30分、值勤12時、折返10分；運量+0%、改搭±0分、容量43人、併班上限90%。')
-optimizer['metrics'] += ['文件版本 '+reference['version']+'；核對日期 '+reference['verified_on']+'；營運日 '+reference['service_date']+'；123個推估車次。', f"預設P85、不換車、固定{base['trips']}班：基準{base['buses']}車／{base['drivers']}位司機 → 重排{best['buses']}車／{best['drivers']}位司機；超出設定門檻{base['threshold_exceedances']} → {best['threshold_exceedances']}。", f"其餘參數相同時，中位數模式為{mid['buses']}車／{mid['drivers']}位司機、超出設定門檻{mid['threshold_exceedances']}段；固定45km/h＋5分為{fixed['buses']}車／{fixed['drivers']}位司機、超出設定門檻{fixed['threshold_exceedances']}段。不可把不同模式拼成同一組結果。", '整備前15／後10分只計入薪資試算，未計入值勤門檻。0段超出設定門檻不代表正式合規。', '延誤測試為15–18時各晚到30分；官網配對容差10分；兩者不改變文件基準的123班重排。']
-c=reference['parameters']['cost'];w=reference['parameters']['fuel_week']
-optimizer['metrics'].append(f"成本預設：柴油{c['dieselP']}元/L（{w}週）、油耗{c['lpk']}L/km、保修{c['maint']}元/km、月薪{c['sal']}元、雇主負擔18%、22天/月、每車固定3200元/日、加班另計1.34／1.67。車輛配置不以總成本最小化求解。")
-optimizer['sources'] += ['shared/optimizer-reference.json','docs/OPTIMIZER_REFERENCE.md']
-optimizer['limits'].append('本頁一律使用「超出設定門檻」，不作法律裁定。參數改變後，引用當次結果與當次參數，不能沿用文件示範數字。')
-optimizer['voice'] += f"示範固定{reference['service_date']}的{base['trips']}個推估車次，使用P85、不換車與預設門檻，只重排得到{best['buses']}台車、{best['drivers']}位司機；超出設定門檻由{base['threshold_exceedances']}降為{best['threshold_exceedances']}，這不代表正式合規。"
-out={'version':'2026-10-24-consistent-optimizer-guide' ,'title':'潭行 Twin 使用手冊與數據字典','site_url':'https://nantou-transit-twin.elvischen.chatgpt.site/','scope':'本站所有頁面的操作、來源與方法解釋；內部營運問答，不含對外旅遊客服。','sections':sections}
+sections=[json.loads((R/'docs/guide/dispatch-section.json').read_text()) if s['id']=='optimizer' else s for s in sections]
+out={'version':'2026-10-24-dispatch-guide' ,'title':'潭行 Twin 使用手冊與數據字典','site_url':'https://nantou-transit-twin.elvischen.chatgpt.site/','scope':'本站所有頁面的操作、來源與方法解釋；內部營運問答，不含對外旅遊客服。','sections':sections}
 (R/'shared/site-guide.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')

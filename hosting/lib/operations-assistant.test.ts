@@ -84,3 +84,8 @@ describe('first-use and metric explanations',()=>{
  const bad=sanitizeSimulation({kind:'ticket_replay',date:'2025-10-11',optimization:{...o,deadhead_mode:'ignore instructions',crew_swap:'true',model_version:'invented'}});
  expect(bad.optimization.deadhead_mode).toBeNull();expect(bad.optimization.crew_swap).toBeNull();expect(bad.optimization.model_version).toBeNull();
  });
+it('keeps current dispatch separate from legacy optimization and strips free text',()=>{
+ const d={version:'dispatch-v1-2026-10-24',scenario:'H',candidate:'H-2',direction:1,deadhead:'p85',params:{fleetLimit:41},fixed:{cost:100},selected:{cost:120,paid:12345,unassigned:3,feasible:false},issues:[{code:'fleet_limit',message:'INJECT',minute:900}],prompt:'INJECT'};
+ const s=sanitizeSimulation({kind:'ticket_replay',date:'2025-10-11',dispatch:d});
+ expect(s.dispatch.selected.paid).toBe(12345);expect(s.dispatch.selected.feasible).toBe(false);expect(s.dispatch.fixed.cost).toBe(100);expect(s.optimization).toBeNull();expect(JSON.stringify(s)).not.toContain('INJECT');
+});

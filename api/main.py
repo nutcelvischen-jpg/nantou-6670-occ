@@ -87,7 +87,51 @@ class ReplayOptimization(BaseModel):
     scenario_added: float = Field(ge=0, le=1e8)
     scenario_merged: float = Field(ge=0, le=1e8)
 
+class DispatchStats(BaseModel):
+    feasible: bool | None = None
+    buses: float | None = Field(default=None, ge=0, le=1e9)
+    drivers: float | None = Field(default=None, ge=0, le=1e9)
+    demand: float | None = Field(default=None, ge=0, le=1e9)
+    assigned: float | None = Field(default=None, ge=0, le=1e9)
+    unassigned: float | None = Field(default=None, ge=0, le=1e9)
+    coverage: float | None = Field(default=None, ge=0, le=1e9)
+    paid: float | None = Field(default=None, ge=0, le=1e9)
+    assignedPaid: float | None = Field(default=None, ge=0, le=1e9)
+    unassignedPaid: float | None = Field(default=None, ge=0, le=1e9)
+    runningKm: float | None = Field(default=None, ge=0, le=1e9)
+    emptyKm: float | None = Field(default=None, ge=0, le=1e9)
+    thresholdExceedances: float | None = Field(default=None, ge=0, le=1e9)
+    cost: float | None = Field(default=None, ge=0, le=1e9)
+
+class DispatchParameters(BaseModel):
+    fleetLimit: int = Field(ge=0, le=150)
+    shift: int = Field(ge=0, le=120)
+    startHour: float = Field(ge=0, le=23)
+    endHour: float = Field(ge=1, le=24)
+    serviceFloor: float = Field(ge=0, le=1)
+
+class DispatchRule(BaseModel):
+    drive: float = Field(ge=0, le=1440)
+    cont: float = Field(ge=0, le=1440)
+    span: float = Field(ge=0, le=1440)
+    rest: float = Field(ge=0, le=1440)
+    turn: float = Field(ge=0, le=1440)
+    signOn: float = Field(ge=0, le=1440)
+    signOff: float = Field(ge=0, le=1440)
+
+class DispatchSnapshot(BaseModel):
+    version: str = Field(pattern=r"^dispatch-v1-2026-10-24$")
+    scenario: str = Field(pattern=r"^(A|B|H)$")
+    candidate: str = Field(pattern=r"^(B-(43|21)|H-[012]|A-(keep|add|early|late))$")
+    direction: int = Field(ge=-1, le=1)
+    deadhead: str = Field(pattern=r"^(p85|p50|fixed)$")
+    params: DispatchParameters
+    rule: DispatchRule
+    fixed: DispatchStats
+    selected: DispatchStats
+
 class SimulationSnapshot(BaseModel):
+    dispatch: DispatchSnapshot | None = None
     optimization: ReplayOptimization | None = None
     kind: str = Field(default="simulation", pattern=r"^(simulation|ticket_replay)$")
     selected_routes: list[str] = Field(default_factory=list, max_length=6)

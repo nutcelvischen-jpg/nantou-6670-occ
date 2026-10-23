@@ -78,7 +78,8 @@ class AssistantToolTests(unittest.TestCase):
             result = answer_with_openrouter("我是第一次使用，請帶我導覽網站", "operations", self.aggregates, self.timetable)
         self.assertIn("get_site_guide", result["tool_calls"])
         self.assertEqual(result["sources"][0]["id"], "site-guide")
-        self.assertIn("最少車輛", completion.call_args_list[-1].args[0][-1]["content"])
+        self.assertIn("dispatch-v1-2026-10-24", completion.call_args_list[-1].args[0][-1]["content"])
+        self.assertIn("scenario-lab/dispatch-model.js", completion.call_args_list[-1].args[0][-1]["content"])
 
 
 if __name__ == "__main__":

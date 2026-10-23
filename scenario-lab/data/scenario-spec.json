@@ -1,0 +1,1 @@
+{"version":"scenario-rules-v1-2026-10-24","scenario":"B","direction":1,"startHour":10,"endHour":15,"shift":30,"serviceFloor":1,"fleetLimit":41,"rule":{"drive":10,"cont":4,"rest":30,"span":12,"turn":10,"signOn":15,"signOff":10},"notes":["班次為票證推估；需求不變，不生成額外收入","服務底線預設100%，未安排包含資料異常，不等於真實拒載","A時窗預設全日，由選定日期與方向的最大峰值班選模板；H預設14–18時僅為可修改假設","不增車以全網車隊上限檢核；各車型台數亦為情境值","9座保留資料欄位，本版候選不使用"]}
