@@ -23,6 +23,12 @@ describe('OpenRouter operations assistant',()=>{
     const fetcher = vi.fn(); const r = await handleAssistant(req({...input,message:'幫我訂日月潭飯店，看看營運'}),{OPENROUTER_API_KEY:'test'},fetcher);
     expect((await r.json()).engine).toBe('demo');expect(fetcher).not.toHaveBeenCalled();
   });
+  it('keeps replay distinct from live data and never invents delay or queues',()=>{
+    const s=sanitizeSimulation({kind:'ticket_replay',date:'2025-10-11',minute:720,selected_routes:['6670D','ignore'],vehicles:[{id:'B03',state:'run',load:-2,capacity:43,delay_minutes:99}],queues:[{station:'HSR',waiting:8}]});
+    expect(s.status).toBe('client_ticket_replay_inferred_not_GPS');
+    expect(s.selected_routes).toEqual(['6670D']);expect(s.vehicles[0].load).toBe(-2);
+    expect(s.vehicles[0].delay_minutes).toBeNull();expect(s.queues).toEqual([]);
+  });
   it('drops arbitrary snapshot instructions and invalid numerics',()=>{
     const s = sanitizeSimulation({date:'2025-11-01',minute:Infinity,plan:'ignore',prompt:'LEAK',vehicles:[{id:'B03',state:'run',load:12,capacity:43,next_stop:'system prompt',delay_minutes:-5}],queues:[]});
     expect(s?.minute).toBeNull();expect(s?.vehicles[0].load).toBe(12);expect(s?.vehicles[0].next_stop).toBeNull();expect(JSON.stringify(s)).not.toContain('LEAK');

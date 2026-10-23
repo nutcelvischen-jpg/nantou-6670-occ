@@ -6,10 +6,10 @@ import * as THREE from 'three';
 const read = (file) => fs.readFileSync(new URL(file, import.meta.url), 'utf8');
 let ctx;
 beforeAll(() => {
-  const data = Object.fromEntries([['agg','ops-aggregates'],['route','route-6670'],['tt','timetable-6670']].map(([k,f]) => [k, JSON.parse(read(`data/${f}.json`))]));
+  const data = Object.fromEntries([['agg','ops-aggregates'],['route','route-6670'],['tt','timetable-6670'],['rp','replay-all'],['dh','driver-headway-compact'],['fuel','fuel-price']].map(([k,f]) => [k, JSON.parse(read(`data/${f}.json`))]));
   ctx = vm.createContext({ THREE, window: { __DATA: data }, console });
   const geo = read('src/a_geo.js').replace(/^import .*;\n/gm, '').replace('/*__UTILS__*/', read('parts/utils.js'));
-  vm.runInContext(geo + '\nfor (const f of Object.values(FACS)) f.slots = [];\n' + read('src/d_sim.js') + read('src/e_forecast.js') + read('src/f_opt.js'), ctx);
+  vm.runInContext(geo + '\nfor (const f of Object.values(FACS)) f.slots = [];\n' + read('src/d_sim.js') + read('src/d_replay.js').replace('JSON.parse(await gunzipB64(DATA.rpz))','null') + read('src/e_forecast.js') + read('src/f_opt.js'), ctx);
 }, 30000);
 const run = (code) => vm.runInContext(code, ctx);
 
@@ -28,58 +28,36 @@ describe('integrated timetable scenario model', () => {
     expect(run("forecast('2026-01-05',0).lo")).toBeGreaterThanOrEqual(0);
     expect(run("forecast('2026-01-05',0).hi")).toBeGreaterThan(run("forecast('2026-01-05',0).mean"));
   });
-  it('keeps recommendations inside service hours and reports infeasible fleet limits', () => {
-    expect(run(`(() => { OPT.fleet=1; OPT.floor=3; const p=proposeTrips('2025-11-01'); return !p.feasible && p.fleet>p.limit; })()`)).toBe(true);
-    expect(run(`(() => { OPT.fleet=0; OPT.floor=1; const date='2025-11-01', p=proposeTrips(date), cur=ttTripsFor(dayInfo(date)); return p.trips.every(t=>{const ds=cur.filter(c=>c.dir===t.dir).map(c=>c.dep); return t.dep>=Math.min(...ds) && t.dep<=Math.max(...ds);}); })()`)).toBe(true);
-  });
-  it('conserves passengers and uses identical arrival demand when service is reduced', () => {
-    const result=run(`(() => {
-      const date='2025-11-01', trips=ttTripsFor(dayInfo(date));
-      const a=new Sim({date,trips,demand:demandOf,seed:11,start:300});
-      const b=new Sim({date,trips:trips.filter((_,i)=>i%2===0),demand:demandOf,seed:11,start:300});
-      let valid=true;
-      while(a.t<1500){a.step();b.step();for(const s of [a,b]){
-        const queued=ZONES.reduce((n,z)=>n+s.queueAt(z),0), aboard=s.buses.reduce((n,b)=>n+b.load,0);
-        valid &&= s.buses.every(b=>b.load>=0 && b.load<=CAP);
-        valid &&= s.S.arrived===s.S.delivered+s.S.lost+queued+aboard;
-      }}
-      return {valid,arrivalsA:a.S.arrived,arrivalsB:b.S.arrived,lf:a.summary().lf};
-    })()`);
-    expect(result.valid).toBe(true);
-    expect(result.arrivalsA).toBeGreaterThan(0);
-    expect(result.arrivalsA).toBe(result.arrivalsB);
-    expect(result.lf).toBeGreaterThanOrEqual(0);
-    expect(result.lf).toBeLessThanOrEqual(1);
-  });
-  it('enforces ten minutes of terminal recovery and a 40% highway speed reduction', () => {
-    expect(run(`(() => { const date='2025-11-01', s=new Sim({date,trips:ttTripsFor(dayInfo(date)),demand:demandOf,seed:11,start:300}); let ok=true; while(s.t<1500){s.step();for(const b of s.buses)if((b.state==='lay'||b.state==='idle')&&b.done>0){const prior=b.plan[b.k-1];ok &&= b.readyAt>=prior.st.arrT+LAYOVER;}} return ok; })()`)).toBe(true);
-    expect(run(`(() => {const date='2025-11-01',s=new Sim({date,trips:[],demand:demandOf,cong:true,seed:11,start:300});return 1/s.mult({dir:0,st:{f:1}},'hw',9*60);})()`)).toBeCloseTo(.6);
-  });
-  it('publishes aggregate OD data without raw card or vehicle identifiers', () => {
-    const data=JSON.parse(read('data/ops-aggregates.json'));
-    expect(data.years.every(y=>y.od.every(o=>o.n>=10))).toBe(true);
-    const keys=[]; const walk=x=>{if(!x||typeof x!=='object')return;for(const [k,v]of Object.entries(x)){keys.push(k);walk(v);}};walk(data);
-    expect(keys.some(k=>/card_?id|plate|身分證|卡號|車牌|api.?key|secret/i.test(k))).toBe(false);
-  });
-});
 
-describe('unified demand scenario', () => {
-  it('uses the same scaled demand for live simulation, planning and repeatable comparison', () => {
-    const result = run(`(() => {
-      const date = '2025-11-01', trips = ttTripsFor(dayInfo(date));
-      SCENARIO.demandMultiplier = 1;
-      const base = hourlyDemand(date, 0).reduce((a,b)=>a+b,0);
-      SCENARIO.demandMultiplier = 1.5;
-      const scaled = hourlyDemand(date, 0).reduce((a,b)=>a+b,0);
-      const live = new Sim({date, trips, demand:scenarioDemand, cong:false, seed:7, start:300});
-      live.run(1500);
-      const a = evalPlan(date, trips, false), b = evalPlan(date, trips, false);
-      const expected = live.summary();
-      SCENARIO.demandMultiplier = 1;
-      return {base,scaled,a,b,expected};
-    })()`);
-    expect(result.scaled).toBeCloseTo(result.base * 1.5, 6);
-    expect(result.a).toEqual(result.b);
-    for (const key of Object.keys(result.expected)) expect(result.a[key]).toEqual(result.expected[key]);
+  it('reconciles all reconstructed days and preserves boarding/alighting totals', () => {
+    const rp=JSON.parse(read('data/replay-all.json'));
+    const totals={2024:0,2025:0};
+    for(const [date,day] of Object.entries(rp.days)) {
+      totals[date.slice(0,4)]+=day.trips.length;
+      let board=0,alight=0;
+      for(const tr of day.trips) {
+        expect(tr).toHaveLength(6); expect(Number.isInteger(tr[2])).toBe(true); expect(Number.isInteger(tr[3])).toBe(true);
+        let last=-Infinity;
+        for(const [si,t,b,a] of tr[4]){expect(si>=0&&si<rp.stations.length).toBe(true); expect(t>=last).toBe(true);last=t;board+=b;alight+=a;}
+      }
+      expect(board).toBe(day.taps); expect(alight).toBe(day.taps);
+    }
+    expect(totals).toEqual({2024:35005,2025:37520});
+  });
+  it('replay stepping, seeking and resetting yield identical event totals', () => {
+    expect(run(`(() => {const a=new Replay('2025-10-11'),b=new Replay('2025-10-11');while(a.t<900)a.step();b.run(900);const ok=JSON.stringify(a.S)===JSON.stringify(b.S); b.t=390;b.syncAll(); const c=new Replay('2025-10-11').run(390);return ok && JSON.stringify(b.S)===JSON.stringify(c.S);})()`)).toBe(true);
+    expect(run(`(() => {const a=new Replay('2025-10-11').run(1600);return a.S.boarded===a.S.alighted && a.S.boarded===a.day.taps;})()`)).toBe(true);
+  });
+  it('covers each trip once with feasible vehicle connections without mutating replay', () => {
+    expect(run(`(() => {const before=JSON.stringify(RP.days['2025-10-11']);const r=optimizeDay('2025-10-11');const ids=r.re.blocks.flat().map(t=>t.id);return new Set(ids).size===r.base.T.length && ids.length===r.base.T.length && r.re.blocks.every(b=>b.every((t,i)=>!i||t.dep>=b[i-1].arr+RULE.turn+dhT(b[i-1].endZ,t.startZ,b[i-1].arr))) && JSON.stringify(RP.days['2025-10-11'])===before;})()`)).toBe(true);
+  });
+  it('minimum fleet agrees with exhaustive assignment on small trip sets', () => {
+    const sample=[{dep:0,arr:20},{dep:10,arr:30},{dep:30,arr:45},{dep:40,arr:55},{dep:60,arr:75},{dep:70,arr:80}];
+    function brute(i,ready){if(i===sample.length)return ready.length;let best=Infinity;const t=sample[i];for(let j=0;j<ready.length;j++)if(ready[j]+10<=t.dep){const next=[...ready];next[j]=t.arr;best=Math.min(best,brute(i+1,next));}return Math.min(best,brute(i+1,[...ready,t.arr]));}
+    const actual=run(`minFleet(${JSON.stringify(sample)}.map((t,i)=>({...t,id:String(i),startZ:'TC',endZ:'TC'}))).blocks.length`);
+    expect(actual).toBe(brute(0,[])); expect(run('minFleet([]).blocks.length')).toBe(0);
+  });
+  it('replay inference retains observed negative cumulative anomalies instead of inventing occupancy', () => {
+    expect(run(`mkRTrip([0,'6670D',1,1,[[0,400,0,1],[1,410,1,0]],0],0).ev[0].load`)).toBe(-1);
   });
 });

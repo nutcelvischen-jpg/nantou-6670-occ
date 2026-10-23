@@ -64,13 +64,13 @@ export function ModelMethodology({ onNavigate, onOpenScenario }: { onNavigate: (
       </article>
 
       <article className="method-card">
-        <div className="method-card-top"><div className="method-icon teal"><Bus size={18}/></div><span className="method-status simulated">離散情境模擬</span></div>
-        <h2>數位孿生與班表情境：同一個工作台</h2><p className="method-lead">3D 車輛、班表、候車與載客指標共用同一個模擬狀態。切換六個分頁不換模型；前往公式或成本分析時暫停背景模擬，返回後保留時間、參數、選車與鏡頭。</p>
-        <div className="method-subhead">從需求到車隊的閉環</div><Formula>日期與需求倍率 → 每分鐘旅客 → 班次與 FIFO 上車 → 車輛位置與 KPI → 建議班表 → 同一場景驗證</Formula>
-        <p>一分鐘固定步進，每車 43 人、端點整備至少 10 分鐘。需求情境提供 1.00／1.50／0.72／1.28 倍假設，也可在 0.5–2 倍間調整。倍率同步用於旅客生成、班次建議和雙方案比較，不改寫歷史票證圖表與回測。重播保留設定，以相同種子從當日重新計算到 06:30 並暫停；跳時會計算中間事件。</p>
-        <div className="method-subhead">狀態與碳排</div><Formula>載客率 = 車上人數 / 43　·　CO₂ = 車公里 × 排放係數</Formula>
-        <p>工作台柴油假設 1.585 kg/km；電巴假設 1.25 kWh/km × 0.474 kg/kWh ≈ 0.593 kg/km。這些是固定示範參數，非業者實測或當年度官方係數聲明。其他低碳頁的獨立試算不可直接當作本情境的排放成果。</p>
-        <div className="method-limits"><CircleHelp size={14}/><span>這是可互動的模擬場景，不是即時監控。未接入 GPS／ETA、實際班次與即時載客資料前，不會顯示成已驗證的現況或預測到站時間。</span></div>
+        <div className="method-card-top"><div className="method-icon teal"><Bus size={18}/></div><span className="method-status simulated">歷史票證重播</span></div>
+        <h2>數位孿生：票證重播與班次重排</h2><p className="method-lead">3D、站線圖、甘特圖與指標共用同一天的票證重播。換頁暫停背景，回來保留時間、選車與鏡頭；可定位時間或重播 06:30。</p>
+        <Formula>刷卡資料 → 時間品質篩選 → 同車／日期／方向切班 → 站點事件 → 在車量與沿線位置內插</Formula>
+        <p>旅次時間 ≤0 或超過 240 分鐘先排除；同車同方向在所有票證下車後 30 分鐘，或相鄰上車間隔超過 3 小時才切段，再合併 ≤4 筆的重疊小片段。2024 年 35,005 段、2025 年 37,520 段；都是票證推估車次，非班次識別碼驗證結果。</p>
+        <Formula>票證在車量 Lₖ = Lₖ₋₁ + 上車筆數 Bₖ − 下車筆數 Aₖ</Formula>
+        <p>每站事件時刻採最早上車刷卡，無上車採最早下車，並依站序調整為非遞減。兩站間位置沿線形內插；不重建候車、實際延誤或空車移動。22 站為展示站位，票價站不能拆成各實體站的旅客數。</p>
+        <div className="method-limits"><CircleHelp size={14}/><span>尚有同車推估車次重疊及負在車量，不能據此證明實際滿載；程序地形及部分子線有近似。容量與成本屬情境假設，未接 GPS。</span></div>
         <button className="method-cta" onClick={() => onOpenScenario("ops")}>操作目前的 3D 營運工作台 <ArrowRight size={15}/></button>
       </article>
 
@@ -78,7 +78,7 @@ export function ModelMethodology({ onNavigate, onOpenScenario }: { onNavigate: (
         <div className="method-card-top"><div className="method-icon purple"><MessageCircle size={18}/></div><span className="method-status privacy">內部營運限定</span></div>
         <h2>營運小幫手的回答範圍</h2><p className="method-lead">小幫手只支援內部人員理解營運資料與模型，不提供旅遊規劃、對外客服或無關一般問答。</p>
         <div className="method-assistant-scopes"><span>需求預測與尖離峰</span><span>票證 OD、頻次與回程代理</span><span>班次配置與成本情境</span><span>儀表板資料狀態與限制</span></div>
-        <p>目前使用 OpenRouter 的 deepseek/deepseek-v4.1-flash-1017。伺服器先提供核准的唯讀彙總及受限的情境計算，再由模型整理。3D 小幫手會傳送經白名單過濾的數值快照，可回答「B03 現在在哪」及排隊、載客、延誤等模擬問題，並標示模擬時間與來源。</p>
+        <p>目前使用 OpenRouter 的 deepseek/deepseek-v4.1-flash-1017。伺服器先提供核准的唯讀彙總及受限的情境計算，再由模型整理。3D 小幫手會傳送經白名單過濾的數值快照，可回答「B03 現在在哪」及票證推估在車量，並標示重播日期、時間與來源；候車及實際延誤沒有觀測值。</p>
         <p>問真實車況時，因未接 GPS／ETA 而明示無法確認；不能把模擬當實況。範圍外問題不呼叫模型，不執行任意程式或實際派車。服務失敗時明確標示本機規則降級，金鑰只放後端。</p>
         <button className="method-cta" onClick={() => onOpenScenario("bot")}>詢問目前的 3D 模擬狀態 <ArrowRight size={15}/></button>
       </article>
@@ -86,24 +86,24 @@ export function ModelMethodology({ onNavigate, onOpenScenario }: { onNavigate: (
 
     <article className="method-card" style={{ marginTop: 20 }}>
       <div className="method-card-top"><div className="method-icon teal"><Workflow size={18}/></div><span className="method-status simulated">潭行 3D · 共用營運情境</span></div>
-      <h2>班表情境：從票證需求到可回放的車隊</h2>
-      <p className="method-lead">這個進階工作台使用 2024–2025 年票證彙總與 6670 公開班表快照；班表快照套用到選定日期測試供需，不代表當天真實班表。所有操作連回同一個數位孿生；班次建議套用後立即以相同日期與需求重新計算。</p>
+      <h2>票證重播與班次重排：方法與限制</h2>
+      <p className="method-lead">重播採用歷史票證切班資料；預測與重排是獨立分析，調整情境不會改寫原始重播。全站年度總覽保留原始交易口徑，重播先排除時間異常，兩者總筆數不可直接互換。</p>
       <div className="method-subhead">① 方向需求與可驗證回測</div>
       <Formula>{"z = log(1+y)；β* = argmin Σ(zᵢ−xᵢᵀβ)² + 0.3Σⱼ₌₁ βⱼ²；ŷ = max(0, exp(xᵀβ*)−1)"}</Formula>
       <p>y 是每日、每方向刷卡筆數；x 含截距、年度趨勢、星期、月份、假日與連假特徵（共 24 維），截距不正則化。先擬合後以殘差的 1.4826 × MAD 偵測超過 3.5 倍的異常，移除後重擬合；低運量日不會只因少於 50 筆便遭排除。異常可能是資料缺漏或真實事件，需要人工覆核。</p>
       <Formula>{"WAPE = Σ|y−ŷ| / Σy；MAE = Σ|y−ŷ| / 有效比較日數"}</Formula>
       <p>2025 年 11–12 月採逐日滾動回測：迴歸與近四週同星期中位數基準都只能讀取預測日前資料；基準至少有兩筆歷史值才納入同日評分。另以全資料擬合展示情境，歷史日期的擬合值不能當作當時可得的預測。exp(μ ± 1.2816σ)−1 為訓練殘差參考帶，截零且未校準，不宣稱 80% 預測涵蓋率。</p>
-      <div className="method-subhead">② 需求如何進入模擬</div>
-      <Formula>{"q(d,h,o,dst) = 需求倍率 m × Y(d,dir) × 時段占比(h|星期,dir) × OD占比(o,dst|dir)；Nminute ~ Poisson(λminute)"}</Formula>
-      <p>歷史日使用當日刷卡總數，其他日期使用模型估計；時段與 OD 占比來自聚合資料，因此歷史日回放是事後情境分析。以一分鐘步進處理班表、排隊、上下車、端點整備與空車調度；畫面逐幀沿路線插值。旅客先到先上，每車 43 人，等待超過 90 分鐘離隊。停站時間為 0.4 + 0.05 ×（上車＋下車）分鐘；端點至少整備 10 分鐘。壅塞情境在指定假日方向／時段的國道速度降低 40%。以上均為可檢視的示範假設，尚未經業者校準。</p>
-      <div className="method-subhead">③ 班次建議的目標與限制</div>
-      <Formula>{"n(h,dir) = max(nmin, ceil(q(h,dir) × rpeak × (1+b) / (43 × Ltarget)))"}</Formula>
-      <p>rpeak 是推估車次的最大區段在車量／上車量加權比；b 是需求緩衝，Ltarget 是目標載客率，nmin 是每小時服務底線。僅在現行首末班發車時間內配置，依候選子線模板安排班次；用貪婪串接計算車輛數。若超過車隊上限，優先刪減每班預期負載最低時段，但不低於服務底線。仍不符合上限時明示不可行並禁止套用。</p>
-      <p>這是降低閒置供給的啟發式方案，沒有金額成本目標，也不保證最少車輛。目標載客率是計算班數的參數，減班後未必達標；必須查看候車、流失與高載班次。未涵蓋司機工時、車種、車庫、保養、充電及逐 OD 最低服務。要以成本為首要目標，請使用「成本最佳化」頁；其最優性仍限於輸入的示範候選集合。</p>
-      <div className="method-subhead">④ 方案比較與資料邊界</div>
-      <Formula>{"全日載客率 = 乘客公里 / 座位公里；碳排 = 車公里 × 車型排放係數"}</Formula>
-      <p>兩方案各從 05:00 模擬到次日 01:00，比較車公里、候車、未能登車人次與 90 分鐘流失。滿載未上車為重複嘗試人次，不能視為獨立旅客。比較固定現行班表的 OD 服務時窗（首班前 20 分至末班前 5 分）與需求亂數；到站串流獨立於行車，兩方案使用相同生成旅客，減班不會刪掉需求。時窗外未生成的需求不計入，總生成量可能小於日刷卡量。單次結果不構成統計顯著或真實節省效益。</p>
-      <p>官網主班表未含完整九人座／加班車；票證以車輛、日期、方向與刷卡間隔重建車次，不能當作實際班次。OD 僅公開至少 10 筆的聚合；刷卡實扣中位數不是公告票價。程序地形並非 DEM；A 線借用線形、F 線延伸與九族定位有近似。示範柴油係數 1.585 kg/km，電巴 1.25 kWh/km × 0.474 kg/kWh，與主站另一組示範參數分開，不跨頁直接比較。2026 年假日尚待核對。</p>
+      <div className="method-subhead">② 最少車輛：有向無環圖的路徑覆蓋</div>
+      <Formula>{"若 depⱼ ≥ arrᵢ + 折返分鐘 + 空駛估計分鐘，建立 i→j；最少車輛 = 車次數 N − 最大二分匹配數 |M|"}</Formula>
+      <p>先試同端點銜接，再加入估計空駛可達的銜接。對這張銜接圖，最大匹配求得最少車輛；這不是總成本最低，空駛公里亦未保證最少。空駛時間使用兩年票證站間時間差 P85／中位數作代理，樣本不足退回距離÷45 km/h＋5 分，並非實測空駛。</p>
+      <div className="method-subhead">③ 司機、加班與併班</div>
+      <Formula>{"情境高載量 = 歷史推估尖峰在車量 × (1 + 增幅)；同時刻分派班數 = max(1, ceil(情境高載量 / 43))"}</Formula>
+      <p>目前排班容量統一假設 43，不能把 E 線或其他車型視為已驗證容量。低載班次可在使用者允許時間差內，依同方向、涵蓋起訖與容量門檻貪婪併班；未逐實體站驗證服務覆蓋。司機先按駕車／連續駕車／值勤門檻切片段，再接同端點可行片段，為啟發式、不保證最少司機。所謂跟車是片段優先，並非嚴格一人全天一車。</p>
+      <p>門檻是情境檢核，未完整涵蓋備勤、空駛、待命及休息認定，不構成法規合規判斷。介面沒有執行 CP-SAT；若未匯入附求解狀態與輸入版本的離線結果，就不展示精確司機解。</p>
+      <div className="method-subhead">④ 成本與延誤情境</div>
+      <Formula>{"成本 = 車公里 × (每公里用油 × 柴油價 + 維修係數) + 值勤薪資試算 + 車輛數 × 每車固定成本"}</Formula>
+      <p>成本採外部快照與假設係數。原始串接的空駛里程未知，重排方案估算空駛；兩者成本邊界並不完全相同，差異不能稱已實現節省。延誤測試是指定時窗注入晚到分鐘數，再沿車輛串接傳遞，不是歷史實際誤點。班表比對為容差內貪婪匹配，不能證明加班、停駛或漏班。</p>
+      <p>2025 品質檢查：同車相鄰推估車次重疊 178／25,742 組（0.69%），負在車量 29／37,520 段。全部數值都受切班與站序規則影響。將異常列為查核線索，比直接當成營運缺失更可靠。</p>
       <button className="method-cta" onClick={() => onOpenScenario("opt")}>操作班次情境與方案比較 <ArrowRight size={15}/></button>
     </article>
 

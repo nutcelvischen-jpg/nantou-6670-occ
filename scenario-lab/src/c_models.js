@@ -68,7 +68,7 @@ placeFac(FACS.GC, buildTerminal(12));
 placeFac(FACS.PL, buildTerminal(12));
 placeFac(FACS.SML, buildSML());
 // 中途站候車亭
-const MIDSTOPS = ['臺中車站(民族路口)', '暨南大學(校內)', '暨南大學', '魚池', '埔里遊客中心', '崎下', '向山行政中心', '大雁', '桃米坑', '日月老茶廠'];
+const MIDSTOPS = ['臺中車站(民族路口)', '暨南大學(校內)', '暨南大學', '魚池', '埔里遊客中心', '崎下', '向山行政中心', '大雁', '桃米坑', '日月老茶廠', '民興公園(執行分署)', '捷運大慶站(建國北路)', '牛耳石雕公園', '大成國小', '榮民醫院', '埔里酒廠', '中華電信', '三育神學院', '九族文化村'];
 for (const name of MIDSTOPS) {
   const s = STOPS[name]; if (!s) continue;
   const { p } = nearRoad(s[0], s[1], 1); if (!p) continue;

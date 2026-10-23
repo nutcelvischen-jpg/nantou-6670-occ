@@ -50,9 +50,9 @@ class FleetOptimizationRequest(BaseModel):
 class SimulationBus(BaseModel):
     id: str = Field(pattern=r"^B\d{2,3}$")
     state: str = Field(pattern=r"^(run|idle|lay|dh|done|rest)$")
-    load: float = Field(ge=0, le=100)
+    load: float = Field(ge=-10000, le=10000)
     capacity: float = Field(ge=0, le=100)
-    delay_minutes: float = Field(ge=0, le=1440)
+    delay_minutes: float | None = Field(default=None, ge=0, le=1440)
     next_stop: str | None = Field(default=None, pattern=r"^(TC|HSR|PULI|JNU|YC|SML|XS|J9)$")
 
 class SimulationQueue(BaseModel):
@@ -60,7 +60,31 @@ class SimulationQueue(BaseModel):
     waiting: float = Field(ge=0, le=1e7)
     oldest_wait_minutes: float = Field(ge=0, le=1500)
 
+class ReplayOptimization(BaseModel):
+    trips: float = Field(ge=0, le=1e8)
+    base_buses: float = Field(ge=0, le=1e8)
+    replanned_buses: float = Field(ge=0, le=1e8)
+    base_crews: float = Field(ge=0, le=1e8)
+    replanned_crews: float = Field(ge=0, le=1e8)
+    base_cost: float = Field(ge=0, le=1e8)
+    replanned_cost: float = Field(ge=0, le=1e8)
+    remaining_rule_violations: float = Field(ge=0, le=1e8)
+    drive_limit: float = Field(ge=0, le=24)
+    continuous_limit: float = Field(ge=0, le=24)
+    rest_minutes: float = Field(ge=0, le=1440)
+    span_limit: float = Field(ge=0, le=24)
+    turn_minutes: float = Field(ge=0, le=1440)
+    scenario_growth: float = Field(ge=0, le=1e8)
+    scenario_shift: float = Field(ge=0, le=1440)
+    scenario_buses: float = Field(ge=0, le=1e8)
+    scenario_crews: float = Field(ge=0, le=1e8)
+    scenario_added: float = Field(ge=0, le=1e8)
+    scenario_merged: float = Field(ge=0, le=1e8)
+
 class SimulationSnapshot(BaseModel):
+    optimization: ReplayOptimization | None = None
+    kind: str = Field(default="simulation", pattern=r"^(simulation|ticket_replay)$")
+    selected_routes: list[str] = Field(default_factory=list, max_length=6)
     date: str = Field(pattern=r"^\d{4}-\d{2}-\d{2}$")
     minute: float = Field(ge=0, le=1500)
     plan: str = Field(pattern=r"^(cur|opt)$")

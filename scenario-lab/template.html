@@ -44,7 +44,9 @@
 html,body{margin:0;height:100%}
 body{background:var(--page);color:var(--text);font:21px/1.5 "Noto Sans TC",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 button,input,select{font:inherit;color:inherit}
-.app{display:grid;grid-template-columns:minmax(0,1fr) 640px;gap:14px;padding:14px;height:100vh}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 14px var(--side,440px);padding:14px;height:100vh}
+.split{cursor:col-resize;position:relative;touch-action:none}.split::after{content:"";position:absolute;left:5px;top:50%;width:4px;height:44px;margin-top:-22px;border-radius:2px;background:var(--rule);transition:background .15s,height .15s}.split:hover::after,.split.drag::after{background:var(--accent);height:72px;margin-top:-36px}
+.app.dragging{user-select:none;cursor:col-resize}.app.dragging iframe,.app.dragging canvas{pointer-events:none}
 .card{background:var(--card);border-radius:16px;box-shadow:var(--lift)}
 .stage{position:relative;overflow:hidden;min-height:0}
 #gl{position:absolute;inset:0}
@@ -83,10 +85,23 @@ button,input,select{font:inherit;color:inherit}
 .views button,.ghost{background:var(--card);border:0;box-shadow:var(--lift);border-radius:8px;padding:4px 10px;font-size:18px;cursor:pointer;text-align:left;color:var(--text)}
 .views button:hover,.ghost:hover{color:var(--strong)}
 .views .sep{height:6px}
+.chart:not([data-fit]){max-width:620px}
+.stage{container-type:inline-size}@container (max-width:720px){.tl p,.meta{display:none}.views .lines{max-width:100px}}
+.views .lines{display:flex;flex-wrap:wrap;gap:3px;max-width:136px;align-items:center}.views .lines>span{width:100%;font-size:15.75px;color:var(--muted);margin:0 0 1px 2px}
+.views .lines button{padding:3px 0;min-width:28px;text-align:center;font:500 16.5px var(--mono);color:var(--muted);box-shadow:var(--lift)}
+.views .lines button[data-c][aria-pressed="true"]{color:var(--card);background:var(--lc);box-shadow:none}
+.views .lines #linesAll{min-width:40px;font-family:inherit}.views .lines #linesAll[aria-pressed="true"]{color:var(--strong);box-shadow:var(--lift),inset 0 -2px 0 var(--accent)}
+.strip{position:absolute;left:16px;right:16px;bottom:34px;height:100px;border-radius:12px;background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(6px);box-shadow:var(--lift);z-index:3}
+.strip svg{display:block}.strip .cap{font-size:14.25px;fill:var(--muted);letter-spacing:.04em}
+.strip .nm{font-size:15px;fill:var(--muted)}.strip .nm.v{writing-mode:vertical-rl;text-orientation:upright;letter-spacing:-1px}.strip .nm.tap{fill:var(--strong);font-weight:500}
+.strip .st,.strip .bs{cursor:pointer}.strip .st:hover .nm{fill:var(--accent)}.strip .bid{font:500 14.25px var(--mono);fill:var(--strong)}.strip .bs circle{transition:r .2s}
+@media (max-width:700px){.strip{display:none}}
+.views button.home{color:var(--strong);font-weight:500;box-shadow:var(--lift),inset 2px 0 0 var(--accent)}.views kbd{font:15px var(--mono);color:var(--muted);border:1px solid var(--rule);border-radius:3px;padding:0 3px;margin-left:4px}
+.lb.tiny{pointer-events:auto}.lb.tiny.nm0 b{visibility:hidden}.lb.tiny.nm0:hover b{visibility:visible;background:var(--card);box-shadow:0 0 0 1px var(--rule);padding:1px 5px;border-radius:4px}
 .views button[aria-pressed="true"]{color:var(--strong);box-shadow:var(--lift),inset 2px 0 0 var(--accent)}
 /* 平面圖 */
-.mini{position:absolute;right:16px;top:70px;width:360px;background:var(--card);box-shadow:var(--lift);border-radius:14px;padding:10px 12px 12px;transition:opacity .3s var(--ease),transform .3s var(--ease)}
-.mini[hidden]{display:none}
+.mini{position:absolute;z-index:5;right:16px;top:70px;width:360px;background:var(--card);box-shadow:var(--lift);border-radius:14px;padding:10px 12px 12px;transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.mini[hidden]{display:block;opacity:0;transform:translateY(-6px);pointer-events:none}
 .mini .hd{display:flex;align-items:center;gap:8px;margin-bottom:4px}
 .mini .hd b{color:var(--strong);font-size:21px}
 .mini .hd .chip{margin-left:auto}
@@ -101,7 +116,6 @@ button,input,select{font:inherit;color:inherit}
 .mini .foot{display:flex;gap:6px;margin-top:8px}
 .mini .foot button{flex:1;border:0;background:var(--chip);border-radius:8px;padding:5px;cursor:pointer;font-size:18px}
 .mini .note{font-size:15.75px;color:var(--muted);margin-top:6px}
-details.scenario-extra{margin-top:12px;padding:10px;border:1px solid var(--rule);border-radius:10px} details.scenario-extra summary{cursor:pointer;font-size:18px} #scenarioLabel{float:right;color:var(--accent);font-size:16px}
 /* 面板 */
 .panel{display:flex;flex-direction:column;min-height:0;overflow:hidden}
 .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:10px 10px 0}
@@ -122,7 +136,7 @@ details.scenario-extra{margin-top:12px;padding:10px;border:1px solid var(--rule)
 .ctl{display:grid;grid-template-columns:auto 1fr auto;gap:6px 10px;align-items:center;margin-top:10px;font-size:19.5px}
 .ctl output{font:18px var(--mono);color:var(--strong);min-width:40px;text-align:right}
 input[type=range]{width:100%;accent-color:var(--strong)}
-input[type=date],input[type=time],select{background:var(--chip);border:0;border-radius:8px;padding:4px 8px;font:18px var(--mono);color:var(--strong)}
+input[type=date],select{background:var(--chip);border:0;border-radius:8px;padding:4px 8px;font:18px var(--mono);color:var(--strong)}
 .tg{position:relative;width:34px;height:20px;border-radius:10px;background:var(--chip);border:0;cursor:pointer;box-shadow:inset 0 0 0 1px var(--rule);justify-self:end}
 .tg::after{content:"";position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--muted);transition:transform .25s var(--ease),background .25s}
 .tg[aria-checked="true"]{background:var(--strong)}
@@ -161,9 +175,23 @@ input[type=date],input[type=time],select{background:var(--chip);border:0;border-
 .tbl th{font:500 15.75px var(--mono);color:var(--muted);text-align:right;padding:4px 4px;border-bottom:1px solid var(--rule)}
 .tbl th:first-child,.tbl td:first-child{text-align:left}
 .tbl td{padding:4px 4px;text-align:right;font-family:var(--mono);color:var(--strong);border-bottom:1px solid var(--rule)}
-.tbl td.up{color:var(--lit)}.tbl td.dn{color:var(--ok)}
+.tbl td.up{color:var(--lit)}
+#stTbl td,#stTbl th{white-space:nowrap}#stTbl tr[data-si]{cursor:pointer}#stTbl tr[data-si]:hover td{background:var(--chip)}#stTbl tr.seg td{font-size:15.75px;font-family:inherit;color:var(--muted);text-align:left;padding-top:10px;background:none}#stTbl td,#stTbl th{padding:4px 3px}#stTbl small{color:var(--muted);font-size:15px}#stTbl .mut{color:var(--muted);font-family:inherit;font-size:16.5px}
+.lb.tiny b{font-size:15px;font-weight:400;color:var(--text);background:transparent;box-shadow:none;padding:0}.lb.tiny i,.lb.tiny s{display:none}.lb.tiny::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--card);border:1.2px solid var(--strong);margin-top:1px}.tbl td.dn{color:var(--ok)}
 .legend{display:flex;gap:12px;flex-wrap:wrap;font-size:16.5px;color:var(--text);margin-top:4px}
 .legend span{display:flex;align-items:center;gap:5px}
+.ctl[hidden],.ctl [hidden]{display:none}
+#ovLow td,#ovHigh td,#ovTrips td,#ovLow th,#ovHigh th,#ovTrips th{white-space:nowrap}
+#znTbl td,#znTbl th{white-space:nowrap}
+.tagD,.tagL,.tagE,.tagA{font-style:normal;font:500 14.25px var(--mono);margin-left:4px;vertical-align:1px}.tagD{color:var(--ok)}.tagL{color:var(--accent)}.tagE{color:var(--route-h)}
+.algo{display:grid;gap:8px;font-size:18.75px}.algo>div{background:var(--chip);border-radius:10px;padding:9px 12px}.algo b{color:var(--strong)}
+.tagA{font-style:normal;font:500 14.25px var(--mono);color:var(--warn);margin-left:4px;vertical-align:1px}
+.seg.wide{display:flex}.seg.wide button{flex:1;font-family:"Noto Sans TC";font-size:18.75px;padding:6px 4px}
+details.more{margin-top:8px;font-size:18.75px}details.more summary{cursor:pointer;color:var(--muted)}
+.prog{height:3px;background:var(--rule);border-radius:2px;margin:4px 0 6px;overflow:hidden}.prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .15s}.prog.done{visibility:hidden}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}.dot.ring{border:2px solid var(--strong);width:6px;height:6px;background:transparent}
+.par .pt{cursor:pointer}.par .pt:hover{stroke:var(--strong);stroke-width:1.5}
+.obs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border-radius:10px;overflow:hidden;margin-top:6px}
 .callout{background:var(--chip);border-radius:10px;padding:10px 12px;font-size:18.75px;margin-top:10px}
 .callout b{color:var(--strong)}
 .foot{font-size:16.5px;color:var(--muted);margin-top:14px;line-height:1.6}
@@ -178,69 +206,24 @@ input[type=date],input[type=time],select{background:var(--chip);border:0;border-
 .chips button:hover{color:var(--strong)}
 .ask{display:flex;gap:6px;margin-top:10px;position:sticky;bottom:0;background:var(--card);padding-top:6px}
 .ask input{flex:1;background:var(--chip);border:0;border-radius:10px;padding:8px 10px;font-size:19.5px;outline:none}
-button:disabled{opacity:.4;cursor:not-allowed}
-/* Comfortable 150% type; the scene keeps its original world scale. */
-.panel,.body,.pane{min-width:0}
-.body{padding:4px 24px 28px;scrollbar-gutter:stable}
-.tabs{gap:6px;padding:14px 14px 0}
-.tab{min-height:48px;padding:9px 6px}
-.panel h2{margin-top:24px;flex-wrap:wrap;letter-spacing:.06em}
-.ctl{grid-template-columns:auto minmax(0,1fr) auto;gap:12px}
-input[type=date],input[type=time],select{min-width:0;max-width:100%}
-.btn,.btn2,.seg button{min-height:40px}
-.kpi{padding:12px}
-.vr{grid-template-columns:44px minmax(0,1fr) 90px;min-height:74px;gap:10px}
-.vr .d{white-space:normal;overflow-wrap:anywhere}
-.vm{height:24px;min-width:24px;line-height:21px;border-radius:12px}
-.tl{right:160px;max-width:none}
-.tl .fig{font-size:12px;letter-spacing:.06em}
-.tl p{max-width:520px}
-.views{top:150px;gap:6px}
-.views button{min-height:38px}
-.bl{bottom:40px;right:18px}
-.br{left:18px;right:18px;bottom:12px;flex-wrap:wrap;gap:7px 14px;font-size:14px}
-.mini{display:flex;flex-direction:column;width:min(510px,calc(100% - 32px));top:150px;max-height:calc(100% - 220px);overflow:hidden}
-.mini .hd,.mini .foot{flex-shrink:0}
-.mini .hd button{min-width:44px;min-height:44px;color:var(--strong)}
-.mini-scroll{min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:4px}
-.mini .foot{padding-top:8px;border-top:1px solid var(--rule)}
-.mini .foot button{min-height:44px;line-height:1.4;white-space:normal;color:var(--strong)}
-.mini .facts .k,.mini .note{color:var(--text)}
-.mini button:focus-visible,.mini-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
-.mini .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
-.ask input{min-width:0}
-.tbl{font-size:17px}.tbl td,.tbl th{padding:8px 4px}
-/* A 600px rendered SVG scales its 400-unit labels to 150% naturally. */
-.chart text{font-size:10px}.chart .lbl{font-size:10.5px}
-@media (min-width:1101px) and (max-width:1450px){
-  .app{grid-template-columns:minmax(0,1fr) 600px}
-  .tl .fig,.tl p,.meta{display:none}
-  .tl{right:140px}.tl h1{font-size:25.5px}
-  .views{top:100px}.mini{top:100px}
-  .bl{display:none}.br{font-size:13px}
+@media (max-width:1000px){
+  .app{grid-template-columns:1fr;height:auto;gap:14px}.split{display:none}
+  .stage{height:64vh;min-height:440px}
+  .panel{max-height:none}
+  .mini{width:min(340px,calc(100% - 32px));top:auto;bottom:40px}
+  .tl p,.meta{display:none}.tl .fig{font-size:13.5px}.tl{max-width:62%}
+  .br{display:none}.views{top:auto;bottom:40px;flex-direction:row;flex-wrap:wrap;left:12px;right:12px}
+  .views .sep{display:none}
 }
-@media (max-width:1100px){
-  .app{grid-template-columns:1fr;height:auto;padding:10px;gap:12px}
-  .stage{height:65vh;min-height:500px}
-  .panel{min-height:650px;overflow:visible}
-  .body{overflow:visible;padding:4px 18px 24px}
-  .mini{top:100px;max-height:calc(100% - 130px)}
-  .tl .fig,.tl p,.meta,.bl,.br{display:none}
-  .tl{right:140px}.tl h1{font-size:25.5px}
-  .views{top:100px}
-}
-@media (max-width:600px){
-  .app{padding:8px}.stage{min-height:520px}
-  .clock{font-size:36px}.tl{left:14px;right:120px}.tl h1{font-size:22px}
-  .tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .body{padding:4px 12px 22px}
-  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .ctl{grid-template-columns:auto minmax(0,1fr)}
-  .ctl output{grid-column:2}.ctl>span:empty{display:none}
-  .chart text{font-size:14px}.chart .lbl{font-size:14px}
-  .tbl{font-size:13.5px}.tbl th{font-size:13px;padding:8px 2px}
-  .tbl td{padding:8px 2px}
-}
+
+:root{--side:600px}
+.panel h2{flex-wrap:wrap}.tabs{grid-template-columns:repeat(3,minmax(0,1fr))}.tab{min-height:44px}.body{padding:8px 18px 24px}.btn,.btn2,.seg button{min-height:40px}
+.ctl{grid-template-columns:auto minmax(0,1fr) auto}.ctl select{width:100%}.ctl output{white-space:nowrap}.vr{grid-template-columns:40px minmax(0,1fr) 88px;min-height:65px}.vr .d{white-space:normal}.ask input{min-width:0}
+.chart text{font-size:10px}.chart .lbl{font-size:10.5px}.tl h1{font-size:25px}.tl .fig{font-size:11px}.tl p{font-size:13px;max-width:400px}.meta{font-size:12px}.clock{font-size:36px}.views{top:132px}.views button{font-size:14px}.lb b{font-size:14px}.lb.tiny b{font-size:11px}.br{font-size:12px}.tl{right:150px;max-width:none}.mini{max-height:calc(100% - 170px);overflow:auto;top:140px}.mini[hidden]{display:none}.mini .facts{grid-template-columns:repeat(2,minmax(0,1fr))}.mini .note{font-size:13px}
+.replay-note{margin:10px 0;background:var(--chip);padding:12px;border-radius:10px;font-size:15px}
+@media(max-width:1100px){.app{grid-template-columns:1fr;height:auto;gap:12px}.split{display:none}.stage{height:66vh;min-height:530px}.panel{min-height:650px}.body{overflow:visible}.tl p,.tl .fig,.meta,.bl,.br{display:none}.views{top:90px;bottom:auto}.views button{font-size:13px}.mini{top:95px;max-height:calc(100% - 175px)}}
+@media(max-width:600px){.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.ctl{grid-template-columns:1fr minmax(0,1fr)}.ctl output{grid-column:2}.ctl>span:empty{display:none}.tl h1{font-size:20px}.clock{font-size:28px}.tl{right:110px}.body{padding:8px 12px}.tbl{font-size:14px}.tbl th{font-size:12px}}
+.views{align-items:flex-start;gap:5px}.views button{flex:none;min-height:34px;max-height:42px;white-space:nowrap}.views .lines{align-self:flex-start}.mini{bottom:auto}
 </style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
@@ -253,29 +236,32 @@ input[type=date],input[type=time],select{min-width:0;max-width:100%}
     <div class="labels" id="labels"></div>
     <header class="corner tl">
       <div class="fig">FIG. 1 · 6670 TAICHUNG — SUN MOON LAKE</div>
-      <h1>潭行 6670 · 營運數位孿生</h1>
-      <p>TDX 線形快照與近似延伸 · 2024–2025 票證驅動情境</p>
+      <h1>潭行 6670 · 營運決策沙盤</h1>
+      <p>刷卡重播版數位孿生（未接即時 GPS）· TDX 路線 · 2024–2025 電子票證</p>
     </header>
     <div class="corner tr"><div class="clock" id="clock">06:00</div><div class="meta" id="meta"></div></div>
     <nav class="views" id="views">
-      <button data-v="all">全景</button>
+      <button data-v="all" class="home" title="回到鳥瞰全圖（快捷鍵 H、Esc，或在地圖空白處點兩下）">⌂ 鳥瞰全圖 <kbd>H</kbd></button>
       <button data-v="HSR">高鐵台中站</button>
       <button data-v="PL">埔里站</button>
       <button data-v="SML">日月潭</button>
       <button data-v="GC">台中干城</button>
       <span class="sep"></span>
       <button id="only" aria-pressed="false">只顯示選取車輛</button>
+      <button id="stripBtn" aria-pressed="true">站線圖</button>
+      <span class="sep"></span>
+      <div class="lines" id="lines" role="group" aria-label="子線篩選"><span>子線</span></div>
     </nav>
     <section class="mini" id="mini" hidden aria-label="車輛平面圖">
       <div class="hd"><b id="miniName">—</b><span class="chip" id="miniState"></span><button id="miniClose" aria-label="關閉">✕</button></div>
-      <div class="mini-scroll" tabindex="0" role="region" aria-label="車輛路線與模擬數據">
       <svg id="miniMap" viewBox="0 0 340 250"></svg>
       <div class="seat"><i id="miniSeat"></i></div>
       <div class="facts" id="miniFacts"></div>
-      <div class="note" id="miniNote"></div>
-      </div>
+      <svg id="miniCurve" viewBox="0 0 340 92" style="display:block;width:100%;height:auto;margin-top:8px"></svg>
       <div class="foot"><button id="miniFollow">在 3D 跟隨</button><button id="miniAsk">問小幫手這台車</button></div>
+      <div class="note" id="miniNote"></div>
     </section>
+    <div class="strip" id="strip" aria-label="全線 22 站站線圖"></div>
     <div class="corner bl">拖曳旋轉 · 右鍵平移 · 滾輪縮放 · 點車輛看平面圖</div>
     <div class="corner br">
       <span><i class="sw" style="background:var(--accent)"></i>往日月潭／埔里</span>
@@ -285,56 +271,56 @@ input[type=date],input[type=time],select{min-width:0;max-width:100%}
       <span><i class="sl" style="background:var(--route-h)"></i>6670H</span>
     </div>
   </main>
+  <div class="split" id="split" role="separator" aria-orientation="vertical" aria-label="拖曳調整左右寬度；點兩下切換寬窄" tabindex="0" title="左右拖曳調整寬度 · 點兩下切換"></div>
   <aside class="panel card">
     <div class="tabs" role="tablist" id="tabs">
-      <button class="tab" role="tab" data-t="ops" aria-selected="true"><span class="n">01</span>模擬營運</button>
+      <button class="tab" role="tab" data-t="ops" aria-selected="true"><span class="n">01</span>票證重播</button>
       <button class="tab" role="tab" data-t="fc"><span class="n">02</span>需求預測</button>
       <button class="tab" role="tab" data-t="pk"><span class="n">03</span>尖離峰</button>
       <button class="tab" role="tab" data-t="viz"><span class="n">04</span>票證分析</button>
-      <button class="tab" role="tab" data-t="opt"><span class="n">05</span>班次情境建議</button>
+      <button class="tab" role="tab" data-t="opt"><span class="n">05</span>班次最佳化</button>
       <button class="tab" role="tab" data-t="bot"><span class="n">06</span>小幫手</button>
     </div>
-    <div class="body" id="body"><p class="lead">數位孿生 × 班表情境 · 共用日期、需求、車隊與時鐘。車輛位置、候車與延誤均為模擬；班表為公開快照，非該歷史日實際排班。以刷卡需求測試供給，不代表完整運量。</p>
-      <!-- 01 模擬營運 -->
+    <div class="body" id="body">
+      <!-- 01 票證重播 -->
       <section class="pane" id="p-ops">
-        <h2>共用情境 · 3D 與班表同步</h2>
+        <h2>資料重播</h2><p class="replay-note">歷史票證推估，非即時 GPS。2024：35,005 段；2025：37,520 段。切班會有誤差，不能當作已確認實際班次；在車量為票證推估，不含現金旅客。位置沿線形內插，A／E 等線形仍有近似。</p>
         <div class="row">
-          <button class="btn" id="play">暫停</button><button class="btn2" id="reset">重播 06:30</button>
+          <button class="btn" id="play">暫停</button>
           <div class="seg" id="speed"><button data-s="60">×60</button><button data-s="180">×180</button><button data-s="360" aria-pressed="true">×360</button><button data-s="900">×900</button></div>
         </div>
         <div class="ctl">
-          <span>營運日</span><input type="date" id="day" value="2025-11-01"><output id="dayType"></output>
-          <span>班表</span><div class="seg" id="plan"><button data-p="cur" aria-pressed="true">現行</button><button data-p="opt">建議</button></div><span></span>
-          <span>國道壅塞</span><span></span><button class="tg" id="cong" role="switch" aria-checked="false" aria-label="國道壅塞"></button>
-          <span class="note">開啟時，假日上午往埔里、下午往台中的國道段車速降 40%</span>
+          <span>營運日</span><select id="day" style="min-width:0;max-width:100%;font:12px var(--mono)"></select><output id="dayType"></output>
+          <span class="note">只能選刷卡資料有的日期（2024–2025）。車次、各站時刻、上下車與「票證在車量」（刷卡上車減下車，不含現金與未刷卡乘客）都來自當日刷卡；車輛在兩站之間的位置依前後兩站刷卡時刻沿官方線形內插。資料沒有候車人數、表定時刻比對與 GPS，所以畫面不顯示這些。</span>
           <span>深色主題</span><span></span><button class="tg" id="theme" role="switch" aria-checked="false" aria-label="深色主題"></button>
         </div>
-        <details class="scenario-extra"><summary>需求情境與時間定位 <span id="scenarioLabel">基準 1.00×</span></summary><div class="ctl">
-          <label for="preset">需求情境</label><select id="preset"><option value="" disabled>自訂倍率</option><option value="1">基準需求 1.00×</option><option value="1.5">需求加壓 1.50×</option><option value="0.72">低需求 0.72×</option><option value="1.28">觀光增量 1.28×</option></select><span></span>
-          <label for="demand">需求倍率</label><input type="range" id="demand" min="0.5" max="2" step="0.05" value="1"><output id="demandOut">1.00×</output>
-          <span class="note">倍率同時作用於旅客生成、班次建議與方案比較；歷史統計與回測保持原值。預設情境是壓力測試假設。</span>
-          <label for="seek">跳至時間</label><input type="time" id="seek" value="12:00" min="05:00" max="23:59"><button class="btn2" id="seekGo">定位</button>
-        </div></details>
-        <h2>模擬指標<span class="src" id="opsSrc"></span></h2>
+        <div class="row"><button class="btn2" id="reset">重播 06:30</button><input aria-label="重播定位時間" type="time" id="seek" value="12:00"><button class="btn2" id="seekGo">定位</button></div><h2>當日指標（至目前時刻）<span class="src" id="opsSrc"></span></h2>
         <div class="kpis" id="kpis"></div>
-        <h2>告警與建議</h2>
+        <h2>資料事件</h2>
         <div class="alerts" id="alerts"></div>
-        <h2>全天班次 · 點一下跳到該時間</h2>
+        <h2>當日票證推估車次 · 點一下跳到該時間</h2>
         <canvas id="tl" style="display:block;width:100%;height:76px;border-radius:8px;background:var(--chip);cursor:pointer"></canvas>
+        <h2>調度甘特圖 · 每台車一列，點一下選車</h2>
+        <canvas id="gantt" style="display:block;width:100%;height:300px;border-radius:8px;background:var(--chip);cursor:pointer"></canvas>
+        <div class="legend"><span><i class="sw" style="background:var(--accent);border-radius:2px"></i>往日月潭／埔里</span><span><i class="sw" style="background:var(--accent2);border-radius:2px"></i>往台中</span><span><i class="sw" style="background:var(--lit);border-radius:2px"></i>坐滿 ≥43</span><span><i class="sw" style="background:var(--rule);border-radius:2px"></i>全程 &lt;5 人</span><span><i class="sl" style="background:var(--muted)"></i>未觀測移動（前後班不同端點：空車調度或無人刷卡的班）</span></div>
+        <div class="row" style="margin-top:6px"><button class="btn2" id="gl3d">暫停 3D 繪圖（省電）</button></div>
+        <h2>全線站點 · 22 站 · 點一列飛到該站</h2>
+        <div style="overflow-x:auto"><table class="tbl" id="stTbl"></table></div>
+        <p class="foot">「刷卡站」欄：＝ 表示本站就是票價站；→ 表示本站沒有自己的刷卡站。上／下＝今日至目前時刻的刷卡筆數，只來自刷卡；而刷卡資料只有票價站：市區 4 站共用「臺中」，埔里遊客中心、大成國小、榮民診所、埔里酒廠、中華電信、三育沒有自己的刷卡站，人數記在相鄰票價站，這裡不拆分。<b>時刻</b>：有刷卡站且該班有人刷卡＝刷卡時刻；標 ≈ 的是前後兩個刷卡站之間沿官方線形內插的通過時刻（不是 GPS）。站序依 TDX 6670 子線；B／E 線不進埔里市區，九族只有 A 線。</p>
         <h2>車隊 · 點車輛看平面圖</h2>
         <div class="vl" id="vlist"></div>
       </section>
       <!-- 02 需求預測 -->
       <section class="pane" id="p-fc" hidden>
-        <p class="lead">以 2024–2025 每日刷卡上車數，擬合「趨勢 × 星期 × 月份 × 國定假日／連假」的對數迴歸，並與「近 4 週同星期中位數」基準模型做相同資訊窗口的逐日滾動回測。</p>
-        <h2>回測（2025-11-01 至 12-31，逐日滾動；僅使用預測日前資料）</h2>
+        <p class="lead">以 2024–2025 每日刷卡上車數，擬合「趨勢 × 星期 × 月份 × 國定假日／連假」的對數迴歸，並與「近 4 週同星期中位數」基準模型做留出期回測。</p>
+        <h2>回測（2025-11-01 至 12-31，模型未看過）</h2>
         <div class="kpis" id="fcKpi"></div>
         <svg class="chart" id="fcBack" viewBox="0 0 400 150"></svg>
         <div class="legend"><span><i class="sl" style="background:var(--muted)"></i>實際</span><span><i class="sl" style="background:var(--accent)"></i>迴歸模型</span><span><i class="sl" style="background:var(--accent2);height:2px"></i>基準</span></div>
-        <h2>擬合／外推 · <span id="fcDayLbl"></span> 起 14 天</h2>
+        <h2>預測 · <span id="fcDayLbl"></span> 起 14 天</h2>
         <svg class="chart" id="fcAhead" viewBox="0 0 400 150"></svg>
-        <div class="legend"><span><i class="sl" style="background:var(--accent)"></i>往日月潭／埔里</span><span><i class="sl" style="background:var(--accent2)"></i>往台中</span><span><i class="sw" style="background:var(--chip);border-radius:2px"></i>殘差參考帶（未校準）</span></div>
-        <h2>選定日 · 每小時刷卡需求分配</h2>
+        <div class="legend"><span><i class="sl" style="background:var(--accent)"></i>往日月潭／埔里</span><span><i class="sl" style="background:var(--accent2)"></i>往台中</span><span><i class="sw" style="background:var(--chip);border-radius:2px"></i>80% 區間</span></div>
+        <h2>選定日 · 每小時上車預測</h2>
         <svg class="chart" id="fcHour" viewBox="0 0 400 140"></svg>
         <h2>各因子效果</h2>
         <svg class="chart" id="fcCoef" viewBox="0 0 400 150"></svg>
@@ -361,6 +347,19 @@ input[type=date],input[type=time],select{min-width:0;max-width:100%}
       <!-- 04 票證分析 -->
       <section class="pane" id="p-viz" hidden>
         <div class="row" style="margin-top:10px"><div class="seg" id="vzYear"><button data-y="0">2024</button><button data-y="1" aria-pressed="true">2025</button></div></div>
+        <h2>路段分區載客 <span class="src" id="znSrc"></span></h2>
+        <div class="row" style="margin-top:4px"><div class="seg" id="znOff"><button data-o="0">平日</button><button data-o="1" aria-pressed="true">休息日</button></div><div class="seg" id="znDir"><button data-d="0" aria-pressed="true">往日月潭／埔里</button><button data-d="1">往台中</button></div></div>
+        <svg class="chart" id="znMap" viewBox="0 0 400 156"></svg>
+        <div style="overflow-x:auto"><table class="tbl" id="znTbl"></table></div>
+        <div class="callout" id="znCall"></div>
+        <h2>各分區 × 發車小時：每班平均最大票證在車量</h2>
+        <svg class="chart" id="znHeat" viewBox="0 0 400 120"></svg>
+        <p class="note" style="margin-top:6px">分區依站序：市區段＝台中（含航空站）–高鐵；國道段＝高鐵–埔里（含牛耳、崎下）；山區段＝埔里–日月潭（暨大、魚池、九族等）；延駛段＝日月潭–向山。「過點人次」＝每班經過該分區代表點時車上的刷卡人數加總，是依切班與站序規則推估的路段交易量（只含刷卡）。「最大在車」＝每班在該分區內任一小段的最大值。坐滿＝43 人以上（大客車假設；E 線九人座以 9 座計）。</p>
+        <h2>旅客停留時間（同卡同日去回程）<span class="src" id="dwSrc"></span></h2>
+        <div style="overflow-x:auto"><table class="tbl" id="dwTbl"></table></div>
+        <svg class="chart" id="dwHour" viewBox="0 0 400 150"></svg>
+        <div class="legend"><span><i class="sl" style="background:var(--accent)"></i>去程到日月潭（下車時刻）</span><span><i class="sl" style="background:var(--accent2)"></i>同一張卡回程上車時刻</span></div>
+        <p class="note" style="margin-top:6px">只取同一張卡、同一天恰好兩筆（台中／高鐵 → 某區 → 台中／高鐵）的旅次；停留＝回程上車 − 去程下車。卡號只在本機計數，頁面只有聚合結果。用途：上午到的人多半在 4–5 小時後回程，回程加班可依上午到達量提前安排。</p>
         <h2>起訖 OD 矩陣（筆數）</h2>
         <svg class="chart" id="vzOD" viewBox="0 0 400 300"></svg>
         <h2>各站上下車</h2>
@@ -372,42 +371,86 @@ input[type=date],input[type=time],select{min-width:0;max-width:100%}
         <svg class="chart" id="vzDaily" viewBox="0 0 400 130"></svg>
         <h2>票種（前 10）</h2>
         <svg class="chart" id="vzTk" viewBox="0 0 400 200"></svg>
-        <h2>車次最大在車人數分布</h2>
+        <h2>車次最大票證在車量分布</h2>
         <svg class="chart" id="vzHist" viewBox="0 0 400 130"></svg>
         <p class="foot" id="vzNote"></p>
       </section>
-      <!-- 05 班次情境建議 -->
+      <!-- 05 班次最佳化 -->
       <section class="pane" id="p-opt" hidden>
-        <p class="lead">依選定營運日的預測需求，計算每小時每方向所需班次＝max(服務底線, ⌈尖峰區段人數 ÷ (43 × 目標載客率)⌉)，再以貪婪「車輛串接」估計所需車輛數（未證明最低成本或最少車輛），並用同一模擬器驗證。</p>
-        <div class="ctl">
-          <span>目標載客率</span><input type="range" id="lf" min="0.5" max="0.95" step="0.05" value="0.75"><output id="lfOut">75%</output>
-          <span>服務底線</span><input type="range" id="floor" min="0" max="3" step="1" value="1"><output id="floorOut">1 班/時</output>
-          <span>預留需求</span><input type="range" id="buf" min="0" max="0.4" step="0.05" value="0.15"><output id="bufOut">+15%</output>
-          <span>車隊上限</span><input type="range" id="fleet" min="8" max="40" step="1" value="15"><output id="fleetOut">15 輛</output>
-          <span class="note" id="fleetNote">預設＝現行班表所需車輛數，代表「不增車、只重排班次」</span>
-          <span>車型</span><div class="seg" id="fuel"><button data-f="d" aria-pressed="true">柴油</button><button data-f="e">電巴</button></div><span></span>
+        <p class="lead" id="optQc"></p>
+        <p class="replay-note">車輛數只對目前銜接圖求最少，並非總成本最低；司機為啟發式重排。門檻用於情境檢核，未完整計入備勤、空駛、待命及休息認定，不構成法規合規判斷。成本係數與車型容量需業者確認。</p><p class="lead">分三層：<b>基準</b>是選定營運日依切班規則重建的票證資料；<b>可調因素</b>每一項都標出來源；<b>最佳化</b>只對當天的票證推估車次重排車輛與司機，必要時併班或加開。</p>
+        <div class="ctl"><span>營運日</span><select id="optDay" style="min-width:0;max-width:100%;font:12px var(--mono)"></select><span></span></div>
+        <h2>可調因素</h2>
+        <div class="ctl" id="ctlScn">
+          <span>每日駕車上限<em class="tagL">設定門檻</em></span><input type="range" id="rDrive" min="6" max="10" step="0.5" value="10"><output id="rDriveOut">10 時</output>
+          <span>連續駕車上限<em class="tagL">設定門檻</em></span><input type="range" id="rCont" min="2" max="4" step="0.5" value="4"><output id="rContOut">4 時</output>
+          <span>中間休息至少<em class="tagL">設定門檻</em></span><input type="range" id="rRest" min="30" max="60" step="5" value="30"><output id="rRestOut">30 分</output>
+          <span>一日工時上限<em class="tagL">設定門檻</em></span><input type="range" id="rSpan" min="8" max="12" step="0.5" value="12"><output id="rSpanOut">12 時</output>
+          <span class="note">預設為情境門檻：每日駕車 10 小時、連續 4 小時後休息 30 分、值勤跨度 12 小時。完整工時、休息及適用規範需業者另行核對，不能以此認定違法或合規。</span>
+          <span>司機月薪<em class="tagE">外部</em></span><input type="range" id="cSal" min="40000" max="65000" step="1000" value="52000"><output id="cSalOut">$52,000</output>
+          <span>柴油價<em class="tagE">外部</em></span><input type="range" id="cDiesel" min="24" max="36" step="0.01" value="29.83"><output id="cDieselOut">$29.83/L</output>
+          <span>加班費<em class="tagL">設定門檻</em></span><div class="seg" id="cOt"><button data-o="add" aria-pressed="true">另計 1.34／1.67</button><button data-o="incl">已含在月薪</button></div><span></span>
+          <span class="note" id="costNote"></span>
+          <span>運量外推<em class="tagA">假設</em></span><input type="range" id="sGrowth" min="0" max="50" step="5" value="0"><output id="sGrowthOut">+0%</output>
+          <span>旅客可改搭 ±<em class="tagA">假設</em></span><input type="range" id="sShift" min="0" max="30" step="5" value="0"><output id="sShiftOut">不併班</output>
+          <span>併班後上限<em class="tagA">假設</em></span><input type="range" id="sLf" min="0.6" max="1" step="0.05" value="0.9"><output id="sLfOut">90%</output>
+          <span>司機換車<em class="tagA">假設</em></span><div class="seg" id="crewSw"><button data-s="0" aria-pressed="true">不換（同車片段優先）</button><button data-s="1">可在端點換車</button></div><span></span>
+          <span>延誤測試<em class="tagA">情境</em></span><input type="range" id="sDelay" min="0" max="60" step="5" value="30"><output id="sDelayOut">30 分</output>
+          <span class="note">延誤測試：15–18 時發車的班次各晚到 N 分，依每台車的串接順延（折返與空車時間不變），看後續班次被連鎖拖晚多少。用來比較「省車」與「抗延誤」的取捨。</span>
+          <span>空車調度時間<em class="tagD">資料</em></span><div class="seg" id="dhMode"><button data-m="p85" aria-pressed="true">實測 P85</button><button data-m="p50">實測中位</button><button data-m="fixed">固定 45 km/h</button></div><span></span>
+          <span class="note" id="dhNote"></span>
+          <span>端點最短折返<em class="tagA">假設</em></span><input type="range" id="rTurn" min="5" max="20" step="1" value="10"><output id="rTurnOut">10 分</output>
+          <span>油耗<em class="tagA">假設</em></span><input type="range" id="cLpk" min="0.25" max="0.5" step="0.01" value="0.33"><output id="cLpkOut">0.33 L/km</output>
+          <span>保修輪胎<em class="tagA">假設</em></span><input type="range" id="cMaint" min="0" max="15" step="1" value="8"><output id="cMaintOut">$8/km</output>
+          <span>雇主負擔<em class="tagA">假設</em></span><input type="range" id="cEmp" min="0.1" max="0.25" step="0.01" value="0.18"><output id="cEmpOut">18%</output>
+          <span>每月出勤<em class="tagA">假設</em></span><input type="range" id="cDays" min="20" max="26" step="1" value="22"><output id="cDaysOut">22 天</output>
+          <span>每車每日固定<em class="tagA">假設</em></span><input type="range" id="cBus" min="0" max="8000" step="100" value="3200"><output id="cBusOut">$3,200</output>
+          <span class="note">座位數 43 是大客車的假設值，資料沒有車型，九人座或中型車會被高估容量。運量外推：每班載客等比放大，超過 43 人就在同一時刻加開一班。改搭：低載班次的旅客改搭 ± 分鐘內、同方向且涵蓋其起訖的班次，合併後不超過上限才併。</span>
         </div>
-        <h2>每小時班次：現行 vs 建議</h2>
-        <svg class="chart" id="opBars" viewBox="0 0 400 170"></svg>
-        <div class="legend"><span><i class="sw" style="background:var(--muted);border-radius:2px"></i>現行</span><span><i class="sw" style="background:var(--accent);border-radius:2px"></i>建議</span><span><i class="sl" style="background:var(--lit)"></i>預測尖峰區段人數 ÷ 43</span></div>
-        <div class="callout" id="opCall"></div>
-        <h2>方案比較（模擬一整天）</h2><p class="foot">單次情境：需求依現行班表固定服務時窗，旅客到站與行車使用獨立亂數串流；兩方案沿用相同需求與種子，不因減班而刪掉需求。非實證節省效果。柴油 1.585 kg/km；電巴 1.25 kWh/km × 0.474 kg/kWh 為示範假設，未含製造排放。</p>
-        <table class="tbl" id="opTbl"></table>
-        <div class="row" style="margin-top:10px"><button class="btn" id="apply">套用到模擬</button><button class="btn2" id="rerun">重新模擬比較</button></div>
-        <h2>建議班表（往日月潭／埔里）</h2>
-        <div id="opList0" style="font:18px/1.8 var(--mono);color:var(--strong)"></div>
-        <h2>建議班表（往台中）</h2>
-        <div id="opList1" style="font:18px/1.8 var(--mono);color:var(--strong)"></div>
-        <p class="foot">碳排：柴油 1.585 kg CO₂e/車公里（情境值）；電巴 1.25 kWh/km × 0.474 kg/kWh。車輛串接允許端點休息 10 分鐘，埔里站與日月潭之間可空車調度。未含駕駛工時、保修與車型限制，正式排班需業者資料。</p>
+        <h2>結果：票證基準 vs 重排情境 <span class="src" id="optSrc"></span></h2>
+        <div style="overflow-x:auto"><table class="tbl" id="optTbl"></table></div>
+        <div class="callout" id="optCall"></div>
+        <h2>司機值勤時間分布（人）</h2>
+        <svg class="chart" id="optSpan" viewBox="0 0 400 150"></svg>
+        <div class="legend"><span><i class="sw" style="background:var(--muted);border-radius:2px"></i>票證基準（當日匿名序號）</span><span><i class="sw" style="background:var(--accent);border-radius:2px"></i>最佳化</span><span><i class="sl" style="background:var(--lit)"></i>工時上限</span></div>
+        <h2>官網主表 vs 當日刷卡車次</h2>
+        <div id="ttMatch"></div>
+        <h2>使用的演算法</h2>
+        <div class="algo" id="optAlgo"></div>
+        <div id="optChanges"></div>
+        <h2 style="margin-top:22px">全年檢核（只看資料）</h2>
+        <div class="row" style="margin-top:8px">
+          <div class="seg" id="ovYear"><button data-y="2024">2024</button><button data-y="2025" aria-pressed="true">2025</button></div>
+          <div class="seg" id="ovOff"><button data-o="0">平日</button><button data-o="1" aria-pressed="true">假日</button></div>
+          <div class="seg" id="ovDir"><button data-d="0" aria-pressed="true">往日月潭／埔里</button><button data-d="1">往台中</button></div>
+        </div>
+        <div class="kpis" id="ovKpi" style="margin-top:10px"></div>
+        <h2>每小時每日平均車次，依最大票證在車量分級</h2>
+        <svg class="chart" id="ovBars" viewBox="0 0 400 180"></svg>
+        <div class="legend"><span><i class="sw" style="background:var(--rule);border-radius:2px"></i>少於 10 人</span><span><i class="sw" style="background:var(--muted);border-radius:2px"></i>10–29</span><span><i class="sw" style="background:var(--accent);border-radius:2px"></i>30–43</span><span><i class="sw" style="background:var(--lit);border-radius:2px"></i>超過 43</span></div>
+        <div class="callout" id="ovCall"></div>
+        <h2>低載時段（可檢討併班或改小車）</h2>
+        <div style="overflow-x:auto"><table class="tbl" id="ovLow"></table></div>
+        <h2>高載時段（可檢討加班）</h2>
+        <div style="overflow-x:auto"><table class="tbl" id="ovHigh"></table></div>
+        <h2>票證推估班距推得的期望等候</h2>
+        <svg class="chart" id="obsW" viewBox="0 0 400 160"></svg>
+        <div class="legend" id="obsWLeg"></div>
+        <p class="note" style="margin-top:6px">由刷卡重建每班在該站的發車時刻，算出相鄰班距 h，期望等候＝E[h²]÷(2E[h])。這是「旅客隨機到站」時的公式，會看時刻表的旅客等得更少。</p>
+        <h2>司機值勤（資料中的司機編號，匿名）</h2>
+        <div id="ovDuty"></div>
+        <h2>選定營運日票收最低的 8 班</h2>
+        <div style="overflow-x:auto"><table class="tbl" id="ovTrips"></table></div>
+        <p class="foot">來源標籤：<em class="tagD">資料</em>兩個刷卡 Excel；<em class="tagL">設定門檻</em>本沙盤設定值，非合規認證；<em class="tagE">外部</em>經濟部能源署柴油週均價、南投客運徵才月薪；<em class="tagA">假設</em>需業者提供。車公里＝每班首末站的 TDX 線形距離；空車調度時間＝沿線距離 ÷ 45 km/h ＋ 5 分（推估，資料沒有空車紀錄）。</p>
       </section>
       <!-- 06 小幫手 -->
       <section class="pane" id="p-bot" hidden>
-        <div class="row" style="margin-top:10px"><div class="seg" id="botMode"><button data-m="ops" aria-pressed="true">內部營運／調度</button></div></div>
+        <div class="row" style="margin-top:10px"><div class="seg" id="botMode"><button data-m="ops">客服／調度</button></div></div>
         <p class="lead" id="botLead"></p>
         <div class="chips" id="botChips"></div>
         <div class="chat" id="chat"></div>
-        <form class="ask" id="askForm"><input id="askIn" placeholder="例如：B03 現在在哪？哪些時段需要加開？" autocomplete="off"><button class="btn">送出</button></form>
-        <p class="foot">AI 營運小幫手：先查詢票證聚合、模型計算與本頁模擬快照，再由 OpenRouter 整理回答。連線失敗時標示本機規則回覆。非即時 GPS，不會實際派車。</p>
+        <form class="ask" id="askForm"><input id="askIn" placeholder="例如：高鐵站下一班去日月潭幾點？現在擠嗎？" autocomplete="off"><button class="btn">送出</button></form>
+        <p class="foot">內部營運小幫手 · OpenRouter。只查匿名聚合與本頁重播快照；服務失敗明示本機規則回覆。沒有 GPS、實際延誤或候車人數。</p>
       </section>
     </div>
   </aside>
