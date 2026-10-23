@@ -86,7 +86,7 @@ button,input,select{font:inherit;color:inherit}
 .views button[aria-pressed="true"]{color:var(--strong);box-shadow:var(--lift),inset 2px 0 0 var(--accent)}
 /* 平面圖 */
 .mini{position:absolute;right:16px;top:70px;width:360px;background:var(--card);box-shadow:var(--lift);border-radius:14px;padding:10px 12px 12px;transition:opacity .3s var(--ease),transform .3s var(--ease)}
-.mini[hidden]{display:block;opacity:0;transform:translateY(-6px);pointer-events:none}
+.mini[hidden]{display:none}
 .mini .hd{display:flex;align-items:center;gap:8px;margin-bottom:4px}
 .mini .hd b{color:var(--strong);font-size:21px}
 .mini .hd .chip{margin-left:auto}
@@ -198,7 +198,14 @@ input[type=date],select{min-width:0;max-width:100%}
 .views button{min-height:38px}
 .bl{bottom:40px;right:18px}
 .br{left:18px;right:18px;bottom:12px;flex-wrap:wrap;gap:7px 14px;font-size:14px}
-.mini{width:min(510px,calc(100% - 32px));top:150px;max-height:calc(100% - 220px);overflow:auto}
+.mini{display:flex;flex-direction:column;width:min(510px,calc(100% - 32px));top:150px;max-height:calc(100% - 220px);overflow:hidden}
+.mini .hd,.mini .foot{flex-shrink:0}
+.mini .hd button{min-width:44px;min-height:44px;color:var(--strong)}
+.mini-scroll{min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding-right:4px}
+.mini .foot{padding-top:8px;border-top:1px solid var(--rule)}
+.mini .foot button{min-height:44px;line-height:1.4;white-space:normal;color:var(--strong)}
+.mini .facts .k,.mini .note{color:var(--text)}
+.mini button:focus-visible,.mini-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .mini .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
 .ask input{min-width:0}
 .tbl{font-size:17px}.tbl td,.tbl th{padding:8px 4px}
@@ -260,11 +267,13 @@ input[type=date],select{min-width:0;max-width:100%}
     </nav>
     <section class="mini" id="mini" hidden aria-label="車輛平面圖">
       <div class="hd"><b id="miniName">—</b><span class="chip" id="miniState"></span><button id="miniClose" aria-label="關閉">✕</button></div>
+      <div class="mini-scroll" tabindex="0" role="region" aria-label="車輛路線與模擬數據">
       <svg id="miniMap" viewBox="0 0 340 250"></svg>
       <div class="seat"><i id="miniSeat"></i></div>
       <div class="facts" id="miniFacts"></div>
-      <div class="foot"><button id="miniFollow">在 3D 跟隨</button><button id="miniAsk">問小幫手這台車</button></div>
       <div class="note" id="miniNote"></div>
+      </div>
+      <div class="foot"><button id="miniFollow">在 3D 跟隨</button><button id="miniAsk">問小幫手這台車</button></div>
     </section>
     <div class="corner bl">拖曳旋轉 · 右鍵平移 · 滾輪縮放 · 點車輛看平面圖</div>
     <div class="corner br">
