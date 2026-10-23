@@ -232,7 +232,7 @@ function tripStrip(s) {   // 每班沿站序的 [站, 時刻]；埔里市區站�
 function buildStrip() {
   const el = STRIP.el; if (!el) return; el.hidden = !STRIP.on; $('#stripBtn') && $('#stripBtn').setAttribute('aria-pressed', STRIP.on);
   if (!STRIP.on) return;
-  const W = Math.max(el.clientWidth || 800, 900), H = 160, xy = stripXY(W); STRIP.xy = xy; STRIP.W = W;
+  const W = el.clientWidth || 800, H = 100, xy = stripXY(W); STRIP.xy = xy; STRIP.W = W;
   const L = (a, b, dash) => `<line x1="${xy[a][0]}" y1="42" x2="${xy[b][0]}" y2="42" stroke="var(--strong)" stroke-width="3" stroke-linecap="round"${dash ? ' stroke-dasharray="1 6" stroke-opacity=".5"' : ''}/>`;
   let h = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
   h += L(0, 4) + L(4, 5, 1) + L(5, 12) + L(12, 13) + L(13, 19) + `<line x1="${xy[19][0]}" y1="42" x2="${xy[20][0]}" y2="42" stroke="var(--strong)" stroke-width="3" stroke-dasharray="5 3"/>`;
@@ -341,7 +341,7 @@ function updateMini() {
   $('#miniState').textContent = stz; $('#miniState').className = 'chip ' + cls;
   const L = busLoc(b); let facts;
   if (tr) {
-    facts = [['票證在車量', `${b.load}<small style="font-size:16px;color:var(--muted)"> / ${CAP}</small>`], ['目前位置', `${ZNAME[L.prev]}→${L.next ? ZNAME[L.next] : '終點'}`], ['下一站刷卡時刻', L.nextE ? fmt(L.nextE.t) : '—'],
+    facts = [['票證在車量', `${b.load}<small style="font-size:10px;color:var(--muted)"> / ${CAP}</small>`], ['目前位置', `${ZNAME[L.prev]}→${L.next ? ZNAME[L.next] : '終點'}`], ['下一站刷卡時刻', L.nextE ? fmt(L.nextE.t) : '—'],
       ['本班發車', fmt(tr.dep)], ['本班上車', tr.board + ' 筆'], ['刷卡站數', tr.ev.length + ' 站' + (tr.ok ? '' : '（不足以畫路線）')]];
     $('#miniSeat').style.width = Math.min(100, b.load / CAP * 100) + '%'; $('#miniSeat').style.background = b.load > CAP ? 'var(--lit)' : 'var(--accent)';
   } else {
@@ -493,7 +493,7 @@ function renderList(force) {
     let d;
     if (tr) { const L = busLoc(b); d = `${tr.code} ${dirTxt(tr)} · ${ZNAME[L.prev]}→${L.next ? ZNAME[L.next] : '終點'}`; }
     else { const nx = b.plan[b.k]; d = `${b.state === 'off' && !b.done ? '首班 ' + fmt(b.plan[0].dep) : ZNAME[b.term]}${nx && b.done ? ' · 下一班 ' + fmt(nx.dep) : !nx ? ' · 今日收班' : ''}`; }
-    return `<button class="vr" data-id="${b.id}" aria-current="${LIVE.sel === b.id}"><span class="id">${b.id}</span><span><span class="d" style="color:var(--strong);font-size:16px">${d}</span>${tr ? `<div class="load"><i class="${b.load > CAP ? 'hot' : ''}" style="width:${Math.min(100, b.load / CAP * 100)}%"></i></div>` : ''}</span><span class="r">${tr ? `<span style="font:500 16px var(--mono);color:var(--strong)">${b.load}/${CAP}</span><br>` : ''}<span class="chip ${cls}">${stz}</span></span></button>`;
+    return `<button class="vr" data-id="${b.id}" aria-current="${LIVE.sel === b.id}"><span class="id">${b.id}</span><span><span class="d" style="color:var(--strong);font-size:12.5px">${d}</span>${tr ? `<div class="load"><i class="${b.load > CAP ? 'hot' : ''}" style="width:${Math.min(100, b.load / CAP * 100)}%"></i></div>` : ''}</span><span class="r">${tr ? `<span style="font:500 12px var(--mono);color:var(--strong)">${b.load}/${CAP}</span><br>` : ''}<span class="chip ${cls}">${stz}</span></span></button>`;
   }).join('');
 }
 $('#vlist').addEventListener('click', (e) => { const r = e.target.closest('.vr'); if (!r) return; select(LIVE.sel === r.dataset.id ? null : r.dataset.id); });
