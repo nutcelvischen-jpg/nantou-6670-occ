@@ -1,7 +1,8 @@
 import json, re, sys, os, gzip, base64
 R=os.path.dirname(os.path.abspath(__file__))+'/'
 part=lambda n: open(R+'parts/'+n+'.js').read()
-src=''.join(open(R+'src/'+f).read() for f in ['a_geo.js','b_scene.js','c_models.js','d_sim.js','d_replay.js','e_forecast.js','f_opt.js','g_ui.js','i_dispatch_ui.js','j_control_center.js','k_station_strip.js','h_host.js'])
+src=''.join(open(R+'src/'+f).read() for f in ['a_geo.js','b_scene.js','c_models.js','d_sim.js','d_replay.js','e_forecast.js','f_opt.js','g_ui.js','i_dispatch_ui.js','j_control_center.js','k_station_strip.js','l_guided_control.js','h_host.js'])
+src=open(R+'guided-model.js').read().replace('export ', '')+'\n'+src
 src=open(R+'station-model.js').read().replace('export ', '')+'\n'+src
 src=open(R+'control-model.js').read().replace('export ', '')+'\n'+src
 src=open(R+'dispatch-model.js').read().replace('export ', '')+'\n'+src

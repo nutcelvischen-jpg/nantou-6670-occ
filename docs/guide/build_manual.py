@@ -12,7 +12,7 @@ R=Path(__file__).resolve().parents[2]
 G=json.loads((R/'shared/site-guide.json').read_text())
 P=R/'public/manual'; P.mkdir(exist_ok=True)
 O=R/'output/使用手冊與拍攝包_2026-10-24';O.mkdir(parents=True,exist_ok=True)
-shots={'start':'guide','overview':'overview','baseline':'baseline','replay':'replay','forecast':'forecast','peak':'peak','tickets':'tickets','optimizer':'optimizer','cost':'cost','assistant':'assistant','other':'quality','recording':'guide'}
+shots={'start':'guide','overview':'overview','baseline':'baseline','replay':'guided','forecast':'forecast','peak':'peak','tickets':'tickets','optimizer':'optimizer','cost':'cost','assistant':'assistant','other':'quality','recording':'guide'}
 for name in set(shots.values()): assert (P/f'assets/{name}.png').exists(),name
 E=html.escape
 css='''*{box-sizing:border-box}body{margin:0;background:#f3f4ee;color:#243b33;font-family:"Noto Sans TC",system-ui,sans-serif;font-size:18px;line-height:1.85}main{max-width:1120px;margin:auto;padding:40px 24px}header{padding:42px;background:#dfe8d9;border-radius:24px}h1{font-size:38px;line-height:1.4}h2{font-size:28px}h3{font-size:21px;margin-top:30px}a{color:#2e6d56}nav{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0}nav a{background:white;padding:7px 13px;border-radius:8px;text-decoration:none}article{background:white;border:1px solid #dce4d8;border-radius:20px;padding:30px;margin:28px 0;scroll-margin-top:20px}img{width:100%;height:auto;border-radius:12px;border:1px solid #ddd}figure{margin:20px 0}figcaption,small{color:#65776b;font-size:16px;overflow-wrap:anywhere}.flow{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}.flow span{background:#e9eee4;padding:12px;border-radius:10px}.note{border-left:4px solid #b98662;background:#faf4ec;padding:16px}li{margin:10px 0}.voice{background:#eff3ed;padding:22px;border-radius:12px}.tag{font-size:16px;letter-spacing:2px;color:#526953}table{border-collapse:collapse;width:100%}td,th{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid #ddd}@media print{body{background:white;font-size:12pt}nav{display:none}article{break-before:page;border:0;padding:0}header{background:white}img{max-height:13cm;object-fit:contain}a{color:inherit}main{padding:0}}'''
@@ -22,6 +22,7 @@ md=['# 潭行 Twin 圖文使用手冊','版本：'+G['version'],'網站：'+G['s
 for i,s in enumerate(G['sections']):
  shot='assets/'+shots[s['id']]+'.png'
  parts+=['<article id="'+s['id']+'"><div class="tag">'+str(i+1).zfill(2)+' / '+E(s['page'])+'</div><h2>'+E(s['title'])+'</h2><p>'+E(s['purpose'])+'</p><figure><img src="'+shot+'" alt="'+E(s['title'])+'實際畫面"><figcaption>圖 '+str(i+1)+'：'+E(s['page'])+'。截圖只展示當時可見區域，完整操作請依下列步驟。</figcaption></figure>']
+ if s['id']=='replay': parts.append('<figure><img src="assets/advanced.png" alt="行控進階設定草稿表單"><figcaption>需要更多控制時才展開進階。改完必須重新計算；返回一般模式保留設定與播放位置。</figcaption></figure>')
  if s['id']=='replay': parts.append('<figure><img src="assets/stations.png" alt="恢復公車與站點，與地圖和甘特圖連動"><figcaption>公車與站點：左右捲動查看站序，點車選取，點站定位。圖示位置為內插。</figcaption></figure>')
  if s['id']=='optimizer': parts.append('<figure><img src="assets/dispatch-gantt.png" alt="H加班候選車輛甘特圖"><figcaption>2025-10-11，H往台中+2班；橘色為新增班，完整條件見下方。</figcaption></figure>')
  md+=['\n## '+s['title'],'入口：'+s['page'],'![實際畫面]('+shot+')',s['purpose']]
@@ -77,6 +78,7 @@ story.append(para('先確認資料，再看差異；從觀察產生候選，最�
 for i,s in enumerate(G['sections']):story.append(para(f'{i+1:02d}  {s["title"]}','small'))
 for i,s in enumerate(G['sections']):
  story += [PageBreak(),para(f'{i+1:02d}  {s["title"]}','h1'),para('入口：'+s['page'],'small'),para(s['purpose']),img(shots[s['id']]),para('圖：行控與班次最佳化畫面更新於2026-10-24；數值依當次條件而變。','small'),para('操作步驟','h2')]
+ if s['id']=='replay': story += [img('advanced'),para('進階設定：條件先存草稿，按計算才套用。返回一般模式保留日期、播放位置與參數。','small')]
  if s['id']=='replay': story += [img('stations'),para('公車與站點：可捲動查看站序，與地圖、甘特圖同步；圖示位置為內插。','small')]
  if s['id']=='optimizer': story += [img('dispatch-gantt'),para('H往台中+2班車輛甘特圖；橘色為新增班，未通過服務底線不能直接採用。','small')]
  for j,x in enumerate(s['steps']):story.append(para(f'{j+1}. {x}'))

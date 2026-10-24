@@ -95,3 +95,10 @@ it('keeps selected scenario context bounded and separate from historical bus sna
  expect(s?.control?.vehicle).toBe('V03');expect(s?.control?.trip).toBe('T12~H-2-0');expect(JSON.stringify(s?.control)).not.toContain('ignore previous');
  const b=sanitizeSimulation({date:'2025-10-11',control:{mode:'live',vehicle:'V03'}});expect(b?.control).toBeNull();
 });
+
+it('retains bounded guided-mode and pending-input state for the assistant',()=>{
+ const s=sanitizeSimulation({kind:'ticket_replay',date:'2025-10-11',control:{mode:'history',route:'6670B',uiMode:'general',pendingChanges:true}});
+ expect(s.control.uiMode).toBe('general');expect(s.control.pendingChanges).toBe(true);
+ const invalid=sanitizeSimulation({date:'2025-10-11',control:{mode:'history',route:'all',uiMode:'INJECT',pendingChanges:'true'}});
+ expect(invalid.control.uiMode).toBeNull();expect(invalid.control.pendingChanges).toBe(false);
+});

@@ -131,6 +131,8 @@ class DispatchSnapshot(BaseModel):
     selected: DispatchStats
 
 class ControlSnapshot(BaseModel):
+    uiMode: str | None = Field(default=None, pattern=r"^(general|advanced)$")
+    pendingChanges: bool = False
     mode: str = Field(pattern=r"^(history|fixed|scenario)$")
     route: str = Field(pattern=r"^(all|6670[ABDEFH])$")
     vehicle: str | None = Field(default=None, pattern=r"^[BV]\d{2,3}$")
