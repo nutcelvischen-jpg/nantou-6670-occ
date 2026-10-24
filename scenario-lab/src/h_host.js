@@ -1,3 +1,24 @@
+/* Two workbench pages, one simulation engine. Standalone files keep all tabs. */
+let hostSurface = 'driving', hostPanelRequest = true;
+function syncWorkbenchSurface(panel) {
+  if (panel !== 'bot') hostSurface = panel === 'ops' ? 'driving' : 'prediction';
+  if (window.parent === window) return;
+  document.body.dataset.workbench = hostSurface;
+  for (const tab of $('#tabs').children) tab.hidden = hostSurface === 'driving'
+    ? !['ops','bot'].includes(tab.dataset.t) : tab.dataset.t === 'ops';
+}
+const hostPreviousTab = setTab;
+setTab = function(panel) {
+  if (!PANELS.includes(panel)) return;
+  const previousPanel = TAB;
+  hostPreviousTab(panel);
+  syncWorkbenchSurface(panel);
+  if (previousPanel !== panel || hostPanelRequest) requestAnimationFrame(() => {
+    window.scrollTo(0, 0);
+    $('#body').scrollTop = 0;
+  });
+  if (!hostPanelRequest && window.parent !== window) window.parent.postMessage({channel:'tanxing-workbench', type:'panelChanged', panel}, location.origin);
+};
 /* Host integration: read-only replay snapshot, never raw ticket identifiers. */
 window.addEventListener('message', (event) => {
   if (event.origin !== location.origin || event.source !== window.parent || event.data?.channel !== 'tanxing-workbench') return;
@@ -5,12 +26,14 @@ window.addEventListener('message', (event) => {
     workbenchActive = event.data.active;
     if (workbenchActive) { resize(); refreshUI(true); }
   }
-  if (event.data.type === 'panel') setTab(event.data.panel);
+  if (event.data.type === 'panel') { hostPanelRequest = true; setTab(event.data.panel); hostPanelRequest = false; }
 });
 $('#reset').onclick = () => { LIVE.paused = true; $('#play').textContent = '播放'; buildLive(390); };
 $('#seekGo').onclick = () => { const v = $('#seek').value; if (!/^\d{2}:\d{2}$/.test(v)) return; LIVE.paused = true; $('#play').textContent = '播放'; jumpTo(hm(v)); };
 const linkedPanel = new URLSearchParams(location.search).get('panel');
 if (PANELS.includes(linkedPanel)) setTab(linkedPanel);
+syncWorkbenchSurface(TAB);
+hostPanelRequest = false;
 $('#botLead').textContent = '內部營運專用 · OpenRouter。可導覽網站、解釋指標來源與公式，並回答選定日期的票證重播。';
 function assistantSnapshot(q) {
   const ds = isoD(FCD); if (/後天/.test(q)) ds.setDate(ds.getDate() + 1);

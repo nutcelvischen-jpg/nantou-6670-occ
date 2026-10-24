@@ -338,3 +338,8 @@ body{font-size:var(--type-body);line-height:1.6}
 @media(max-width:700px){.main-area{margin-left:54px}.sidebar{width:54px}.assistant-side{grid-template-columns:1fr}.page-intro{align-items:flex-start}.panel-head{gap:10px}.guide-actions{flex-wrap:wrap}.chart{min-height:320px}}
 
 .sidebar{overflow-y:auto}.top-actions{flex-wrap:wrap}.brand-symbol,.workspace-avatar{flex-shrink:0}
+
+/* The same three workbench destinations remain available in the full-screen workspace. */
+.twin-toolbar button[aria-current="page"] {background:#e4ebe2;color:#254c3c;border-color:#a3b69f;font-weight:650;}
+.twin-toolbar .workbench-method {margin-left:8px;background:transparent;}
+@media(max-width:700px){.twin-toolbar .workbench-pages{width:100%}.twin-toolbar .workbench-method{margin-left:0}.twin-toolbar .workbench-pages button{flex:1;justify-content:center;white-space:nowrap}.twin-wordmark{font-size:18px}}

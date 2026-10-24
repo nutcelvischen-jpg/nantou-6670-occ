@@ -386,7 +386,7 @@ def answer_demo(message: str, mode: str, aggregates: dict[str, Any], timetable: 
     text = message.lower()
     if GUIDE_QUERY.search(message):
         data, sources = _execute_tool("get_site_guide", {}, aggregates, timetable)
-        answer = "本機規則導覽（非LLM）：先從營運總覽選兩個年度，確認交易單位與缺日；再到數位孿生選日期與定位時間，依序查看預測、尖離峰、票證與班次最佳化。完整來源、公式與步驟請開使用說明。票證重播不是即時GPS，重排只是候選。"
+        answer = "本機規則導覽（非LLM）：先從營運總覽選兩個年度，確認交易單位與缺日；工作台的「模擬預測」提供需求預測、尖離峰、票證分析與班次最佳化；「行車模擬」提供日期與時間定位、行控重播、公車與站點及一般／進階設定。完整來源、公式與步驟請開使用說明。票證重播不是即時GPS，重排只是候選。"
         status = "general"
         actions = []
     elif is_annual_question(message):

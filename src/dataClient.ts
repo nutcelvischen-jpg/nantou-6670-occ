@@ -126,7 +126,7 @@ function localAssistantFallback(input: { message: string; year: number; route: s
   if (kind === "scope") {
     answer = "我目前是內部營運分析助理，只支援需求預測、尖離峰、票證彙總與行為、班次配置與成本情境，以及儀表板資料狀態。旅遊行程、旅客客服與一般問題不在支援範圍。";
   } else if (isGuideQuestion(input.message)) {
-    answer = "離線操作導覽（非LLM）：先從營運總覽比較年度與缺日，再到數位孿生選日期、定位時間，依序看預測、尖離峰、票證和班次重排。各指標的來源、公式及限制請開啟使用說明。重播並非GPS，重排只產生候選。";
+    answer = "離線操作導覽（非LLM）：先從營運總覽比較年度與缺日，「模擬預測」看需求預測、尖離峰、票證與班次方案；「行車模擬」選日期、定位時間，看行控重播、公車與站點及一般／進階設定。各指標的來源、公式及限制請開啟使用說明。重播並非GPS，重排只產生候選。";
     status="general"; sources=[{id:"site-guide",title:"本站使用手冊與數據字典",status:"documented_method",status_label:"操作與方法文件",as_of:null,url:"/manual/index.html"}]; suggested_actions=[];
   } else if (isAnnualQuestion(input.message)) {
     const selected=comparisonSelection(dataset,input);

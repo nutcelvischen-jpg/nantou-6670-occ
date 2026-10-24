@@ -1,7 +1,7 @@
 import { ArrowRight, BarChart3, Bus, CheckCircle2, CircleHelp, Database, Leaf, MessageCircle, Route, ShieldCheck, Workflow } from "lucide-react";
 import type { ScenarioPanel } from "./TimetableScenarioLab";
 
-type MethodPage = "營運總覽" | "成本最佳化" | "數位孿生" | "智慧小幫手" | "資料品質";
+type MethodPage = "營運總覽" | "成本最佳化" | "模擬預測" | "行車模擬" | "智慧小幫手" | "資料品質";
 
 const stages = [
   { title: "資料與情境", body: "票證彙總、公開路線快照、使用者設定", icon: Database },
@@ -29,7 +29,7 @@ export function ModelMethodology({ onNavigate, onOpenScenario }: { onNavigate: (
     <div className="method-grid">
       <article className="method-card">
         <div className="method-card-top"><div className="method-icon green"><BarChart3 size={18}/></div><span className="method-status implemented">迴歸＋基線回測</span></div>
-        <h2>AI 旅運需求預測</h2><p className="method-lead">目前首頁的 3D 工作台使用對數 Ridge 迴歸估計每日、每方向刷卡量，並保留同星期中位數作為比較基準。可解釋的特徵與回測，讓模型好壞有依據可查。</p>
+        <h2>AI 旅運需求預測</h2><p className="method-lead">目前模擬預測頁使用對數 Ridge 迴歸估計每日、每方向刷卡量，並保留同星期中位數作為比較基準。可解釋的特徵與回測，讓模型好壞有依據可查。</p>
         <div className="method-subhead">3D 工作台的迴歸模型</div><Formula>{"z = log(1+y)；min Σ(z−xᵀβ)² + 0.3Σⱼ≠截距 βⱼ²；ŷ = max(0, exp(xᵀβ)−1)"}</Formula>
         <p>24 個特徵包含趨勢、星期、月份、假日與連假；以 MAD 殘差檢查異常後重估。正則化抑制過大係數，但特徵效果不代表因果關係。</p>
         <div className="method-subhead">比較基準與驗證</div><Formula>ŷ基準(d) = median &#123; y(d−7k) : k=1…4，資料有效 &#125;</Formula><Formula>MAE = Σ|y−ŷ| / n　·　WAPE = Σ|y−ŷ| / Σy</Formula>
@@ -65,13 +65,13 @@ export function ModelMethodology({ onNavigate, onOpenScenario }: { onNavigate: (
 
       <article className="method-card">
         <div className="method-card-top"><div className="method-icon teal"><Bus size={18}/></div><span className="method-status simulated">歷史票證重播</span></div>
-        <h2>數位孿生：票證重播與班次重排</h2><p className="method-lead">3D、站線圖、甘特圖與指標共用同一天的票證重播。換頁暫停背景，回來保留時間、選車與鏡頭；可定位時間或重播 06:30。</p>
+        <h2>行車模擬：票證重播與班次重排</h2><p className="method-lead">3D、站線圖、甘特圖與指標共用同一天的票證重播。換頁暫停背景，回來保留時間、選車與鏡頭；可定位時間或重播 06:30。</p>
         <Formula>刷卡資料 → 時間品質篩選 → 同車／日期／方向切班 → 站點事件 → 在車量與沿線位置內插</Formula>
         <p>旅次時間 ≤0 或超過 240 分鐘先排除；同車同方向在所有票證下車後 30 分鐘，或相鄰上車間隔超過 3 小時才切段，再合併 ≤4 筆的重疊小片段。2024 年 35,005 段、2025 年 37,520 段；都是票證推估車次，非班次識別碼驗證結果。</p>
         <Formula>票證在車量 Lₖ = Lₖ₋₁ + 上車筆數 Bₖ − 下車筆數 Aₖ</Formula>
-        <p>每站事件時刻採最早上車刷卡，無上車採最早下車，並依站序調整為非遞減。兩站間位置沿線形內插；不重建候車、實際延誤或空車移動。22 站為展示站位，票價站不能拆成各實體站的旅客數。</p>
+        <p>每站事件時刻採最早上車刷卡，無上車採最早下車，並依站序調整為非遞減。兩站間位置沿線形內插；不重建候車、實際延誤或空車移動。行車模擬的站線圖按子線使用 TDX 站序快照；無可用站序的子線退回計費站序。現行站序不是歷史每班停站證明，票價站不能拆成各實體站的旅客數。</p>
         <div className="method-limits"><CircleHelp size={14}/><span>尚有同車推估車次重疊及負在車量，不能據此證明實際滿載；程序地形及部分子線有近似。容量與成本屬情境假設，未接 GPS。</span></div>
-        <button className="method-cta" onClick={() => onOpenScenario("ops")}>操作目前的 3D 營運工作台 <ArrowRight size={15}/></button>
+        <button className="method-cta" onClick={() => onOpenScenario("ops")}>操作行車模擬 <ArrowRight size={15}/></button>
       </article>
 
       <article className="method-card method-card-assistant">

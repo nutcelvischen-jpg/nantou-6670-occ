@@ -225,6 +225,9 @@ details.more{margin-top:8px;font-size:18.75px}details.more summary{cursor:pointe
 @media(max-width:600px){.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.ctl{grid-template-columns:1fr minmax(0,1fr)}.ctl output{grid-column:2}.ctl>span:empty{display:none}.tl h1{font-size:20px}.clock{font-size:28px}.tl{right:110px}.body{padding:8px 12px}.tbl{font-size:14px}.tbl th{font-size:12px}}
 .views{align-items:flex-start;gap:5px}.views button{flex:none;min-height:34px;max-height:42px;white-space:nowrap}.views .lines{align-self:flex-start}.mini{bottom:auto}
 .ask textarea{flex:1;min-width:0;resize:vertical;font:inherit;border:1px solid #ddd;border-radius:8px;padding:10px;background:var(--bg);color:var(--fg)}
+/* Workbench routing hides unrelated tabs while preserving the shared simulation. */
+body[data-workbench] #tabs .tab[hidden]{display:none}
+body[data-workbench="driving"] #tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
 </style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}

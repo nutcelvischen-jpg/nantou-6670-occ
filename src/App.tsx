@@ -51,7 +51,8 @@ import {
 type Page =
   | "使用說明"
   | "營運總覽"
-  | "數位孿生"
+  | "模擬預測"
+  | "行車模擬"
   | "旅遊資訊"
   | "成本最佳化"
   | "模型方法"
@@ -63,7 +64,8 @@ const bundledData = aggregatesJson as Aggregates;
 type PublishedTimetable = typeof timetableJson;
 const nav: { name: Page; icon: typeof Activity; group: string }[] = [
   { name: "營運總覽", icon: MapIcon, group: "工作台" },
-  { name: "數位孿生", icon: Bus, group: "工作台" },
+  { name: "模擬預測", icon: Activity, group: "工作台" },
+  { name: "行車模擬", icon: Bus, group: "工作台" },
   { name: "成本最佳化", icon: SlidersHorizontal, group: "規劃" },
   { name: "模型方法", icon: FileCheck2, group: "規劃" },
   { name: "智慧小幫手", icon: MessageCircleMore, group: "智慧服務" },
@@ -151,7 +153,17 @@ export function App() {
   const [compareYear, setCompareYear] = useState(availableYears(bundledData).at(-2) ?? availableYears(bundledData)[0]);
   const [assistantQuestion, setAssistantQuestion] = useState('');
   const [twinVisited, setTwinVisited] = useState(false);
-  useEffect(() => { if (page === '數位孿生') setTwinVisited(true); }, [page]);
+  const inSimulation = page === '模擬預測' || page === '行車模擬';
+  useEffect(() => { if (inSimulation) setTwinVisited(true); }, [inSimulation]);
+  const openScenario = (panel: ScenarioPanel) => {
+    setScenarioPanel(panel); setPanelRequest(n => n + 1);
+    setPage(panel === 'ops' ? '行車模擬' : '模擬預測');
+  };
+  const navigate = (target: Page) => {
+    if (target === '模擬預測') openScenario('fc');
+    else if (target === '行車模擬') openScenario('ops');
+    else setPage(target);
+  };
   const [route, setRoute] = useState("全部");
   
   const [solution, setSolution] = useState<ScheduleSolution | null>(null);
@@ -383,8 +395,8 @@ export function App() {
   const annualView = () => <AnnualComparison data={data} baseYear={compareYear} targetYear={year}
     onYears={(base,target)=>{setCompareYear(base);setYear(target);}} onAsk={askBaseline} />;
   const content = () => {
-    if (page === "使用說明") return <UserGuide onNavigate={p => {if(nav.some(n=>n.name===p)) setPage(p as Page);}} />;
-    if (page === "模型方法") return <ModelMethodology onNavigate={setPage} onOpenScenario={(panel) => { setScenarioPanel(panel); setPanelRequest(n => n + 1); setPage("數位孿生"); }} />;
+    if (page === "使用說明") return <UserGuide onOpenScenario={openScenario} onNavigate={p => {if(nav.some(n=>n.name===p)) navigate(p as Page);}} />;
+    if (page === "模型方法") return <ModelMethodology onNavigate={navigate} onOpenScenario={openScenario} />;
     if (page === "智慧小幫手") return <OperationsAssistant year={year} route={route} compareYear={compareYear} initialQuestion={assistantQuestion} years={availableYears(data)} onYears={(b,t)=>{setCompareYear(b);setYear(t);}} onNavigate={setPage} />;
     if (page === "旅遊資訊") return <TourismGuide timetable={publishedTimetable} timetableSource={timetableSource} departAfter={journeyDeparture} onDepartAfterChange={setJourneyDeparture} />;
     if (page === "營運總覽") return <>
@@ -1222,10 +1234,11 @@ export function App() {
   };
   return (
     <>
-      {(twinVisited || page === "數位孿生") && <TimetableScenarioLab active={page === "數位孿生"} initialPanel={scenarioPanel} requestId={panelRequest}
-        onMethod={() => setPage("模型方法")} onOptimize={() => setPage("成本最佳化")}
-        onOverview={() => setPage("營運總覽")} />}
-      {page !== "數位孿生" && <div className="app-shell">
+      {(twinVisited || inSimulation) && <TimetableScenarioLab active={inSimulation} initialPanel={scenarioPanel} requestId={panelRequest}
+        page={page === '行車模擬' ? '行車模擬' : '模擬預測'} onNavigate={navigate}
+        onPanelChange={panel => { if (panel !== 'bot') setPage(panel === 'ops' ? '行車模擬' : '模擬預測'); }}
+        onMethod={() => setPage("模型方法")} />}
+      {!inSimulation && <div className="app-shell">
       <aside className="sidebar">
         <div className="brand">
           <div className="brand-symbol">
@@ -1258,7 +1271,7 @@ export function App() {
                     key={item.name}
                     aria-label={item.name}
                     title={item.name}
-                    onClick={() => setPage(item.name)}
+                    onClick={() => navigate(item.name)}
                   >
                     <item.icon size={17} />
                     <span>{item.name}</span>
