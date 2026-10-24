@@ -22,6 +22,7 @@ md=['# 潭行 Twin 圖文使用手冊','版本：'+G['version'],'網站：'+G['s
 for i,s in enumerate(G['sections']):
  shot='assets/'+shots[s['id']]+'.png'
  parts+=['<article id="'+s['id']+'"><div class="tag">'+str(i+1).zfill(2)+' / '+E(s['page'])+'</div><h2>'+E(s['title'])+'</h2><p>'+E(s['purpose'])+'</p><figure><img src="'+shot+'" alt="'+E(s['title'])+'實際畫面"><figcaption>圖 '+str(i+1)+'：'+E(s['page'])+'。截圖只展示當時可見區域，完整操作請依下列步驟。</figcaption></figure>']
+ if s['id']=='replay': parts.append('<figure><img src="assets/stations.png" alt="恢復公車與站點，與地圖和甘特圖連動"><figcaption>公車與站點：左右捲動查看站序，點車選取，點站定位。圖示位置為內插。</figcaption></figure>')
  if s['id']=='optimizer': parts.append('<figure><img src="assets/dispatch-gantt.png" alt="H加班候選車輛甘特圖"><figcaption>2025-10-11，H往台中+2班；橘色為新增班，完整條件見下方。</figcaption></figure>')
  md+=['\n## '+s['title'],'入口：'+s['page'],'![實際畫面]('+shot+')',s['purpose']]
  for title,key,kind in [('操作步驟','steps','ol'),('數據、公式與單位','metrics','ul'),('解讀限制','limits','ul')]:
@@ -76,6 +77,7 @@ story.append(para('先確認資料，再看差異；從觀察產生候選，最�
 for i,s in enumerate(G['sections']):story.append(para(f'{i+1:02d}  {s["title"]}','small'))
 for i,s in enumerate(G['sections']):
  story += [PageBreak(),para(f'{i+1:02d}  {s["title"]}','h1'),para('入口：'+s['page'],'small'),para(s['purpose']),img(shots[s['id']]),para('圖：行控與班次最佳化畫面更新於2026-10-24；數值依當次條件而變。','small'),para('操作步驟','h2')]
+ if s['id']=='replay': story += [img('stations'),para('公車與站點：可捲動查看站序，與地圖、甘特圖同步；圖示位置為內插。','small')]
  if s['id']=='optimizer': story += [img('dispatch-gantt'),para('H往台中+2班車輛甘特圖；橘色為新增班，未通過服務底線不能直接採用。','small')]
  for j,x in enumerate(s['steps']):story.append(para(f'{j+1}. {x}'))
  story.append(para('數據、公式與單位','h2'))

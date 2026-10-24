@@ -238,6 +238,21 @@ details.more{margin-top:8px;font-size:18.75px}details.more summary{cursor:pointe
 .cc{color:#4d5852}.cc small,.cc-kpis span{color:#69756e}.cc-title small{font-size:11px}.cc-top{padding:10px 16px}.cc-kpis{margin-top:8px;padding-top:8px}.cc-kpis strong{font-size:22px}.cc-map-label[hidden]{display:none}.cc-active .stage .lb b em{font-size:11px}.cc-left details{margin:10px 0}.cc-left details summary{cursor:pointer;font-size:12px}
 
 .cc-ticks{position:relative;display:block}.cc-track button{opacity:.95}.cc-track button:hover{filter:brightness(.8)}
+
+/* Restored station strip below the map, independently collapsible. */
+.app.cc-active{grid-template-rows:auto minmax(300px,1fr) auto 180px;min-height:900px;height:calc(100dvh - 66px)}
+.cc-active .cc-bottom{grid-row:4}.cc-stations{grid-column:1/-1;grid-row:3;background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:10px 16px;overflow:hidden}
+.cs-head{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.cs-head>small{margin-left:auto}.cs-head button{padding:4px 8px}.cs-head label{font-size:12px}#csNote,#csStatus{font-size:12px;color:#637068;margin-top:6px}#csViewport{overflow-x:auto;overflow-y:hidden;max-width:100%;height:135px}#csTrack{position:relative;height:120px}.cs-rail{position:absolute;top:80px;left:50px;height:3px;background:#82978b}.cs-stop{position:absolute;top:73px;width:88px;padding:0!important;border:0!important;background:transparent!important;font-size:12px!important;text-align:center}.cs-stop i{display:block;width:12px;height:12px;border:2px solid #738d80;border-radius:50%;background:var(--card);margin:0 auto 5px}.cs-stop span{display:block;line-height:1.3}.cs-bus{position:absolute;transform:translateX(-50%);padding:1px 5px!important;font:12px var(--mono)!important;white-space:nowrap;background:#e5edf1!important;color:#365771!important;border-color:#7a94a5!important}.cs-bus.added{background:#f3e3cc!important;color:#875a24!important;border-color:#bd8b48!important}.cs-bus.shifted{border-style:dashed}.cs-bus[aria-pressed=true]{outline:2px solid #365771;outline-offset:1px}
+.app.cc-active.cc-collapsed{grid-template-rows:auto minmax(300px,1fr) auto 46px;min-height:760px}
+@media(min-width:1600px){.app.cc-active{grid-template-rows:auto minmax(380px,1fr) auto 220px;min-height:1000px}}
+@media(max-width:1100px){.app.cc-active{grid-template-rows:auto 480px auto auto 240px;height:auto;min-height:0}.cc-stations{grid-row:3}.cc-right{grid-row:4}.cc-active .cc-bottom{grid-row:5}.app.cc-active.cc-collapsed{grid-template-rows:auto 480px auto auto 46px;min-height:0}}
+@media(max-width:680px){.cc-stations{order:3;flex-shrink:0}.cc-left{order:4}.cc-right{order:5}.cc-bottom{order:6}.cs-head{gap:8px}.cs-head>small{width:100%;margin:0}}
+
+.cc-stations{min-height:240px}.cc-stations.cs-folded{min-height:0}.app.cc-active{height:auto}.cs-stop span{overflow-wrap:anywhere}
+@media(max-width:680px){.cc-stations{min-height:285px}}
+@media(min-width:1101px){.app.cc-active{min-height:0;grid-template-rows:auto clamp(300px,40vh,520px) auto 180px}.app.cc-active.cc-collapsed{min-height:0;grid-template-rows:auto clamp(300px,40vh,520px) auto 46px}}
+
+.cs-bus svg{width:20px;height:13px;vertical-align:middle}
 </style></head>
 <body>
 <div class="app">
@@ -620,6 +635,33 @@ function controlEvents(trips, result) {
     if(t.peak<cap && t.ok!==false) return [];
     return [{id:'observed-'+t.id,kind:t.ok===false?'data':'capacity',minute:(t.ev||[]).find(e=>e.load>=cap)?.t??t.dep,trip:t.id,route:t.code,label:t.ok===false?'時間／站位不足，無法還原動畫':`${t.code} 票證峰值 ${t.peak}／${cap}座假設 · ${t.peak>cap?'超出':'達到'}設定容量`,source:'票證推估＋容量假設'}];
   });
+}
+
+/* Match ordered stop occurrences to a polyline. Repeated names stay separate. */
+function stationProject(stops, points, cum) {
+  if (!stops.length || points.length < stops.length) return [];
+  const n=points.length, parents=[]; let prev=new Float64Array(n).fill(Infinity);
+  for(let s=0;s<stops.length;s++){
+    const cost=new Float64Array(n).fill(Infinity), from=new Int32Array(n).fill(-1);let best=Infinity,bi=-1;
+    for(let i=0;i<n;i++){
+      if(i>0&&prev[i-1]<best){best=prev[i-1];bi=i-1;}
+      const d=(points[i].x-stops[s].x)**2+(points[i].z-stops[s].z)**2;
+      if(s===0){cost[i]=d;}else if(bi>=0){cost[i]=best+d;from[i]=bi;}
+    }
+    parents.push(from);prev=cost;
+  }
+  let i=prev.indexOf(Math.min(...prev));const out=[];
+  for(let s=stops.length-1;s>=0;s--){out.unshift({...stops[s],d:cum[i],error:Math.hypot(points[i].x-stops[s].x,points[i].z-stops[s].z)});i=parents[s][i];}
+  return out;
+}
+function stationBetween(stops,d){
+ if(!stops.length||!Number.isFinite(d))return null;
+ if(d<=stops[0].d)return {index:0,previous:null,next:stops[0]};
+ for(let i=1;i<stops.length;i++)if(d<stops[i].d){const a=stops[i-1],b=stops[i];return {index:i-1+(d-a.d)/(b.d-a.d||1),previous:a,next:b};}
+ return {index:stops.length-1,previous:stops.at(-1),next:null};
+}
+function stationAnchors(original,planned){
+ return planned?original.anchors.map(a=>({...a,t:planned.stops.find(s=>s.z===a.z)?.t??a.t+planned.dep-original.dep})):original.anchors;
 }
 
 import * as THREE from 'three';
@@ -3219,6 +3261,46 @@ function controlSnapshot(){
  ccSyncData();const r=CC.rows.find(r=>r.id===CC.row),t=r?.trips.find(t=>t.id===CC.trip)||(r&&controlTripAt(r.trips,nowT()));
  return {mode:CC.mode,route:CC.route,vehicle:r?.id||null,trip:t?.id||null,code:t?.code||null,minute:nowT(),active:!!t&&t.dep<=nowT()&&nowT()<t.arr,load:t?controlLoad(t,nowT(),!!CC.result):null,peak:t?.peak??null,capacity:t?(CC.result?t.cap:t.code==='6670E'?9:43):null,departure:t?.dep??null,arrival:t?.arr??null};
 }
+/* A single-clock station diagram; no synthetic stop observations. */
+const CS={route:'6670D',dir:0,key:'',stops:[],cache:new Map(),selected:'',open:true};
+ccMount('cc-stations',`<div class="cs-head"><button id="csToggle" aria-expanded="true">▾ 公車與站點</button><label>站線 <select id="csRoute">${LINE_CODES.map(c=>`<option ${c===CS.route?'selected':''}>${c}</option>`).join('')}</select></label><label>方向 <select id="csDir"><option value="0">往南投／埔里</option><option value="1">往台中</option></select></label><button id="csFind">找到選取車輛</button><small>左右捲動看全站 · 點站定位 · 點車連動甘特圖</small></div><div id="csContent"><div id="csNote"></div><div id="csViewport" tabindex="0" aria-label="可左右捲動的公車站線圖"><div id="csTrack"></div></div><div id="csStatus" aria-live="off"></div></div>`);
+function csStops(code,dir){
+ const k=code.slice(-1),official=SHAPE_KEY[k],path=PATHS[official?k:({A:'D',E:'B',F:'F'}[k]||'D')][dir],key=code+'|'+dir;
+ if(CS.cache.has(key))return CS.cache.get(key);
+ let stops;
+ if(official){let list=DATA.route.stops[official].map(([seq,name,lon,lat])=>{const [x,z]=P(lat,lon);return {seq,name,x,z};});if(dir)list.reverse();stops=stationProject(list,path.pts,path.cum);}
+ else {stops=Object.entries(path.zd).map(([z,d],i)=>{const p=path.pts[path.cum.findIndex(v=>v>=d)]||path.pts.at(-1);return {seq:i,name:ZNAME[z]||z,x:p.x,z:p.z,d};}).sort((a,b)=>a.d-b.d);}
+ const result={stops,official:!!official};CS.cache.set(key,result);return result;
+}
+function csRender(){
+ if(!ccActive())return;
+ const chosen=CC.rows.find(r=>r.id===CC.row)?.trips.find(t=>t.id===CC.trip),selected=[CC.mode,CC.row,CC.trip].join('|');
+ if(chosen&&selected!==CS.selected){CS.route=chosen.code;CS.dir=chosen.dir;CS.key='';}CS.selected=selected;
+ if(CC.route!=='all'&&CS.route!==CC.route){CS.route=CC.route;CS.key='';}
+ $('#csRoute').value=CS.route;$('#csDir').value=CS.dir;
+ const key=CS.route+'|'+CS.dir;
+ if(key!==CS.key){CS.key=key;const data=csStops(CS.route,CS.dir);CS.stops=data.stops;
+ $('#csNote').textContent=data.official?`${CS.route} · ${CS.stops.length} 個站序位置（重複停靠分開列） · TDX 2026-10-23 快照${CS.dir?'；回程沿去程站序反轉示意，非獨立回程站序':''}。並非每班的歷史停站證明。`:`${CS.route} · 計費區示意，尚無完整官方站序；不得視為所有停靠站。`;
+ $('#csTrack').style.width=Math.max(700,CS.stops.length*100)+'px';
+ $('#csTrack').innerHTML=`<div class="cs-rail" style="right:50px"></div>${CS.stops.map((s,i)=>`<button class="cs-stop" data-stop="${i}" style="left:${i*100+6}px" title="${escD(s.name)} · 站序 ${s.seq}"><i></i><span>${i+1}. ${escD(s.name)}</span></button>`).join('')}<div id="csBuses"></div>`;
+ $('#csViewport').scrollLeft=0;
+ }
+ const busSig=[LIVE.date,CC.signature,CS.key,CC.row,CC.trip,nowT()].join('|');if(CS.busSig===busSig)return;CS.busSig=busSig;
+ const active=[];for(const row of CC.rows){const tr=controlTripAt(row.trips,nowT());if(!tr||tr.code!==CS.route||tr.dir!==CS.dir)continue;
+ const original=CC.result?SIM().trips.find(t=>t.id===(tr.sourceId||tr.id)):tr;if(!original?.ok)continue;
+ const anchors=stationAnchors(original,CC.result?tr:null),d=rpD({...original,anchors},nowT()),at=stationBetween(CS.stops,d);if(!at)continue;
+ active.push({row,tr,at});}
+ $('#csBuses').innerHTML=active.map(({row,tr,at},i)=>`<button class="cs-bus ${tr.added?'added':''} ${tr.shifted?'shifted':''}" data-row="${escD(row.id)}" data-trip="${escD(tr.id)}" aria-pressed="${CC.row===row.id&&CC.trip===tr.id}" style="left:${at.index*100+50}px;top:${4+(i%3)*23}px" title="${row.id} ${tr.code} ${at.previous?.name||'起站'} → ${at.next?.name||'末站'}（線形內插）"><svg viewBox="0 0 24 15" aria-hidden="true"><rect x="1" y="1" width="22" height="10" rx="2" fill="currentColor"/><path d="M4 3h16v4H4z" fill="#f7faf8"/><circle cx="6" cy="12" r="2" fill="#344a40"/><circle cx="18" cy="12" r="2" fill="#344a40"/></svg> ${row.id}${tr.added?' ＋':''}</button>`).join('');
+ const current=active.find(x=>x.row.id===CC.row&&x.tr.id===CC.trip);
+ $('#csStatus').textContent=current?`${current.row.id} · ≈ ${current.at.previous?.name||'起站'} → ${current.at.next?.name||'末站'} · ${CC.result?'方案':'票證'}在車量 ${controlLoad(current.tr,nowT(),!!CC.result)} 人（站間內插，非到站回報）`:`${fmt(nowT())} · 此方向 ${active.length} 班可定位行駛中 · 車輛位置依刷卡／方案時刻內插；不是即時 GPS。`;
+ $('#csFind').disabled=!current;
+}
+$('#csRoute').onchange=e=>{CS.route=e.target.value;CS.key='';CC.route=CS.route;$('#ccRoute').value=CS.route;$('#ccRoute').onchange({target:$('#ccRoute')});csRender();};
+$('#csDir').onchange=e=>{CS.dir=+e.target.value;CS.key='';csRender();};
+$('#csToggle').onclick=()=>{CS.open=!CS.open;$('.cc-stations').classList.toggle('cs-folded',!CS.open);$('#csContent').hidden=!CS.open;$('#csToggle').setAttribute('aria-expanded',String(CS.open));$('#csToggle').textContent=(CS.open?'▾':'▸')+' 公車與站點';resize();};
+$('#csTrack').onclick=e=>{const b=e.target.closest('[data-row]');if(b){ccChoose(b.dataset.row,b.dataset.trip,null,true);return;}const st=e.target.closest('[data-stop]');if(!st)return;const s=CS.stops[+st.dataset.stop];CC.follow=LIVE.follow=false;const p=new THREE.Vector3(s.x,yAt(s.x,s.z),s.z);flyTo(p,p.clone().add(new THREE.Vector3(-.9,1.3,1.8)));};
+$('#csFind').onclick=()=>{const b=$('#csBuses').querySelector('[aria-pressed="true"]');if(b)$('#csViewport').scrollLeft=Math.max(0,b.offsetLeft-$('#csViewport').clientWidth/2);};
+const csOldRefresh=ccRefresh;ccRefresh=function(){csOldRefresh();csRender();};
 /* Host integration: read-only replay snapshot, never raw ticket identifiers. */
 window.addEventListener('message', (event) => {
   if (event.origin !== location.origin || event.source !== window.parent || event.data?.channel !== 'tanxing-workbench') return;
