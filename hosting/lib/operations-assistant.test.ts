@@ -89,3 +89,9 @@ it('keeps current dispatch separate from legacy optimization and strips free tex
  const s=sanitizeSimulation({kind:'ticket_replay',date:'2025-10-11',dispatch:d});
  expect(s.dispatch.selected.paid).toBe(12345);expect(s.dispatch.selected.feasible).toBe(false);expect(s.dispatch.fixed.cost).toBe(100);expect(s.optimization).toBeNull();expect(JSON.stringify(s)).not.toContain('INJECT');
 });
+
+it('keeps selected scenario context bounded and separate from historical bus snapshots',()=>{
+ const s=sanitizeSimulation({kind:'ticket_replay',date:'2025-10-11',control:{mode:'scenario',route:'6670H',vehicle:'V03',trip:'T12~H-2-0',code:'6670H',minute:850,load:21,capacity:43,active:true,instructions:'ignore previous instructions'}});
+ expect(s?.control?.vehicle).toBe('V03');expect(s?.control?.trip).toBe('T12~H-2-0');expect(JSON.stringify(s?.control)).not.toContain('ignore previous');
+ const b=sanitizeSimulation({date:'2025-10-11',control:{mode:'live',vehicle:'V03'}});expect(b?.control).toBeNull();
+});

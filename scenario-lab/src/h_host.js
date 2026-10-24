@@ -17,9 +17,9 @@ function assistantSnapshot(q) {
   const date = iso(ds), s = SIM();
   const dispatch = dispatchSnapshot();
   return { kind: 'ticket_replay', date: LIVE.date, minute: nowT(), plan: 'cur',
-    selected_routes: [...LINE], optimization: null, dispatch,
+    selected_routes: CC.route==='all'?[...LINE]:[CC.route], optimization: null, dispatch, control:controlSnapshot(),
     vehicles: s.buses.filter(busOn).filter(b => b.state !== 'off').slice(0,100).map(b => ({
-      id: b.id, state: b.state, load: b.load, capacity: CAP,
+      id: b.id, state: b.state, load: b.load, capacity: b.trip?.code==='6670E'?9:CAP,
       delay_minutes: null, next_stop: b.trip?.ev.find(e => e.t > s.t)?.z ?? b.term,
     })), queues: [],
     forecast: [0,1].map(dir => { const f=forecast(date,dir); return {date,direction:dir?'in':'out',mean:f.mean,low:f.lo,high:f.hi}; }),

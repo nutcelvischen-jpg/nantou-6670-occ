@@ -1,7 +1,8 @@
 import json, re, sys, os, gzip, base64
 R=os.path.dirname(os.path.abspath(__file__))+'/'
 part=lambda n: open(R+'parts/'+n+'.js').read()
-src=''.join(open(R+'src/'+f).read() for f in ['a_geo.js','b_scene.js','c_models.js','d_sim.js','d_replay.js','e_forecast.js','f_opt.js','g_ui.js','i_dispatch_ui.js','h_host.js'])
+src=''.join(open(R+'src/'+f).read() for f in ['a_geo.js','b_scene.js','c_models.js','d_sim.js','d_replay.js','e_forecast.js','f_opt.js','g_ui.js','i_dispatch_ui.js','j_control_center.js','h_host.js'])
+src=open(R+'control-model.js').read().replace('export ', '')+'\n'+src
 src=open(R+'dispatch-model.js').read().replace('export ', '')+'\n'+src
 src=open(R+'../shared/chat-input.js').read().replace('export function ', 'function ')+'\n'+src
 for k,n in [('UTILS','utils'),('MATS','mats'),('TERRAIN','terrain'),('ROAD','road'),('BUS','bus'),('SMALL','small'),('HSR','hsr'),('SML','sml'),('GANTRY','gantry'),('VEG','veg'),('BOATS','boats'),('PEOPLE','people')]:
@@ -20,7 +21,7 @@ for k,f in [('od','demand-od-time.json'),('vehicleTypes','vehicle-types.json'),(
 data['odz']=base64.b64encode(gzip.compress(json.dumps(data.pop('od'),ensure_ascii=False,separators=(',',':')).encode(),9,mtime=0)).decode()
 # 重播資料 gzip＋base64 內嵌，開頁時用瀏覽器 DecompressionStream 解壓（7 MB → 1.5 MB）
 if 'rp' in data: data['rpz']=base64.b64encode(gzip.compress(json.dumps(data.pop('rp'),ensure_ascii=False,separators=(',',':')).encode(),9,mtime=0)).decode()
-t=open(R+'template.html').read()
+t=open(R+'template.html').read().replace('</head>', '<style>'+open(R+'control-center.css').read()+'</style></head>')
 # 預設離線版：three.js 與 3 個 addon 以 data: URL 內嵌在 importmap，不需網路；加 --cdn 改用 jsDelivr（Artifact 用）
 if '--cdn' not in sys.argv:
     du=lambda f: 'data:text/javascript;base64,'+base64.b64encode(open(R+'vendor/three/'+f,'rb').read()).decode()

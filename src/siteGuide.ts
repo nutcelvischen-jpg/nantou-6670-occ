@@ -2,7 +2,7 @@ import guide from '../shared/site-guide.json';
 export const isGuideQuestion = (q:string) => /第一次|新手|導覽|怎麼用|怎麼操作|使用說明|手冊|操作|來源|怎麼來|如何計算|怎麼算|公式|定義|方法|意思|解釋|為什麼|怎麼解讀|如何解讀|有哪些頁|功能/.test(q);
 const topics: Record<string,RegExp> = {
  start:/第一次|新手|導覽|有哪些頁|功能|怎麼用/, overview:/年度|日均|月份|星期|總覽|缺日|增減|占比/,
- baseline:/站點|計費|票種|實扣|金額|OD|子線|基線/i, replay:/重播|在車|車上|定位|地形|GPS|數位孿生/i,
+ baseline:/站點|計費|票種|實扣|金額|OD|子線|基線/i, replay:/行控|事件|歷史影像|重播|在車|車上|定位|地形|GPS|數位孿生/i,
  forecast:/預測|回測|MAE|WAPE|參考帶|迴歸/i, peak:/尖峰|離峰|班距|等待|熱圖/,
  tickets:/票證分析|頻次|回程|旅行鏈|卡片/, optimizer:/甘特|子線調度|方案比較|車型|未安排|最佳化|重排|司機|值勤|加班|併班|空駛|車數/,
  cost:/成本|候選|服務比例/,assistant:/小幫手|助理|選字|Enter|對話/i,other:/旅遊資訊|旅客行程|低碳|碳排|資料品質|模型方法|路徑|票價/,recording:/錄影|影片|故障|不動|失敗/,

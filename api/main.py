@@ -130,7 +130,22 @@ class DispatchSnapshot(BaseModel):
     fixed: DispatchStats
     selected: DispatchStats
 
+class ControlSnapshot(BaseModel):
+    mode: str = Field(pattern=r"^(history|fixed|scenario)$")
+    route: str = Field(pattern=r"^(all|6670[ABDEFH])$")
+    vehicle: str | None = Field(default=None, pattern=r"^[BV]\d{2,3}$")
+    trip: str | None = Field(default=None, pattern=r"^T\d+(?:~[A-Z]-[a-z0-9]+-\d+)?$")
+    code: str | None = Field(default=None, pattern=r"^6670[ABDEFH]$")
+    minute: float = Field(ge=0, le=1500)
+    active: bool
+    load: float | None = None
+    peak: float | None = None
+    capacity: float | None = None
+    departure: float | None = None
+    arrival: float | None = None
+
 class SimulationSnapshot(BaseModel):
+    control: ControlSnapshot | None = None
     dispatch: DispatchSnapshot | None = None
     optimization: ReplayOptimization | None = None
     kind: str = Field(default="simulation", pattern=r"^(simulation|ticket_replay)$")

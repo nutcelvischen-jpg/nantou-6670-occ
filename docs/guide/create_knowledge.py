@@ -89,5 +89,6 @@ add('recording','拍攝流程與故障排除','使用說明','以約8分鐘示�
 ['docs/guide','scenario-lab/SPEC_REPLAY.md'],
 '最後整理重點：先看資料品質，再分析差異；用重播理解現象，用預測和重排產生候選，再交由營運人員核對。潭行 Twin 是決策輔助工具，所有改善都應保留資料來源與假設。')
 sections=[json.loads((R/'docs/guide/dispatch-section.json').read_text()) if s['id']=='optimizer' else s for s in sections]
-out={'version':'2026-10-24-dispatch-guide' ,'title':'潭行 Twin 使用手冊與數據字典','site_url':'https://nantou-transit-twin.elvischen.chatgpt.site/','scope':'本站所有頁面的操作、來源與方法解釋；內部營運問答，不含對外旅遊客服。','sections':sections}
+sections=[json.loads((R/'docs/guide/control-section.json').read_text()) if s['id']=='replay' else s for s in sections]
+out={'version':'2026-10-24-control-guide' ,'title':'潭行 Twin 使用手冊與數據字典','site_url':'https://nantou-transit-twin.elvischen.chatgpt.site/','scope':'本站所有頁面的操作、來源與方法解釋；內部營運問答，不含對外旅遊客服。','sections':sections}
 (R/'shared/site-guide.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')

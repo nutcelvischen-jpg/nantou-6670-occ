@@ -22,14 +22,14 @@ export function TimetableScenarioLab({ onMethod, onOverview, initialPanel, activ
   useEffect(() => { if (loaded && initialPanel) send({ type: "panel", panel: initialPanel }); }, [loaded, initialPanel, requestId]);
   return <section className="twin-fullscreen" style={active ? undefined : { display: "none" }} aria-hidden={!active}>
     <nav className="twin-toolbar" aria-label="工作台導覽">
-      <span className="twin-wordmark">潭行 <b>6670</b><small>數位孿生 · 票證重播</small></span>
+      <span className="twin-wordmark">潭行 <b>6670</b><small>數位孿生 · 行控重播</small></span>
       <div>
         <button onClick={onMethod}><BookOpen size={18}/>公式與方法</button>
-        <button onClick={() => send({type: "panel", panel: "opt"})}>班次重排 <ArrowUpRight size={18}/></button>
+        <button onClick={() => send({type: "panel", panel: "opt"})}>班次最佳化 <ArrowUpRight size={18}/></button>
         <button onClick={onOverview}><BarChart3 size={18}/>分析總覽</button>
       </div>
     </nav>
     {!loaded && <p className="twin-loading" role="status">正在載入 3D 場景…</p>}
-    <iframe ref={frame} className="twin-fullscreen-frame" title="6670 數位孿生與票證重播工作台" src="/scenario-lab/index.html" />
+    <iframe ref={frame} className="twin-fullscreen-frame" title="6670 數位孿生行控工作台" src="/scenario-lab/index.html" />
   </section>;
 }
