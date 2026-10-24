@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { Activity, BookOpen, BarChart3, Bus } from "lucide-react";
 
 export type ScenarioPanel = "ops" | "fc" | "pk" | "viz" | "opt" | "bot";
-type WorkbenchPage = "營運總覽" | "模擬預測" | "行車模擬";
+type WorkbenchPage = "設計邏輯" | "營運總覽" | "模擬預測" | "行車模擬";
 const workbench = [
+  { name: "設計邏輯", icon: BookOpen },
   { name: "營運總覽", icon: BarChart3 },
   { name: "模擬預測", icon: Activity },
   { name: "行車模擬", icon: Bus },
@@ -12,7 +13,7 @@ const workbench = [
 // Both pages share one mounted engine, so moving between them preserves the current run.
 export function TimetableScenarioLab({ onMethod, onNavigate, onPanelChange, page, initialPanel, active, requestId }: {
   onMethod: () => void; onNavigate: (page: WorkbenchPage) => void;
-  onPanelChange: (panel: ScenarioPanel) => void; page: Exclude<WorkbenchPage, "營運總覽">;
+  onPanelChange: (panel: ScenarioPanel) => void; page: Exclude<WorkbenchPage, "營運總覽" | "設計邏輯">;
   initialPanel?: ScenarioPanel; active: boolean; requestId: number;
 }) {
   const [loaded, setLoaded] = useState(false);

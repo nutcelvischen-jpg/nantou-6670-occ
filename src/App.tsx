@@ -1,3 +1,4 @@
+import { DesignLogic } from "./components/DesignLogic";
 import { UserGuide } from "./components/UserGuide";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -49,6 +50,7 @@ import {
 } from "./domain";
 
 type Page =
+  | "設計邏輯"
   | "使用說明"
   | "營運總覽"
   | "模擬預測"
@@ -63,6 +65,7 @@ type Page =
 const bundledData = aggregatesJson as Aggregates;
 type PublishedTimetable = typeof timetableJson;
 const nav: { name: Page; icon: typeof Activity; group: string }[] = [
+  { name: "設計邏輯", icon: FileCheck2, group: "開始探索" },
   { name: "營運總覽", icon: MapIcon, group: "工作台" },
   { name: "模擬預測", icon: Activity, group: "工作台" },
   { name: "行車模擬", icon: Bus, group: "工作台" },
@@ -146,7 +149,7 @@ export function App() {
     });
     return () => { active = false; };
   }, []);
-  const [page, setPage] = useState<Page>("營運總覽");
+  const [page, setPage] = useState<Page>("設計邏輯");
   const [scenarioPanel, setScenarioPanel] = useState<ScenarioPanel>();
   const [panelRequest, setPanelRequest] = useState(0);
   const [year, setYear] = useState(availableYears(bundledData).at(-1)!);
@@ -395,6 +398,7 @@ export function App() {
   const annualView = () => <AnnualComparison data={data} baseYear={compareYear} targetYear={year}
     onYears={(base,target)=>{setCompareYear(base);setYear(target);}} onAsk={askBaseline} />;
   const content = () => {
+    if (page === "設計邏輯") return <DesignLogic onNavigate={navigate} onOpenScenario={openScenario} />;
     if (page === "使用說明") return <UserGuide onOpenScenario={openScenario} onNavigate={p => {if(nav.some(n=>n.name===p)) navigate(p as Page);}} />;
     if (page === "模型方法") return <ModelMethodology onNavigate={navigate} onOpenScenario={openScenario} />;
     if (page === "智慧小幫手") return <OperationsAssistant year={year} route={route} compareYear={compareYear} initialQuestion={assistantQuestion} years={availableYears(data)} onYears={(b,t)=>{setCompareYear(b);setYear(t);}} onNavigate={setPage} />;
@@ -1258,7 +1262,7 @@ export function App() {
           <ChevronDown size={14} />
         </div>
         <nav>
-          {["工作台", "規劃", "智慧服務", "永續與資料"].map((group) => (
+          {["開始探索", "工作台", "規劃", "智慧服務", "永續與資料"].map((group) => (
             <div className="nav-group" key={group}>
               <span className="nav-label">{group}</span>
               {nav
