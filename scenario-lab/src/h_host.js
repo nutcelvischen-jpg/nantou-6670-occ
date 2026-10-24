@@ -2,6 +2,9 @@
 let hostSurface = 'driving', hostPanelRequest = true;
 function syncWorkbenchSurface(panel) {
   if (panel !== 'bot') hostSurface = panel === 'ops' ? 'driving' : 'prediction';
+  predictionSurface(hostSurface === 'prediction');
+  const numbers=hostSurface==='prediction'?{fc:'01',pk:'02',viz:'03',opt:'04',bot:'05'}:{ops:'01',bot:'02'};
+  for(const tab of $('#tabs').children){const number=tab.querySelector('.n');if(number&&numbers[tab.dataset.t])number.textContent=numbers[tab.dataset.t];}
   if (window.parent === window) return;
   document.body.dataset.workbench = hostSurface;
   for (const tab of $('#tabs').children) tab.hidden = hostSurface === 'driving'
@@ -24,6 +27,7 @@ window.addEventListener('message', (event) => {
   if (event.origin !== location.origin || event.source !== window.parent || event.data?.channel !== 'tanxing-workbench') return;
   if (event.data.type === 'visibility' && typeof event.data.active === 'boolean') {
     workbenchActive = event.data.active;
+    if (!workbenchActive) PRED.clock.paused = true;
     if (workbenchActive) { resize(); refreshUI(true); }
   }
   if (event.data.type === 'panel') { hostPanelRequest = true; setTab(event.data.panel); hostPanelRequest = false; }
@@ -36,6 +40,11 @@ syncWorkbenchSurface(TAB);
 hostPanelRequest = false;
 $('#botLead').textContent = '內部營運專用 · OpenRouter。可導覽網站、解釋指標來源與公式，並回答選定日期的票證重播。';
 function assistantSnapshot(q) {
+  if (predictionActive()) {
+    const tr=PRED.trip,t=PRED.clock.minute,cap=tr?.code==='6670E'?9:43;
+    return {kind:'ticket_replay',date:PRED.date,minute:t,plan:'cur',selected_routes:tr?[tr.code]:[],optimization:null,dispatch:null,control:null,
+      vehicles:tr?[{id:PRED.bus,state:t>=tr.arr?'done':'run',load:rpLoad(tr,t),capacity:cap,delay_minutes:null,next_stop:tr.ev.find(e=>e.t>t)?.z??tr.endZ}]:[],queues:[]};
+  }
   const ds = isoD(FCD); if (/後天/.test(q)) ds.setDate(ds.getDate() + 1);
   const date = iso(ds), s = SIM();
   const dispatch = dispatchSnapshot();
@@ -58,12 +67,13 @@ async function ask(q) {
   if(!allowed){bot.textContent='僅提供內部營運的票證、預測、尖離峰、排班與重播資料解讀；旅遊及其他問題暫不支援。';return;}
   assistantBusy=true; const buttons=[...$('#askForm').querySelectorAll('button'),...$('#botChips').querySelectorAll('button')]; buttons.forEach(b=>b.disabled=true);
   try {
-    const r=await fetch('/api/v1/assistant/answer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:q,mode:'operations',year:+LIVE.date.slice(0,4),route:LINE.size===1?[...LINE][0]:'全部',simulation:assistantSnapshot(q)}),signal:AbortSignal.timeout(100000)});
+    const snapshot=assistantSnapshot(q);
+    const r=await fetch('/api/v1/assistant/answer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:q,mode:'operations',year:+snapshot.date.slice(0,4),route:snapshot.selected_routes.length===1?snapshot.selected_routes[0]:'全部',simulation:snapshot}),signal:AbortSignal.timeout(100000)});
     if(!r.ok)throw Error('API unavailable'); const data=await r.json(); if(typeof data.answer!=='string')throw Error('Invalid answer');
     bot.textContent=data.answer; const why=document.createElement('span');why.className='why';why.textContent=(data.engine==='openrouter'?'OpenRouter · DeepSeek':'範圍／規則回覆')+' · '+(data.sources||[]).map(s=>s.title).join('；');bot.append(why);
   } catch {
-    let fallback;try{if(/排班|最佳化|重排|成本|司機|配置|加班|方案|甘特/.test(q)){const d=dispatchSnapshot();fallback=`目前${d.candidate}候選：固定重排${d.fixed.buses}車／${d.fixed.drivers}位司機，方案${d.selected.buses}車／${d.selected.drivers}位司機；已安排${d.selected.assigned}筆，未安排${d.selected.unassigned}筆。${d.selected.feasible?'通過':'未通過'}設定檢核。成本差${Math.round(d.selected.cost-d.fixed.cost)}元，僅為相同假設下試算。詳見05方法與假設；不代表全域最優。`;}else fallback=answer(q).replace(/<[^>]*>/g,'');}catch{fallback='請查看票證重播與班次重排分頁。';}
-    bot.textContent='AI 連線暫不可用，以下為本機規則回覆（非 LLM）。日期 '+LIVE.date+'、票證推估非實際車況：\n\n'+fallback;
+    let fallback;try{if(/排班|最佳化|重排|成本|司機|配置|加班|方案|甘特/.test(q)){const d=dispatchSnapshot();fallback=`目前${d.candidate}候選：固定重排${d.fixed.buses}車／${d.fixed.drivers}位司機，方案${d.selected.buses}車／${d.selected.drivers}位司機；已安排${d.selected.assigned}筆，未安排${d.selected.unassigned}筆。${d.selected.feasible?'通過':'未通過'}設定檢核。成本差${Math.round(d.selected.cost-d.fixed.cost)}元，僅為相同假設下試算。詳見04方法與假設；不代表全域最優。`;}else if(predictionActive())fallback=PRED.date+' '+fmt(PRED.clock.minute)+' 獨立單車演示（不是行控時間）：'+$('#predLocation').textContent+' 可到使用說明查看預測模型與資料來源。';else fallback=answer(q).replace(/<[^>]*>/g,'');}catch{fallback='請查看票證重播與班次重排分頁。';}
+    bot.textContent='AI 連線暫不可用，以下為本機規則回覆（非 LLM）。日期 '+(predictionActive()?PRED.date:LIVE.date)+'、票證推估非實際車況：\n\n'+fallback;
   } finally {assistantBusy=false;buttons.forEach(b=>b.disabled=false);$('#body').scrollTop=1e9;}
 }
 if (window.parent !== window) window.parent.postMessage({channel:'tanxing-workbench',type:'ready'},location.origin);

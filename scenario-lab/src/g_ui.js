@@ -42,9 +42,9 @@ function visOf(b) {
 }
 function setLit(v, on) { if (v.lit === on) return; v.lit = on; v.model.traverse((o) => { if (o.isLineSegments) o.material = on ? EDGE_LIT : EDGE; }); v.halo.material = on ? haloLitMat : haloMat; }
 const _st = { pos: new THREE.Vector3(), dir: new THREE.Vector3(), cls: 'hw', i: 0 };
-function busPose(b) {
+function busPose(b, minute = nowT()) {
   if (b.state === 'run') {
-    const tr = b.trip; pathPoint(tr.path, rpD(tr, nowT()), _st);
+    const tr = b.trip; pathPoint(tr.path, rpD(tr, minute), _st);
     const d = _st.dir, hl = Math.hypot(d.x, d.z) || 1, off = CLS[_st.cls].lane;
     return { x: _st.pos.x - d.z / hl * off, y: _st.pos.y, z: _st.pos.z + d.x / hl * off, yaw: Math.atan2(-d.z, d.x), pitch: Math.atan2(d.y, hl), moving: true };
   }
@@ -53,10 +53,13 @@ function busPose(b) {
   return { x: e.x - Math.sin(f.yaw) * i, y: e.y, z: e.z - Math.cos(f.yaw) * i, yaw: f.yaw + Math.PI / 2, pitch: 0 };
 }
 function updateVehicles(acc) {
-  const s = SIM(); const camD = camera.position.distanceTo(controls.target);
+  const preview = predictionActive(), s = preview ? predictionVisual() : SIM();
+  const visualSelection = preview ? PRED.bus : LIVE.sel;
+  const camD = camera.position.distanceTo(controls.target);
+  if(preview) for(const v of Object.values(VIS)){v.root.visible=false;v.mk.dataset.vis='0';v.mk.style.display='none';}
   for (const b of s.buses) {
-    const v = visOf(b), p = busPose(b);
-    const hide = (LIVE.only && LIVE.sel && LIVE.sel !== b.id) || !p || !busOn(b);
+    const v = visOf(b), p = busPose(b, preview ? PRED.clock.minute : nowT());
+    const hide = !p || (!preview && ((LIVE.only && LIVE.sel && LIVE.sel !== b.id) || !busOn(b)));
     v.root.visible = !hide; if (!p) { v.mk.dataset.vis = '0'; v.last = null; continue; }
     const cd = camera.position.distanceTo(_p.set(p.x, p.y, p.z));
     v.mag = lerp(v.mag, clamp(cd * .42, 3, 40), .25); v.scaler.scale.setScalar(v.mag * .001);
@@ -66,8 +69,8 @@ function updateVehicles(acc) {
       let dy = p.yaw - v.yaw; while (dy > Math.PI) dy -= 2 * Math.PI; while (dy < -Math.PI) dy += 2 * Math.PI; v.yaw += dy * (moved > .2 ? 1 : .35);
     } else v.yaw = p.yaw;
     v.last = p; v.root.position.set(p.x, p.y + v.mag * .00012, p.z); v.root.rotation.set(0, v.yaw, p.pitch * .8);
-    setLit(v, LIVE.sel === b.id);
-    v.mk.className = 'vm ' + (b.state === 'run' ? (b.trip.dir ? 'in' : '') : 'idle') + (LIVE.sel === b.id ? ' on' : '');
+    setLit(v, visualSelection === b.id);
+    v.mk.className = 'vm ' + (b.state === 'run' ? (b.trip.dir ? 'in' : '') : 'idle') + (visualSelection === b.id ? ' on' : '');
     v.mk.dataset.vis = hide ? '0' : '1';
   }
 }
@@ -88,8 +91,8 @@ for (let km = 0; km <= 40; km += 10) addLabel(km ? km + ' km' : '0', new THREE.V
 const vtag = document.createElement('div'); vtag.className = 'vtag'; vtag.style.display = 'none'; labelsEl.appendChild(vtag);
 const _v = new THREE.Vector3();
 function placeLabels(w, h) {
-  const s = SIM();
-  for (const [z, L] of Object.entries(ZLABEL)) { const n = boardsRecentF(s, z, 30); const em = L.el.querySelector('em'); em.textContent = n ? '近30分上車 ' + n : ''; em.className = n > CAP ? 'hot' : ''; }
+  const preview = predictionActive(), s = preview ? predictionVisual() : SIM();
+  for (const [z, L] of Object.entries(ZLABEL)) { const n = preview ? 0 : boardsRecentF(s, z, 30); const em = L.el.querySelector('em'); em.textContent = n ? '近30分上車 ' + n : ''; em.className = n > CAP ? 'hot' : ''; }
   // 標籤避讓：依優先序（大站 → 有刷卡的小站 → 其他小站 → 地名）放置，名字互相重疊就只留站點圓點，滑過圓點才顯示站名
   const placed = [];
   const hit = (r) => placed.some((q) => r[0] < q[2] && r[2] > q[0] && r[1] < q[3] && r[3] > q[1]);
@@ -108,14 +111,17 @@ function placeLabels(w, h) {
       const o = clamp(1.6 - camera.position.distanceTo(L.pos) / 40, 0, 1);
       if (o <= 0 || hit(r)) { L.el.style.display = 'none'; continue; }
       L.el.style.opacity = o; placed.push(r);
-    } else placed.push(r);
+    } else {
+      if (preview && hit(r)) { L.el.style.display = 'none'; continue; }
+      placed.push(r);
+    }
   }
   const camD = camera.position.distanceTo(controls.target), far = clamp((camD - 3) / 6, 0, 1);
   for (const b of s.buses) {
     const v = VIS[b.id]; if (!v) continue; const mk = v.mk;
-    if (mk.dataset.vis === '0' || (far <= 0 && LIVE.sel !== b.id)) { mk.style.display = 'none'; continue; }
+    if (mk.dataset.vis === '0' || (far <= 0 && (preview ? PRED.bus : LIVE.sel) !== b.id)) { mk.style.display = 'none'; continue; }
     _v.copy(v.root.position).project(camera); if (_v.z > 1) { mk.style.display = 'none'; continue; }
-    mk.style.display = ''; mk.style.opacity = LIVE.sel === b.id ? 1 : far;
+    mk.style.display = ''; mk.style.opacity = (preview ? PRED.bus : LIVE.sel) === b.id ? 1 : far;
     mk.style.transform = `translate(${(_v.x * .5 + .5) * w}px,${(-_v.y * .5 + .5) * h}px) translate(-50%,-50%)`;
   }
 }
@@ -541,7 +547,7 @@ let GL_ON = true; $('#gl3d').onclick = () => { GL_ON = !GL_ON; $('#gl3d').textCo
 tlc.addEventListener('click', (e) => { const r = tlc.getBoundingClientRect(); jumpTo(300 + (e.clientX - r.left - 10) / (r.width - 20) * (1380 - 300)); });
 
 /* ============================================================
-   02 需求預測
+   01 需求預測
    ============================================================ */
 function renderFC() {
   const B = FC.back;
@@ -568,7 +574,7 @@ function renderFC() {
 }
 
 /* ============================================================
-   03 尖離峰
+   02 尖離峰
    ============================================================ */
 const PK = { y: 1, d: 0 }, VZ = { y: 1 };
 const FCD = (() => { const d = new Date(); d.setDate(d.getDate() + 1); return iso(d); })();   // 預測頁：從明天起（與資料重播日無關）
@@ -594,7 +600,7 @@ function renderPK() {
 }
 
 /* ============================================================
-   04 票證分析
+   03 票證分析
    ============================================================ */
 const ZN = { off: 1, d: 0 };
 const ZONESEG = [{ key: 'city', nm: '市區段', sub: '台中–高鐵', lo: 0, hi: 1, p: .5 }, { key: 'fwy', nm: '國道段', sub: '高鐵–埔里', lo: 1, hi: 2, p: 1.5 }, { key: 'mtn', nm: '山區段', sub: '埔里–日月潭', lo: 2, hi: 6, p: 2.5 }, { key: 'ext', nm: '延駛段', sub: '日月潭–向山', lo: 6, hi: 7, p: 6.5 }];
@@ -673,7 +679,7 @@ function renderVZ() {
 }
 
 /* ============================================================
-   05 班次最佳化
+   04 班次最佳化
    ============================================================ */
 const OV = { y: '2025', off: 1, d: 0 };
 const CREWOPT = DATA.crewopt || {};
@@ -787,7 +793,7 @@ function stackBars(svg, { groups, xLabels, colors }) {
 }
 
 /* ============================================================
-   06 小幫手（規則式；只用頁面上的資料）
+   05 小幫手（規則式；只用頁面上的資料）
    ============================================================ */
 const BOT = { mode: 'pax' };
 const ZKEY = [[/高鐵/, 'HSR'], [/干城|台中車站|臺中車站|火車站|台中市|臺中市|台中(?!.*高鐵)/, 'TC'], [/埔里/, 'PULI'], [/暨大|暨南/, 'JNU'], [/魚池/, 'YC'], [/九族/, 'J9'], [/日月潭|水社|潭/, 'SML'], [/向山/, 'XS']];
@@ -822,7 +828,7 @@ function answer(q) {
   if (/預測|明天|後天|週末|周末|假日|連假/.test(q)) {
     const d0 = isoD(FCD); if (/後天/.test(q)) d0.setDate(d0.getDate() + 1);
     const ds = iso(d0), i = dayInfo(ds), a = forecast(ds, 0), b = forecast(ds, 1);
-    return `${ds}（週${DOW_ZH[i.dow]}，${i.label}）模型預測刷卡上車：\n· 往日月潭／埔里 ${Math.round(a.mean)} 人（未校準參考帶 ${Math.round(a.lo)}–${Math.round(a.hi)}）\n· 往台中 ${Math.round(b.mean)} 人（${Math.round(b.lo)}–${Math.round(b.hi)}）\n這是迴歸預測，不是資料。` + src(`02 需求預測（回測 WAPE ${(FC.back.wapeM * 100).toFixed(1)}%）`);
+    return `${ds}（週${DOW_ZH[i.dow]}，${i.label}）模型預測刷卡上車：\n· 往日月潭／埔里 ${Math.round(a.mean)} 人（未校準參考帶 ${Math.round(a.lo)}–${Math.round(a.hi)}）\n· 往台中 ${Math.round(b.mean)} 人（${Math.round(b.lo)}–${Math.round(b.hi)}）\n這是迴歸預測，不是資料。` + src(`01 需求預測（回測 WAPE ${(FC.back.wapeM * 100).toFixed(1)}%）`);
   }
   if (/尖峰|離峰|幾點人|什麼時候人/.test(q)) {
     const i = s.info, a = hourShare(i, 0), b = hourShare(i, 1), top = (v) => v.map((x, h) => [h, x]).sort((p, q2) => q2[1] - p[1]).slice(0, 3).map((x) => x[0]).sort((p, q2) => p - q2);
@@ -830,7 +836,7 @@ function answer(q) {
   }
   if (/加開|加班|減班|併班|調度|建議|怎麼辦|處理|調整/.test(q)) {
     const R = tripCells('2025', s.info.off ? 1 : 0), hi = R.cells.filter((c) => c.perDay >= .3 && c.over > 0).sort((a, b) => b.over / b.n - a.over / a.n).slice(0, 3), lo = R.cells.filter((c) => c.perDay >= .5 && c.low / c.n >= .6).sort((a, b) => b.low / b.n - a.low / a.n).slice(0, 3);
-    return `2025 年${s.info.off ? '假日' : '平日'}的票證推估車次：\n高載（超過 43 人的比例高）：\n` + (hi.map((c) => `· ${c.dir ? '往台中' : '往潭'} ${c.h} 時 ${c.code}：${(c.over / c.n * 100).toFixed(1)}% 的班次超過 43 人`).join('\n') || '· 無') + `\n低載（全程不到 10 人的比例高）：\n` + (lo.map((c) => `· ${c.dir ? '往台中' : '往潭'} ${c.h} 時 ${c.code}：${Math.round(c.low / c.n * 100)}% 的班次不到 10 人，每日 ${c.perDay.toFixed(1)} 班`).join('\n') || '· 無') + '\n詳見「05 班次最佳化」。' + src('刷卡還原車次的最大票證在車量');
+    return `2025 年${s.info.off ? '假日' : '平日'}的票證推估車次：\n高載（超過 43 人的比例高）：\n` + (hi.map((c) => `· ${c.dir ? '往台中' : '往潭'} ${c.h} 時 ${c.code}：${(c.over / c.n * 100).toFixed(1)}% 的班次超過 43 人`).join('\n') || '· 無') + `\n低載（全程不到 10 人的比例高）：\n` + (lo.map((c) => `· ${c.dir ? '往台中' : '往潭'} ${c.h} 時 ${c.code}：${Math.round(c.low / c.n * 100)}% 的班次不到 10 人，每日 ${c.perDay.toFixed(1)} 班`).join('\n') || '· 無') + '\n詳見「04 班次最佳化」。' + src('刷卡還原車次的最大票證在車量');
   }
   if (/異常|告警|狀況|現況/.test(q)) { const al = liveAlerts(); return (al.length ? al.map((x) => `· ${x.txt}`).join('\n') : '目前沒有超載、大量上車或低載事件。') + src(day); }
   if (/下一班|幾點|班次|末班|最後一班|首班|第一班|什麼時候有車|發車/.test(q) || zs.length) {
@@ -954,13 +960,14 @@ applyTheme();
 let lastT = performance.now(), uiT = 0;
 function loop(now) {
   const dt = Math.min(.1, (now - lastT) / 1000); lastT = now; if (!workbenchActive || document.hidden) { requestAnimationFrame(loop); return; } const s = SIM();
-  if (!LIVE.paused && s.t < 24 * 60 + 30) { LIVE.acc += dt * LIVE.speed / 60; let n = 0; while (LIVE.acc >= 1 && n < 30) { s.step(); LIVE.acc -= 1; n++; } if (LIVE.acc > 1) LIVE.acc = 0; }
+  if (!predictionActive() && !LIVE.paused && s.t < 24 * 60 + 30) { LIVE.acc += dt * LIVE.speed / 60; let n = 0; while (LIVE.acc >= 1 && n < 30) { s.step(); LIVE.acc -= 1; n++; } if (LIVE.acc > 1) LIVE.acc = 0; }
+  advancePrediction(dt);
   updateVehicles(LIVE.acc);
   const bt = now / 1000;
   boats.forEach((b, i) => { const a = b.ph + bt * b.w * (LIVE.paused ? 0 : 1) * 3; const x = LAKE[0] + Math.cos(a) * b.r * 1.5, z = LAKE[1] + Math.sin(a) * b.r; b.g.position.set(x, WATER * EX + .002 + Math.sin(bt * 1.7 + i) * .0006, z); b.g.rotation.set(Math.sin(bt * 1.3 + i) * .03, -a - (b.w > 0 ? Math.PI / 2 : -Math.PI / 2), 0); });
   for (const k in figs) figs[k].count = 0;   // 資料沒有候車人數，不畫候車人形
   if (fly) { const k = clamp((now - fly.t0) / fly.dur, 0, 1), e = 1 - Math.pow(1 - k, 3); controls.target.lerpVectors(fly.ft, fly.tt, e); camera.position.lerpVectors(fly.fp, fly.tp, e); if (k >= 1) fly = null; }
-  else if (LIVE.follow && LIVE.sel && VIS[LIVE.sel]) { const p = VIS[LIVE.sel].root.position, d = _p.subVectors(p, controls.target).multiplyScalar(.12); controls.target.add(d); camera.position.add(d); }
+  else if (!predictionActive() && LIVE.follow && LIVE.sel && VIS[LIVE.sel]) { const p = VIS[LIVE.sel].root.position, d = _p.subVectors(p, controls.target).multiplyScalar(.12); controls.target.add(d); camera.position.add(d); }
   controls.update();
   { const gy = yAt(camera.position.x, camera.position.z) + .04; if (camera.position.y < gy) camera.position.y = gy; }
   const cd = camera.position.distanceTo(controls.target), ext = clamp(cd * .75, .5, 34);

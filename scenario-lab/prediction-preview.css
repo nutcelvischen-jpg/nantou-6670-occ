@@ -1,0 +1,39 @@
+/* Prediction owns three vertical regions; station names never overlap the canvas. */
+#predMap{display:contents}#predControls,#predStations{display:none}
+.prediction-preview .app:not(.cc-active){height:calc(100dvh - 66px);min-height:610px;padding:10px 14px 14px;grid-template-rows:minmax(0,1fr)}
+.prediction-preview .stage{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(220px,1fr) auto;min-width:0;min-height:0;height:100%;overflow:hidden}
+.prediction-preview #predMap{display:block;position:relative;min-height:220px;overflow:hidden}
+.prediction-preview .stage>.corner,.prediction-preview .stage>.views,.prediction-preview .stage>#strip,.prediction-preview .stage>.mini{display:none!important}
+.prediction-preview #predControls,.prediction-preview #predStations{display:block;position:relative;background:var(--card);padding:12px 16px;z-index:4;font-size:13px}
+.pred-heading,.pred-play,.pred-station-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.pred-heading{justify-content:space-between;margin-bottom:10px}.pred-heading b{font-size:17px;color:var(--strong)}.pred-heading small{display:block;margin-top:3px;color:#657468;font-size:12px}.pred-selectors{display:flex;gap:10px;flex-wrap:wrap}.pred-selectors label{display:flex;flex-direction:column;gap:4px;min-width:100px;flex:1}.pred-selectors .pred-trip{flex:2;min-width:210px}.pred-selectors select{width:100%;min-width:0}.pred-play{margin-top:10px}.pred-play label{display:flex;gap:5px;align-items:center}.pred-play strong{font:500 19px var(--mono);margin-left:auto}.pred-play span{font-size:12px;color:#637366}
+#predControls button,#predControls select,#predStations button{font:inherit;min-height:32px;padding:5px 8px;border:1px solid var(--rule);border-radius:7px;background:#f4f6f1;color:#43564b;cursor:pointer}#predPlay{background:#456a59!important;color:white!important;min-width:64px}#predControls button:focus-visible,#predControls select:focus-visible,#predStations button:focus-visible{outline:2px solid #3e63dd;outline-offset:2px}
+.prediction-preview #predStations{border-top:1px solid var(--rule);padding-bottom:14px}.pred-station-head b{font-size:14px}.pred-station-head small{margin-left:auto;font-size:12px;color:#657468}#predStopViewport{height:145px;overflow-x:auto;overflow-y:hidden;scrollbar-gutter:stable;max-width:100%}#predStopTrack{height:135px;position:relative}#predStopTrack .cs-rail{top:45px}#predStopTrack .cs-stop{top:38px;min-height:0;line-height:1.4}#predStopTrack .cs-bus{top:5px;min-height:24px}#predLocation{margin:0 0 4px;font-size:12px;color:#465e50}#predStopSource{font-size:11px;color:#6b756e;display:block;line-height:1.5}
+@media(max-width:1100px){.prediction-preview .app:not(.cc-active){display:flex;flex-direction:column;height:auto;min-height:0;gap:14px}.prediction-preview .stage{height:800px;min-height:800px;flex-shrink:0}.prediction-preview .panel{min-height:650px;overflow:visible}.prediction-preview .body{overflow:visible}}
+@media(max-width:600px){.prediction-preview .stage{height:850px;min-height:850px}.prediction-preview #predControls,.prediction-preview #predStations{padding:12px}.pred-selectors .pred-trip{flex-basis:100%}.pred-play strong{margin-left:0}.pred-play span{width:100%}.pred-station-head small{width:100%;margin:0}#predStopViewport{height:150px}}
+
+.prediction-preview #predControls,.prediction-preview #predStations,.prediction-preview #predMap{min-width:0;max-width:100%}
+@media(min-width:1101px){
+ .prediction-preview .app:not(.cc-active){min-height:0}
+ .prediction-preview .stage{grid-template-rows:auto minmax(140px,1fr) auto}
+ .prediction-preview #predMap{min-height:140px}
+ .prediction-preview #predControls{padding:9px 16px}
+ .pred-heading{margin-bottom:6px}.pred-heading small{margin-top:0}
+ .pred-play{margin-top:7px}
+ .prediction-preview #predStations{padding:8px 16px 10px}
+ #predStopViewport{height:108px}#predStopTrack{height:100px}
+ #predStopTrack .cs-rail{top:35px}#predStopTrack .cs-stop{top:28px}
+ #predStopTrack .cs-bus{top:0}
+}
+@media(min-width:1101px) and (max-height:560px){.prediction-preview .app:not(.cc-active){height:600px}.prediction-preview .stage{overflow:visible}}
+@media(min-width:1101px) and (max-height:760px){
+ .pred-heading small{display:inline;margin-left:10px;font-size:11px}
+ .pred-heading{margin-bottom:4px}.pred-heading b{font-size:15px}
+ .prediction-preview #predControls{padding:7px 12px}
+ .pred-selectors label{gap:2px;font-size:12px}.pred-play{margin-top:4px}
+ .prediction-preview #predStations{padding:6px 12px 8px}
+ #predStopViewport{height:80px}#predStopTrack{height:76px}
+ #predStopTrack .cs-rail{top:26px}#predStopTrack .cs-stop{top:19px}
+ #predStopTrack .cs-stop span{font-size:11px}
+ .pred-station-head{gap:6px}.pred-station-head b{font-size:12px}
+ .pred-station-head small{font-size:11px}
+}

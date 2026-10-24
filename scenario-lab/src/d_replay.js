@@ -82,3 +82,6 @@ class Replay {
   }
 }
 function rpLabel(d) { const i = dayInfo(d), D = RP.days[d]; return `${d} 週${DOW_ZH[i.dow]}${i.holi ? '・假日' : ''}（${D.taps.toLocaleString()} 筆）`; }
+
+// Initialize before the animation loop; later dispatch data loading can yield.
+const PRED={active:false,date:RDAYS.includes('2025-10-11')?'2025-10-11':RDAYS.at(-1),bus:null,trip:null,trips:[],clock:{minute:0,speed:120,paused:true},autoFit:true,drivingCamera:null,stops:[],stationKey:'',renderKey:''};
