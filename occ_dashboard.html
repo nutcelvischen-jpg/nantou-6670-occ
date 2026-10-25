@@ -858,10 +858,10 @@
         </div>
 
         <div class="header-controls">
-            <a href="3d_viewer.html" class="hud-btn" style="text-decoration: none;" title="開啟 3D 數位孿生沙盤 (Blender 模型)">
-                <i class="fa-solid fa-cube"></i> 3D 數位沙盤
+            <a href="3d_viewer.html" class="hud-btn" style="text-decoration: none;" title="開啟 3D 走廊地貌沙盤 (Blender 數位孿生模型)">
+                <i class="fa-solid fa-cube"></i> 3D 地形沙盤
             </a>
-            <button class="hud-btn" id="btn-cinematic-tour">
+            <button class="hud-btn" id="btn-cinematic-tour" title="啟動 3D 走廊俯瞰巡航">
                 <i class="fa-solid fa-helicopter"></i> 3D 巡航視角
             </button>
             <button class="hud-btn amber" id="btn-refresh-live">
@@ -1074,12 +1074,39 @@
         let stopMarkers = [];
         let isCinematicTour = false;
         let tourAnimFrame = null;
+        let liveFleetState = [];
+        let fleetCruiserRunning = false;
+        let trackedBusPlate = null;
+        let cruiserSpeedMultiplier = 2.5; // 2.5倍等比速率，讓公車在全線長距地圖上可見平滑前進
+        let currentEtaMode = "bus";
+        let selectedEtaPlate = "KKA-6715";
+        let tourStageIdx = 0;
+        let tourTimeout = null;
+        let busFollowAnimFrame = null;
 
         map.on("load", () => {
             drawRouteLines();
             renderStopsOnMap();
             renderBusMarkers(RAW_BUSES);
             setTimeout(playChime, 600);
+
+            // 支援 URL 參數深度聯動（例如從 3D 沙盤直接跳轉鎖定車輛 ?focus=KKA-6715 或 ?tour=1）
+            const urlParams = new URLSearchParams(window.location.search);
+            const focusPlate = urlParams.get('focus');
+            const startTour = urlParams.get('tour');
+            if (focusPlate) {
+                setTimeout(() => {
+                    const bus = RAW_BUSES.find(b => b.PlateNumb === focusPlate);
+                    if (bus) {
+                        focusBus(focusPlate, bus);
+                        document.getElementById("ticker-text").innerText = `已從 3D 沙盤接入 · 鎖定追蹤車輛 [${focusPlate}] 實時遙測中`;
+                    }
+                }, 1000);
+            } else if (startTour === '1' || startTour === 'true') {
+                setTimeout(() => {
+                    toggleCinematicTour();
+                }, 800);
+            }
         });
 
         // 立即渲染 DOM 面板（無需等待遠端地圖向量圖資加載，達到 0 秒即時顯示）
@@ -1290,10 +1317,6 @@
         // 2. Real-time Fleet Dead Reckoning & Live Cruising
         // 實時動力推進巡航引擎：18 輛車依據真實時速在 3D 地圖線上平滑前進
         // ==========================================
-        let liveFleetState = [];
-        let fleetCruiserRunning = false;
-        let trackedBusPlate = null;
-        let cruiserSpeedMultiplier = 2.5; // 2.5倍等比速率，讓公車在全線長距地圖上可見平滑前進
 
         function startFleetCruiser() {
             if (fleetCruiserRunning) return;
@@ -1580,9 +1603,6 @@
             playBeep(1400, "sine", 0.1);
             document.getElementById("ticker-text").innerText = `🎯 3D 鏡頭鎖定跟隨公車 ${plate} · 實時動態推進中 (拖曳地圖可隨時解除)`;
         }
-
-        let currentEtaMode = "bus";
-        let selectedEtaPlate = "KKA-6715";
 
         function populateEtaBusDropdown() {
             const dropdown = document.getElementById("eta-bus-dropdown");
@@ -1929,10 +1949,6 @@
                 stayTime: 3200
             }
         ];
-
-        let tourStageIdx = 0;
-        let tourTimeout = null;
-        let busFollowAnimFrame = null;
 
         function toggleCinematicTour() {
             const btn = document.getElementById("btn-cinematic-tour");
