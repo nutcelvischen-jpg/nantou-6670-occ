@@ -46,6 +46,14 @@
         .panel-header, .subroute-tabs { flex-shrink: 0; }   /* 抽屜變矮時不壓扁標題與子線分頁 */
         #eta-bus-dropdown { min-width: 0; max-width: 100%; text-overflow: ellipsis; }
         /* 縮小比例時隱藏車號標籤，避免互相重疊；被選取／跟隨的車仍顯示 */
+        /* ETA 點站牌：全線鳥瞰上的站牌標記 */
+        .stop-hi { position: relative; width: 0; height: 0; cursor: pointer; z-index: 20; }
+        .stop-hi-ring { position: absolute; left: -22px; top: -22px; width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--rose); background: rgba(225, 29, 72, 0.12); animation: stopPulse 1.6s ease-out infinite; }
+        .stop-hi-dot { position: absolute; left: -8px; top: -8px; width: 16px; height: 16px; border-radius: 50%; background: var(--rose); border: 3px solid #ffffff; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.35); }
+        .stop-hi-tag { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); white-space: nowrap; background: #ffffff; border: 1.5px solid var(--rose); color: #0f172a; border-radius: 8px; padding: 5px 10px; font: 700 14px "Noto Sans TC", sans-serif; box-shadow: 0 6px 16px rgba(15, 23, 42, 0.2); text-align: center; }
+        .stop-hi-tag small { display: block; font-size: 10.5px; font-weight: 500; color: var(--text-dim); margin-top: 1px; }
+        @keyframes stopPulse { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
+        .stop-row.selected { outline: 2px solid var(--rose); outline-offset: -2px; border-radius: 6px; }
         #map.labels-off .bus-label-tag { display: none; }
         #map.labels-off .bus-marker.is-focus .bus-label-tag { display: block; }
 
@@ -1776,6 +1784,57 @@
             renderEtaView();
         }
 
+        // ===== ETA 點站牌 → 全線鳥瞰並標出站牌位置 =====
+        let stopHiMarker = null;
+        const STOP_ALIAS = { "榮民診所": "榮民醫院", "榮民醫院": "榮民診所" };
+        function stopLngLat(name, pointInfo) {
+            if (pointInfo) { const [la, lo] = pointInfo.split(",").map(Number); if (la && lo) return [lo, la]; }
+            const G = (typeof TDX_STOP_GEO !== "undefined") ? TDX_STOP_GEO : {};
+            if (G[name]) return G[name];
+            if (STOP_ALIAS[name] && G[STOP_ALIAS[name]]) return G[STOP_ALIAS[name]];
+            for (const route of Object.values(RAW_STOPS)) for (const list of Object.values(route)) { const s = list.find(x => x.StopName === name); if (s) return stopLngLat(null, s.PointInfo); }
+            return null;
+        }
+        function overviewBounds(extra) {
+            const b = new maplibregl.LngLatBounds();
+            [REAL_6670_ROUTE_COORDS, (typeof ROUTE_6670E_AIRPORT_COORDS !== "undefined" ? ROUTE_6670E_AIRPORT_COORDS : [])].forEach(L => L.forEach((p, i) => { if (i % 10 === 0) b.extend(p); }));
+            if (extra) b.extend(extra);
+            return b;
+        }
+        function showStopOnOverview(name, info, pointInfo, row) {
+            const ll = stopLngLat(name, pointInfo);
+            if (!ll) { document.getElementById("ticker-text").innerText = `找不到「${name}」的站牌座標`; return; }
+            playBeep(900, "triangle");
+            trackedBusPlate = null; followOrbit = false;
+            if (isCinematicTour) toggleCinematicTour();
+            if (focusPopup) { focusPopup.remove(); focusPopup = null; }
+            document.querySelectorAll(".stop-row.selected").forEach(r => r.classList.remove("selected"));
+            if (row) row.classList.add("selected");
+            const mobile = window.innerWidth <= 768;
+            if (mobile) setMobileView("map");
+            if (stopHiMarker) stopHiMarker.remove();
+            const el = document.createElement("div");
+            el.className = "stop-hi";
+            el.innerHTML = `<div class="stop-hi-ring"></div><div class="stop-hi-dot"></div><div class="stop-hi-tag">${name}${info ? " · " + info : ""}<small>點此放大到站牌</small></div>`;
+            el.addEventListener("click", (e) => { e.stopPropagation(); map.flyTo({ center: ll, zoom: 15.5, pitch: 55, duration: 1500, essential: true }); });
+            stopHiMarker = new maplibregl.Marker({ element: el, anchor: "center" }).setLngLat(ll).addTo(map);
+            // 全線鳥瞰：路線＋站牌都在可見範圍內（扣掉左右面板與上下列的遮擋）
+            const leftOpen = !mobile && !document.querySelector(".panel-left").classList.contains("collapsed");
+            const rightOpen = !mobile && !document.querySelector(".panel-right").classList.contains("collapsed");
+            const pad = mobile ? { top: 90, bottom: 110, left: 24, right: 24 } : { top: 110, bottom: 90, left: leftOpen ? 420 : 50, right: rightOpen ? 420 : 50 };
+            const cam = map.cameraForBounds(overviewBounds(ll), { padding: pad, bearing: 0 });
+            if (cam) map.flyTo({ center: cam.center, zoom: cam.zoom, bearing: 0, pitch: 0, duration: 1600, essential: true });
+            // 抵達後檢查標籤是否被面板遮住，必要時往左或往右偏移
+            map.once("moveend", () => {
+                const tag = el.querySelector(".stop-hi-tag"); if (!tag) return;
+                const p = map.project(ll), w = tag.offsetWidth;
+                const visL = pad.left - 10, visR = map.getContainer().clientWidth - pad.right + 10;
+                tag.style.transform = p.x + w / 2 > visR ? `translateX(calc(-100% + 22px))` : (p.x - w / 2 < visL ? `translateX(-22px)` : "translateX(-50%)");
+            });
+            document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
+            document.getElementById("ticker-text").innerText = `站牌位置：${name}${info ? "（" + info + "）" : ""} · 全線鳥瞰，點紅色標記可放大`;
+        }
+
         function renderEtaView() {
             if (currentEtaMode === "bus") {
                 renderVehicleEta(selectedEtaPlate);
@@ -1853,9 +1912,8 @@
                         </span>
                     `;
 
-                    row.addEventListener("click", () => {
-                        playBeep(850, "sine");
-                    });
+                    row.style.cursor = "pointer";
+                    row.addEventListener("click", () => showStopOnOverview(item.stop, `${plate} 約 ${item.min} 分鐘`, null, row));
 
                     container.appendChild(row);
                 });
@@ -1872,6 +1930,8 @@
                         </div>
                         <span class="eta-badge" style="opacity:0.6;">班表中</span>
                     `;
+                    row.style.cursor = "pointer";
+                    row.addEventListener("click", () => showStopOnOverview(st.StopName, `第 ${st.StopOrder} 站`, st.PointInfo, row));
                     container.appendChild(row);
                 });
             }
@@ -1908,15 +1968,10 @@
                     ${etaHtml}
                 `;
 
+                row.style.cursor = "pointer";
                 row.addEventListener("click", () => {
-                    const parts = st.PointInfo.split(",");
-                    playBeep(750, "sine");
-                    map.flyTo({
-                        center: [parseFloat(parts[1]), parseFloat(parts[0])],
-                        zoom: 15.2,
-                        pitch: 60,
-                        duration: 1500
-                    });
+                    const c = (typeof RAW_BUS_ARRIVALS !== 'undefined' && RAW_BUS_ARRIVALS.by_stop && RAW_BUS_ARRIVALS.by_stop[st.StopName]) ? RAW_BUS_ARRIVALS.by_stop[st.StopName][0] : null;
+                    showStopOnOverview(st.StopName, c ? `${c.plate} 約 ${c.min} 分鐘` : `第 ${st.StopOrder} 站`, st.PointInfo, row);
                 });
 
                 container.appendChild(row);
