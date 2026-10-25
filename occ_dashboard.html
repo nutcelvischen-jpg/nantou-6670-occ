@@ -1318,6 +1318,12 @@
         // 實時動力推進巡航引擎：18 輛車依據真實時速在 3D 地圖線上平滑前進
         // ==========================================
 
+        function getSegmentDistMeters(p1, p2) {
+            const dLon = (p2[0] - p1[0]) * 102000;
+            const dLat = (p2[1] - p1[1]) * 110900;
+            return Math.sqrt(dLon * dLon + dLat * dLat);
+        }
+
         function startFleetCruiser() {
             if (fleetCruiserRunning) return;
             fleetCruiserRunning = true;
@@ -1330,22 +1336,52 @@
                 liveFleetState.forEach(item => {
                     if (item.speed > 0) {
                         const rc = item.routeCoords;
-                        // 65km / 2133 點 ≈ 30.5m/點；速度 (km/h) 換算點位步進
-                        const stepNodes = (item.speed * 0.0091) * dt * cruiserSpeedMultiplier;
+                        // 依據真實物理公尺速率推算步進 (速度 km/h 轉 m/s * 模擬加乘比率)
+                        const speedMps = (item.speed / 3.6) * cruiserSpeedMultiplier;
+                        let distToTravel = speedMps * dt;
 
                         if (item.dir === 0) {
-                            // 往日月潭方向
-                            item.progress += stepNodes;
+                            // 往終端 (如日月潭/高鐵) 方向平滑推進
+                            while (distToTravel > 0 && item.progress < rc.length - 1) {
+                                const i = Math.floor(item.progress);
+                                const segLen = Math.max(getSegmentDistMeters(rc[i], rc[i + 1]), 1.0);
+                                const remainInSeg = (1 - (item.progress - i)) * segLen;
+
+                                if (distToTravel < remainInSeg) {
+                                    item.progress += distToTravel / segLen;
+                                    distToTravel = 0;
+                                } else {
+                                    distToTravel -= remainInSeg;
+                                    item.progress = i + 1;
+                                }
+                            }
                             if (item.progress >= rc.length - 1) {
                                 item.progress = rc.length - 1;
-                                item.dir = 1; // 抵達終點折返
+                                item.speed = 0; // 靠站整備，消除高頻折返震盪
+                                const cardTag = document.querySelector(`#bus-card-${item.plate} .status-tag`);
+                                if (cardTag) { cardTag.className = 'status-tag status-stop'; cardTag.innerText = '端點停等'; }
                             }
                         } else {
-                            // 往臺中方向
-                            item.progress -= stepNodes;
+                            // 往起點 (如臺中航空站/臺中火車站) 方向平滑推進
+                            while (distToTravel > 0 && item.progress > 0) {
+                                let i = Math.floor(item.progress);
+                                if (item.progress === i && i > 0) i = i - 1;
+                                const segLen = Math.max(getSegmentDistMeters(rc[i], rc[i + 1]), 1.0);
+                                const distFromA = (item.progress - i) * segLen;
+
+                                if (distToTravel < distFromA) {
+                                    item.progress -= distToTravel / segLen;
+                                    distToTravel = 0;
+                                } else {
+                                    distToTravel -= distFromA;
+                                    item.progress = i;
+                                }
+                            }
                             if (item.progress <= 0) {
                                 item.progress = 0;
-                                item.dir = 0; // 抵達終點折返
+                                item.speed = 0; // 靠站整備，消除高頻折返震盪
+                                const cardTag = document.querySelector(`#bus-card-${item.plate} .status-tag`);
+                                if (cardTag) { cardTag.className = 'status-tag status-stop'; cardTag.innerText = '端點停等'; }
                             }
                         }
 
@@ -1353,7 +1389,7 @@
                         const iCeil = Math.min(rc.length - 1, iFloor + 1);
                         const t = item.progress - iFloor;
                         const pA = rc[iFloor];
-                        const pB = rc[iCeil];
+                        const pB = rc[iCeil] || pA;
                         const curLon = pA[0] + (pB[0] - pA[0]) * t;
                         const curLat = pA[1] + (pB[1] - pA[1]) * t;
 
