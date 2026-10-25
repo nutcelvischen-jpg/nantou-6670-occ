@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>台灣好行 6670 日月潭智慧行控中心 · 3D 數位孿生平台</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     <style>
         :root {
+            --font-ui: "Noto Sans TC", system-ui, -apple-system, sans-serif;
+            --font-num: "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
             --bg-deep: #f1f5f9;
             --panel-bg: rgba(241, 245, 250, 0.9);
             --cyan: #0284c7;
@@ -30,7 +32,7 @@
         }
 
         body {
-            font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
+            font-family: var(--font-ui);
             background-color: var(--bg-deep);
             color: var(--text-primary);
             min-height: 100vh;
@@ -75,7 +77,7 @@
         }
 
         .brand-text h1 {
-            font-family: 'Orbitron', sans-serif;
+            font-family: var(--font-ui);
             font-size: 20px;
             letter-spacing: 1px;
             color: #0f172a;
@@ -128,8 +130,9 @@
         }
 
         .hero-banner h2 {
-            font-size: clamp(22px, 3.5vw, 32px);
-            font-family: 'Noto Sans TC', sans-serif;
+            max-width: 680px; margin-left: auto; margin-right: auto; text-wrap: balance;
+            font-size: clamp(24px, 4vw, 36px); line-height: 1.25;
+            font-family: var(--font-ui);
             font-weight: 700;
             margin-bottom: 12px;
             color: #0f172a;
@@ -141,11 +144,26 @@
         }
 
         .hero-banner p {
-            font-size: 15px;
+            max-width: 680px; margin: 0 auto; text-wrap: pretty;
+            font-size: 16px;
             color: var(--text-secondary);
             line-height: 1.7;
             letter-spacing: 0.02em;
         }
+
+        .hero-cta { display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 24px; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 8px; background: var(--cyan); color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; transition: transform 0.2s cubic-bezier(0.32,0.72,0,1), background-color 0.2s cubic-bezier(0.32,0.72,0,1); }
+        .btn-primary:hover { background: #0369a1; transform: translateY(-1px); }
+        .btn-primary:active { transform: translateY(1px); }
+        .btn-secondary { display: inline-flex; align-items: center; padding: 12px 16px; border-radius: 8px; color: var(--cyan); font-size: 16px; font-weight: 500; text-decoration: none; border: 1px solid rgba(2, 132, 199, 0.35); background: #ffffff; transition: background-color 0.2s cubic-bezier(0.32,0.72,0,1); }
+        .btn-secondary:hover { background: rgba(2, 132, 199, 0.08); }
+        .hero-proof span { white-space: nowrap; }
+        .hero-banner p { text-wrap: balance; }
+        @media (max-width: 768px) { .brand-text p { display: none; } }
+        .hero-proof { margin-top: 16px; font-size: 14px; color: var(--text-secondary); font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+        a.portal-card { text-decoration: none; color: inherit; display: block; }
+        .portal-card.is-primary { border-color: rgba(217, 119, 6, 0.45); }
+        a:focus-visible, button:focus-visible, .portal-card:focus-visible { outline: 3px solid rgba(2, 132, 199, 0.55); outline-offset: 3px; border-radius: 8px; }
 
         /* 雙主卡片網格 */
         .portal-grid {
@@ -263,7 +281,7 @@
             gap: 10px;
             padding: 13px 20px;
             border-radius: 8px;
-            font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
+            font-family: var(--font-ui);
             font-size: 15px;
             font-weight: 700;
             text-decoration: none;
@@ -334,7 +352,7 @@
         }
 
         .ticker-text .value {
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-num);
             font-size: 16px;
             font-weight: 700;
             color: #0f172a;
@@ -405,6 +423,8 @@
                 gap: 10px;
             }
         }
+            body { font-family: var(--font-ui); }
+        [style*="--font-num"], .capsule-val, .val, .speed-badge, .eta-badge { font-variant-numeric: tabular-nums; }
     </style>
 </head>
 <body>
@@ -428,52 +448,51 @@
     <!-- 主展示區 -->
     <main class="portal-content">
         <div class="hero-banner">
-            <h2>全線 <span class="highlight">3D 數位孿生</span> · 實時遙測行控門戶</h2>
-            <p>串接交通部 TDX 即時公車數據、南投環境水文遙測與高精度 3D 地形空間走廊，提供兩種專業戰情瀏覽模式：</p>
+            <h2>一眼看出 6670 每台車在哪<br>下一站幾分鐘到</h2>
+            <p>台灣好行日月潭線的行控畫面。TDX 車輛位置貼合在路線上，到站預估逐站列出，台中到日月潭整條走廊一張地圖看完。</p>
+            <div class="hero-cta">
+                <a href="occ_dashboard.html" class="btn-primary">進入行控中心 <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="3d_viewer.html" class="btn-secondary">看 3D 地形沙盤</a>
+            </div>
+            <div class="hero-proof"><span>18 輛車</span> · <span>47 個站有到站預估</span> · <span>資料時間 2026-10-25 13:35（TDX 快照）</span></div>
         </div>
 
         <div class="portal-grid">
-            <!-- 模式一：3D 數位沙盤 -->
-            <div class="portal-card">
+            <!-- 行控中心（主要入口） -->
+            <a href="occ_dashboard.html" class="portal-card is-primary">
                 <div class="card-img-wrap">
-                    <img src="blender_6670_panorama.png" alt="3D 數位孿生沙盤全景">
-                    <div class="card-badge"><i class="fa-solid fa-cube"></i> 3D DIGITAL TWIN</div>
+                    <img src="occ_screenshot.png" alt="行控中心畫面：地圖上的 6670 車輛與右側到站預估">
+                    <div class="card-badge amber"><i class="fa-solid fa-map-location-dot"></i> 行控中心</div>
                 </div>
                 <div class="card-body">
-                    <h3><i class="fa-solid fa-vr-cardboard" style="color: var(--cyan);"></i> 3D 數位孿生全息沙盤</h3>
-                    <p>由 Blender 5.1.1 頂級渲染的高精度 3D 空間模型，支援手機與電腦瀏覽器 360° 自由環繞旋轉、俯仰飛行與縮放漫遊。</p>
+                    <h3>行控中心</h3>
+                    <p>看每台車的位置、車速和下一站，點站牌就能在全線鳥瞰上找到它。</p>
                     <ul class="features-list">
-                        <li><i class="fa-solid fa-check"></i> <strong>360° 自由觸控操作</strong>：旋轉、平移、景深縮放</li>
-                        <li><i class="fa-solid fa-check"></i> <strong>浮空遙測標籤</strong>：點擊國道公車、水社碼頭互動彈窗</li>
-                        <li><i class="fa-solid fa-check"></i> <strong>鏡位導航</strong>：全景走廊 / 國道飆速 / 日月潭特寫一鍵跳轉</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>車輛位置</strong>：GPS 貼合路線，依回報車速推估最多 3 分鐘</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>到站預估</strong>：每台車接下來各站幾分鐘，或每站最近一班</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>手機可用</strong>：底部切換地圖、車隊與到站</li>
                     </ul>
-                    <a href="3d_viewer.html" class="btn-entry btn-cyan">
-                        <span>開啟 3D 全息沙盤</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <span class="btn-entry btn-amber"><span>進入行控中心</span><i class="fa-solid fa-arrow-right"></i></span>
                 </div>
-            </div>
+            </a>
 
-            <!-- 模式二：GIS 實時行控中心 -->
-            <div class="portal-card">
+            <!-- 3D 沙盤（次要入口） -->
+            <a href="3d_viewer.html" class="portal-card">
                 <div class="card-img-wrap">
-                    <img src="occ_screenshot.png" alt="GIS 實時行控中心大螢幕">
-                    <div class="card-badge amber"><i class="fa-solid fa-map-location-dot"></i> OCC DASHBOARD</div>
+                    <img src="blender_6670_panorama.png" alt="3D 地形沙盤：台中到日月潭走廊模型">
+                    <div class="card-badge"><i class="fa-solid fa-cube"></i> 3D 沙盤</div>
                 </div>
                 <div class="card-body">
-                    <h3><i class="fa-solid fa-desktop" style="color: var(--amber);"></i> 2D/3D GIS 實時行控中心</h3>
-                    <p>專業行控調度戰情室大螢幕，以 3D 俯仰向量地圖呈現 TDX 車輛動態快照（18 輛的經緯度、回報車速、到站預估），並沿路線推估移動。</p>
+                    <h3>3D 地形沙盤</h3>
+                    <p>依真實路線用 Blender 建出的台中到日月潭走廊模型，可以旋轉、縮放，看整條路線的位置關係。</p>
                     <ul class="features-list">
-                        <li><i class="fa-solid fa-check"></i> <strong>18 輛車位置追蹤</strong>：車速警戒紅燈、方向角動態指示</li>
-                        <li><i class="fa-solid fa-check"></i> <strong>視角自動鎖定</strong>：點擊列表車輛，鏡頭立刻 3D 俯衝鎖定跟隨</li>
-                        <li><i class="fa-solid fa-check"></i> <strong>環境遙測聯防</strong>：日月潭水位蓄水率、氣溫與國道車流</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>自由檢視</strong>：旋轉、平移、縮放</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>區域熱點</strong>：顯示各區目前有幾台車</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>快速視角</strong>：國道 6 號、埔里、日月潭一鍵切換</li>
                     </ul>
-                    <a href="occ_dashboard.html" class="btn-entry btn-amber">
-                        <span>進入 GIS 行控中心</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
+                    <span class="btn-entry btn-cyan"><span>看 3D 沙盤</span><i class="fa-solid fa-arrow-right"></i></span>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- 底部即時快報 -->
@@ -493,17 +512,17 @@
                 </div>
             </div>
             <div class="ticker-item">
-                <div class="ticker-icon"><i class="fa-solid fa-water" style="color: var(--cyan);"></i></div>
+                <div class="ticker-icon"><i class="fa-solid fa-signs-post" style="color: var(--cyan);"></i></div>
                 <div class="ticker-text">
-                    <div class="label">日月潭蓄水率</div>
-                    <div class="value val-emerald">示意值（未串接）</div>
+                    <div class="label">有到站預估的站</div>
+                    <div class="value val-emerald">47 站</div>
                 </div>
             </div>
             <div class="ticker-item">
                 <div class="ticker-icon"><i class="fa-solid fa-route" style="color: var(--amber);"></i></div>
                 <div class="ticker-text">
-                    <div class="label">監控走廊跨距</div>
-                    <div class="value val-amber">臺中高鐵 ⇄ 日月潭</div>
+                    <div class="label">路線範圍</div>
+                    <div class="value val-amber">台中 ⇄ 日月潭 ⇄ 向山</div>
                 </div>
             </div>
         </div>
@@ -515,7 +534,7 @@
         <div>
             <a href="https://github.com/nutcelvischen-jpg/nantou-6670-occ" target="_blank"><i class="fa-brands fa-github"></i> GitHub 專案庫</a>
             &nbsp;·&nbsp;
-            <a href="6670_sunmoonlake_panorama.glb" download><i class="fa-solid fa-download"></i> 下載 3D GLB 模型 (8.0MB)</a>
+            <a href="6670_sunmoonlake_panorama.glb" download><i class="fa-solid fa-download"></i> 下載 3D 模型（GLB，約 19.5 MB）</a>
         </div>
     </footer>
 

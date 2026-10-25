@@ -9,10 +9,12 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
+            --font-ui: "Noto Sans TC", system-ui, -apple-system, sans-serif;
+            --font-num: "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
             --bg-dark: #f1f5f9;
             --panel-bg: rgba(241, 245, 250, 0.94);
             --cyan: #0284c7;
@@ -41,7 +43,7 @@
         }
 
         body {
-            font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
+            font-family: var(--font-ui);
             background-color: var(--bg-dark);
             color: var(--text-primary);
             position: relative;
@@ -97,7 +99,7 @@
         }
 
         .title-text h1 {
-            font-family: 'Orbitron', sans-serif;
+            font-family: var(--font-ui);
             font-size: 17px;
             color: #0f172a;
             font-weight: 700;
@@ -134,7 +136,7 @@
         }
 
         .capsule-val {
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-num);
             font-size: 15px;
             font-weight: 700;
             font-variant-numeric: tabular-nums;
@@ -158,7 +160,7 @@
             color: var(--cyan);
             padding: 8px 14px;
             border-radius: 6px;
-            font-family: 'Rajdhani', sans-serif;
+            font-family: var(--font-ui);
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
@@ -239,7 +241,7 @@
             color: var(--cyan);
             border-radius: 24px;
             padding: 8px 16px;
-            font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
+            font-family: var(--font-ui);
             font-size: 13px;
             font-weight: 700;
             display: flex;
@@ -291,7 +293,7 @@
             background: rgba(241, 245, 250, 0.9);
         }
         .drawer-title {
-            font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
+            font-family: var(--font-ui);
             font-size: 14px;
             font-weight: 700;
             color: var(--cyan);
@@ -349,13 +351,13 @@
             margin-bottom: 4px;
         }
         .s-card-plate {
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-num);
             font-size: 14px;
             font-weight: 700;
             color: #0f172a;
         }
         .s-card-speed {
-            font-family: 'Orbitron', monospace;
+            font-family: var(--font-num);
             font-size: 12px;
             font-weight: 700;
             padding: 2px 7px;
@@ -445,7 +447,7 @@
             color: var(--text-secondary);
             padding: 7px 14px;
             border-radius: 20px;
-            font-family: 'Noto Sans TC', sans-serif;
+            font-family: var(--font-ui);
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
@@ -469,7 +471,7 @@
             border-radius: 24px;
             padding: 5px 12px;
             color: #0f172a;
-            font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
+            font-family: var(--font-ui);
             font-size: 12px;
             font-weight: 700;
             display: flex;
@@ -530,7 +532,7 @@
         }
 
         .modal-title {
-            font-family: 'Orbitron', sans-serif;
+            font-family: var(--font-ui);
             font-size: 15px;
             color: var(--cyan);
             font-weight: 700;
@@ -554,7 +556,7 @@
         }
 
         .telemetry-row .label { color: var(--text-dim); }
-        .telemetry-row .value { font-family: 'Orbitron', monospace; font-weight: 700; color: #0f172a; font-variant-numeric: tabular-nums; }
+        .telemetry-row .value { font-family: var(--font-num); font-weight: 700; color: #0f172a; font-variant-numeric: tabular-nums; }
 
         .modal-occ-btn {
             display: flex;
@@ -568,7 +570,7 @@
             border: 1px solid var(--cyan);
             color: #0f172a;
             border-radius: 6px;
-            font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
+            font-family: var(--font-ui);
             font-size: 13px;
             font-weight: 700;
             text-decoration: none;
@@ -656,6 +658,8 @@
                 font-size: 11px;
             }
         }
+            body { font-family: var(--font-ui); }
+        [style*="--font-num"], .capsule-val, .val, .speed-badge, .eta-badge { font-variant-numeric: tabular-nums; }
     </style>
 </head>
 <body>
@@ -666,7 +670,7 @@
             <div class="badge-icon"><i class="fa-solid fa-cube"></i></div>
             <div class="title-text">
                 <h1>6670 日月潭全走廊 · 3D 地貌沙盤</h1>
-                <p>BLENDER 3D DIGITAL TWIN & REAL-TIME FLEET TELEMETRY</p>
+                <p>台中到日月潭走廊模型 · 車輛為 TDX 快照</p>
             </div>
         </div>
 
@@ -694,7 +698,7 @@
     <!-- 3D 走廊沙盤與動態行控中心引導橫幅 -->
     <div id="occ-live-banner">
         <span class="pin-dot emerald"></span>
-        <span>💡 <b>3D 地貌數位沙盤</b>：展示南投走廊立體高程與地形 · 沙盤為靜態模型，車輛不會移動 · 欲看車輛位置與推估移動：</span>
+        <span><b>3D 地形沙盤</b>：靜態模型，車輛不會移動。要看車輛位置與移動，請到行控中心：</span>
         <a href="occ_dashboard.html" class="banner-link">
             <i class="fa-solid fa-satellite-dish"></i> 前往 3D 動態行控中心 ➔
         </a>
@@ -781,13 +785,13 @@
     <div class="gesture-hint">
         <div><i class="fa-solid fa-computer-mouse"></i> 滑鼠左鍵拖曳 / 手機單指：360° 自由環繞旋轉</div>
         <div><i class="fa-solid fa-arrows-up-down-left-right"></i> 滑鼠右鍵 / 手機雙指拖曳：空間平移平鋪</div>
-        <div><i class="fa-solid fa-magnifying-glass-plus"></i> 滾輪滾動 / 雙指捏合：景深無限縮放</div>
+        <div><i class="fa-solid fa-magnifying-glass-plus"></i> 滾輪滾動 / 雙指捏合：縮放</div>
     </div>
 
     <!-- 遙測數據彈窗 (點擊熱點後顯示) -->
     <div id="telemetry-modal">
         <div class="modal-header">
-            <div class="modal-title" id="m-plate">BUS-TELEMETRY</div>
+            <div class="modal-title" id="m-plate">車輛資訊</div>
             <button class="modal-close" onclick="closeTelemetry()"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="telemetry-row">
