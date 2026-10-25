@@ -794,6 +794,29 @@
             <span id="current-clock" style="font-family: 'Share Tech Mono', monospace; font-size: 13px; color: var(--cyan);">13:40:00</span>
         </div>
 
+        <!-- 模式切換 Tabs：指定公車 (每一台) vs 全線站牌 -->
+        <div class="eta-mode-tabs" style="display:flex; padding:8px 12px; gap:6px; background:rgba(8,16,28,0.85); border-bottom:1px solid rgba(0,240,255,0.2);">
+            <button class="sub-tab active" id="btn-eta-mode-bus" onclick="setEtaMode('bus')" style="flex:1; padding:6px 8px; font-size:11px; text-align:center;">
+                <i class="fa-solid fa-bus"></i> 依指定公車 (每一台)
+            </button>
+            <button class="sub-tab" id="btn-eta-mode-stops" onclick="setEtaMode('stops')" style="flex:1; padding:6px 8px; font-size:11px; text-align:center;">
+                <i class="fa-solid fa-signs-post"></i> 依全線站牌
+            </button>
+        </div>
+
+        <!-- 車輛下拉選取列 (依指定公車模式時顯示) -->
+        <div id="eta-bus-picker-wrap" style="padding:8px 12px; background:rgba(12,22,38,0.7); border-bottom:1px solid rgba(0,240,255,0.15); display:flex; align-items:center; gap:8px;">
+            <span style="font-size:11px; color:var(--cyan); white-space:nowrap;"><i class="fa-solid fa-satellite"></i> 監控公車:</span>
+            <select id="eta-bus-dropdown" onchange="onEtaBusSelect(this.value)" style="flex:1; background:#070f1e; color:#ffffff; border:1px solid var(--cyan); border-radius:4px; padding:4px 8px; font-family:'Share Tech Mono', monospace; font-size:12px; outline:none; cursor:pointer;">
+                <!-- 動態注入 18 輛公車 -->
+            </select>
+        </div>
+
+        <!-- 車輛即時動態 HUD 總覽卡片 (依公車模式時顯示) -->
+        <div id="eta-vehicle-hud-card" style="margin:8px 12px 4px 12px; padding:10px 12px; background:linear-gradient(135deg, rgba(0,240,255,0.14), rgba(0,119,255,0.08)); border:1px solid var(--cyan); border-radius:8px; box-shadow:0 4px 15px rgba(0,240,255,0.15);">
+            <!-- 動態注入指定車輛之即時狀態與下一站倒數 -->
+        </div>
+
         <div class="panel-body">
             <!-- 日月潭監控儀表 -->
             <div class="info-card">
@@ -905,7 +928,8 @@
             renderStopsOnMap();
             renderBusMarkers(RAW_BUSES);
             renderBusCards(RAW_BUSES);
-            renderStopTimeline("6670 日月潭線", "去程");
+            populateEtaBusDropdown();
+            renderEtaView();
             setTimeout(playChime, 600);
         });
 
@@ -1187,29 +1211,217 @@
                     </div>
                 `)
                 .addTo(map);
+
+            // 自動將右側 ETA 監控面板切換並鎖定至此公車
+            selectedEtaPlate = plate;
+            const dropdown = document.getElementById("eta-bus-dropdown");
+            if (dropdown) dropdown.value = plate;
+            setEtaMode("bus");
         }
 
-        function renderStopTimeline(routeKey, dirKey) {
+        let currentEtaMode = "bus";
+        let selectedEtaPlate = "KKA-6715";
+
+        function populateEtaBusDropdown() {
+            const dropdown = document.getElementById("eta-bus-dropdown");
+            if (!dropdown) return;
+            dropdown.innerHTML = "";
+
+            RAW_BUSES.forEach(b => {
+                const plate = b.PlateNumb;
+                const sub = (b.SubRouteName && b.SubRouteName.Zh_tw) || "6670";
+                const speed = b.Speed || 0;
+                
+                let nextInfo = "";
+                if (typeof RAW_BUS_ARRIVALS !== 'undefined' && RAW_BUS_ARRIVALS.by_plate && RAW_BUS_ARRIVALS.by_plate[plate]) {
+                    const next = RAW_BUS_ARRIVALS.by_plate[plate][0];
+                    nextInfo = `下一站: ${next.stop} (${next.min}分)`;
+                } else {
+                    nextInfo = speed > 0 ? "巡航行駛中" : "端點整備中";
+                }
+
+                const opt = document.createElement("option");
+                opt.value = plate;
+                opt.innerText = `${plate} [${sub}] · ${speed}km/h · ${nextInfo}`;
+                dropdown.appendChild(opt);
+            });
+
+            dropdown.value = selectedEtaPlate;
+        }
+
+        function onEtaBusSelect(plate) {
+            selectedEtaPlate = plate;
+            renderEtaView();
+            playBeep(950, "sine");
+
+            const b = RAW_BUSES.find(x => x.PlateNumb === plate);
+            if (b) {
+                // 左側列表高亮
+                document.querySelectorAll(".bus-card").forEach(c => c.classList.remove("active"));
+                const targetCard = document.getElementById(`bus-card-${plate}`);
+                if (targetCard) {
+                    targetCard.classList.add("active");
+                    targetCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                }
+                // 地圖飛往該公車
+                const pos = b.BusPosition || {};
+                if (pos.PositionLon && pos.PositionLat) {
+                    map.flyTo({
+                        center: [pos.PositionLon, pos.PositionLat],
+                        zoom: 15.5,
+                        pitch: 65,
+                        bearing: b.Azimuth || 45,
+                        duration: 1800
+                    });
+                }
+            }
+        }
+
+        function setEtaMode(mode) {
+            currentEtaMode = mode;
+            const btnBus = document.getElementById("btn-eta-mode-bus");
+            const btnStops = document.getElementById("btn-eta-mode-stops");
+            const pickerWrap = document.getElementById("eta-bus-picker-wrap");
+            const hudCard = document.getElementById("eta-vehicle-hud-card");
+
+            if (mode === "bus") {
+                if (btnBus) btnBus.classList.add("active");
+                if (btnStops) btnStops.classList.remove("active");
+                if (pickerWrap) pickerWrap.style.display = "flex";
+                if (hudCard) hudCard.style.display = "block";
+            } else {
+                if (btnStops) btnStops.classList.add("active");
+                if (btnBus) btnBus.classList.remove("active");
+                if (pickerWrap) pickerWrap.style.display = "none";
+                if (hudCard) hudCard.style.display = "none";
+            }
+
+            playBeep(900, "triangle");
+            renderEtaView();
+        }
+
+        function renderEtaView() {
+            if (currentEtaMode === "bus") {
+                renderVehicleEta(selectedEtaPlate);
+            } else {
+                renderStationEta();
+            }
+        }
+
+        function renderVehicleEta(plate) {
+            const bus = RAW_BUSES.find(b => b.PlateNumb === plate);
+            const arrivals = (typeof RAW_BUS_ARRIVALS !== 'undefined' && RAW_BUS_ARRIVALS.by_plate && RAW_BUS_ARRIVALS.by_plate[plate]) || [];
+            const hudCard = document.getElementById("eta-vehicle-hud-card");
             const container = document.getElementById("stops-timeline-container");
+            if (!container) return;
             container.innerHTML = "";
 
-            const stops = (RAW_STOPS[routeKey] && RAW_STOPS[routeKey][dirKey]) || [];
+            const subName = (bus && bus.SubRouteName && bus.SubRouteName.Zh_tw) || "6670";
+            const speed = bus ? (bus.Speed || 0) : 0;
+            const dirStr = bus && bus.Direction === 0 ? "去程 (往 日月潭)" : "回程 (往 臺中)";
+
+            // 更新 HUD 摘要卡片
+            if (hudCard) {
+                if (arrivals.length > 0) {
+                    const next = arrivals[0];
+                    hudCard.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                            <span style="font-size:14px; font-weight:700; color:#fff; font-family:'Orbitron',sans-serif;">${plate} <small style="color:var(--cyan);font-size:12px;">[${subName}]</small></span>
+                            <span style="font-size:12px; font-weight:700; color:${speed > 80 ? '#ff2a5f' : (speed > 30 ? '#00ff88' : '#00f0ff')};">${speed} KM/H ${speed > 80 ? '⚡' : ''}</span>
+                        </div>
+                        <div style="font-size:11px; color:#a0b8d8; margin-bottom:6px;">
+                            <span>行駛方向: <b style="color:#fff;">${dirStr}</b></span> ·
+                            <span>狀態: <b style="color:#00ff88;">動態衛星聯網追蹤</b></span>
+                        </div>
+                        <div style="background:rgba(6,12,24,0.85); border:1px solid rgba(0,240,255,0.35); border-radius:6px; padding:6px 10px; display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <div style="font-size:10px; color:var(--cyan); font-family:'Orbitron',sans-serif; letter-spacing:0.5px;">NEXT STOP 下一停靠站</div>
+                                <div style="font-size:15px; font-weight:700; color:#fff;">${next.stop}</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <div style="font-size:16px; font-weight:700; color:#ff2a5f; font-family:'Share Tech Mono',monospace;">${next.min} 分鐘</div>
+                                <div style="font-size:10px; color:#8faac9;">(${next.sec} 秒)</div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    hudCard.innerHTML = `
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                            <span style="font-size:14px; font-weight:700; color:#fff; font-family:'Orbitron',sans-serif;">${plate} <small style="color:var(--cyan);font-size:12px;">[${subName}]</small></span>
+                            <span style="font-size:12px; color:var(--amber);">端點整備待命中</span>
+                        </div>
+                        <div style="font-size:11px; color:#a0b8d8; margin-bottom:4px;">
+                            <span>方向: <b style="color:#fff;">${dirStr}</b></span>
+                        </div>
+                        <div style="background:rgba(6,12,24,0.7); border:1px dashed rgba(255,157,0,0.4); border-radius:6px; padding:6px 10px; font-size:12px; color:#ffea80;">
+                            <i class="fa-solid fa-clock"></i> 依班表準點待發，即將啟程行駛
+                        </div>
+                    `;
+                }
+            }
+
+            // 繪製時間軸
+            if (arrivals.length > 0) {
+                arrivals.forEach((item, idx) => {
+                    const row = document.createElement("div");
+                    row.className = "stop-row";
+                    const isNext = idx === 0;
+
+                    row.innerHTML = `
+                        <div class="stop-name">
+                            <span class="stop-order">#${item.seq || (idx + 1)}</span>
+                            <span style="${isNext ? 'font-weight:700;color:#fff;' : ''}">${item.stop}</span>
+                        </div>
+                        <span class="eta-badge ${isNext ? 'incoming' : 'active-eta'}">
+                            ${isNext ? '<i class="fa-solid fa-angles-right"></i> 下一站 ' : ''}${item.min} 分鐘
+                        </span>
+                    `;
+
+                    row.addEventListener("click", () => {
+                        playBeep(850, "sine");
+                    });
+
+                    container.appendChild(row);
+                });
+            } else {
+                // 端點車，顯示常規站點順序
+                const stops = (RAW_STOPS["6670 日月潭線"] && RAW_STOPS["6670 日月潭線"]["去程"]) || [];
+                stops.forEach((st, idx) => {
+                    const row = document.createElement("div");
+                    row.className = "stop-row";
+                    row.innerHTML = `
+                        <div class="stop-name">
+                            <span class="stop-order">#${st.StopOrder}</span>
+                            <span>${st.StopName}</span>
+                        </div>
+                        <span class="eta-badge" style="opacity:0.6;">班表中</span>
+                    `;
+                    container.appendChild(row);
+                });
+            }
+        }
+
+        function renderStationEta() {
+            const container = document.getElementById("stops-timeline-container");
+            if (!container) return;
+            container.innerHTML = "";
+
+            const stops = (RAW_STOPS["6670 日月潭線"] && RAW_STOPS["6670 日月潭線"]["去程"]) || [];
 
             stops.forEach((st, idx) => {
                 const row = document.createElement("div");
                 row.className = "stop-row";
 
-                let etaText = "未發車";
-                let badgeClass = "";
+                let etaHtml = `<span class="eta-badge" style="opacity:0.6;">班表中</span>`;
 
-                if (idx === 0) {
-                    etaText = "進站中";
-                    badgeClass = "incoming";
-                } else if (idx < 5) {
-                    etaText = `${idx * 4} 分鐘`;
-                    badgeClass = "active-eta";
-                } else if (idx < 12) {
-                    etaText = `${idx * 6} 分鐘`;
+                if (typeof RAW_BUS_ARRIVALS !== 'undefined' && RAW_BUS_ARRIVALS.by_stop && RAW_BUS_ARRIVALS.by_stop[st.StopName]) {
+                    const coming = RAW_BUS_ARRIVALS.by_stop[st.StopName][0];
+                    const isVeryClose = coming.min <= 2;
+                    etaHtml = `
+                        <span class="eta-badge ${isVeryClose ? 'incoming' : 'active-eta'}">
+                            <i class="fa-solid fa-bus"></i> ${coming.plate} · ${coming.min} 分鐘
+                        </span>
+                    `;
                 }
 
                 row.innerHTML = `
@@ -1217,7 +1429,7 @@
                         <span class="stop-order">#${st.StopOrder}</span>
                         <span>${st.StopName}</span>
                     </div>
-                    <span class="eta-badge ${badgeClass}">${etaText}</span>
+                    ${etaHtml}
                 `;
 
                 row.addEventListener("click", () => {
