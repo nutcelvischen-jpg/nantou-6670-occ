@@ -201,7 +201,8 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            object-position: center 45%;
+            transition: transform 0.5s cubic-bezier(0.32,0.72,0,1);
         }
 
         .portal-card:hover .card-img-wrap img {
@@ -461,7 +462,7 @@
             <!-- 行控中心（主要入口） -->
             <a href="occ_dashboard.html" class="portal-card is-primary">
                 <div class="card-img-wrap">
-                    <img src="occ_screenshot.png" alt="行控中心畫面：地圖上的 6670 車輛與右側到站預估">
+                    <img src="occ_preview.jpg" loading="lazy" alt="行控中心畫面：地圖上的 6670 車輛與右側到站預估">
                     <div class="card-badge amber"><i class="fa-solid fa-map-location-dot"></i> 行控中心</div>
                 </div>
                 <div class="card-body">
@@ -479,7 +480,7 @@
             <!-- 3D 沙盤（次要入口） -->
             <a href="3d_viewer.html" class="portal-card">
                 <div class="card-img-wrap">
-                    <img src="blender_6670_panorama.png" alt="3D 地形沙盤：台中到日月潭走廊模型">
+                    <img src="sandbox_preview.jpg" loading="lazy" alt="3D 地形沙盤：台中到日月潭走廊模型">
                     <div class="card-badge"><i class="fa-solid fa-cube"></i> 3D 沙盤</div>
                 </div>
                 <div class="card-body">
