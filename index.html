@@ -11,16 +11,16 @@
 
     <style>
         :root {
-            --bg-deep: #050914;
-            --panel-bg: rgba(11, 20, 36, 0.9);
-            --cyan: #00d8f6;
-            --amber: #ff9d00;
-            --rose: #ff3366;
-            --emerald: #00e575;
-            --border-line: rgba(0, 216, 246, 0.25);
-            --text-primary: #f0f6fc;
-            --text-secondary: #9eb7db;
-            --text-muted: #8aa3c7;
+            --bg-deep: #f1f5f9;
+            --panel-bg: rgba(241, 245, 250, 0.9);
+            --cyan: #0284c7;
+            --amber: #d97706;
+            --rose: #e11d48;
+            --emerald: #059669;
+            --border-line: rgba(2, 132, 199, 0.25);
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --text-muted: #64748b;
         }
 
         * {
@@ -38,8 +38,8 @@
             flex-direction: column;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(0, 216, 246, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(255, 157, 0, 0.04) 0%, transparent 40%);
+                radial-gradient(circle at 20% 30%, rgba(2, 132, 199, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(217, 119, 6, 0.04) 0%, transparent 40%);
         }
 
         /* 頂部標題列 */
@@ -49,7 +49,7 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid var(--border-line);
-            background: rgba(6, 11, 22, 0.95);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             flex-wrap: wrap;
             gap: 16px;
@@ -64,21 +64,21 @@
         .brand-logo {
             width: 46px;
             height: 46px;
-            background: linear-gradient(135deg, #00d8f6, #0066ff);
+            background: linear-gradient(135deg, #0284c7, #2563eb);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 22px;
-            color: #050914;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
         }
 
         .brand-text h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 20px;
             letter-spacing: 1px;
-            color: #ffffff;
+            color: #0f172a;
             font-weight: 700;
         }
 
@@ -92,8 +92,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(0, 229, 117, 0.12);
-            border: 1px solid rgba(0, 229, 117, 0.4);
+            background: rgba(5, 150, 105, 0.12);
+            border: 1px solid rgba(5, 150, 105, 0.4);
             border-radius: 20px;
             padding: 6px 14px;
             font-size: 13px;
@@ -132,7 +132,7 @@
             font-family: 'Noto Sans TC', sans-serif;
             font-weight: 700;
             margin-bottom: 12px;
-            color: #ffffff;
+            color: #0f172a;
             letter-spacing: 0.5px;
         }
 
@@ -162,21 +162,21 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.135);
             position: relative;
         }
 
         .portal-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(0, 216, 246, 0.5);
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+            border-color: rgba(2, 132, 199, 0.5);
+            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.18);
         }
 
         .card-img-wrap {
             position: relative;
             height: 240px;
             overflow: hidden;
-            background-color: #03060c;
+            background-color: #e2e8f0;
         }
 
         .card-img-wrap img {
@@ -194,7 +194,7 @@
             position: absolute;
             top: 14px;
             left: 14px;
-            background: rgba(6, 12, 24, 0.9);
+            background: rgba(255, 255, 255, 0.9);
             border: 1px solid var(--cyan);
             border-radius: 6px;
             padding: 4px 10px;
@@ -221,7 +221,7 @@
         .card-body h3 {
             font-size: 20px;
             font-weight: 700;
-            color: #ffffff;
+            color: #0f172a;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -245,7 +245,7 @@
 
         .features-list li {
             font-size: 13px;
-            color: #c0d3ec;
+            color: #334155;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -273,39 +273,39 @@
         }
 
         .btn-cyan {
-            background: rgba(0, 216, 246, 0.12);
+            background: rgba(2, 132, 199, 0.12);
             border: 1px solid var(--cyan);
             color: var(--cyan);
         }
 
         .btn-cyan:hover {
             background: var(--cyan);
-            color: #050914;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+            color: #ffffff;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.135);
         }
 
         .btn-amber {
-            background: rgba(255, 157, 0, 0.12);
+            background: rgba(217, 119, 6, 0.12);
             border: 1px solid var(--amber);
             color: var(--amber);
         }
 
         .btn-amber:hover {
             background: var(--amber);
-            color: #050914;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+            color: #ffffff;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.135);
         }
 
         /* 底部即時走廊數據快報 */
         .live-ticker {
-            background: rgba(10, 18, 32, 0.95);
+            background: rgba(241, 245, 250, 0.95);
             border: 1px solid var(--border-line);
             border-radius: 12px;
             padding: 18px 24px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 18px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.105);
         }
 
         .ticker-item {
@@ -320,7 +320,7 @@
             width: 36px;
             height: 36px;
             border-radius: 8px;
-            background: rgba(0, 216, 246, 0.08);
+            background: rgba(2, 132, 199, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -337,7 +337,7 @@
             font-family: 'Orbitron', monospace;
             font-size: 16px;
             font-weight: 700;
-            color: #ffffff;
+            color: #0f172a;
             font-variant-numeric: tabular-nums;
         }
 
@@ -350,8 +350,8 @@
             padding: 20px 32px;
             font-size: 13px;
             color: var(--text-muted);
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(5, 9, 20, 0.98);
+            border-top: 1px solid rgba(15, 23, 42, 0.088);
+            background: rgba(255, 255, 255, 0.98);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -366,7 +366,7 @@
         }
 
         footer a:hover {
-            color: #ffffff;
+            color: #0f172a;
         }
 
         /* 響應式優化 */
@@ -421,7 +421,7 @@
 
         <div class="live-tag">
             <span class="pulse-light"></span>
-            <span class="live-text">TDX 實時數據串流中</span>
+            <span class="live-text">TDX 車輛動態快照 2026-10-25 13:35</span>
         </div>
     </header>
 
@@ -462,9 +462,9 @@
                 </div>
                 <div class="card-body">
                     <h3><i class="fa-solid fa-desktop" style="color: var(--amber);"></i> 2D/3D GIS 實時行控中心</h3>
-                    <p>專業行控調度戰情室大螢幕，以 3D 俯仰向量地圖呈現 18 輛在線車輛即時經緯度、真實時速、ETA 到站預估與音效警報。</p>
+                    <p>專業行控調度戰情室大螢幕，以 3D 俯仰向量地圖呈現 TDX 車輛動態快照（18 輛的經緯度、回報車速、到站預估），並沿路線推估移動。</p>
                     <ul class="features-list">
-                        <li><i class="fa-solid fa-check"></i> <strong>18 輛車即時追蹤</strong>：車速警戒紅燈、方向角動態指示</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>18 輛車位置追蹤</strong>：車速警戒紅燈、方向角動態指示</li>
                         <li><i class="fa-solid fa-check"></i> <strong>視角自動鎖定</strong>：點擊列表車輛，鏡頭立刻 3D 俯衝鎖定跟隨</li>
                         <li><i class="fa-solid fa-check"></i> <strong>環境遙測聯防</strong>：日月潭水位蓄水率、氣溫與國道車流</li>
                     </ul>
@@ -481,14 +481,14 @@
             <div class="ticker-item">
                 <div class="ticker-icon"><i class="fa-solid fa-bus"></i></div>
                 <div class="ticker-text">
-                    <div class="label">在線營運車隊</div>
-                    <div class="value">18 輛</div>
+                    <div class="label">車隊快照（營運中／總數）</div>
+                    <div class="value">12 / 18 輛</div>
                 </div>
             </div>
             <div class="ticker-item">
                 <div class="ticker-icon"><i class="fa-solid fa-gauge-high" style="color: var(--rose);"></i></div>
                 <div class="ticker-text">
-                    <div class="label">國道6號最高速</div>
+                    <div class="label">國道6號最高回報車速（快照）</div>
                     <div class="value val-rose">102 km/h (KKA-6715)</div>
                 </div>
             </div>
@@ -496,7 +496,7 @@
                 <div class="ticker-icon"><i class="fa-solid fa-water" style="color: var(--cyan);"></i></div>
                 <div class="ticker-text">
                     <div class="label">日月潭蓄水率</div>
-                    <div class="value val-emerald">97.8% (748.24m)</div>
+                    <div class="value val-emerald">示意值（未串接）</div>
                 </div>
             </div>
             <div class="ticker-item">

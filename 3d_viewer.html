@@ -13,16 +13,16 @@
 
     <style>
         :root {
-            --bg-dark: #080d1a;
-            --panel-bg: rgba(10, 18, 32, 0.94);
-            --cyan: #00d8f6;
-            --amber: #ff9d00;
-            --rose: #ff3366;
-            --emerald: #00e575;
-            --border-line: rgba(0, 216, 246, 0.25);
-            --text-primary: #f0f6fc;
-            --text-secondary: #9eb7db;
-            --text-dim: #8ba5c9;
+            --bg-dark: #f1f5f9;
+            --panel-bg: rgba(241, 245, 250, 0.94);
+            --cyan: #0284c7;
+            --amber: #d97706;
+            --rose: #e11d48;
+            --emerald: #059669;
+            --border-line: rgba(2, 132, 199, 0.25);
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --text-dim: #64748b;
         }
 
         * {
@@ -53,7 +53,7 @@
         model-viewer {
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at center, #0f192c 0%, #080d1a 75%, #04070d 100%);
+            background: radial-gradient(circle at center, #ffffff 0%, #eef2f6 70%, #e2e8f0 100%);
             --poster-color: transparent;
         }
 
@@ -68,7 +68,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(6, 11, 22, 0.95);
+            background: rgba(255, 255, 255, 0.95);
             border-bottom: 1px solid var(--border-line);
             backdrop-filter: blur(12px);
             z-index: 50;
@@ -86,20 +86,20 @@
         .badge-icon {
             width: 42px;
             height: 42px;
-            background: linear-gradient(135deg, #00d8f6, #0066ff);
+            background: linear-gradient(135deg, #0284c7, #2563eb);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #060b16;
+            color: #ffffff;
             font-size: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
         }
 
         .title-text h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 17px;
-            color: #ffffff;
+            color: #0f172a;
             font-weight: 700;
             letter-spacing: 0.5px;
         }
@@ -118,7 +118,7 @@
         }
 
         .capsule {
-            background: rgba(14, 25, 46, 0.85);
+            background: rgba(241, 245, 250, 0.9);
             border: 1px solid var(--border-line);
             border-radius: 6px;
             padding: 6px 14px;
@@ -153,7 +153,7 @@
         }
 
         .btn-hud {
-            background: rgba(0, 216, 246, 0.12);
+            background: rgba(2, 132, 199, 0.12);
             border: 1px solid var(--cyan);
             color: var(--cyan);
             padding: 8px 14px;
@@ -171,21 +171,21 @@
 
         .btn-hud:hover {
             background: var(--cyan);
-            color: #060b16;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
             transform: translateY(-1px);
         }
 
         .btn-primary-map {
-            background: linear-gradient(135deg, rgba(255, 157, 0, 0.2), rgba(255, 51, 102, 0.25));
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.2), rgba(225, 29, 72, 0.25));
             border-color: var(--amber);
-            color: #ffffff;
+            color: #0f172a;
         }
 
         .btn-primary-map:hover {
             background: var(--amber);
-            color: #060b16;
-            box-shadow: 0 4px 14px rgba(255, 157, 0, 0.5);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(217, 119, 6, 0.5);
         }
 
         /* 頂部引導橫幅 (區分 3D 沙盤 vs 3D 動態行控) */
@@ -195,11 +195,11 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 50;
-            background: rgba(8, 14, 28, 0.95);
+            background: rgba(241, 245, 250, 0.95);
             border: 1px solid var(--border-line);
             border-radius: 30px;
             padding: 8px 20px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
             backdrop-filter: blur(12px);
             color: var(--text-secondary);
             font-size: 13px;
@@ -211,7 +211,7 @@
         }
 
         .banner-link {
-            background: rgba(0, 216, 246, 0.2);
+            background: rgba(2, 132, 199, 0.2);
             border: 1px solid var(--cyan);
             color: var(--cyan);
             border-radius: 20px;
@@ -226,7 +226,7 @@
         }
         .banner-link:hover {
             background: var(--cyan);
-            color: #060b16;
+            color: #ffffff;
         }
 
         /* 車隊遙測抽屜開關按鈕 (左側) */
@@ -234,7 +234,7 @@
             position: absolute;
             top: 80px;
             left: 20px;
-            background: rgba(10, 20, 36, 0.92);
+            background: rgba(241, 245, 250, 0.92);
             border: 1px solid var(--border-line);
             color: var(--cyan);
             border-radius: 24px;
@@ -247,14 +247,14 @@
             gap: 8px;
             cursor: pointer;
             backdrop-filter: blur(12px);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18);
             z-index: 55;
             transition: all 0.2s ease;
         }
         .fleet-toggle-btn:hover {
             border-color: var(--cyan);
-            background: rgba(0, 216, 246, 0.2);
-            color: #ffffff;
+            background: rgba(2, 132, 199, 0.2);
+            color: #0f172a;
             transform: translateY(-1px);
         }
 
@@ -266,11 +266,11 @@
             bottom: 80px;
             width: 330px;
             max-width: 88vw;
-            background: rgba(10, 18, 32, 0.96);
+            background: rgba(241, 245, 250, 0.96);
             border: 1px solid var(--border-line);
             border-radius: 14px;
             backdrop-filter: blur(16px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.24);
             z-index: 60;
             display: flex;
             flex-direction: column;
@@ -288,7 +288,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(15, 26, 48, 0.85);
+            background: rgba(241, 245, 250, 0.9);
         }
         .drawer-title {
             font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
@@ -307,14 +307,14 @@
             cursor: pointer;
             padding: 4px;
         }
-        .drawer-close:hover { color: #ffffff; }
+        .drawer-close:hover { color: #0f172a; }
 
         .drawer-sub {
             padding: 8px 16px;
             font-size: 11px;
             color: var(--text-dim);
-            background: rgba(8, 14, 26, 0.6);
-            border-bottom: 1px solid rgba(0, 216, 246, 0.1);
+            background: rgba(241, 245, 250, 0.6);
+            border-bottom: 1px solid rgba(2, 132, 199, 0.1);
         }
 
         .fleet-list {
@@ -326,11 +326,11 @@
             gap: 8px;
         }
         .fleet-list::-webkit-scrollbar { width: 4px; }
-        .fleet-list::-webkit-scrollbar-thumb { background: rgba(0, 216, 246, 0.25); border-radius: 4px; }
+        .fleet-list::-webkit-scrollbar-thumb { background: rgba(2, 132, 199, 0.25); border-radius: 4px; }
 
         .sandpit-bus-card {
-            background: rgba(14, 25, 45, 0.75);
-            border: 1px solid rgba(0, 216, 246, 0.15);
+            background: rgba(241, 245, 250, 0.9);
+            border: 1px solid rgba(2, 132, 199, 0.15);
             border-radius: 8px;
             padding: 10px 12px;
             cursor: pointer;
@@ -338,7 +338,7 @@
         }
         .sandpit-bus-card:hover {
             border-color: var(--cyan);
-            background: rgba(0, 216, 246, 0.12);
+            background: rgba(2, 132, 199, 0.12);
             transform: translateY(-1px);
         }
 
@@ -352,7 +352,7 @@
             font-family: 'Orbitron', monospace;
             font-size: 14px;
             font-weight: 700;
-            color: #ffffff;
+            color: #0f172a;
         }
         .s-card-speed {
             font-family: 'Orbitron', monospace;
@@ -360,11 +360,11 @@
             font-weight: 700;
             padding: 2px 7px;
             border-radius: 4px;
-            background: rgba(0, 216, 246, 0.15);
+            background: rgba(2, 132, 199, 0.15);
             color: var(--cyan);
         }
         .s-card-speed.fast {
-            background: rgba(255, 42, 95, 0.25);
+            background: rgba(225, 29, 72, 0.25);
             color: var(--rose);
             border: 1px solid var(--rose);
         }
@@ -378,14 +378,14 @@
             align-items: center;
             gap: 8px;
             margin-top: 6px;
-            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+            border-top: 1px dashed rgba(15, 23, 42, 0.11);
             padding-top: 6px;
         }
         .s-btn-focus {
             font-size: 11px;
             color: var(--cyan);
-            background: rgba(0, 216, 246, 0.1);
-            border: 1px solid rgba(0, 216, 246, 0.3);
+            background: rgba(2, 132, 199, 0.1);
+            border: 1px solid rgba(2, 132, 199, 0.3);
             border-radius: 4px;
             padding: 3px 8px;
             cursor: pointer;
@@ -396,13 +396,13 @@
         }
         .s-btn-focus:hover {
             background: var(--cyan);
-            color: #060b16;
+            color: #ffffff;
         }
         .s-btn-track {
             font-size: 11px;
             color: var(--amber);
-            background: rgba(255, 157, 0, 0.12);
-            border: 1px solid rgba(255, 157, 0, 0.3);
+            background: rgba(217, 119, 6, 0.12);
+            border: 1px solid rgba(217, 119, 6, 0.3);
             border-radius: 4px;
             padding: 3px 8px;
             cursor: pointer;
@@ -414,7 +414,7 @@
         }
         .s-btn-track:hover {
             background: var(--amber);
-            color: #060b16;
+            color: #ffffff;
         }
 
         /* 底部相機視角跳轉工具列 */
@@ -431,7 +431,7 @@
             border-radius: 40px;
             padding: 6px 14px;
             backdrop-filter: blur(12px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15);
             z-index: 50;
             max-width: 90vw;
             overflow-x: auto;
@@ -457,25 +457,25 @@
         }
 
         .cam-btn:hover, .cam-btn.active {
-            color: #ffffff;
-            background: rgba(0, 216, 246, 0.18);
+            color: #0f172a;
+            background: rgba(2, 132, 199, 0.18);
             border-color: var(--cyan);
         }
 
         /* 3D 浮空互動熱點 (Hotspots) */
         .hotspot-pin {
-            background: rgba(6, 12, 24, 0.94);
+            background: rgba(255, 255, 255, 0.94);
             border: 1px solid var(--cyan);
             border-radius: 24px;
             padding: 5px 12px;
-            color: #ffffff;
+            color: #0f172a;
             font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
             font-size: 12px;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
             cursor: pointer;
             transition: transform 0.2s;
             pointer-events: auto;
@@ -483,7 +483,7 @@
 
         .hotspot-pin:hover {
             transform: scale(1.08);
-            border-color: #ffffff;
+            border-color: #0f172a;
         }
 
         .pin-dot {
@@ -509,7 +509,7 @@
             border-radius: 12px;
             padding: 16px;
             backdrop-filter: blur(14px);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.21);
             z-index: 60;
             display: none;
             animation: slideIn 0.25s ease;
@@ -544,7 +544,7 @@
             cursor: pointer;
         }
 
-        .modal-close:hover { color: #ffffff; }
+        .modal-close:hover { color: #0f172a; }
 
         .telemetry-row {
             display: flex;
@@ -554,7 +554,7 @@
         }
 
         .telemetry-row .label { color: var(--text-dim); }
-        .telemetry-row .value { font-family: 'Orbitron', monospace; font-weight: 700; color: #ffffff; font-variant-numeric: tabular-nums; }
+        .telemetry-row .value { font-family: 'Orbitron', monospace; font-weight: 700; color: #0f172a; font-variant-numeric: tabular-nums; }
 
         .modal-occ-btn {
             display: flex;
@@ -564,9 +564,9 @@
             width: 100%;
             margin-top: 14px;
             padding: 9px;
-            background: linear-gradient(135deg, rgba(0, 216, 246, 0.2), rgba(0, 102, 255, 0.25));
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.2), rgba(37, 99, 235, 0.25));
             border: 1px solid var(--cyan);
-            color: #ffffff;
+            color: #0f172a;
             border-radius: 6px;
             font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
             font-size: 13px;
@@ -577,8 +577,8 @@
         }
         .modal-occ-btn:hover {
             background: var(--cyan);
-            color: #060b16;
-            box-shadow: 0 4px 14px rgba(0, 216, 246, 0.4);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
         }
 
         /* 左下角操作指南 */
@@ -586,7 +586,7 @@
             position: absolute;
             bottom: 24px;
             left: 24px;
-            background: rgba(10, 18, 32, 0.85);
+            background: rgba(241, 245, 250, 0.9);
             border: 1px solid var(--border-line);
             border-radius: 8px;
             padding: 8px 14px;
@@ -596,7 +596,7 @@
             flex-direction: column;
             gap: 4px;
             pointer-events: none;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.105);
         }
 
         /* 響應式優化 */
@@ -672,16 +672,16 @@
 
         <div class="telemetry-capsules">
             <div class="capsule">
-                <span class="capsule-label">在線車輛</span>
-                <span class="capsule-val c-cyan">18 輛</span>
+                <span class="capsule-label">營運中車輛</span>
+                <span class="capsule-val c-cyan" id="cap-live">—</span>
             </div>
             <div class="capsule">
-                <span class="capsule-label">國道最高速</span>
-                <span class="capsule-val c-rose">102 km/h</span>
+                <span class="capsule-label">最高回報車速</span>
+                <span class="capsule-val c-rose" id="cap-max">—</span>
             </div>
             <div class="capsule">
-                <span class="capsule-label">行控串流</span>
-                <span class="capsule-val c-emerald">實時同步中</span>
+                <span class="capsule-label">資料時間</span>
+                <span class="capsule-val c-emerald" id="cap-time">—</span>
             </div>
         </div>
 
@@ -694,7 +694,7 @@
     <!-- 3D 走廊沙盤與動態行控中心引導橫幅 -->
     <div id="occ-live-banner">
         <span class="pin-dot emerald"></span>
-        <span>💡 <b>3D 地貌數位沙盤</b>：展示南投走廊立體高程與地形 · 欲觀看 <b>18 輛公車實時道路動態推進與 3D 俯衝鎖定</b>：</span>
+        <span>💡 <b>3D 地貌數位沙盤</b>：展示南投走廊立體高程與地形 · 沙盤為靜態模型，車輛不會移動 · 欲看車輛位置與推估移動：</span>
         <a href="occ_dashboard.html" class="banner-link">
             <i class="fa-solid fa-satellite-dish"></i> 前往 3D 動態行控中心 ➔
         </a>
@@ -771,7 +771,7 @@
     <!-- 底部相機預設視角切換器 -->
     <div class="camera-dock">
         <button class="cam-btn active" onclick="setCam('0deg 58deg 92m -4m 2m 4m', this)"><i class="fa-solid fa-panorama"></i> 全景走廊</button>
-        <button class="cam-btn" onclick="setCam('25deg 55deg 22m 7.6m 2.2m 5.5m', this)"><i class="fa-solid fa-bolt"></i> 國道飆速特寫 (102km/h)</button>
+        <button class="cam-btn" onclick="setCam('25deg 55deg 22m 7.6m 2.2m 5.5m', this)"><i class="fa-solid fa-bolt"></i> 國道6號特寫</button>
         <button class="cam-btn" onclick="setCam('-38deg 52deg 26m 33.7m 4.5m 35.0m', this)"><i class="fa-solid fa-water"></i> 日月潭水社群</button>
         <button class="cam-btn" onclick="setCam('135deg 58deg 32m -22m 1.5m -28m', this)"><i class="fa-solid fa-train"></i> 臺中都會端 (高鐵/火車站)</button>
         <button class="cam-btn" onclick="setCam('-12deg 55deg 26m 35m 3m 12m', this)"><i class="fa-solid fa-mountain"></i> 埔里盆地</button>
@@ -850,42 +850,61 @@ const RAW_BUSES = [{"PlateNumb": "958-FX", "OperatorID": "64", "OperatorNo": "09
             drawer.classList.toggle('open');
         }
 
+        // 依車輛實際 GPS 判斷所在區域與沙盤視角（原本依寫死的車號清單判斷，車輛換位置就會對錯地方）
+        const CAMS = {
+            g6: '25deg 55deg 22m 7.6m 2.2m 5.5m', shuishe: '-38deg 52deg 26m 33.7m 4.5m 35.0m', xiangshan: '-42deg 52deg 24m 31.5m 4.8m 38.6m',
+            puli: '-12deg 55deg 26m 35m 3m 12m', taichung: '135deg 58deg 32m -22m 1.5m -28m', all: '0deg 58deg 92m -4m 2m 4m'
+        };
+        const ZONE_NAME = { g6: '國道6號路段', shuishe: '日月潭水社一帶', xiangshan: '向山一帶', puli: '埔里市區', taichung: '臺中都會端', hsr: '高鐵臺中站', tra: '臺中火車站', all: '南投走廊' };
+        const near = (lat, lon, la, lo, m) => Math.hypot((lon - lo) * 102000, (lat - la) * 110900) < m;
+        function zoneOf(bus) {
+            const p = bus.BusPosition || {}, lat = p.PositionLat, lon = p.PositionLon;
+            if (!lat || !lon) return 'all';
+            if (near(lat, lon, 23.8518, 120.9011, 1500)) return 'xiangshan';
+            if (lat < 23.93 && lon > 120.88) return 'shuishe';
+            if (lat > 23.94 && lon >= 120.93) return 'puli';
+            if (lat >= 23.97 && lat <= 24.04 && lon > 120.69 && lon < 120.93) return 'g6';
+            if (lat > 24.08) return 'taichung';
+            return 'all';
+        }
+        function busState(b) { return b.DutyStatus === 2 ? '已結束營運' : ((b.Speed || 0) > 0 ? '行駛中' : '停等中'); }
         function flyToBus(plate) {
             const bus = RAW_BUSES.find(b => b.PlateNumb === plate);
             if (!bus) return;
-
-            const speed = bus.Speed || 0;
-            const sub = (bus.SubRouteName && bus.SubRouteName.Zh_tw) || "6670";
-            let camOrbit = '0deg 58deg 92m -4m 2m 4m';
-            let locDesc = '南投走廊巡航路段';
-            let statusDesc = '正常巡航';
-
-            if (speed >= 70 || plate === 'KKA-6715' || plate === '990-FX' || plate === '950-FX' || plate === '956-FX') {
-                camOrbit = '25deg 55deg 22m 7.6m 2.2m 5.5m';
-                locDesc = `國道6號高速巡航段 (${bus.BusPosition.PositionLat.toFixed(4)}°N, ${bus.BusPosition.PositionLon.toFixed(4)}°E)`;
-                statusDesc = speed >= 90 ? '極速巡航中 (全息警戒光環)' : '高速巡航中';
-            } else if (['953-FX', '985-FX', 'KKA-6703', 'KKA-6738', '981-FX'].includes(plate)) {
-                camOrbit = '-38deg 52deg 26m 33.7m 4.5m 35.0m';
-                locDesc = `日月潭水社商場站 (${bus.BusPosition.PositionLat.toFixed(4)}°N, ${bus.BusPosition.PositionLon.toFixed(4)}°E)`;
-                statusDesc = '終端群聚停靠 / 站管通報';
-            } else if (plate === 'KKA-6761') {
-                camOrbit = '-42deg 52deg 24m 31.5m 4.8m 38.6m';
-                locDesc = `向山遊客中心前路段 (${bus.BusPosition.PositionLat.toFixed(4)}°N, ${bus.BusPosition.PositionLon.toFixed(4)}°E)`;
-                statusDesc = '沿潭景觀低速安全巡航';
-            } else if (['958-FX', 'KKA-6717', '960-FX', 'KKA-6770'].includes(plate)) {
-                camOrbit = '-12deg 55deg 26m 35m 3m 12m';
-                locDesc = `埔里轉運中心 (${bus.BusPosition.PositionLat.toFixed(4)}°N, ${bus.BusPosition.PositionLon.toFixed(4)}°E)`;
-                statusDesc = '轉運站乘客上下車與整補';
-            } else {
-                camOrbit = '135deg 58deg 32m -22m 1.5m -28m';
-                locDesc = `臺中都會端 / 轉運節點 (${bus.BusPosition.PositionLat.toFixed(4)}°N, ${bus.BusPosition.PositionLon.toFixed(4)}°E)`;
-                statusDesc = speed === 0 ? '場站待發整隊' : '都會路段行駛中';
-            }
-
-            setCam(camOrbit, null);
-            showTelemetry(plate, sub, `${speed} km/h`, locDesc, statusDesc);
+            const speed = bus.Speed || 0, sub = (bus.SubRouteName && bus.SubRouteName.Zh_tw) || "6670", z = zoneOf(bus), p = bus.BusPosition || {};
+            setCam(CAMS[z] || CAMS.all, null);
+            const at = p.PositionLat ? ` (${p.PositionLat.toFixed(4)}°N, ${p.PositionLon.toFixed(4)}°E)` : '';
+            showTelemetry(plate, sub, `${speed} km/h`, `${ZONE_NAME[z]}${at}`, `${busState(bus)} · 回報 ${(bus.GPSTime || '').slice(11, 16)}`);
         }
-
+        // 沙盤熱點：標籤與點擊內容依目前資料即時產生（原本寫死車號與車速）
+        const HOTSPOT_RULE = {
+            'hotspot-g6': { name: '國道6號', test: (b) => zoneOf(b) === 'g6' },
+            'hotspot-hsr': { name: '臺中高鐵站', test: (b) => { const p = b.BusPosition || {}; return near(p.PositionLat, p.PositionLon, 24.1110, 120.6165, 1500); } },
+            'hotspot-tra': { name: '臺中火車站', test: (b) => { const p = b.BusPosition || {}; return near(p.PositionLat, p.PositionLon, 24.1418, 120.6865, 2000); } },
+            'hotspot-puli': { name: '埔里', test: (b) => zoneOf(b) === 'puli' },
+            'hotspot-shuishe': { name: '日月潭水社', test: (b) => zoneOf(b) === 'shuishe' },
+            'hotspot-xiangshan': { name: '向山遊客中心', test: (b) => zoneOf(b) === 'xiangshan' },
+        };
+        function initHotspots() {
+            document.querySelectorAll('.hotspot-pin').forEach(pin => {
+                const rule = HOTSPOT_RULE[pin.getAttribute('slot')]; if (!rule) return;
+                const list = RAW_BUSES.filter(rule.test);
+                pin.removeAttribute('onclick');
+                const label = pin.querySelector('span:last-child');
+                if (label) label.innerText = `${rule.name}（${list.length} 輛）`;
+                pin.addEventListener('click', () => {
+                    if (!list.length) return showTelemetry(rule.name, '—', '—', rule.name, '此區目前沒有車');
+                    const fast = Math.max(...list.map(b => b.Speed || 0));
+                    showTelemetry(list.map(b => b.PlateNumb).join(' / '), [...new Set(list.map(b => (b.SubRouteName && b.SubRouteName.Zh_tw) || '6670'))].join('、'), list.length === 1 ? `${fast} km/h` : `最高 ${fast} km/h`, rule.name, list.map(b => `${b.PlateNumb} ${busState(b)}`).join('；'));
+                    const occBtn = document.getElementById('m-btn-occ'); if (occBtn) occBtn.href = `occ_dashboard.html?focus=${encodeURIComponent(list[0].PlateNumb)}`;
+                });
+            });
+            const n = RAW_BUSES.length, snap = RAW_BUSES.map(b => b.GPSTime || '').sort().pop() || '';
+            const live = RAW_BUSES.filter(b => b.DutyStatus !== 2), mx = RAW_BUSES.reduce((a, b) => (b.Speed || 0) > (a.Speed || 0) ? b : a, {});
+            const set = (id, v) => { const e = document.getElementById(id); if (e) e.innerText = v; };
+            set('cap-live', `${live.length} / ${n} 輛`); set('cap-max', mx.PlateNumb ? `${mx.Speed} km/h` : '—'); set('cap-time', `快照 ${snap.slice(11, 16)}`);
+            const tbtn = document.querySelector('#fleet-toggle-btn span'); if (tbtn) tbtn.innerText = `車隊快照 (${n} 輛 · ${snap.slice(11, 16)})`;
+        }
         function showTelemetry(plate, route, speed, loc, status) {
             document.getElementById('m-plate').innerText = plate;
             document.getElementById('m-route').innerText = route;
@@ -895,7 +914,7 @@ const RAW_BUSES = [{"PlateNumb": "958-FX", "OperatorID": "64", "OperatorNo": "09
             
             const occBtn = document.getElementById('m-btn-occ');
             if (occBtn) {
-                occBtn.href = `occ_dashboard.html?focus=${plate}`;
+                occBtn.href = `occ_dashboard.html?focus=${encodeURIComponent(plate.split(' / ')[0])}`;
                 occBtn.innerHTML = `<i class="fa-solid fa-satellite-dish"></i> 進入 3D 動態行控中心追蹤 [${plate}] ➔`;
             }
             document.getElementById('telemetry-modal').style.display = 'block';
@@ -926,12 +945,12 @@ const RAW_BUSES = [{"PlateNumb": "958-FX", "OperatorID": "64", "OperatorNo": "09
                 card.innerHTML = `
                     <div class="s-card-top">
                         <span class="s-card-plate">${plate}</span>
-                        <span class="s-card-speed ${isFast ? 'fast' : ''}">${speed} km/h</span>
+                        <span class="s-card-speed ${isFast ? 'fast' : ''}">${speed} km/h${bus.DutyStatus === 2 ? ' · 已收班' : ''}</span>
                     </div>
                     <div class="s-card-route"><i class="fa-solid fa-route"></i> ${sub}</div>
                     <div class="s-card-actions">
                         <span class="s-btn-focus"><i class="fa-solid fa-crosshairs"></i> 沙盤對焦</span>
-                        <a href="occ_dashboard.html?focus=${plate}" class="s-btn-track" onclick="event.stopPropagation();">
+                        <a href="occ_dashboard.html?focus=${encodeURIComponent(plate)}" class="s-btn-track" onclick="event.stopPropagation();">
                             <i class="fa-solid fa-satellite-dish"></i> GIS 追蹤 ➔
                         </a>
                     </div>
@@ -942,6 +961,7 @@ const RAW_BUSES = [{"PlateNumb": "958-FX", "OperatorID": "64", "OperatorNo": "09
 
         // 初始化渲染車隊動態
         renderSandpitFleet();
+        initHotspots();
     </script>
 </body>
 </html>
