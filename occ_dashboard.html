@@ -1623,7 +1623,7 @@
             const targetCard = document.getElementById(`bus-card-${plate}`);
             if (targetCard) {
                 targetCard.classList.add("active");
-                targetCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                scrollCardIntoList(targetCard);
             }
             document.querySelectorAll(".bus-marker.is-focus").forEach(m => m.classList.remove("is-focus"));
             const mk = document.getElementById(`bus-marker-${plate}`); if (mk) mk.classList.add("is-focus");
@@ -1750,7 +1750,7 @@
                 const targetCard = document.getElementById(`bus-card-${plate}`);
                 if (targetCard) {
                     targetCard.classList.add("active");
-                    targetCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                    scrollCardIntoList(targetCard);
                 }
                 // 地圖飛往該公車（目前位置，與地圖上的車一致）
                 const fp = fleetPos(plate);
@@ -1834,6 +1834,18 @@
             document.querySelectorAll(".preset-btn").forEach(b => b.classList.remove("active"));
             document.getElementById("ticker-text").innerText = `站牌位置：${name}${info ? "（" + info + "）" : ""} · 全線鳥瞰，點紅色標記可放大`;
         }
+
+        // 只捲動車隊清單本身；不用 scrollIntoView，避免手機抽屜收起時連整頁一起被捲走（標題列消失、下方空白）
+        function scrollCardIntoList(card) {
+            const list = card.closest(".panel-body") || card.parentElement;
+            if (!list) return;
+            const top = card.offsetTop - list.offsetTop, bottom = top + card.offsetHeight;
+            if (top < list.scrollTop) list.scrollTo({ top: top - 8, behavior: "smooth" });
+            else if (bottom > list.scrollTop + list.clientHeight) list.scrollTo({ top: bottom - list.clientHeight + 8, behavior: "smooth" });
+        }
+        // 保險：整頁不允許捲動，任何原因被捲動就拉回原位
+        [document.scrollingElement, document.body].forEach(el => el && el.addEventListener && el.addEventListener("scroll", () => { if (el.scrollTop || el.scrollLeft) { el.scrollTop = 0; el.scrollLeft = 0; } }));
+        window.addEventListener("scroll", () => { if (window.scrollY || window.scrollX) window.scrollTo(0, 0); });
 
         function renderEtaView() {
             if (currentEtaMode === "bus") {
