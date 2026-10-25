@@ -1,0 +1,51 @@
+.exec-dashboard{color:#263d33;font-size:16px}
+.exec-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:8px 0 22px}
+.exec-heading h1{font-size:32px;letter-spacing:-.035em;margin:6px 0 8px}
+.exec-heading p{margin:0;color:#728075;font-size:17px}
+.exec-eyebrow{display:flex;align-items:center;gap:8px;color:#7d9687;font-size:13px;letter-spacing:.14em}
+.exec-export{display:flex;align-items:center;gap:9px;background:#315f4b;color:#fff;border:0;border-radius:12px;padding:13px 17px;font:inherit;cursor:pointer}
+.exec-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;border-bottom:1px solid #dbe3d9;padding-bottom:16px}
+.exec-nav button{border:1px solid #d9e3d8;border-radius:25px;background:#fff;padding:9px 15px;color:#365d44;font-size:16px;cursor:pointer}
+.exec-nav button:hover{background:#e5ede3}
+.exec-toolbar{display:flex;gap:18px;align-items:center;flex-wrap:wrap;border-block:1px solid #dee6de;padding:14px 0;margin-bottom:22px;scroll-margin-top:90px}
+.exec-toolbar label{display:flex;align-items:center;gap:10px;color:#6b7c70}
+.exec-toolbar select{font:inherit;padding:9px 13px;color:#243f30;background:#fff;border:1px solid #d8e2d8;border-radius:9px;min-height:42px;cursor:pointer}
+.exec-toolbar>span{color:#788579;margin-left:auto}
+.exec-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;scroll-margin-top:90px}
+.exec-kpis article{padding:20px 22px;background:#fff;border:1px solid #e1e7de;border-radius:16px}
+.exec-kpis article>span{color:#65776a}
+.exec-kpis strong{display:block;font-size:32px;font-weight:600;letter-spacing:-.04em;margin:12px 0 6px;font-variant-numeric:tabular-nums}
+.exec-kpis article>div{display:flex;align-items:center;gap:8px}
+.exec-kpis article>div>b{font-size:17px;font-weight:600}
+.exec-kpis article>div>b.up{color:#315f4b}
+.exec-kpis article>div>b.down{color:#a4653f}
+.exec-kpis article>div>small{color:#8b988e}
+.exec-kpis p{margin:10px 0 0;color:#7a877e;font-size:15px;line-height:1.6}
+.exec-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.exec-panel{background:#fff;border:1px solid #e1e7de;border-radius:16px;padding:22px;scroll-margin-top:90px}
+.exec-panel.exec-wide{grid-column:1/-1}
+.exec-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px}
+.exec-panel-head h2{font-size:21px;margin:0 0 6px;letter-spacing:-.02em}
+.exec-panel-head p{margin:0;color:#75857a;font-size:15px}
+.exec-panel-head select{font:inherit;padding:8px 12px;border:1px solid #d8e2d8;border-radius:9px;background:#fff;color:#243f30;cursor:pointer}
+.exec-chart{height:300px;width:100%}
+.exec-chart-tall{height:380px}
+.exec-note{margin:12px 0 0;color:#7a877e;font-size:15px;line-height:1.7}
+.exec-pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.exec-pain-grid>div{background:#f4f7f1;border:1px solid #e3eae0;border-radius:14px;padding:16px 18px}
+.exec-pain-grid b{display:block;margin-bottom:8px;font-size:16px}
+.exec-pain-grid span{color:#63766a;font-size:15px;line-height:1.7}
+.exec-options{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.exec-options article{border:1px solid #e1e7de;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.exec-options article.recommended{border-color:#39765d;background:#f2f7f2;box-shadow:0 10px 26px #39765d14}
+.exec-options small{color:#7d9687;letter-spacing:.1em;font-size:12px}
+.exec-options b{font-size:18px}
+.exec-options p{margin:0;color:#5d7064;font-size:15px;line-height:1.7}
+.exec-options p i{font-style:normal;color:#39765d;font-weight:600;margin-right:6px}
+.exec-why{color:#41564a}
+.exec-table{width:100%;border-collapse:collapse;font-size:15px}
+.exec-table th{text-align:left;color:#65776a;font-weight:600;padding:10px 12px;border-bottom:1px solid #dfe7dd}
+.exec-table td{padding:11px 12px;border-bottom:1px solid #edf1ea;color:#41564a;line-height:1.6}
+@media(min-width:1600px){.exec-chart{height:340px}.exec-chart-tall{height:420px}.exec-kpis strong{font-size:38px}}
+@media(max-width:1100px){.exec-kpis{grid-template-columns:1fr 1fr}.exec-grid,.exec-pain-grid,.exec-options{grid-template-columns:1fr}.exec-heading{align-items:flex-start;flex-direction:column}}
+@media(max-width:650px){.exec-kpis{grid-template-columns:1fr}.exec-heading h1{font-size:26px}.exec-panel{padding:16px}.exec-chart{height:260px}.exec-chart-tall{height:320px}}

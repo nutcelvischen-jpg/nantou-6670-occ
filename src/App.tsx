@@ -11,6 +11,7 @@ import {
   Clock3,
   FileCheck2,
   Filter,
+  Gauge,
   Leaf,
   Map as MapIcon,
   MoreHorizontal,
@@ -32,6 +33,7 @@ import { OperationsAssistant } from "./components/OperationsAssistant";
 import { TimetableScenarioLab, type ScenarioPanel } from "./components/TimetableScenarioLab";
 import { BaselineDetails } from "./components/BaselineDetails";
 import { AnnualComparison } from "./components/AnnualComparison";
+import { ExecutiveDashboard } from "./components/ExecutiveDashboard";
 import { availableYears } from "./annualComparison";
 import { ModelMethodology } from "./components/ModelMethodology";
 import aggregatesJson from "./data/ticket-aggregates.json";
@@ -53,6 +55,7 @@ type Page =
   | "設計邏輯"
   | "使用說明"
   | "營運總覽"
+  | "決策儀表板"
   | "模擬預測"
   | "行車模擬"
   | "旅遊資訊"
@@ -67,6 +70,7 @@ type PublishedTimetable = typeof timetableJson;
 const nav: { name: Page; icon: typeof Activity; group: string }[] = [
   { name: "設計邏輯", icon: FileCheck2, group: "開始探索" },
   { name: "營運總覽", icon: MapIcon, group: "工作台" },
+  { name: "決策儀表板", icon: Gauge, group: "工作台" },
   { name: "模擬預測", icon: Activity, group: "工作台" },
   { name: "行車模擬", icon: Bus, group: "工作台" },
   { name: "成本最佳化", icon: SlidersHorizontal, group: "規劃" },
@@ -399,6 +403,7 @@ export function App() {
     onYears={(base,target)=>{setCompareYear(base);setYear(target);}} onAsk={askBaseline} />;
   const content = () => {
     if (page === "設計邏輯") return <DesignLogic onNavigate={navigate} onOpenScenario={openScenario} />;
+    if (page === "決策儀表板") return <ExecutiveDashboard />;
     if (page === "使用說明") return <UserGuide onOpenScenario={openScenario} onNavigate={p => {if(nav.some(n=>n.name===p)) navigate(p as Page);}} />;
     if (page === "模型方法") return <ModelMethodology onNavigate={navigate} onOpenScenario={openScenario} />;
     if (page === "智慧小幫手") return <OperationsAssistant year={year} route={route} compareYear={compareYear} initialQuestion={assistantQuestion} years={availableYears(data)} onYears={(b,t)=>{setCompareYear(b);setYear(t);}} onNavigate={setPage} />;

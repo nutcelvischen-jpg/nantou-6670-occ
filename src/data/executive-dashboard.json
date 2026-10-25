@@ -1,0 +1,489 @@
+{
+ "generated_at": "2026-10-25T03:24:22+00:00",
+ "sources": [
+  "2024年_6670刷卡資料.xlsx",
+  "2025年_6670刷卡資料.xlsx"
+ ],
+ "years": [
+  2024,
+  2025
+ ],
+ "by_year": {
+  "2024": {
+   "rows": 875149,
+   "observed_days": 361,
+   "unique_cards": 255937,
+   "repeat_card_rate": 0.6592,
+   "one_time_card_rate": 0.3408,
+   "fare": {
+    "actual": 85892186,
+    "discount": 12921483,
+    "original": 106134782,
+    "avg_actual": 98.1,
+    "subsidy_share": 0.1217
+   },
+   "duration_minutes": {
+    "median": 64.0,
+    "mean": 70.5,
+    "p90": 109.4
+   },
+   "monthly": [
+    70446,
+    72573,
+    77812,
+    72384,
+    71805,
+    69429,
+    60797,
+    70586,
+    71236,
+    72753,
+    79976,
+    85352
+   ],
+   "hourly": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    8496,
+    13594,
+    57014,
+    70578,
+    76430,
+    72746,
+    61120,
+    56106,
+    64296,
+    56573,
+    70689,
+    78989,
+    62202,
+    53170,
+    38408,
+    19419,
+    13025,
+    2293,
+    1
+   ],
+   "weekday_daily_mean": [
+    2307.3,
+    2074.8,
+    2127.6,
+    2154.8,
+    2815.5,
+    2609.8,
+    2861.9
+   ],
+   "weekend_workday_ratio": 1.19,
+   "top_od_share": 0.3703,
+   "top_od": [
+    {
+     "origin": "埔里站",
+     "destination": "高鐵臺中站",
+     "transactions": 166522
+    },
+    {
+     "origin": "高鐵臺中站",
+     "destination": "埔里站",
+     "transactions": 157540
+    },
+    {
+     "origin": "日月潭",
+     "destination": "高鐵臺中站",
+     "transactions": 72680
+    },
+    {
+     "origin": "高鐵臺中站",
+     "destination": "日月潭",
+     "transactions": 62666
+    },
+    {
+     "origin": "臺中",
+     "destination": "埔里站",
+     "transactions": 61476
+    },
+    {
+     "origin": "臺中",
+     "destination": "日月潭",
+     "transactions": 55881
+    },
+    {
+     "origin": "日月潭",
+     "destination": "臺中",
+     "transactions": 49948
+    },
+    {
+     "origin": "埔里站",
+     "destination": "臺中",
+     "transactions": 46692
+    },
+    {
+     "origin": "高鐵臺中站",
+     "destination": "崎下",
+     "transactions": 18729
+    },
+    {
+     "origin": "日月潭",
+     "destination": "埔里站",
+     "transactions": 9762
+    }
+   ],
+   "top_stations": [
+    {
+     "name": "高鐵臺中站",
+     "touches": 268582
+    },
+    {
+     "name": "埔里站",
+     "touches": 236914
+    },
+    {
+     "name": "臺中",
+     "touches": 149354
+    },
+    {
+     "name": "日月潭",
+     "touches": 142484
+    },
+    {
+     "name": "魚池",
+     "touches": 21283
+    },
+    {
+     "name": "崎下",
+     "touches": 18065
+    },
+    {
+     "name": "暨南大學校內",
+     "touches": 10711
+    },
+    {
+     "name": "九族文化村",
+     "touches": 9898
+    }
+   ],
+   "routes": [
+    {
+     "route": "6670D",
+     "transactions": 423365
+    },
+    {
+     "route": "6670H",
+     "transactions": 154063
+    },
+    {
+     "route": "6670A",
+     "transactions": 126959
+    },
+    {
+     "route": "6670B",
+     "transactions": 85340
+    },
+    {
+     "route": "6670F",
+     "transactions": 84475
+    },
+    {
+     "route": "6670E",
+     "transactions": 947
+    }
+   ],
+   "ticket_types": [
+    {
+     "type": "台北市一般票",
+     "transactions": 377770
+    },
+    {
+     "type": "暨南大學學生卡",
+     "transactions": 66208
+    },
+    {
+     "type": "一般卡",
+     "transactions": 58062
+    },
+    {
+     "type": "臺中市敬老1票",
+     "transactions": 37833
+    },
+    {
+     "type": "台北市學生票",
+     "transactions": 36901
+    },
+    {
+     "type": "南投縣敬老卡",
+     "transactions": 31245
+    },
+    {
+     "type": "臺中市一般票",
+     "transactions": 30593
+    },
+    {
+     "type": "南投縣敬老1票",
+     "transactions": 25613
+    }
+   ],
+   "top_days": [
+    {
+     "date": "2024-12-27",
+     "transactions": 3667
+    },
+    {
+     "date": "2024-10-13",
+     "transactions": 3628
+    },
+    {
+     "date": "2024-12-28",
+     "transactions": 3483
+    },
+    {
+     "date": "2024-11-08",
+     "transactions": 3476
+    },
+    {
+     "date": "2024-11-29",
+     "transactions": 3475
+    }
+   ]
+  },
+  "2025": {
+   "rows": 925761,
+   "observed_days": 364,
+   "unique_cards": 274103,
+   "repeat_card_rate": 0.6235,
+   "one_time_card_rate": 0.3765,
+   "fare": {
+    "actual": 90515410,
+    "discount": 13643385,
+    "original": 111841460,
+    "avg_actual": 97.8,
+    "subsidy_share": 0.122
+   },
+   "duration_minutes": {
+    "median": 64.3,
+    "mean": 70.5,
+    "p90": 109.2
+   },
+   "monthly": [
+    73411,
+    73148,
+    83111,
+    82069,
+    81945,
+    70860,
+    64724,
+    72088,
+    72816,
+    87972,
+    79940,
+    83677
+   ],
+   "hourly": [
+    16,
+    0,
+    0,
+    0,
+    0,
+    9251,
+    16898,
+    61758,
+    76117,
+    78556,
+    76776,
+    63820,
+    60412,
+    70439,
+    62011,
+    76819,
+    73970,
+    68769,
+    54639,
+    38686,
+    20891,
+    13282,
+    2648,
+    3
+   ],
+   "weekday_daily_mean": [
+    2457.4,
+    2124.6,
+    2144.2,
+    2344.3,
+    3006.9,
+    2791.9,
+    2939.8
+   ],
+   "weekend_workday_ratio": 1.19,
+   "top_od_share": 0.3675,
+   "top_od": [
+    {
+     "origin": "埔里站",
+     "destination": "高鐵臺中站",
+     "transactions": 172520
+    },
+    {
+     "origin": "高鐵臺中站",
+     "destination": "埔里站",
+     "transactions": 167741
+    },
+    {
+     "origin": "日月潭",
+     "destination": "高鐵臺中站",
+     "transactions": 77347
+    },
+    {
+     "origin": "高鐵臺中站",
+     "destination": "日月潭",
+     "transactions": 67871
+    },
+    {
+     "origin": "臺中",
+     "destination": "埔里站",
+     "transactions": 64421
+    },
+    {
+     "origin": "臺中",
+     "destination": "日月潭",
+     "transactions": 62029
+    },
+    {
+     "origin": "日月潭",
+     "destination": "臺中",
+     "transactions": 53934
+    },
+    {
+     "origin": "埔里站",
+     "destination": "臺中",
+     "transactions": 47820
+    },
+    {
+     "origin": "高鐵臺中站",
+     "destination": "崎下",
+     "transactions": 17518
+    },
+    {
+     "origin": "暨南大學校內",
+     "destination": "高鐵臺中站",
+     "transactions": 10775
+    }
+   ],
+   "top_stations": [
+    {
+     "name": "高鐵臺中站",
+     "touches": 287927
+    },
+    {
+     "name": "埔里站",
+     "touches": 245165
+    },
+    {
+     "name": "臺中",
+     "touches": 160852
+    },
+    {
+     "name": "日月潭",
+     "touches": 151070
+    },
+    {
+     "name": "魚池",
+     "touches": 22267
+    },
+    {
+     "name": "崎下",
+     "touches": 15430
+    },
+    {
+     "name": "暨南大學校內",
+     "touches": 13585
+    },
+    {
+     "name": "向山行政中心",
+     "touches": 9274
+    }
+   ],
+   "routes": [
+    {
+     "route": "6670D",
+     "transactions": 417066
+    },
+    {
+     "route": "6670H",
+     "transactions": 181003
+    },
+    {
+     "route": "6670A",
+     "transactions": 124783
+    },
+    {
+     "route": "6670B",
+     "transactions": 106075
+    },
+    {
+     "route": "6670F",
+     "transactions": 89798
+    },
+    {
+     "route": "6670E",
+     "transactions": 7036
+    }
+   ],
+   "ticket_types": [
+    {
+     "type": "台北市一般票",
+     "transactions": 369848
+    },
+    {
+     "type": "一般卡",
+     "transactions": 74253
+    },
+    {
+     "type": "暨南大學學生卡",
+     "transactions": 69198
+    },
+    {
+     "type": "臺中市敬老1票",
+     "transactions": 44306
+    },
+    {
+     "type": "台北市學生票",
+     "transactions": 36398
+    },
+    {
+     "type": "南投縣敬老1票",
+     "transactions": 31335
+    },
+    {
+     "type": "南投縣敬老卡",
+     "transactions": 29757
+    },
+    {
+     "type": "臺中市一般票",
+     "transactions": 29555
+    }
+   ],
+   "top_days": [
+    {
+     "date": "2025-02-28",
+     "transactions": 4244
+    },
+    {
+     "date": "2025-04-03",
+     "transactions": 3986
+    },
+    {
+     "date": "2025-05-02",
+     "transactions": 3814
+    },
+    {
+     "date": "2025-02-27",
+     "transactions": 3787
+    },
+    {
+     "date": "2025-03-02",
+     "transactions": 3786
+    }
+   ]
+  }
+ }
+}

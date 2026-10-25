@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6670 日月潭全線 3D 數位孿生沙盤 | 智慧行控中心</title>
+    <!-- Google Model Viewer -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #080d1a;
+            --panel-bg: rgba(10, 18, 32, 0.88);
+            --cyan-glow: #00f0ff;
+            --amber-glow: #ff9d00;
+            --rose-glow: #ff2a5f;
+            --emerald-glow: #00ff88;
+            --border-line: rgba(0, 240, 255, 0.35);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-dark);
+            color: #e6f1ff;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 3D 視窗主體 */
+        model-viewer {
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, #0f192c 0%, #080d1a 75%, #04070d 100%);
+            --poster-color: transparent;
+        }
+
+        /* 頂部 HUD 戰情列 */
+        header.hud-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 68px;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(180deg, rgba(6, 11, 22, 0.95) 0%, rgba(6, 11, 22, 0.75) 70%, transparent 100%);
+            border-bottom: 1px solid var(--border-line);
+            backdrop-filter: blur(10px);
+            z-index: 50;
+            pointer-events: auto;
+        }
+
+        .title-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .badge-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--cyan-glow), #0077ff);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #060b16;
+            font-size: 20px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+        }
+
+        .title-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 19px;
+            letter-spacing: 1.5px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+        }
+
+        .title-text p {
+            font-size: 13px;
+            color: #7fa1cb;
+            letter-spacing: 0.8px;
+        }
+
+        /* 頂部數據膠囊 */
+        .telemetry-capsules {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .capsule {
+            background: rgba(14, 25, 46, 0.8);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 6px;
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .capsule-label {
+            font-size: 12px;
+            color: #7d96ba;
+            text-transform: uppercase;
+        }
+
+        .capsule-val {
+            font-family: 'Orbitron', monospace;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .c-cyan { color: var(--cyan-glow); }
+        .c-rose { color: var(--rose-glow); }
+        .c-emerald { color: var(--emerald-glow); }
+
+        /* 右側切換功能按鈕 */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-hud {
+            background: rgba(0, 240, 255, 0.12);
+            border: 1px solid var(--cyan-glow);
+            color: var(--cyan-glow);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-hud:hover {
+            background: var(--cyan-glow);
+            color: #060b16;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary-map {
+            background: linear-gradient(135deg, rgba(255, 157, 0, 0.2), rgba(255, 157, 0, 0.05));
+            border-color: var(--amber-glow);
+            color: var(--amber-glow);
+        }
+
+        .btn-primary-map:hover {
+            background: var(--amber-glow);
+            color: #060b16;
+            box-shadow: 0 0 20px rgba(255, 157, 0, 0.7);
+        }
+
+        /* 底部相機視角跳轉工具列 */
+        .camera-dock {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-line);
+            border-radius: 40px;
+            padding: 8px 16px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 240, 255, 0.25);
+            z-index: 50;
+        }
+
+        .cam-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: #9ab4d6;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cam-btn:hover, .cam-btn.active {
+            color: #fff;
+            background: rgba(0, 240, 255, 0.2);
+            border-color: var(--cyan-glow);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+        }
+
+        /* 3D 浮空互動熱點 (Hotspots) */
+        .hotspot-pin {
+            background: rgba(6, 12, 24, 0.9);
+            border: 1px solid var(--cyan-glow);
+            border-radius: 24px;
+            padding: 6px 12px;
+            color: #fff;
+            font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            pointer-events: auto;
+        }
+
+        .hotspot-pin:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.9);
+            border-color: #fff;
+        }
+
+        .pin-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--cyan-glow);
+            box-shadow: 0 0 8px var(--cyan-glow);
+            animation: blink-dot 1.5s infinite;
+        }
+
+        .pin-dot.rose { background: var(--rose-glow); box-shadow: 0 0 8px var(--rose-glow); }
+        .pin-dot.amber { background: var(--amber-glow); box-shadow: 0 0 8px var(--amber-glow); }
+        .pin-dot.emerald { background: var(--emerald-glow); box-shadow: 0 0 8px var(--emerald-glow); }
+
+        @keyframes blink-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* 互動即時遙測彈窗 */
+        #telemetry-modal {
+            position: absolute;
+            top: 85px;
+            right: 24px;
+            width: 330px;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-line);
+            border-radius: 12px;
+            padding: 18px;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.2);
+            z-index: 60;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            padding-bottom: 8px;
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: var(--cyan-glow);
+            letter-spacing: 1px;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: #7d96ba;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .modal-close:hover { color: #fff; }
+
+        .telemetry-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .telemetry-row .label { color: #7d96ba; }
+        .telemetry-row .value { font-family: 'Orbitron', monospace; font-weight: 700; color: #fff; }
+
+        /* 左下角操作指南 */
+        .gesture-hint {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            background: rgba(10, 18, 32, 0.7);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 12px;
+            color: #7fa1cb;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂部 HUD 戰情列 -->
+    <header class="hud-top">
+        <div class="title-group">
+            <div class="badge-icon"><i class="fa-solid fa-cube"></i></div>
+            <div class="title-text">
+                <h1>6670 日月潭全走廊 · 3D 數位孿生沙盤</h1>
+                <p>TAIWAN TOURIST SHUTTLE 6670 DIGITAL TWIN 3D INSPECTION</p>
+            </div>
+        </div>
+
+        <div class="telemetry-capsules">
+            <div class="capsule">
+                <span class="capsule-label">在線車輛</span>
+                <span class="capsule-val c-cyan">18 輛</span>
+            </div>
+            <div class="capsule">
+                <span class="capsule-label">國道飆速</span>
+                <span class="capsule-val c-rose">102 km/h</span>
+            </div>
+            <div class="capsule">
+                <span class="capsule-label">行控串流</span>
+                <span class="capsule-val c-emerald">實時同步中</span>
+            </div>
+        </div>
+
+        <div class="nav-actions">
+            <button class="btn-hud" id="toggle-spin" onclick="toggleAutoRotate()"><i class="fa-solid fa-rotate"></i> 自動巡航旋轉</button>
+            <a href="occ_dashboard.html" class="btn-hud btn-primary-map"><i class="fa-solid fa-map-location-dot"></i> 切換 2D/3D GIS 行控中心</a>
+        </div>
+    </header>
+
+    <!-- 3D 模型主渲染容器 (Google Model Viewer) -->
+    <model-viewer
+        id="mv-corridor"
+        src="6670_sunmoonlake_panorama.glb"
+        camera-controls
+        touch-action="pan-y"
+        shadow-intensity="1.5"
+        shadow-softness="0.8"
+        exposure="1.0"
+        camera-orbit="0deg 60deg 105m"
+        field-of-view="32deg"
+        min-camera-orbit="auto auto 20m"
+        max-camera-orbit="auto 85deg 180m"
+        auto-rotate-delay="3000"
+        rotation-per-second="4deg"
+    >
+        <!-- 3D 浮空互動熱點 -->
+        <button class="hotspot-pin" slot="hotspot-g6" data-position="-18 8.5 4.5" data-normal="0 0 1" onclick="showTelemetry('KKA-6715', '6670D 國道直達', '102 km/h', '國道6號 24K 東行', '正常高速巡航 (極速警示)')">
+            <span class="pin-dot rose"></span>
+            <span>國道6號 102 km/h (KKA-6715)</span>
+        </button>
+
+        <button class="hotspot-pin" slot="hotspot-hsr" data-position="-41 -7 3" data-normal="0 0 1" onclick="showTelemetry('952-FX', '6670 主線', '0 km/h (發車準備)', '臺中高鐵站 5號月台', '依班表準點待發')">
+            <span class="pin-dot amber"></span>
+            <span>臺中高鐵站</span>
+        </button>
+
+        <button class="hotspot-pin" slot="hotspot-puli" data-position="8 0.5 3.5" data-normal="0 0 1" onclick="showTelemetry('KKA-6712', '6670B 直達車', '42 km/h', '埔里轉運站外圍', '進站減速中')">
+            <span class="pin-dot"></span>
+            <span>埔里轉運中心</span>
+        </button>
+
+        <button class="hotspot-pin" slot="hotspot-shuishe" data-position="36 -2 3.5" data-normal="0 0 1" onclick="showTelemetry('958-FX', '6670 經水社', '15 km/h', '水社綜合商場站', '抵達終點碼頭商圈')">
+            <span class="pin-dot emerald"></span>
+            <span>日月潭水社碼頭</span>
+        </button>
+
+        <button class="hotspot-pin" slot="hotspot-xiangshan" data-position="43.5 -7.5 3.5" data-normal="0 0 1" onclick="showTelemetry('953-FX', '6670F 向山延駛線', '28 km/h', '向山遊客中心前彎道', '沿湖巡航，終點靠站中')">
+            <span class="pin-dot"></span>
+            <span>向山遊客中心</span>
+        </button>
+    </model-viewer>
+
+    <!-- 底部相機預設視角切換器 -->
+    <div class="camera-dock">
+        <button class="cam-btn active" onclick="setCam('0deg 62deg 65m', this)"><i class="fa-solid fa-panorama"></i> 全景走廊</button>
+        <button class="cam-btn" onclick="setCam('-35deg 70deg 32m -18m 8m 3m', this)"><i class="fa-solid fa-bolt"></i> 國道飆速特寫</button>
+        <button class="cam-btn" onclick="setCam('38deg 65deg 36m 40m -3m 2m', this)"><i class="fa-solid fa-water"></i> 日月潭湖區</button>
+        <button class="cam-btn" onclick="setCam('-65deg 68deg 35m -40m -5m 2m', this)"><i class="fa-solid fa-train"></i> 臺中高鐵都會</button>
+        <button class="cam-btn" onclick="setCam('10deg 60deg 30m 8m 1m 2m', this)"><i class="fa-solid fa-mountain"></i> 埔里盆地</button>
+    </div>
+
+    <!-- 左下角操作手勢提示 -->
+    <div class="gesture-hint">
+        <div><i class="fa-solid fa-computer-mouse"></i> 滑鼠左鍵拖曳 / 手機單指：360° 自由環繞旋轉</div>
+        <div><i class="fa-solid fa-arrows-up-down-left-right"></i> 滑鼠右鍵 / 手機雙指拖曳：空間平移平鋪</div>
+        <div><i class="fa-solid fa-magnifying-glass-plus"></i> 滾輪滾動 / 雙指捏合：景深無限縮放</div>
+    </div>
+
+    <!-- 遙測數據彈窗 (點擊熱點後顯示) -->
+    <div id="telemetry-modal">
+        <div class="modal-header">
+            <div class="modal-title" id="m-plate">BUS-TELEMETRY</div>
+            <button class="modal-close" onclick="closeTelemetry()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="telemetry-row">
+            <span class="label">行駛路線：</span>
+            <span class="value" id="m-route">6670</span>
+        </div>
+        <div class="telemetry-row">
+            <span class="label">即時車速：</span>
+            <span class="value c-rose" id="m-speed">0 km/h</span>
+        </div>
+        <div class="telemetry-row">
+            <span class="label">當前位置：</span>
+            <span class="value" id="m-location">南投走廊</span>
+        </div>
+        <div class="telemetry-row">
+            <span class="label">行控狀態：</span>
+            <span class="value c-emerald" id="m-status">正常運行</span>
+        </div>
+    </div>
+
+    <script>
+        const mv = document.getElementById('mv-corridor');
+        let autoRotate = false;
+
+        function toggleAutoRotate() {
+            autoRotate = !autoRotate;
+            const btn = document.getElementById('toggle-spin');
+            if (autoRotate) {
+                mv.setAttribute('auto-rotate', '');
+                btn.classList.add('active');
+                btn.innerHTML = '<i class="fa-solid fa-pause"></i> 暫停旋轉巡航';
+            } else {
+                mv.removeAttribute('auto-rotate');
+                btn.classList.remove('active');
+                btn.innerHTML = '<i class="fa-solid fa-rotate"></i> 自動巡航旋轉';
+            }
+        }
+
+        function setCam(orbitStr, btnElem) {
+            const parts = orbitStr.split(' ');
+            if (parts.length >= 3) {
+                mv.cameraOrbit = `${parts[0]} ${parts[1]} ${parts[2]}`;
+            }
+            if (parts.length === 6) {
+                mv.cameraTarget = `${parts[3]} ${parts[4]} ${parts[5]}`;
+            } else {
+                mv.cameraTarget = "0m 0m 0m";
+            }
+            document.querySelectorAll('.cam-btn').forEach(b => b.classList.remove('active'));
+            if (btnElem) btnElem.classList.add('active');
+        }
+
+        function showTelemetry(plate, route, speed, loc, status) {
+            document.getElementById('m-plate').innerText = plate;
+            document.getElementById('m-route').innerText = route;
+            document.getElementById('m-speed').innerText = speed;
+            document.getElementById('m-location').innerText = loc;
+            document.getElementById('m-status').innerText = status;
+            document.getElementById('telemetry-modal').style.display = 'block';
+        }
+
+        function closeTelemetry() {
+            document.getElementById('telemetry-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
