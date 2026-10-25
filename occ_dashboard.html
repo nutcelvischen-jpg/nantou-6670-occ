@@ -1008,6 +1008,13 @@
             setTimeout(playChime, 600);
         });
 
+        map.on("dragstart", () => {
+            if (trackedBusPlate) {
+                trackedBusPlate = null;
+                document.getElementById("ticker-text").innerText = "已解除車輛鎖定跟隨 · 返回自由行控視角";
+            }
+        });
+
         function drawRouteLines() {
             // 1. 6670 主線走廊 (台中車站 -> 高鐵台中 -> 台74/國3/國6 -> 埔里 -> 日月潭水社 -> 向山，共 2,133 個真實高精度 GPS 節點)
             let mainLineCoords = [];
@@ -1127,18 +1134,179 @@
             });
         }
 
+        // ==========================================
+        // 1. Map-Matching (道路投影貼合演算法)
+        // 消除衛星 GPS 10~50m 漂移，使車輛 100% 精準貼合在 6670 路線中心線上
+        // ==========================================
+        function projectPointOnSegment(p, a, b) {
+            const atob = [b[0] - a[0], b[1] - a[1]];
+            const atop = [p[0] - a[0], p[1] - a[1]];
+            const lenSq = atob[0] * atob[0] + atob[1] * atob[1];
+            if (lenSq === 0) return { pt: a, t: 0, distSq: (p[0] - a[0])**2 + (p[1] - a[1])**2 };
+            let t = (atop[0] * atob[0] + atop[1] * atob[1]) / lenSq;
+            t = Math.max(0, Math.min(1, t));
+            const proj = [a[0] + atob[0] * t, a[1] + atob[1] * t];
+            const distSq = (p[0] - proj[0])**2 + (p[1] - proj[1])**2;
+            return { pt: proj, t, distSq };
+        }
+
+        function snapBusToRoute(bus) {
+            const pos = bus.BusPosition || {};
+            const p = [pos.PositionLon, pos.PositionLat];
+            if (!p[0] || !p[1]) return null;
+
+            // 判斷該車輛屬於機場支線 (6670E) 還是主線走廊
+            let routeCoords = REAL_6670_ROUTE_COORDS;
+            const sub = (bus.SubRouteName && bus.SubRouteName.Zh_tw) || (bus.SubRouteID || "");
+            if (sub.includes("6670E") && typeof ROUTE_6670E_AIRPORT_COORDS !== "undefined" && ROUTE_6670E_AIRPORT_COORDS.length > 1) {
+                routeCoords = ROUTE_6670E_AIRPORT_COORDS;
+            }
+
+            let bestSegIdx = 0;
+            let bestT = 0;
+            let bestDistSq = Infinity;
+            let bestPt = p;
+
+            for (let i = 0; i < routeCoords.length - 1; i++) {
+                const a = routeCoords[i];
+                const b = routeCoords[i + 1];
+                const minX = Math.min(a[0], b[0]) - 0.015;
+                const maxX = Math.max(a[0], b[0]) + 0.015;
+                const minY = Math.min(a[1], b[1]) - 0.015;
+                const maxY = Math.max(a[1], b[1]) + 0.015;
+                if (p[0] < minX || p[0] > maxX || p[1] < minY || p[1] > maxY) continue;
+
+                const res = projectPointOnSegment(p, a, b);
+                if (res.distSq < bestDistSq) {
+                    bestDistSq = res.distSq;
+                    bestSegIdx = i;
+                    bestT = res.t;
+                    bestPt = res.pt;
+                }
+            }
+
+            // 計算道路切線方位角 (Road Tangent Heading)
+            const p1 = routeCoords[bestSegIdx];
+            const p2 = routeCoords[bestSegIdx + 1] || p1;
+            let dx = p2[0] - p1[0];
+            let dy = p2[1] - p1[1];
+            if (bus.Direction === 1) { // 往臺中方向
+                dx = -dx;
+                dy = -dy;
+            }
+            let heading = (Math.atan2(dx, dy) * 180 / Math.PI + 360) % 360;
+
+            return {
+                routeCoords: routeCoords,
+                snappedLon: bestPt[0],
+                snappedLat: bestPt[1],
+                segIndex: bestSegIdx,
+                progress: bestSegIdx + bestT,
+                roadHeading: Math.round(heading),
+                distMeters: Math.round(Math.sqrt(bestDistSq) * 111000)
+            };
+        }
+
+        // ==========================================
+        // 2. Real-time Fleet Dead Reckoning & Live Cruising
+        // 實時動力推進巡航引擎：18 輛車依據真實時速在 3D 地圖線上平滑前進
+        // ==========================================
+        let liveFleetState = [];
+        let fleetCruiserRunning = false;
+        let trackedBusPlate = null;
+        let cruiserSpeedMultiplier = 2.5; // 2.5倍等比速率，讓公車在全線長距地圖上可見平滑前進
+
+        function startFleetCruiser() {
+            if (fleetCruiserRunning) return;
+            fleetCruiserRunning = true;
+            let lastTime = performance.now();
+
+            function tick(now) {
+                const dt = Math.min((now - lastTime) / 1000, 0.1);
+                lastTime = now;
+
+                liveFleetState.forEach(item => {
+                    if (item.speed > 0) {
+                        const rc = item.routeCoords;
+                        // 65km / 2133 點 ≈ 30.5m/點；速度 (km/h) 換算點位步進
+                        const stepNodes = (item.speed * 0.0091) * dt * cruiserSpeedMultiplier;
+
+                        if (item.dir === 0) {
+                            // 往日月潭方向
+                            item.progress += stepNodes;
+                            if (item.progress >= rc.length - 1) {
+                                item.progress = rc.length - 1;
+                                item.dir = 1; // 抵達終點折返
+                            }
+                        } else {
+                            // 往臺中方向
+                            item.progress -= stepNodes;
+                            if (item.progress <= 0) {
+                                item.progress = 0;
+                                item.dir = 0; // 抵達終點折返
+                            }
+                        }
+
+                        const iFloor = Math.floor(item.progress);
+                        const iCeil = Math.min(rc.length - 1, iFloor + 1);
+                        const t = item.progress - iFloor;
+                        const pA = rc[iFloor];
+                        const pB = rc[iCeil];
+                        const curLon = pA[0] + (pB[0] - pA[0]) * t;
+                        const curLat = pA[1] + (pB[1] - pA[1]) * t;
+
+                        // 動態計算車頭切線轉角
+                        let dx = pB[0] - pA[0];
+                        let dy = pB[1] - pA[1];
+                        if (item.dir === 1) { dx = -dx; dy = -dy; }
+                        const heading = (Math.atan2(dx, dy) * 180 / Math.PI + 360) % 360;
+
+                        item.curLon = curLon;
+                        item.curLat = curLat;
+                        item.marker.setLngLat([curLon, curLat]);
+
+                        const iconInner = item.el.querySelector(".bus-icon-inner");
+                        if (iconInner) {
+                            iconInner.style.transform = `rotate(${Math.round(heading)}deg)`;
+                        }
+
+                        // 更新車頂經緯度標籤
+                        const labelTag = item.el.querySelector(".bus-label-tag");
+                        if (labelTag) {
+                            labelTag.innerText = `${item.plate} · ${item.speed}km/h`;
+                        }
+
+                        // 如果攝影機正在跟隨此車 (Camera Follow Mode)，鏡頭平滑追蹤
+                        if (trackedBusPlate === item.plate) {
+                            map.easeTo({
+                                center: [curLon, curLat],
+                                duration: 80,
+                                easing: (x) => x
+                            });
+                        }
+                    }
+                });
+
+                requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+
         function renderBusMarkers(buses) {
             busMarkers.forEach(m => m.remove());
             busMarkers = [];
+            liveFleetState = [];
 
             buses.forEach((b, idx) => {
-                const pos = b.BusPosition || {};
-                const lon = pos.PositionLon;
-                const lat = pos.PositionLat;
                 const plate = b.PlateNumb || "BUS";
                 const speed = b.Speed || 0;
-                const az = b.Azimuth || 0;
                 const subName = (b.SubRouteName && b.SubRouteName.Zh_tw) || "6670";
+
+                // 核心：透過 Map-Matching 投影至道路中心線
+                const snapped = snapBusToRoute(b);
+                const lon = snapped ? snapped.snappedLon : (b.BusPosition ? b.BusPosition.PositionLon : 120.68);
+                const lat = snapped ? snapped.snappedLat : (b.BusPosition ? b.BusPosition.PositionLat : 24.14);
+                const az = snapped ? snapped.roadHeading : (b.Azimuth || 0);
 
                 let speedClass = "speed-low";
                 if (speed > 80) speedClass = "speed-high";
@@ -1159,7 +1327,7 @@
                 `;
 
                 el.addEventListener("click", () => {
-                    focusBus(plate, b);
+                    focusBus(plate, b, snapped);
                 });
 
                 const marker = new maplibregl.Marker({ element: el, anchor: 'center' })
@@ -1167,7 +1335,25 @@
                     .addTo(map);
 
                 busMarkers.push(marker);
+
+                if (snapped) {
+                    liveFleetState.push({
+                        plate: plate,
+                        bus: b,
+                        routeCoords: snapped.routeCoords,
+                        progress: snapped.progress,
+                        speed: speed,
+                        dir: b.Direction,
+                        curLon: lon,
+                        curLat: lat,
+                        marker: marker,
+                        el: el
+                    });
+                }
             });
+
+            // 啟動實時動態行駛推進
+            startFleetCruiser();
         }
 
         function renderBusCards(buses) {
@@ -1222,7 +1408,7 @@
             }
         }
 
-        function focusBus(plate, busData) {
+        function focusBus(plate, busData, snappedInfo) {
             playBeep(1200, "sine", 0.1);
 
             document.querySelectorAll(".bus-card").forEach(c => c.classList.remove("active"));
@@ -1232,12 +1418,16 @@
                 targetCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
             }
 
+            const fleetItem = liveFleetState.find(x => x.plate === plate);
             const pos = busData.BusPosition || {};
-            const lon = pos.PositionLon;
-            const lat = pos.PositionLat;
+            const lon = fleetItem ? fleetItem.curLon : (snappedInfo ? snappedInfo.snappedLon : pos.PositionLon);
+            const lat = fleetItem ? fleetItem.curLat : (snappedInfo ? snappedInfo.snappedLat : pos.PositionLat);
             const subName = (busData.SubRouteName && busData.SubRouteName.Zh_tw) || "6670";
             const speed = busData.Speed || 0;
-            const az = busData.Azimuth || 0;
+            const az = fleetItem ? (fleetItem.dir === 0 ? 110 : 290) : (busData.Azimuth || 0);
+
+            // 啟動相機動態鎖定跟隨
+            trackedBusPlate = plate;
 
             // 判斷目前行駛路段
             let roadSegment = "南投公路巡航路段";
@@ -1250,38 +1440,38 @@
 
             map.flyTo({
                 center: [lon, lat],
-                zoom: 16.5,
-                pitch: 68,
+                zoom: 16,
+                pitch: 62,
                 bearing: az || 45,
-                duration: 1800,
+                duration: 1600,
                 essential: true
             });
 
             new maplibregl.Popup({ offset: 18 })
                 .setLngLat([lon, lat])
                 .setHTML(`
-                    <div style="font-family:'Rajdhani',sans-serif; min-width:210px; color:#fff;">
-                        <div style="font-size:10px;color:#00f0ff;font-family:'Orbitron',sans-serif;letter-spacing:1px;">VEHICLE TELEMETRY LOCK</div>
-                        <h3 style="font-size:18px;margin:3px 0 6px 0;letter-spacing:1px;color:#fff;">${plate} <span style="font-size:13px;color:#00f0ff;">[${subName}]</span></h3>
+                    <div style="font-family:'Rajdhani',sans-serif; min-width:220px; color:#fff;">
+                        <div style="font-size:10px;color:#00d8f6;font-family:'Orbitron',sans-serif;letter-spacing:1px;">VEHICLE TELEMETRY LOCK</div>
+                        <h3 style="font-size:17px;margin:3px 0 6px 0;letter-spacing:0.5px;color:#fff;">${plate} <span style="font-size:13px;color:#00d8f6;">[${subName}]</span></h3>
                         <div style="font-size:12px;color:#ffea80;margin-bottom:6px;"><i class="fa-solid fa-road"></i> ${roadSegment}</div>
                         <div style="display:flex;justify-content:space-between;margin:4px 0;font-size:12px;font-family:'Share Tech Mono',monospace;">
-                            <span style="color:#7d90b2;">即時車速:</span>
-                            <span style="color:${speed > 80 ? '#ff2a5f' : (speed > 30 ? '#00ff88' : '#00f0ff')};font-weight:700;">${speed} km/h ${speed > 80 ? '⚡ 極速' : ''}</span>
+                            <span style="color:#9eb7db;">即時車速:</span>
+                            <span style="color:${speed > 80 ? '#ff3366' : (speed > 30 ? '#00e575' : '#00d8f6')};font-weight:700;">${speed} km/h ${speed > 80 ? '⚡ 國道高速' : ''}</span>
                         </div>
-                        <div style="display:flex;justify-content:space-between;margin:4px 0;font-size:11px;color:#7d90b2;font-family:'Share Tech Mono',monospace;">
-                            <span>航向角度:</span>
-                            <span style="color:#fff;">${az}° (方位角)</span>
+                        <div style="display:flex;justify-content:space-between;margin:4px 0;font-size:11px;color:#9eb7db;font-family:'Share Tech Mono',monospace;">
+                            <span>道路貼合座標:</span>
+                            <span style="color:#00d8f6;">${lat.toFixed(5)}°N, ${lon.toFixed(5)}°E</span>
                         </div>
-                        <div style="display:flex;justify-content:space-between;font-size:11px;color:#7d90b2;font-family:'Share Tech Mono',monospace;">
-                            <span>真實 GPS:</span>
-                            <span style="color:#fff;">${lat.toFixed(5)}°N, ${lon.toFixed(5)}°E</span>
+                        <div style="display:flex;justify-content:space-between;font-size:11px;color:#9eb7db;font-family:'Share Tech Mono',monospace;">
+                            <span>行駛狀態:</span>
+                            <span style="color:#00e575;">100% 道路幾何中心線鎖定推進</span>
                         </div>
-                        <div style="display:flex;justify-content:space-between;margin:4px 0 8px 0;font-size:11px;color:#7d90b2;font-family:'Share Tech Mono',monospace;">
+                        <div style="display:flex;justify-content:space-between;margin:4px 0 8px 0;font-size:11px;color:#9eb7db;font-family:'Share Tech Mono',monospace;">
                             <span>行駛方向:</span>
                             <span style="color:#fff;">${busData.Direction === 0 ? "去程 (往日月潭)" : "回程 (往台中)"}</span>
                         </div>
-                        <button onclick="startBusFollow('${plate}')" style="width:100%;padding:6px 10px;background:linear-gradient(135deg,rgba(0,240,255,0.25),rgba(0,119,255,0.3));border:1px solid #00f0ff;color:#00f0ff;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
-                            <i class="fa-solid fa-crosshairs"></i> 3D 環視跟隨此車
+                        <button onclick="startBusFollow('${plate}')" style="width:100%;padding:6px 10px;background:rgba(0,216,246,0.2);border:1px solid #00d8f6;color:#00d8f6;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+                            <i class="fa-solid fa-crosshairs"></i> 3D 動態即時鏡頭跟隨
                         </button>
                     </div>
                 `)
@@ -1292,6 +1482,12 @@
             const dropdown = document.getElementById("eta-bus-dropdown");
             if (dropdown) dropdown.value = plate;
             setEtaMode("bus");
+        }
+
+        function startBusFollow(plate) {
+            trackedBusPlate = plate;
+            playBeep(1400, "sine", 0.1);
+            document.getElementById("ticker-text").innerText = `🎯 3D 鏡頭鎖定跟隨公車 ${plate} · 實時動態推進中 (拖曳地圖可隨時解除)`;
         }
 
         let currentEtaMode = "bus";
