@@ -542,7 +542,6 @@
         .bus-marker {
             cursor: pointer;
             position: relative;
-            transform: translate(-50%, -50%);
         }
 
         .bus-pulse {
@@ -559,9 +558,20 @@
             pointer-events: none;
         }
 
+        .bus-marker.speed-high .bus-pulse {
+            background: rgba(255, 42, 95, 0.35);
+            border-color: var(--rose);
+            animation: radar-ping 1.1s infinite ease-out;
+        }
+
+        .bus-marker.speed-med .bus-pulse {
+            background: rgba(0, 255, 136, 0.3);
+            border-color: var(--emerald);
+        }
+
         @keyframes radar-ping {
             0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(1.8); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1.9); opacity: 0; }
         }
 
         .bus-icon-inner {
@@ -580,28 +590,54 @@
             transition: all 0.3s;
         }
 
+        .bus-marker.speed-high .bus-icon-inner {
+            border-color: var(--rose);
+            color: #fff;
+            background: linear-gradient(135deg, #2b0b18, #60142a);
+            box-shadow: 0 0 20px rgba(255, 42, 95, 0.9);
+        }
+
+        .bus-marker.speed-med .bus-icon-inner {
+            border-color: var(--emerald);
+            color: var(--emerald);
+            box-shadow: 0 0 16px rgba(0, 255, 136, 0.8);
+        }
+
         .bus-marker:hover .bus-icon-inner {
-            transform: scale(1.25);
+            transform: scale(1.3) !important;
             border-color: #ffffff;
-            background: var(--cyan);
-            color: #040914;
+            color: #ffffff;
+            box-shadow: 0 0 25px #ffffff;
         }
 
         .bus-label-tag {
             position: absolute;
-            top: -22px;
+            top: -24px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(6, 10, 18, 0.9);
+            background: rgba(6, 10, 18, 0.94);
             border: 1px solid var(--cyan);
-            padding: 1px 6px;
-            border-radius: 3px;
+            padding: 2px 7px;
+            border-radius: 4px;
             font-family: "Share Tech Mono", monospace;
             font-size: 10px;
+            font-weight: 700;
             color: #ffffff;
             white-space: nowrap;
             letter-spacing: 0.5px;
             pointer-events: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.8);
+        }
+
+        .bus-marker.speed-high .bus-label-tag {
+            border-color: var(--rose);
+            color: #ff9db1;
+            box-shadow: 0 0 10px rgba(255, 42, 95, 0.6);
+        }
+
+        .bus-marker.speed-med .bus-label-tag {
+            border-color: var(--emerald);
+            color: #9dffcf;
         }
 
         .stop-marker-dot {
@@ -718,6 +754,18 @@
         </div>
     </header>
 
+    <!-- 3D 巡航專屬動態 HUD 橫幅提示 (巡航中顯示) -->
+    <div id="tour-hud-banner" style="display: none; position: absolute; top: 76px; left: 50%; transform: translateX(-50%); z-index: 100; background: rgba(8, 14, 28, 0.94); border: 1px solid var(--cyan); border-radius: 30px; padding: 10px 24px; box-shadow: 0 0 30px rgba(0, 240, 255, 0.6); backdrop-filter: blur(12px); color: #fff; font-family: 'Rajdhani', 'Noto Sans TC', sans-serif; align-items: center; gap: 14px; pointer-events: auto;">
+        <span class="pulse-dot" style="background: var(--cyan); box-shadow: 0 0 10px var(--cyan);"></span>
+        <div style="display: flex; flex-direction: column;">
+            <div style="font-size: 14px; font-weight: 700; color: var(--cyan); letter-spacing: 1px;" id="tour-stage-title">3D 全線走廊巡航中</div>
+            <div style="font-size: 12px; color: #a4c2e8;" id="tour-stage-desc">正在加載巡航節點...</div>
+        </div>
+        <button onclick="toggleCinematicTour()" style="background: rgba(255, 42, 95, 0.25); border: 1px solid var(--rose); color: var(--rose); border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 700; cursor: pointer; margin-left: 10px;">
+            <i class="fa-solid fa-stop"></i> 結束巡航
+        </button>
+    </div>
+
     <!-- 左側面板：車隊遙測與車輛即時列表 -->
     <aside class="panel panel-left">
         <div class="panel-header">
@@ -794,6 +842,9 @@
         </div>
     </footer>
 
+    <!-- 6670 真實高精度 2,133 節點道路 GPS 經緯度路網 -->
+    <script src="route_coords.js"></script>
+
     <script>
         const RAW_BUSES = [{"PlateNumb": "958-FX", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670B1", "SubRouteID": "6670B1", "SubRouteName": {"Zh_tw": "6670B", "En": "6670B"}, "Direction": 0, "BusPosition": {"PositionLon": 120.90319, "PositionLat": 23.9785366666667, "GeoHash": "wsmbrjpj0"}, "Speed": 0, "Azimuth": 0, "DutyStatus": 1, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:35:14+08:00", "SrcRecTime": "2026-10-25T13:35:14+08:00", "SrcTransTime": "2026-10-25T13:35:14+08:00", "UpdateTime": "2026-10-25T13:35:15+08:00"}, {"PlateNumb": "990-FX", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670E2", "SubRouteID": "6670E2", "SubRouteName": {"Zh_tw": "6670E", "En": "6670E"}, "Direction": 1, "BusPosition": {"PositionLon": 120.543318333333, "PositionLat": 24.1131783333333, "GeoHash": "wsm9pj8vq"}, "Speed": 100, "Azimuth": 312, "DutyStatus": 1, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:35:14+08:00", "SrcRecTime": "2026-10-25T13:35:14+08:00", "SrcTransTime": "2026-10-25T13:35:14+08:00", "UpdateTime": "2026-10-25T13:35:15+08:00"}, {"PlateNumb": "953-FX", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670F2", "SubRouteID": "6670F2", "SubRouteName": {"Zh_tw": "6670F", "En": "6670F"}, "Direction": 1, "BusPosition": {"PositionLon": 120.909323333333, "PositionLat": 23.86751, "GeoHash": "wsjzz2gqr"}, "Speed": 3, "Azimuth": 104, "DutyStatus": 1, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:35:07+08:00", "SrcRecTime": "2026-10-25T13:35:07+08:00", "SrcTransTime": "2026-10-25T13:35:07+08:00", "UpdateTime": "2026-10-25T13:35:10+08:00"}, {"PlateNumb": "KKA-6768", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670D1", "SubRouteID": "6670D1", "SubRouteName": {"Zh_tw": "6670D", "En": "6670D"}, "Direction": 0, "BusPosition": {"PositionLon": 120.933206666667, "PositionLat": 23.8959883333333, "GeoHash": "wsjzzyhu5"}, "Speed": 0, "Azimuth": 269, "DutyStatus": 1, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:35:05+08:00", "SrcRecTime": "2026-10-25T13:35:05+08:00", "SrcTransTime": "2026-10-25T13:35:05+08:00", "UpdateTime": "2026-10-25T13:35:10+08:00"}, {"PlateNumb": "950-FX", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670B2", "SubRouteID": "6670B2", "SubRouteName": {"Zh_tw": "6670B", "En": "6670B"}, "Direction": 1, "BusPosition": {"PositionLon": 120.709981666667, "PositionLat": 24.0070333333333, "GeoHash": "wsmbdf674"}, "Speed": 89, "Azimuth": 284, "DutyStatus": 1, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:35:03+08:00", "SrcRecTime": "2026-10-25T13:35:03+08:00", "SrcTransTime": "2026-10-25T13:35:03+08:00", "UpdateTime": "2026-10-25T13:35:05+08:00"}, {"PlateNumb": "956-FX", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670D2", "SubRouteID": "6670D2", "SubRouteName": {"Zh_tw": "6670D", "En": "6670D"}, "Direction": 1, "BusPosition": {"PositionLon": 120.702546666667, "PositionLat": 24.0104316666667, "GeoHash": "wsmbdduyv"}, "Speed": 94, "Azimuth": 301, "DutyStatus": 1, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:35:02+08:00", "SrcRecTime": "2026-10-25T13:35:02+08:00", "SrcTransTime": "2026-10-25T13:35:02+08:00", "UpdateTime": "2026-10-25T13:35:05+08:00"}, {"PlateNumb": "981-FX", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670D2", "SubRouteID": "6670D2", "SubRouteName": {"Zh_tw": "6670D", "En": "6670D"}, "Direction": 1, "BusPosition": {"PositionLon": 120.935821666667, "PositionLat": 23.8972133333333, "GeoHash": "wsjzzyqg2"}, "Speed": 17, "Azimuth": 311, "DutyStatus": 1, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:35:01+08:00", "SrcRecTime": "2026-10-25T13:35:01+08:00", "SrcTransTime": "2026-10-25T13:35:01+08:00", "UpdateTime": "2026-10-25T13:35:05+08:00"}, {"PlateNumb": "KKA-6759", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670B1", "SubRouteID": "6670B1", "SubRouteName": {"Zh_tw": "6670B", "En": "6670B"}, "Direction": 0, "BusPosition": {"PositionLon": 120.653656666667, "PositionLat": 24.1228616666667, "GeoHash": "wsmc1x3mc"}, "Speed": 13, "Azimuth": 229, "DutyStatus": 1, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:35:04+08:00", "SrcRecTime": "2026-10-25T13:35:03+08:00", "SrcTransTime": "2026-10-25T13:35:03+08:00", "UpdateTime": "2026-10-25T13:35:05+08:00"}, {"PlateNumb": "957-FX", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670H1", "SubRouteID": "6670H1", "SubRouteName": {"Zh_tw": "6670H", "En": "6670H"}, "Direction": 0, "BusPosition": {"PositionLon": 120.627583333333, "PositionLat": 24.108815, "GeoHash": "wsmc0uyk4"}, "Speed": 0, "Azimuth": 264, "DutyStatus": 1, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:34:58+08:00", "SrcRecTime": "2026-10-25T13:34:58+08:00", "SrcTransTime": "2026-10-25T13:34:58+08:00", "UpdateTime": "2026-10-25T13:35:00+08:00"}, {"PlateNumb": "KKA-6715", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670D1", "SubRouteID": "6670D1", "SubRouteName": {"Zh_tw": "6670D", "En": "6670D"}, "Direction": 0, "BusPosition": {"PositionLon": 120.79398, "PositionLat": 23.9872683333333, "GeoHash": "wsmbkwxrz"}, "Speed": 102, "Azimuth": 74, "DutyStatus": 1, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:34:56+08:00", "SrcRecTime": "2026-10-25T13:34:56+08:00", "SrcTransTime": "2026-10-25T13:34:56+08:00", "UpdateTime": "2026-10-25T13:35:00+08:00"}, {"PlateNumb": "KKA-6767", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670F1", "SubRouteID": "6670F1", "SubRouteName": {"Zh_tw": "6670F", "En": "6670F"}, "Direction": 0, "BusPosition": {"PositionLon": 120.936591666667, "PositionLat": 23.94712, "GeoHash": "wsmbpzrq4"}, "Speed": 42, "Azimuth": 200, "DutyStatus": 1, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:34:59+08:00", "SrcRecTime": "2026-10-25T13:34:58+08:00", "SrcTransTime": "2026-10-25T13:34:58+08:00", "UpdateTime": "2026-10-25T13:35:00+08:00"}, {"PlateNumb": "KKA-6775", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670C1", "SubRouteID": "6670C1", "SubRouteName": {"Zh_tw": "6670C", "En": "6670C"}, "Direction": 0, "BusPosition": {"PositionLon": 120.682616666667, "PositionLat": 24.1361683333333, "GeoHash": "wsmc61y7k"}, "Speed": 1, "Azimuth": 245, "DutyStatus": 1, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:34:42+08:00", "SrcRecTime": "2026-10-25T13:34:41+08:00", "SrcTransTime": "2026-10-25T13:34:41+08:00", "UpdateTime": "2026-10-25T13:34:45+08:00"}, {"PlateNumb": "KKA-6725", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670D1", "SubRouteID": "6670D1", "SubRouteName": {"Zh_tw": "6670D", "En": "6670D"}, "Direction": 0, "BusPosition": {"PositionLon": 120.687093333333, "PositionLat": 24.1424516666667, "GeoHash": "wsmc66cxv"}, "Speed": 0, "Azimuth": 0, "DutyStatus": 2, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:32:14+08:00", "SrcRecTime": "2026-10-25T13:32:14+08:00", "SrcTransTime": "2026-10-25T13:32:14+08:00", "UpdateTime": "2026-10-25T13:32:15+08:00"}, {"PlateNumb": "KKA-6761", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670F1", "SubRouteID": "6670F1", "SubRouteName": {"Zh_tw": "6670F", "En": "6670F"}, "Direction": 0, "BusPosition": {"PositionLon": 120.901126666667, "PositionLat": 23.8518033333333, "GeoHash": "wsjzxnjdb"}, "Speed": 27, "Azimuth": 188, "DutyStatus": 2, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:17:04+08:00", "SrcRecTime": "2026-10-25T13:17:04+08:00", "SrcTransTime": "2026-10-25T13:17:04+08:00", "UpdateTime": "2026-10-25T13:17:05+08:00"}, {"PlateNumb": "KKA-6739", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670F2", "SubRouteID": "6670F2", "SubRouteName": {"Zh_tw": "6670F", "En": "6670F"}, "Direction": 1, "BusPosition": {"PositionLon": 120.686336666667, "PositionLat": 24.141635, "GeoHash": "wsmc66c55"}, "Speed": 22, "Azimuth": 95, "DutyStatus": 2, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:08:57+08:00", "SrcRecTime": "2026-10-25T13:08:57+08:00", "SrcTransTime": "2026-10-25T13:08:57+08:00", "UpdateTime": "2026-10-25T13:09:00+08:00"}, {"PlateNumb": "985-FX", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670D1", "SubRouteID": "6670D1", "SubRouteName": {"Zh_tw": "6670D", "En": "6670D"}, "Direction": 0, "BusPosition": {"PositionLon": 120.911233333333, "PositionLat": 23.8667316666667, "GeoHash": "wsjzz2ucg"}, "Speed": 5, "Azimuth": 294, "DutyStatus": 2, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T13:02:25+08:00", "SrcRecTime": "2026-10-25T13:02:25+08:00", "SrcTransTime": "2026-10-25T13:02:25+08:00", "UpdateTime": "2026-10-25T13:02:30+08:00"}, {"PlateNumb": "KKA-6703", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670B1", "SubRouteID": "6670B1", "SubRouteName": {"Zh_tw": "6670B", "En": "6670B"}, "Direction": 0, "BusPosition": {"PositionLon": 120.91136, "PositionLat": 23.8665966666667, "GeoHash": "wsjzz2ucn"}, "Speed": 0, "Azimuth": 303, "DutyStatus": 2, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T12:23:26+08:00", "SrcRecTime": "2026-10-25T12:23:26+08:00", "SrcTransTime": "2026-10-25T12:23:26+08:00", "UpdateTime": "2026-10-25T12:23:30+08:00"}, {"PlateNumb": "KKA-6738", "OperatorID": "64", "OperatorNo": "0902", "RouteUID": "THB6670", "RouteID": "6670", "RouteName": {"Zh_tw": "6670", "En": "6670"}, "SubRouteUID": "THB6670A1", "SubRouteID": "6670A1", "SubRouteName": {"Zh_tw": "6670A", "En": "6670A"}, "Direction": 0, "BusPosition": {"PositionLon": 120.911215, "PositionLat": 23.8666233333333, "GeoHash": "wsjzz2uc5"}, "Speed": 11, "Azimuth": 292, "DutyStatus": 2, "BusStatus": 0, "MessageType": 1, "GPSTime": "2026-10-25T12:05:15+08:00", "SrcRecTime": "2026-10-25T12:05:15+08:00", "SrcTransTime": "2026-10-25T12:05:15+08:00", "UpdateTime": "2026-10-25T12:05:20+08:00"}];
         const RAW_STOPS = {"6670 日月潭線": {"去程": [{"RouteId": "R0005", "StopId": "SP00003128", "StopName": "台中航空站", "StopOrder": 1, "Direction": "0", "PointInfo": "24.252927,120.59871", "Photo": "", "StopType": "BAL0000195", "TdxId": "294744", "TdxOrder": 1}, {"RouteId": "R0005", "StopId": "SP00000105", "StopName": "臺中干城站", "StopOrder": 2, "Direction": "0", "PointInfo": "24.1411,120.68561", "Photo": "", "StopType": "", "TdxId": "273174", "TdxOrder": 1}, {"RouteId": "R0005", "StopId": "SP00000106", "StopName": "臺中車站(民族路口)", "StopOrder": 3, "Direction": "0", "PointInfo": "24.136337,120.683035", "Photo": "", "StopType": "BAL0000077", "TdxId": "259281", "TdxOrder": 2}, {"RouteId": "R0005", "StopId": "SP00001827", "StopName": "民興公園(執行分署)", "StopOrder": 4, "Direction": "0", "PointInfo": "24.128251,120.664366", "Photo": "", "StopType": "", "TdxId": "304348", "TdxOrder": 3}, {"RouteId": "R0005", "StopId": "SP00000107", "StopName": "捷運大慶站", "StopOrder": 5, "Direction": "0", "PointInfo": "24.11925,120.64762", "Photo": "", "StopType": "", "TdxId": "289992", "TdxOrder": 4}, {"RouteId": "R0005", "StopId": "SP00000108", "StopName": "高鐵臺中站", "StopOrder": 6, "Direction": "0", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 5}, {"RouteId": "R0005", "StopId": "SP00000109", "StopName": "埔里遊客中心", "StopOrder": 7, "Direction": "0", "PointInfo": "23.969105,120.930719", "Photo": "", "StopType": "", "TdxId": "297174", "TdxOrder": 62}, {"RouteId": "R0005", "StopId": "SP00000110", "StopName": "牛耳石雕公園", "StopOrder": 8, "Direction": "0", "PointInfo": "23.96634676,120.9439983", "Photo": "", "StopType": "", "TdxId": "253521", "TdxOrder": 65}, {"RouteId": "R0005", "StopId": "SP00001828", "StopName": "崎下", "StopOrder": 9, "Direction": "0", "PointInfo": "23.97099,120.94883", "Photo": "", "StopType": "", "TdxId": "278199", "TdxOrder": 67}, {"RouteId": "R0005", "StopId": "SP00001829", "StopName": "大成國小", "StopOrder": 10, "Direction": "0", "PointInfo": "23.97031,120.95145", "Photo": "", "StopType": "", "TdxId": "248144", "TdxOrder": 68}, {"RouteId": "R0005", "StopId": "SP00001830", "StopName": "榮民醫院", "StopOrder": 11, "Direction": "0", "PointInfo": "23.969013,120.956782", "Photo": "", "StopType": "", "TdxId": "278249", "TdxOrder": 69}, {"RouteId": "R0005", "StopId": "SP00001831", "StopName": "埔里酒廠", "StopOrder": 12, "Direction": "0", "PointInfo": "23.968064,120.96009", "Photo": "", "StopType": "", "TdxId": "278194", "TdxOrder": 70}, {"RouteId": "R0005", "StopId": "SP00001832", "StopName": "仁愛公園", "StopOrder": 13, "Direction": "0", "PointInfo": "23.967207454,1234120.964424746724", "Photo": "", "StopType": "", "TdxId": "248396", "TdxOrder": 72}, {"RouteId": "R0005", "StopId": "SP00001833", "StopName": "中台禪寺", "StopOrder": 14, "Direction": "0", "PointInfo": "24.011742,120.945687", "Photo": "", "StopType": "", "TdxId": "290312", "TdxOrder": 6}, {"RouteId": "R0005", "StopId": "SP00001834", "StopName": "中台世界博物館", "StopOrder": 15, "Direction": "0", "PointInfo": "24.015288,120.949517", "Photo": "", "StopType": "", "TdxId": "302382", "TdxOrder": 7}, {"RouteId": "R0005", "StopId": "SP00001835", "StopName": "埔里花卉中心", "StopOrder": 16, "Direction": "0", "PointInfo": "23.985914,120.958655", "Photo": "", "StopType": "", "TdxId": "290310", "TdxOrder": 8}, {"RouteId": "R0005", "StopId": "SP00000111", "StopName": "埔里站", "StopOrder": 17, "Direction": "0", "PointInfo": "23.96352,120.96915", "Photo": "", "StopType": "", "TdxId": "283436", "TdxOrder": 16}, {"RouteId": "R0005", "StopId": "SP00000112", "StopName": "暨南大學(校內)", "StopOrder": 18, "Direction": "0", "PointInfo": "23.94992,120.93812", "Photo": "", "StopType": "", "TdxId": "292652", "TdxOrder": 11}, {"RouteId": "R0005", "StopId": "SP00001836", "StopName": "暨南大學(校外)", "StopOrder": 19, "Direction": "0", "PointInfo": "23.94906,120.93771", "Photo": "", "StopType": "", "TdxId": "307961", "TdxOrder": 28}, {"RouteId": "R0005", "StopId": "SP00000113", "StopName": "桃米坑(紙教堂)", "StopOrder": 20, "Direction": "0", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "258114", "TdxOrder": 30}, {"RouteId": "R0005", "StopId": "SP00000114", "StopName": "大雁(澀水社區)", "StopOrder": 21, "Direction": "0", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "248151", "TdxOrder": 32}, {"RouteId": "R0005", "StopId": "SP00001837", "StopName": "新城國小", "StopOrder": 22, "Direction": "0", "PointInfo": "23.905766,120.926793", "Photo": "", "StopType": "", "TdxId": "250000", "TdxOrder": 34}, {"RouteId": "R0005", "StopId": "SP00000115", "StopName": "三育神學院", "StopOrder": 23, "Direction": "0", "PointInfo": "23.900566,120.931581", "Photo": "", "StopType": "", "TdxId": "303119", "TdxOrder": 36}, {"RouteId": "R0005", "StopId": "SP00001838", "StopName": "經典驛棧", "StopOrder": 24, "Direction": "0", "PointInfo": "23.892555,120.940958", "Photo": "", "StopType": "", "TdxId": "302393", "TdxOrder": 37}, {"RouteId": "R0005", "StopId": "SP00001839", "StopName": "晶園渡假村", "StopOrder": 25, "Direction": "0", "PointInfo": "23.879025,120.942188", "Photo": "", "StopType": "", "TdxId": "249760", "TdxOrder": 38}, {"RouteId": "R0005", "StopId": "SP00000116", "StopName": "九族文化村(部分班次停靠)", "StopOrder": 26, "Direction": "0", "PointInfo": "23.87151,120.94418", "Photo": "", "StopType": "", "TdxId": "283441", "TdxOrder": 39}, {"RouteId": "R0005", "StopId": "SP00000117", "StopName": "魚池", "StopOrder": 27, "Direction": "0", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "276967", "TdxOrder": 42}, {"RouteId": "R0005", "StopId": "SP00000118", "StopName": "日月老茶場", "StopOrder": 28, "Direction": "0", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "256867", "TdxOrder": 45}, {"RouteId": "R0005", "StopId": "SP00000119", "StopName": "日月潭", "StopOrder": 29, "Direction": "0", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "252627", "TdxOrder": 51}, {"RouteId": "R0005", "StopId": "SP00001840", "StopName": "水社", "StopOrder": 30, "Direction": "0", "PointInfo": "23.86703,120.90255", "Photo": "", "StopType": "", "TdxId": "248090", "TdxOrder": 30}, {"RouteId": "R0005", "StopId": "SP00000120", "StopName": "向山行政中心(部分班次停靠)", "StopOrder": 31, "Direction": "0", "PointInfo": "23.85219,120.90133", "Photo": "", "StopType": "", "TdxId": "291919", "TdxOrder": 31}], "回程": [{"RouteId": "R0005", "StopId": "SP00000122", "StopName": "日月潭", "StopOrder": 1, "Direction": "1", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "248192", "TdxOrder": 1}, {"RouteId": "R0005", "StopId": "SP00000123", "StopName": "日月老茶場", "StopOrder": 2, "Direction": "1", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "290028", "TdxOrder": 7}, {"RouteId": "R0005", "StopId": "SP00000124", "StopName": "魚池", "StopOrder": 3, "Direction": "1", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "249516", "TdxOrder": 10}, {"RouteId": "R0005", "StopId": "SP00000125", "StopName": "九族文化村(部分班次停靠)", "StopOrder": 4, "Direction": "1", "PointInfo": "23.87151,120.94418", "Photo": "", "StopType": "", "TdxId": "284946", "TdxOrder": 13}, {"RouteId": "R0005", "StopId": "SP00001842", "StopName": "晶園渡假村", "StopOrder": 5, "Direction": "1", "PointInfo": "23.87908,120.94228", "Photo": "", "StopType": "", "TdxId": "248779", "TdxOrder": 14}, {"RouteId": "R0005", "StopId": "SP00001843", "StopName": "經典驛棧", "StopOrder": 6, "Direction": "1", "PointInfo": "23.892643,120.940992", "Photo": "", "StopType": "", "TdxId": "302394", "TdxOrder": 15}, {"RouteId": "R0005", "StopId": "SP00000126", "StopName": "三育神學院", "StopOrder": 7, "Direction": "1", "PointInfo": "23.900413,120.932657", "Photo": "", "StopType": "", "TdxId": "303120", "TdxOrder": 16}, {"RouteId": "R0005", "StopId": "SP00001844", "StopName": "新城國小", "StopOrder": 8, "Direction": "1", "PointInfo": "23.90584,120.92683", "Photo": "", "StopType": "", "TdxId": "278840", "TdxOrder": 18}, {"RouteId": "R0005", "StopId": "SP00000127", "StopName": "大雁(澀水社區)", "StopOrder": 9, "Direction": "1", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "290024", "TdxOrder": 20}, {"RouteId": "R0005", "StopId": "SP00000128", "StopName": "桃米坑(紙教堂)", "StopOrder": 10, "Direction": "1", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "254674", "TdxOrder": 22}, {"RouteId": "R0005", "StopId": "SP00001845", "StopName": "暨南大學(校外)", "StopOrder": 11, "Direction": "1", "PointInfo": "23.94906,120.93771", "Photo": "", "StopType": "", "TdxId": "251150", "TdxOrder": 24}, {"RouteId": "R0005", "StopId": "SP00000130", "StopName": "埔里站", "StopOrder": 12, "Direction": "1", "PointInfo": "23.96352,120.96915", "Photo": "", "StopType": "", "TdxId": "283436", "TdxOrder": 31}, {"RouteId": "R0005", "StopId": "SP00001849", "StopName": "仁愛公園", "StopOrder": 16, "Direction": "1", "PointInfo": "23.96743120.96436", "Photo": "", "StopType": "", "TdxId": "248287", "TdxOrder": 38}, {"RouteId": "R0005", "StopId": "SP00001850", "StopName": "埔里酒廠", "StopOrder": 17, "Direction": "1", "PointInfo": "23.967922,120.960787", "Photo": "", "StopType": "", "TdxId": "249789", "TdxOrder": 40}, {"RouteId": "R0005", "StopId": "SP00001851", "StopName": "榮民醫院", "StopOrder": 18, "Direction": "1", "PointInfo": "23.969013,120.956782", "Photo": "", "StopType": "", "TdxId": "251151", "TdxOrder": 41}, {"RouteId": "R0005", "StopId": "SP00001852", "StopName": "大成國小", "StopOrder": 19, "Direction": "1", "PointInfo": "23.970303,120.951851", "Photo": "", "StopType": "", "TdxId": "248251", "TdxOrder": 42}, {"RouteId": "R0005", "StopId": "SP00001853", "StopName": "崎下", "StopOrder": 20, "Direction": "1", "PointInfo": "23.971173,120.948521", "Photo": "", "StopType": "", "TdxId": "278201", "TdxOrder": 43}, {"RouteId": "R0005", "StopId": "SP00000131", "StopName": "牛耳石雕公園", "StopOrder": 21, "Direction": "1", "PointInfo": "23.96634676,120.9439983", "Photo": "", "StopType": "", "TdxId": "257859", "TdxOrder": 45}, {"RouteId": "R0005", "StopId": "SP00001856", "StopName": "埔里遊客中心", "StopOrder": 22, "Direction": "1", "PointInfo": "23.969525,120.930441", "Photo": "", "StopType": "", "TdxId": "304580", "TdxOrder": 46}, {"RouteId": "R0005", "StopId": "SP00000132", "StopName": "高鐵臺中站", "StopOrder": 23, "Direction": "1", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 47}, {"RouteId": "R0005", "StopId": "SP00000133", "StopName": "捷運大慶站", "StopOrder": 24, "Direction": "1", "PointInfo": "24.11925,120.64762", "Photo": "", "StopType": "", "TdxId": "289995", "TdxOrder": 48}, {"RouteId": "R0005", "StopId": "SP00001854", "StopName": "五權車站", "StopOrder": 25, "Direction": "1", "PointInfo": "24.12901,120.66654", "Photo": "", "StopType": "BAL0000077", "TdxId": "304352", "TdxOrder": 49}, {"RouteId": "R0005", "StopId": "SP00000134", "StopName": "臺中車站(民族路口)", "StopOrder": 26, "Direction": "1", "PointInfo": "24.136337,120.683035", "Photo": "", "StopType": "BAL0000077", "TdxId": "257741", "TdxOrder": 50}, {"RouteId": "R0005", "StopId": "SP00000135", "StopName": "臺中干城站", "StopOrder": 27, "Direction": "1", "PointInfo": "24.1411,120.68561", "Photo": "", "StopType": "", "TdxId": "273174", "TdxOrder": 51}]}, "6670A 日月潭A": {"去程": [{"RouteId": "SR0001", "StopId": "SBS000000000002", "StopName": "臺中干城站", "StopOrder": 1, "Direction": "0", "PointInfo": "24.1411,120.68561", "Photo": "", "StopType": "", "TdxId": "273174", "TdxOrder": 1}, {"RouteId": "SR0001", "StopId": "SBS000000000003", "StopName": "臺中車站(民族路口)", "StopOrder": 2, "Direction": "0", "PointInfo": "24.136337,120.683035", "Photo": "", "StopType": "BAL0000077", "TdxId": "259281", "TdxOrder": 2}, {"RouteId": "SR0001", "StopId": "SBS000000000004", "StopName": "民興公園(執行分署)", "StopOrder": 3, "Direction": "0", "PointInfo": "24.128251,120.664366", "Photo": "", "StopType": "", "TdxId": "304348", "TdxOrder": 3}, {"RouteId": "SR0001", "StopId": "SBS000000000005", "StopName": "捷運大慶站", "StopOrder": 4, "Direction": "0", "PointInfo": "24.11925,120.64762", "Photo": "", "StopType": "", "TdxId": "289992", "TdxOrder": 4}, {"RouteId": "SR0001", "StopId": "SBS000000000006", "StopName": "高鐵臺中站", "StopOrder": 5, "Direction": "0", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 5}, {"RouteId": "SR0001", "StopId": "SBS000000000007", "StopName": "埔里遊客中心", "StopOrder": 6, "Direction": "0", "PointInfo": "23.969105,120.930719", "Photo": "", "StopType": "", "TdxId": "297174", "TdxOrder": 6}, {"RouteId": "SR0001", "StopId": "SBS000000000008", "StopName": "牛耳石雕公園", "StopOrder": 7, "Direction": "0", "PointInfo": "23.96634676,120.9439983", "Photo": "", "StopType": "", "TdxId": "253521", "TdxOrder": 7}, {"RouteId": "SR0001", "StopId": "SBS000000000009", "StopName": "崎下", "StopOrder": 8, "Direction": "0", "PointInfo": "23.97099,120.94883", "Photo": "", "StopType": "", "TdxId": "278199", "TdxOrder": 9}, {"RouteId": "SR0001", "StopId": "SBS000000000010", "StopName": "大成國小", "StopOrder": 9, "Direction": "0", "PointInfo": "23.97031,120.95145", "Photo": "", "StopType": "", "TdxId": "248144", "TdxOrder": 10}, {"RouteId": "SR0001", "StopId": "SBS000000000011", "StopName": "榮民醫院", "StopOrder": 10, "Direction": "0", "PointInfo": "23.969013,120.956782", "Photo": "", "StopType": "", "TdxId": "278249", "TdxOrder": 11}, {"RouteId": "SR0001", "StopId": "SBS000000000012", "StopName": "埔里酒廠", "StopOrder": 11, "Direction": "0", "PointInfo": "23.968064,120.96009", "Photo": "", "StopType": "", "TdxId": "278194", "TdxOrder": 12}, {"RouteId": "SR0001", "StopId": "SBS000000000013", "StopName": "仁愛公園", "StopOrder": 12, "Direction": "0", "PointInfo": "23.967207454,1234120.964424746724", "Photo": "", "StopType": "", "TdxId": "248396", "TdxOrder": 14}, {"RouteId": "SR0001", "StopId": "SBS000000000017", "StopName": "埔里站", "StopOrder": 13, "Direction": "0", "PointInfo": "23.96352,120.96915", "Photo": "", "StopType": "", "TdxId": "283436", "TdxOrder": 16}, {"RouteId": "SR0001", "StopId": "SBS000000000019", "StopName": "暨南大學(校外)", "StopOrder": 14, "Direction": "0", "PointInfo": "23.94906,120.93771", "Photo": "", "StopType": "", "TdxId": "307961", "TdxOrder": 28}, {"RouteId": "SR0001", "StopId": "SBS000000000020", "StopName": "桃米坑(紙教堂)", "StopOrder": 15, "Direction": "0", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "258114", "TdxOrder": 30}, {"RouteId": "SR0001", "StopId": "SBS000000000021", "StopName": "大雁(澀水社區)", "StopOrder": 16, "Direction": "0", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "248151", "TdxOrder": 32}, {"RouteId": "SR0001", "StopId": "SBS000000000022", "StopName": "新城國小", "StopOrder": 17, "Direction": "0", "PointInfo": "23.905766,120.926793", "Photo": "", "StopType": "", "TdxId": "250000", "TdxOrder": 34}, {"RouteId": "SR0001", "StopId": "SBS000000000023", "StopName": "三育神學院", "StopOrder": 18, "Direction": "0", "PointInfo": "23.900566,120.931581", "Photo": "", "StopType": "", "TdxId": "303119", "TdxOrder": 36}, {"RouteId": "SR0001", "StopId": "SBS000000000024", "StopName": "經典驛棧", "StopOrder": 19, "Direction": "0", "PointInfo": "23.892555,120.940958", "Photo": "", "StopType": "", "TdxId": "302393", "TdxOrder": 37}, {"RouteId": "SR0001", "StopId": "SBS000000000025", "StopName": "晶園渡假村", "StopOrder": 20, "Direction": "0", "PointInfo": "23.879025,120.942188", "Photo": "", "StopType": "", "TdxId": "249760", "TdxOrder": 38}, {"RouteId": "SR0001", "StopId": "SBS000000000026", "StopName": "九族文化村(部分班次停靠)", "StopOrder": 21, "Direction": "0", "PointInfo": "23.87151,120.94418", "Photo": "", "StopType": "", "TdxId": "283441", "TdxOrder": 39}, {"RouteId": "SR0001", "StopId": "SBS000000000027", "StopName": "魚池", "StopOrder": 22, "Direction": "0", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "276967", "TdxOrder": 42}, {"RouteId": "SR0001", "StopId": "SBS000000000028", "StopName": "日月老茶場", "StopOrder": 23, "Direction": "0", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "256867", "TdxOrder": 45}, {"RouteId": "SR0001", "StopId": "SBS000000000029", "StopName": "日月潭", "StopOrder": 24, "Direction": "0", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "252627", "TdxOrder": 51}], "回程": [{"RouteId": "SR0001", "StopId": "SBS000000000034", "StopName": "日月潭", "StopOrder": 1, "Direction": "1", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "248192", "TdxOrder": 1}, {"RouteId": "SR0001", "StopId": "SBS000000000035", "StopName": "日月老茶場", "StopOrder": 2, "Direction": "1", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "290028", "TdxOrder": 7}, {"RouteId": "SR0001", "StopId": "SBS000000000036", "StopName": "魚池", "StopOrder": 3, "Direction": "1", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "249516", "TdxOrder": 10}, {"RouteId": "SR0001", "StopId": "SBS000000000037", "StopName": "九族文化村(部分班次停靠)", "StopOrder": 4, "Direction": "1", "PointInfo": "23.87151,120.94418", "Photo": "", "StopType": "", "TdxId": "284946", "TdxOrder": 13}, {"RouteId": "SR0001", "StopId": "SBS000000000038", "StopName": "晶園渡假村", "StopOrder": 5, "Direction": "1", "PointInfo": "23.87908,120.94228", "Photo": "", "StopType": "", "TdxId": "248779", "TdxOrder": 14}, {"RouteId": "SR0001", "StopId": "SBS000000000039", "StopName": "經典驛棧", "StopOrder": 6, "Direction": "1", "PointInfo": "23.892643,120.940992", "Photo": "", "StopType": "", "TdxId": "302394", "TdxOrder": 15}, {"RouteId": "SR0001", "StopId": "SBS000000000040", "StopName": "三育神學院", "StopOrder": 7, "Direction": "1", "PointInfo": "23.900413,120.932657", "Photo": "", "StopType": "", "TdxId": "303120", "TdxOrder": 16}, {"RouteId": "SR0001", "StopId": "SBS000000000041", "StopName": "新城國小", "StopOrder": 8, "Direction": "1", "PointInfo": "23.90584,120.92683", "Photo": "", "StopType": "", "TdxId": "278840", "TdxOrder": 18}, {"RouteId": "SR0001", "StopId": "SBS000000000042", "StopName": "大雁(澀水社區)", "StopOrder": 9, "Direction": "1", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "290024", "TdxOrder": 20}, {"RouteId": "SR0001", "StopId": "SBS000000000043", "StopName": "桃米坑(紙教堂)", "StopOrder": 10, "Direction": "1", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "254674", "TdxOrder": 22}, {"RouteId": "SR0001", "StopId": "SBS000000000044", "StopName": "暨南大學(校外)", "StopOrder": 11, "Direction": "1", "PointInfo": "23.94906,120.93771", "Photo": "", "StopType": "", "TdxId": "251150", "TdxOrder": 24}, {"RouteId": "SR0001", "StopId": "SBS000000000046", "StopName": "埔里站", "StopOrder": 12, "Direction": "1", "PointInfo": "23.96352,120.96915", "Photo": "", "StopType": "", "TdxId": "283436", "TdxOrder": 31}, {"RouteId": "SR0001", "StopId": "SBS000000000050", "StopName": "仁愛公園", "StopOrder": 13, "Direction": "1", "PointInfo": "23.96743120.96436", "Photo": "", "StopType": "", "TdxId": "248287", "TdxOrder": 38}, {"RouteId": "SR0001", "StopId": "SBS000000000051", "StopName": "埔里酒廠", "StopOrder": 14, "Direction": "1", "PointInfo": "23.967922,120.960787", "Photo": "", "StopType": "", "TdxId": "249789", "TdxOrder": 40}, {"RouteId": "SR0001", "StopId": "SBS000000000052", "StopName": "榮民醫院", "StopOrder": 15, "Direction": "1", "PointInfo": "23.969013,120.956782", "Photo": "", "StopType": "", "TdxId": "251151", "TdxOrder": 41}, {"RouteId": "SR0001", "StopId": "SBS000000000053", "StopName": "大成國小", "StopOrder": 16, "Direction": "1", "PointInfo": "23.970303,120.951851", "Photo": "", "StopType": "", "TdxId": "248251", "TdxOrder": 42}, {"RouteId": "SR0001", "StopId": "SBS000000000054", "StopName": "崎下", "StopOrder": 17, "Direction": "1", "PointInfo": "23.971173,120.948521", "Photo": "", "StopType": "", "TdxId": "278201", "TdxOrder": 43}, {"RouteId": "SR0001", "StopId": "SBS000000000055", "StopName": "牛耳石雕公園", "StopOrder": 18, "Direction": "1", "PointInfo": "23.96634676,120.9439983", "Photo": "", "StopType": "", "TdxId": "257859", "TdxOrder": 45}, {"RouteId": "SR0001", "StopId": "SBS000000000056", "StopName": "埔里遊客中心", "StopOrder": 19, "Direction": "1", "PointInfo": "23.969525,120.930441", "Photo": "", "StopType": "", "TdxId": "304580", "TdxOrder": 46}, {"RouteId": "SR0001", "StopId": "SBS000000000057", "StopName": "高鐵臺中站", "StopOrder": 20, "Direction": "1", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 47}, {"RouteId": "SR0001", "StopId": "SBS000000000058", "StopName": "捷運大慶站", "StopOrder": 21, "Direction": "1", "PointInfo": "24.11925,120.64762", "Photo": "", "StopType": "", "TdxId": "289995", "TdxOrder": 48}, {"RouteId": "SR0001", "StopId": "SBS000000000059", "StopName": "五權車站", "StopOrder": 22, "Direction": "1", "PointInfo": "24.12901,120.66654", "Photo": "", "StopType": "BAL0000077", "TdxId": "304352", "TdxOrder": 49}, {"RouteId": "SR0001", "StopId": "SBS000000000060", "StopName": "臺中車站(民族路口)", "StopOrder": 23, "Direction": "1", "PointInfo": "24.136337,120.683035", "Photo": "", "StopType": "BAL0000077", "TdxId": "257741", "TdxOrder": 50}, {"RouteId": "SR0001", "StopId": "SBS000000000061", "StopName": "臺中干城站", "StopOrder": 24, "Direction": "1", "PointInfo": "24.1411,120.68561", "Photo": "", "StopType": "", "TdxId": "273174", "TdxOrder": 51}]}, "6670B 日月潭B": {"去程": [{"RouteId": "SR0002", "StopId": "SBS000000000064", "StopName": "臺中干城站", "StopOrder": 1, "Direction": "0", "PointInfo": "24.1411,120.68561", "Photo": "", "StopType": "", "TdxId": "273174", "TdxOrder": 1}, {"RouteId": "SR0002", "StopId": "SBS000000000065", "StopName": "臺中車站(民族路口)", "StopOrder": 2, "Direction": "0", "PointInfo": "24.136337,120.683035", "Photo": "", "StopType": "BAL0000077", "TdxId": "259281", "TdxOrder": 2}, {"RouteId": "SR0002", "StopId": "SBS000000000066", "StopName": "民興公園(執行分署)", "StopOrder": 3, "Direction": "0", "PointInfo": "24.128251,120.664366", "Photo": "", "StopType": "", "TdxId": "304348", "TdxOrder": 3}, {"RouteId": "SR0002", "StopId": "SBS000000000067", "StopName": "捷運大慶站", "StopOrder": 4, "Direction": "0", "PointInfo": "24.11925,120.64762", "Photo": "", "StopType": "", "TdxId": "289992", "TdxOrder": 4}, {"RouteId": "SR0002", "StopId": "SBS000000000068", "StopName": "高鐵臺中站", "StopOrder": 5, "Direction": "0", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 5}, {"RouteId": "SR0002", "StopId": "SBS000000000069", "StopName": "埔里遊客中心", "StopOrder": 6, "Direction": "0", "PointInfo": "23.969105,120.930719", "Photo": "", "StopType": "", "TdxId": "297174", "TdxOrder": 6}, {"RouteId": "SR0002", "StopId": "SBS000000000070", "StopName": "牛耳石雕公園", "StopOrder": 7, "Direction": "0", "PointInfo": "23.96634676,120.9439983", "Photo": "", "StopType": "", "TdxId": "253521", "TdxOrder": 7}, {"RouteId": "SR0002", "StopId": "SBS000000000080", "StopName": "暨南大學(校內)", "StopOrder": 8, "Direction": "0", "PointInfo": "23.94992,120.93812", "Photo": "", "StopType": "", "TdxId": "292652", "TdxOrder": 11}, {"RouteId": "SR0002", "StopId": "SBS000000000082", "StopName": "桃米坑(紙教堂)", "StopOrder": 9, "Direction": "0", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "258114", "TdxOrder": 30}, {"RouteId": "SR0002", "StopId": "SBS000000000083", "StopName": "大雁(澀水社區)", "StopOrder": 10, "Direction": "0", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "248151", "TdxOrder": 32}, {"RouteId": "SR0002", "StopId": "SBS000000000084", "StopName": "新城國小", "StopOrder": 11, "Direction": "0", "PointInfo": "23.905766,120.926793", "Photo": "", "StopType": "", "TdxId": "250000", "TdxOrder": 34}, {"RouteId": "SR0002", "StopId": "SBS000000000085", "StopName": "三育神學院", "StopOrder": 12, "Direction": "0", "PointInfo": "23.900566,120.931581", "Photo": "", "StopType": "", "TdxId": "303119", "TdxOrder": 36}, {"RouteId": "SR0002", "StopId": "SBS000000000089", "StopName": "魚池", "StopOrder": 13, "Direction": "0", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "276967", "TdxOrder": 42}, {"RouteId": "SR0002", "StopId": "SBS000000000090", "StopName": "日月老茶場", "StopOrder": 14, "Direction": "0", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "256867", "TdxOrder": 45}, {"RouteId": "SR0002", "StopId": "SBS000000000091", "StopName": "日月潭", "StopOrder": 15, "Direction": "0", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "252627", "TdxOrder": 51}], "回程": [{"RouteId": "SR0002", "StopId": "SBS000000000119", "StopName": "日月潭", "StopOrder": 1, "Direction": "1", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "248192", "TdxOrder": 1}, {"RouteId": "SR0002", "StopId": "SBS000000000095", "StopName": "日月老茶場", "StopOrder": 2, "Direction": "1", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "290028", "TdxOrder": 7}, {"RouteId": "SR0002", "StopId": "SBS000000000096", "StopName": "魚池", "StopOrder": 3, "Direction": "1", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "249516", "TdxOrder": 10}, {"RouteId": "SR0002", "StopId": "SBS000000000100", "StopName": "三育神學院", "StopOrder": 4, "Direction": "1", "PointInfo": "23.900413,120.932657", "Photo": "", "StopType": "", "TdxId": "303120", "TdxOrder": 11}, {"RouteId": "SR0002", "StopId": "SBS000000000101", "StopName": "新城國小", "StopOrder": 5, "Direction": "1", "PointInfo": "23.90584,120.92683", "Photo": "", "StopType": "", "TdxId": "278840", "TdxOrder": 13}, {"RouteId": "SR0002", "StopId": "SBS000000000102", "StopName": "大雁(澀水社區)", "StopOrder": 6, "Direction": "1", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "290024", "TdxOrder": 15}, {"RouteId": "SR0002", "StopId": "SBS000000000103", "StopName": "桃米坑(紙教堂)", "StopOrder": 7, "Direction": "1", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "254674", "TdxOrder": 17}, {"RouteId": "SR0002", "StopId": "SBS000000000104", "StopName": "暨南大學(校內)", "StopOrder": 8, "Direction": "1", "PointInfo": "23.94992,120.93812", "Photo": "", "StopType": "", "TdxId": "292652", "TdxOrder": 19}, {"RouteId": "SR0002", "StopId": "SBS000000000111", "StopName": "牛耳石雕公園", "StopOrder": 9, "Direction": "1", "PointInfo": "23.96634676,120.9439983", "Photo": "", "StopType": "", "TdxId": "257859", "TdxOrder": 23}, {"RouteId": "SR0002", "StopId": "SBS000000000112", "StopName": "埔里遊客中心", "StopOrder": 10, "Direction": "1", "PointInfo": "23.969525,120.930441", "Photo": "", "StopType": "", "TdxId": "304580", "TdxOrder": 24}, {"RouteId": "SR0002", "StopId": "SBS000000000113", "StopName": "高鐵臺中站", "StopOrder": 11, "Direction": "1", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 25}, {"RouteId": "SR0002", "StopId": "SBS000000000114", "StopName": "捷運大慶站", "StopOrder": 12, "Direction": "1", "PointInfo": "24.11925,120.64762", "Photo": "", "StopType": "", "TdxId": "289995", "TdxOrder": 26}, {"RouteId": "SR0002", "StopId": "SBS000000000115", "StopName": "五權車站", "StopOrder": 13, "Direction": "1", "PointInfo": "24.12901,120.66654", "Photo": "", "StopType": "BAL0000077", "TdxId": "304352", "TdxOrder": 27}, {"RouteId": "SR0002", "StopId": "SBS000000000116", "StopName": "臺中車站(民族路口)", "StopOrder": 14, "Direction": "1", "PointInfo": "24.136337,120.683035", "Photo": "", "StopType": "BAL0000077", "TdxId": "257741", "TdxOrder": 28}, {"RouteId": "SR0002", "StopId": "SBS000000000117", "StopName": "臺中干城站", "StopOrder": 15, "Direction": "1", "PointInfo": "24.1411,120.68561", "Photo": "", "StopType": "", "TdxId": "261957", "TdxOrder": 29}]}, "6670C 日月潭C": {"去程": [{"RouteId": "SR0003", "StopId": "SBS000000000121", "StopName": "臺中干城站", "StopOrder": 1, "Direction": "0", "PointInfo": "24.1411,120.68561", "Photo": "", "StopType": "", "TdxId": "273174", "TdxOrder": 1}, {"RouteId": "SR0003", "StopId": "SBS000000000122", "StopName": "臺中車站(民族路口)", "StopOrder": 2, "Direction": "0", "PointInfo": "24.136337,120.683035", "Photo": "", "StopType": "BAL0000077", "TdxId": "259281", "TdxOrder": 2}, {"RouteId": "SR0003", "StopId": "SBS000000000123", "StopName": "民興公園(執行分署)", "StopOrder": 3, "Direction": "0", "PointInfo": "24.128251,120.664366", "Photo": "", "StopType": "", "TdxId": "304348", "TdxOrder": 3}, {"RouteId": "SR0003", "StopId": "SBS000000000124", "StopName": "捷運大慶站", "StopOrder": 4, "Direction": "0", "PointInfo": "24.11925,120.64762", "Photo": "", "StopType": "", "TdxId": "289992", "TdxOrder": 4}, {"RouteId": "SR0003", "StopId": "SBS000000000125", "StopName": "高鐵臺中站", "StopOrder": 5, "Direction": "0", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 5}, {"RouteId": "SR0003", "StopId": "SBS000000000133", "StopName": "中台禪寺", "StopOrder": 6, "Direction": "0", "PointInfo": "24.011742,120.945687", "Photo": "", "StopType": "", "TdxId": "290312", "TdxOrder": 6}, {"RouteId": "SR0003", "StopId": "SBS000000000134", "StopName": "中台世界博物館", "StopOrder": 7, "Direction": "0", "PointInfo": "24.015288,120.949517", "Photo": "", "StopType": "", "TdxId": "302382", "TdxOrder": 7}, {"RouteId": "SR0003", "StopId": "SBS000000000135", "StopName": "埔里花卉中心", "StopOrder": 8, "Direction": "0", "PointInfo": "23.985914,120.958655", "Photo": "", "StopType": "", "TdxId": "290310", "TdxOrder": 8}, {"RouteId": "SR0003", "StopId": "SBS000000000136", "StopName": "埔里站", "StopOrder": 9, "Direction": "0", "PointInfo": "23.96352,120.96915", "Photo": "", "StopType": "", "TdxId": "283436", "TdxOrder": 16}, {"RouteId": "SR0003", "StopId": "SBS000000000138", "StopName": "暨南大學(校外)", "StopOrder": 10, "Direction": "0", "PointInfo": "23.94906,120.93771", "Photo": "", "StopType": "", "TdxId": "307961", "TdxOrder": 28}, {"RouteId": "SR0003", "StopId": "SBS000000000139", "StopName": "桃米坑(紙教堂)", "StopOrder": 11, "Direction": "0", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "258114", "TdxOrder": 30}, {"RouteId": "SR0003", "StopId": "SBS000000000140", "StopName": "大雁(澀水社區)", "StopOrder": 12, "Direction": "0", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "248151", "TdxOrder": 32}, {"RouteId": "SR0003", "StopId": "SBS000000000141", "StopName": "新城國小", "StopOrder": 13, "Direction": "0", "PointInfo": "23.905766,120.926793", "Photo": "", "StopType": "", "TdxId": "250000", "TdxOrder": 34}, {"RouteId": "SR0003", "StopId": "SBS000000000142", "StopName": "三育神學院", "StopOrder": 14, "Direction": "0", "PointInfo": "23.900566,120.931581", "Photo": "", "StopType": "", "TdxId": "303119", "TdxOrder": 36}, {"RouteId": "SR0003", "StopId": "SBS000000000146", "StopName": "魚池", "StopOrder": 15, "Direction": "0", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "276967", "TdxOrder": 42}, {"RouteId": "SR0003", "StopId": "SBS000000000147", "StopName": "日月老茶場", "StopOrder": 16, "Direction": "0", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "256867", "TdxOrder": 45}, {"RouteId": "SR0003", "StopId": "SBS000000000148", "StopName": "日月潭", "StopOrder": 17, "Direction": "0", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "252627", "TdxOrder": 51}], "回程": [{"RouteId": "SR0003", "StopId": "SBS000000000151", "StopName": "日月潭", "StopOrder": 1, "Direction": "1", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "248192", "TdxOrder": 1}, {"RouteId": "SR0003", "StopId": "SBS000000000152", "StopName": "日月老茶場", "StopOrder": 2, "Direction": "1", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "290028", "TdxOrder": 7}, {"RouteId": "SR0003", "StopId": "SBS000000000153", "StopName": "魚池", "StopOrder": 3, "Direction": "1", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "249516", "TdxOrder": 10}, {"RouteId": "SR0003", "StopId": "SBS000000000157", "StopName": "三育神學院", "StopOrder": 4, "Direction": "1", "PointInfo": "23.900413,120.932657", "Photo": "", "StopType": "", "TdxId": "303120", "TdxOrder": 11}, {"RouteId": "SR0003", "StopId": "SBS000000000158", "StopName": "新城國小", "StopOrder": 5, "Direction": "1", "PointInfo": "23.90584,120.92683", "Photo": "", "StopType": "", "TdxId": "278840", "TdxOrder": 13}, {"RouteId": "SR0003", "StopId": "SBS000000000159", "StopName": "大雁(澀水社區)", "StopOrder": 6, "Direction": "1", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "290024", "TdxOrder": 15}, {"RouteId": "SR0003", "StopId": "SBS000000000160", "StopName": "桃米坑(紙教堂)", "StopOrder": 7, "Direction": "1", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "254674", "TdxOrder": 17}, {"RouteId": "SR0003", "StopId": "SBS000000000161", "StopName": "暨南大學(校內)", "StopOrder": 8, "Direction": "1", "PointInfo": "23.94906,120.93771", "Photo": "", "StopType": "", "TdxId": "251150", "TdxOrder": 19}, {"RouteId": "SR0003", "StopId": "SBS000000000162", "StopName": "埔里站", "StopOrder": 9, "Direction": "1", "PointInfo": "23.96352,120.96915", "Photo": "", "StopType": "", "TdxId": "283436", "TdxOrder": 31}, {"RouteId": "SR0003", "StopId": "SBS000000000163", "StopName": "仁愛公園", "StopOrder": 10, "Direction": "1", "PointInfo": "23.96743120.96436", "Photo": "", "StopType": "", "TdxId": "248287", "TdxOrder": 32}, {"RouteId": "SR0003", "StopId": "SBS000000000164", "StopName": "埔里酒廠", "StopOrder": 11, "Direction": "1", "PointInfo": "23.967922,120.960787", "Photo": "", "StopType": "", "TdxId": "249789", "TdxOrder": 40}, {"RouteId": "SR0003", "StopId": "SBS000000000165", "StopName": "榮民醫院", "StopOrder": 12, "Direction": "1", "PointInfo": "23.969013,120.956782", "Photo": "", "StopType": "", "TdxId": "251151", "TdxOrder": 41}, {"RouteId": "SR0003", "StopId": "SBS000000000166", "StopName": "大成國小", "StopOrder": 13, "Direction": "1", "PointInfo": "23.970303,120.951851", "Photo": "", "StopType": "", "TdxId": "248251", "TdxOrder": 42}, {"RouteId": "SR0003", "StopId": "SBS000000000167", "StopName": "崎下", "StopOrder": 14, "Direction": "1", "PointInfo": "23.971173,120.948521", "Photo": "", "StopType": "", "TdxId": "278201", "TdxOrder": 43}, {"RouteId": "SR0003", "StopId": "SBS000000000168", "StopName": "牛耳石雕公園", "StopOrder": 15, "Direction": "1", "PointInfo": "23.96634676,120.9439983", "Photo": "", "StopType": "", "TdxId": "257859", "TdxOrder": 45}, {"RouteId": "SR0003", "StopId": "SBS000000000169", "StopName": "埔里遊客中心", "StopOrder": 16, "Direction": "1", "PointInfo": "23.969525,120.930441", "Photo": "", "StopType": "", "TdxId": "304580", "TdxOrder": 46}, {"RouteId": "SR0003", "StopId": "SBS000000000170", "StopName": "高鐵臺中站", "StopOrder": 17, "Direction": "1", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 47}, {"RouteId": "SR0003", "StopId": "SBS000000000171", "StopName": "捷運大慶站", "StopOrder": 18, "Direction": "1", "PointInfo": "24.11925,120.64762", "Photo": "", "StopType": "", "TdxId": "289995", "TdxOrder": 48}, {"RouteId": "SR0003", "StopId": "SBS000000000172", "StopName": "五權車站", "StopOrder": 19, "Direction": "1", "PointInfo": "24.12901,120.66654", "Photo": "", "StopType": "BAL0000077", "TdxId": "304352", "TdxOrder": 49}, {"RouteId": "SR0003", "StopId": "SBS000000000173", "StopName": "臺中車站(民族路口)", "StopOrder": 20, "Direction": "1", "PointInfo": "24.136337,120.683035", "Photo": "", "StopType": "BAL0000077", "TdxId": "257741", "TdxOrder": 50}, {"RouteId": "SR0003", "StopId": "SBS000000000174", "StopName": "臺中干城站", "StopOrder": 21, "Direction": "1", "PointInfo": "24.1411,120.68561", "Photo": "", "StopType": "", "TdxId": "273174", "TdxOrder": 51}]}, "6670D 日月潭D": {"去程": [{"RouteId": "SR0004", "StopId": "SBS000000000176", "StopName": "臺中干城站", "StopOrder": 1, "Direction": "0", "PointInfo": "24.1411,120.68561", "Photo": "", "StopType": "", "TdxId": "273174", "TdxOrder": 1}, {"RouteId": "SR0004", "StopId": "SBS000000000177", "StopName": "臺中車站(民族路口)", "StopOrder": 2, "Direction": "0", "PointInfo": "24.136337,120.683035", "Photo": "", "StopType": "BAL0000077", "TdxId": "259281", "TdxOrder": 2}, {"RouteId": "SR0004", "StopId": "SBS000000000178", "StopName": "民興公園(執行分署)", "StopOrder": 3, "Direction": "0", "PointInfo": "24.128251,120.664366", "Photo": "", "StopType": "", "TdxId": "304348", "TdxOrder": 3}, {"RouteId": "SR0004", "StopId": "SBS000000000179", "StopName": "捷運大慶站", "StopOrder": 4, "Direction": "0", "PointInfo": "24.11925,120.64762", "Photo": "", "StopType": "", "TdxId": "289992", "TdxOrder": 4}, {"RouteId": "SR0004", "StopId": "SBS000000000180", "StopName": "高鐵臺中站", "StopOrder": 5, "Direction": "0", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 5}, {"RouteId": "SR0004", "StopId": "SBS000000000181", "StopName": "埔里遊客中心", "StopOrder": 6, "Direction": "0", "PointInfo": "23.969105,120.930719", "Photo": "", "StopType": "", "TdxId": "297174", "TdxOrder": 6}, {"RouteId": "SR0004", "StopId": "SBS000000000182", "StopName": "牛耳石雕公園", "StopOrder": 7, "Direction": "0", "PointInfo": "23.96634676,120.9439983", "Photo": "", "StopType": "", "TdxId": "253521", "TdxOrder": 7}, {"RouteId": "SR0004", "StopId": "SBS000000000183", "StopName": "崎下", "StopOrder": 8, "Direction": "0", "PointInfo": "23.97099,120.94883", "Photo": "", "StopType": "", "TdxId": "278199", "TdxOrder": 9}, {"RouteId": "SR0004", "StopId": "SBS000000000184", "StopName": "大成國小", "StopOrder": 9, "Direction": "0", "PointInfo": "23.97031,120.95145", "Photo": "", "StopType": "", "TdxId": "248144", "TdxOrder": 10}, {"RouteId": "SR0004", "StopId": "SBS000000000185", "StopName": "榮民醫院", "StopOrder": 10, "Direction": "0", "PointInfo": "23.969013,120.956782", "Photo": "", "StopType": "", "TdxId": "278249", "TdxOrder": 11}, {"RouteId": "SR0004", "StopId": "SBS000000000186", "StopName": "埔里酒廠", "StopOrder": 11, "Direction": "0", "PointInfo": "23.968064,120.96009", "Photo": "", "StopType": "", "TdxId": "278194", "TdxOrder": 12}, {"RouteId": "SR0004", "StopId": "SBS000000000187", "StopName": "仁愛公園", "StopOrder": 12, "Direction": "0", "PointInfo": "23.967207454,1234120.964424746724", "Photo": "", "StopType": "", "TdxId": "248396", "TdxOrder": 14}, {"RouteId": "SR0004", "StopId": "SBS000000000191", "StopName": "埔里站", "StopOrder": 13, "Direction": "0", "PointInfo": "23.96352,120.96915", "Photo": "", "StopType": "", "TdxId": "283436", "TdxOrder": 16}, {"RouteId": "SR0004", "StopId": "SBS000000000193", "StopName": "暨南大學(校外)", "StopOrder": 14, "Direction": "0", "PointInfo": "23.94906,120.93771", "Photo": "", "StopType": "", "TdxId": "307961", "TdxOrder": 28}, {"RouteId": "SR0004", "StopId": "SBS000000000194", "StopName": "桃米坑(紙教堂)", "StopOrder": 15, "Direction": "0", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "258114", "TdxOrder": 30}, {"RouteId": "SR0004", "StopId": "SBS000000000195", "StopName": "大雁(澀水社區)", "StopOrder": 16, "Direction": "0", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "248151", "TdxOrder": 32}, {"RouteId": "SR0004", "StopId": "SBS000000000196", "StopName": "新城國小", "StopOrder": 17, "Direction": "0", "PointInfo": "23.905766,120.926793", "Photo": "", "StopType": "", "TdxId": "250000", "TdxOrder": 34}, {"RouteId": "SR0004", "StopId": "SBS000000000197", "StopName": "三育神學院", "StopOrder": 18, "Direction": "0", "PointInfo": "23.900566,120.931581", "Photo": "", "StopType": "", "TdxId": "303119", "TdxOrder": 36}, {"RouteId": "SR0004", "StopId": "SBS000000000201", "StopName": "魚池", "StopOrder": 19, "Direction": "0", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "276967", "TdxOrder": 37}, {"RouteId": "SR0004", "StopId": "SBS000000000202", "StopName": "日月老茶場", "StopOrder": 20, "Direction": "0", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "256867", "TdxOrder": 40}, {"RouteId": "SR0004", "StopId": "SBS000000000203", "StopName": "日月潭", "StopOrder": 21, "Direction": "0", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "252627", "TdxOrder": 46}], "回程": [{"RouteId": "SR0004", "StopId": "SBS000000000206", "StopName": "日月潭", "StopOrder": 1, "Direction": "1", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "248192", "TdxOrder": 1}, {"RouteId": "SR0004", "StopId": "SBS000000000207", "StopName": "日月老茶場", "StopOrder": 2, "Direction": "1", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "290028", "TdxOrder": 7}, {"RouteId": "SR0004", "StopId": "SBS000000000208", "StopName": "魚池", "StopOrder": 3, "Direction": "1", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "249516", "TdxOrder": 10}, {"RouteId": "SR0004", "StopId": "SBS000000000212", "StopName": "三育神學院", "StopOrder": 4, "Direction": "1", "PointInfo": "23.900413,120.932657", "Photo": "", "StopType": "", "TdxId": "303120", "TdxOrder": 11}, {"RouteId": "SR0004", "StopId": "SBS000000000213", "StopName": "新城國小", "StopOrder": 5, "Direction": "1", "PointInfo": "23.90584,120.92683", "Photo": "", "StopType": "", "TdxId": "278840", "TdxOrder": 13}, {"RouteId": "SR0004", "StopId": "SBS000000000214", "StopName": "大雁(澀水社區)", "StopOrder": 6, "Direction": "1", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "290024", "TdxOrder": 15}, {"RouteId": "SR0004", "StopId": "SBS000000000215", "StopName": "桃米坑(紙教堂)", "StopOrder": 7, "Direction": "1", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "254674", "TdxOrder": 17}, {"RouteId": "SR0004", "StopId": "SBS000000000216", "StopName": "暨南大學(校外)", "StopOrder": 8, "Direction": "1", "PointInfo": "23.94906,120.93771", "Photo": "", "StopType": "", "TdxId": "251150", "TdxOrder": 19}, {"RouteId": "SR0004", "StopId": "SBS000000000217", "StopName": "埔里站", "StopOrder": 9, "Direction": "1", "PointInfo": "23.96352,120.96915", "Photo": "", "StopType": "", "TdxId": "283436", "TdxOrder": 31}, {"RouteId": "SR0004", "StopId": "SBS000000000218", "StopName": "仁愛公園", "StopOrder": 10, "Direction": "1", "PointInfo": "23.96743120.96436", "Photo": "", "StopType": "", "TdxId": "248287", "TdxOrder": 33}, {"RouteId": "SR0004", "StopId": "SBS000000000219", "StopName": "埔里酒廠", "StopOrder": 11, "Direction": "1", "PointInfo": "23.967922,120.960787", "Photo": "", "StopType": "", "TdxId": "249789", "TdxOrder": 35}, {"RouteId": "SR0004", "StopId": "SBS000000000220", "StopName": "榮民醫院", "StopOrder": 12, "Direction": "1", "PointInfo": "23.969013,120.956782", "Photo": "", "StopType": "", "TdxId": "251151", "TdxOrder": 36}, {"RouteId": "SR0004", "StopId": "SBS000000000221", "StopName": "大成國小", "StopOrder": 13, "Direction": "1", "PointInfo": "23.970303,120.951851", "Photo": "", "StopType": "", "TdxId": "248251", "TdxOrder": 37}, {"RouteId": "SR0004", "StopId": "SBS000000000222", "StopName": "崎下", "StopOrder": 14, "Direction": "1", "PointInfo": "23.971173,120.948521", "Photo": "", "StopType": "", "TdxId": "278201", "TdxOrder": 38}, {"RouteId": "SR0004", "StopId": "SBS000000000223", "StopName": "牛耳石雕公園", "StopOrder": 15, "Direction": "1", "PointInfo": "23.96634676,120.9439983", "Photo": "", "StopType": "", "TdxId": "257859", "TdxOrder": 40}, {"RouteId": "SR0004", "StopId": "SBS000000000224", "StopName": "埔里遊客中心", "StopOrder": 16, "Direction": "1", "PointInfo": "23.969525,120.930441", "Photo": "", "StopType": "", "TdxId": "304580", "TdxOrder": 41}, {"RouteId": "SR0004", "StopId": "SBS000000000225", "StopName": "高鐵臺中站", "StopOrder": 17, "Direction": "1", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 42}, {"RouteId": "SR0004", "StopId": "SBS000000000226", "StopName": "捷運大慶站", "StopOrder": 18, "Direction": "1", "PointInfo": "24.11925,120.64762", "Photo": "", "StopType": "", "TdxId": "289995", "TdxOrder": 43}, {"RouteId": "SR0004", "StopId": "SBS000000000227", "StopName": "五權車站", "StopOrder": 19, "Direction": "1", "PointInfo": "24.12901,120.66654", "Photo": "", "StopType": "BAL0000077", "TdxId": "304352", "TdxOrder": 44}, {"RouteId": "SR0004", "StopId": "SBS000000000228", "StopName": "臺中車站(民族路口)", "StopOrder": 20, "Direction": "1", "PointInfo": "24.136337,120.683035", "Photo": "", "StopType": "BAL0000077", "TdxId": "257741", "TdxOrder": 45}, {"RouteId": "SR0004", "StopId": "SBS000000000229", "StopName": "臺中干城站", "StopOrder": 21, "Direction": "1", "PointInfo": "24.1411,120.68561", "Photo": "", "StopType": "", "TdxId": "273174", "TdxOrder": 46}]}, "6670E 日月潭E": {"去程": [{"RouteId": "SR0005", "StopId": "SBS000000000230", "StopName": "台中航空站", "StopOrder": 1, "Direction": "0", "PointInfo": "24.252927,120.59871", "Photo": "", "StopType": "BAL0000195", "TdxId": "294744", "TdxOrder": 1}, {"RouteId": "SR0005", "StopId": "SBS000000000235", "StopName": "高鐵臺中站", "StopOrder": 2, "Direction": "0", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 2}, {"RouteId": "SR0005", "StopId": "SBS000000000236", "StopName": "埔里遊客中心", "StopOrder": 3, "Direction": "0", "PointInfo": "23.969105,120.930719", "Photo": "", "StopType": "", "TdxId": "297174", "TdxOrder": 3}, {"RouteId": "SR0005", "StopId": "SBS000000000237", "StopName": "牛耳石雕公園", "StopOrder": 4, "Direction": "0", "PointInfo": "23.96634676,120.9439983", "Photo": "", "StopType": "", "TdxId": "253521", "TdxOrder": 4}, {"RouteId": "SR0005", "StopId": "SBS000000000247", "StopName": "暨南大學(校內)", "StopOrder": 5, "Direction": "0", "PointInfo": "23.94992,120.93812", "Photo": "", "StopType": "", "TdxId": "292652", "TdxOrder": 8}, {"RouteId": "SR0005", "StopId": "SBS000000000249", "StopName": "桃米坑(紙教堂)", "StopOrder": 6, "Direction": "0", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "258114", "TdxOrder": 10}, {"RouteId": "SR0005", "StopId": "SBS000000000250", "StopName": "大雁(澀水社區)", "StopOrder": 7, "Direction": "0", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "248151", "TdxOrder": 12}, {"RouteId": "SR0005", "StopId": "SBS000000000251", "StopName": "新城國小", "StopOrder": 8, "Direction": "0", "PointInfo": "23.905766,120.926793", "Photo": "", "StopType": "", "TdxId": "250000", "TdxOrder": 14}, {"RouteId": "SR0005", "StopId": "SBS000000000252", "StopName": "三育神學院", "StopOrder": 9, "Direction": "0", "PointInfo": "23.900566,120.931581", "Photo": "", "StopType": "", "TdxId": "303119", "TdxOrder": 16}, {"RouteId": "SR0005", "StopId": "SBS000000000256", "StopName": "魚池", "StopOrder": 10, "Direction": "0", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "276967", "TdxOrder": 17}, {"RouteId": "SR0005", "StopId": "SBS000000000257", "StopName": "日月老茶場", "StopOrder": 11, "Direction": "0", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "256867", "TdxOrder": 20}, {"RouteId": "SR0005", "StopId": "SBS000000000258", "StopName": "日月潭", "StopOrder": 12, "Direction": "0", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "252627", "TdxOrder": 26}], "回程": [{"RouteId": "SR0005", "StopId": "SBS000000000261", "StopName": "日月潭", "StopOrder": 1, "Direction": "1", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "248192", "TdxOrder": 1}, {"RouteId": "SR0005", "StopId": "SBS000000000262", "StopName": "日月老茶場", "StopOrder": 2, "Direction": "1", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "290028", "TdxOrder": 7}, {"RouteId": "SR0005", "StopId": "SBS000000000263", "StopName": "魚池", "StopOrder": 3, "Direction": "1", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "276972", "TdxOrder": 10}, {"RouteId": "SR0005", "StopId": "SBS000000000267", "StopName": "三育神學院", "StopOrder": 4, "Direction": "1", "PointInfo": "23.900413,120.932657", "Photo": "", "StopType": "", "TdxId": "303120", "TdxOrder": 11}, {"RouteId": "SR0005", "StopId": "SBS000000000268", "StopName": "新城國小", "StopOrder": 5, "Direction": "1", "PointInfo": "23.90584,120.92683", "Photo": "", "StopType": "", "TdxId": "278840", "TdxOrder": 13}, {"RouteId": "SR0005", "StopId": "SBS000000000269", "StopName": "大雁(澀水社區)", "StopOrder": 6, "Direction": "1", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "290024", "TdxOrder": 14}, {"RouteId": "SR0005", "StopId": "SBS000000000270", "StopName": "桃米坑(紙教堂)", "StopOrder": 7, "Direction": "1", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "254674", "TdxOrder": 17}, {"RouteId": "SR0005", "StopId": "SBS000000000271", "StopName": "暨南大學(校內)", "StopOrder": 8, "Direction": "1", "PointInfo": "23.94992,120.93812", "Photo": "", "StopType": "", "TdxId": "292652", "TdxOrder": 19}, {"RouteId": "SR0005", "StopId": "SBS000000000278", "StopName": "牛耳石雕公園", "StopOrder": 9, "Direction": "1", "PointInfo": "23.96634676,120.9439983", "Photo": "", "StopType": "", "TdxId": "257859", "TdxOrder": 23}, {"RouteId": "SR0005", "StopId": "SBS000000000279", "StopName": "埔里遊客中心", "StopOrder": 10, "Direction": "1", "PointInfo": "23.969525,120.930441", "Photo": "", "StopType": "", "TdxId": "304580", "TdxOrder": 24}, {"RouteId": "SR0005", "StopId": "SBS000000000280", "StopName": "高鐵臺中站", "StopOrder": 11, "Direction": "1", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 25}, {"RouteId": "SR0005", "StopId": "SBS000000000284", "StopName": "臺中干城站", "StopOrder": 12, "Direction": "1", "PointInfo": "24.1411,120.68561", "Photo": "", "StopType": "", "TdxId": "273174", "TdxOrder": 26}]}, "6670F 日月潭F": {"去程": [{"RouteId": "SR0006", "StopId": "SBS000000000341", "StopName": "臺中干城站", "StopOrder": 1, "Direction": "0", "PointInfo": "24.1411,120.68561", "Photo": "", "StopType": "", "TdxId": "273174", "TdxOrder": 1}, {"RouteId": "SR0006", "StopId": "SBS000000000342", "StopName": "臺中車站(民族路口)", "StopOrder": 2, "Direction": "0", "PointInfo": "24.136337,120.683035", "Photo": "", "StopType": "BAL0000077", "TdxId": "259281", "TdxOrder": 2}, {"RouteId": "SR0006", "StopId": "SBS000000000343", "StopName": "民興公園(執行分署)", "StopOrder": 3, "Direction": "0", "PointInfo": "24.128251,120.664366", "Photo": "", "StopType": "", "TdxId": "304348", "TdxOrder": 3}, {"RouteId": "SR0006", "StopId": "SBS000000000344", "StopName": "捷運大慶站", "StopOrder": 4, "Direction": "0", "PointInfo": "24.11925,120.64762", "Photo": "", "StopType": "", "TdxId": "289992", "TdxOrder": 4}, {"RouteId": "SR0006", "StopId": "SBS000000000345", "StopName": "高鐵臺中站", "StopOrder": 5, "Direction": "0", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 5}, {"RouteId": "SR0006", "StopId": "SBS000000000346", "StopName": "埔里遊客中心", "StopOrder": 6, "Direction": "0", "PointInfo": "23.969105,120.930719", "Photo": "", "StopType": "", "TdxId": "297174", "TdxOrder": 62}, {"RouteId": "SR0006", "StopId": "SBS000000000347", "StopName": "牛耳石雕公園", "StopOrder": 7, "Direction": "0", "PointInfo": "23.96634676,120.9439983", "Photo": "", "StopType": "", "TdxId": "253521", "TdxOrder": 65}, {"RouteId": "SR0006", "StopId": "SBS000000000357", "StopName": "暨南大學(校內)", "StopOrder": 8, "Direction": "0", "PointInfo": "23.94992,120.93812", "Photo": "", "StopType": "", "TdxId": "292652", "TdxOrder": 11}, {"RouteId": "SR0006", "StopId": "SBS000000000359", "StopName": "桃米坑(紙教堂)", "StopOrder": 9, "Direction": "0", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "258114", "TdxOrder": 30}, {"RouteId": "SR0006", "StopId": "SBS000000000360", "StopName": "大雁(澀水社區)", "StopOrder": 10, "Direction": "0", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "248151", "TdxOrder": 32}, {"RouteId": "SR0006", "StopId": "SBS000000000361", "StopName": "新城國小", "StopOrder": 11, "Direction": "0", "PointInfo": "23.905766,120.926793", "Photo": "", "StopType": "", "TdxId": "250000", "TdxOrder": 34}, {"RouteId": "SR0006", "StopId": "SBS000000000362", "StopName": "三育神學院", "StopOrder": 12, "Direction": "0", "PointInfo": "23.900566,120.931581", "Photo": "", "StopType": "", "TdxId": "303119", "TdxOrder": 36}, {"RouteId": "SR0006", "StopId": "SBS000000000366", "StopName": "魚池", "StopOrder": 13, "Direction": "0", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "276967", "TdxOrder": 42}, {"RouteId": "SR0006", "StopId": "SBS000000000367", "StopName": "日月老茶場", "StopOrder": 14, "Direction": "0", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "256867", "TdxOrder": 45}, {"RouteId": "SR0006", "StopId": "SBS000000000368", "StopName": "日月潭", "StopOrder": 15, "Direction": "0", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "252627", "TdxOrder": 51}, {"RouteId": "SR0006", "StopId": "SBS000000000369", "StopName": "水社", "StopOrder": 16, "Direction": "0", "PointInfo": "23.86703,120.90255", "Photo": "", "StopType": "", "TdxId": "248090", "TdxOrder": 30}, {"RouteId": "SR0006", "StopId": "SBS000000000370", "StopName": "向山行政中心(部分班次停靠)", "StopOrder": 17, "Direction": "0", "PointInfo": "23.85219,120.90133", "Photo": "", "StopType": "", "TdxId": "291919", "TdxOrder": 31}], "回程": [{"RouteId": "SR0006", "StopId": "SBS000000000395", "StopName": "向山行政中心(部分班次停靠)", "StopOrder": 1, "Direction": "1", "PointInfo": "23.85219,120.90133", "Photo": "", "StopType": "", "TdxId": "292044", "TdxOrder": 1}, {"RouteId": "SR0006", "StopId": "SBS000000000396", "StopName": "水社", "StopOrder": 2, "Direction": "1", "PointInfo": "23.86703,120.90255", "Photo": "", "StopType": "", "TdxId": "248315", "TdxOrder": 2}, {"RouteId": "SR0006", "StopId": "SBS000000000371", "StopName": "日月潭", "StopOrder": 3, "Direction": "1", "PointInfo": "23.86661,120.91129", "Photo": "", "StopType": "", "TdxId": "248192", "TdxOrder": 3}, {"RouteId": "SR0006", "StopId": "SBS000000000372", "StopName": "日月老茶場", "StopOrder": 4, "Direction": "1", "PointInfo": "23.89328,120.92449", "Photo": "", "StopType": "", "TdxId": "290028", "TdxOrder": 9}, {"RouteId": "SR0006", "StopId": "SBS000000000373", "StopName": "魚池", "StopOrder": 5, "Direction": "1", "PointInfo": "23.89649,120.93507", "Photo": "", "StopType": "", "TdxId": "249516", "TdxOrder": 12}, {"RouteId": "SR0006", "StopId": "SBS000000000377", "StopName": "三育神學院", "StopOrder": 6, "Direction": "1", "PointInfo": "23.900413,120.932657", "Photo": "", "StopType": "", "TdxId": "303120", "TdxOrder": 13}, {"RouteId": "SR0006", "StopId": "SBS000000000378", "StopName": "新城國小", "StopOrder": 7, "Direction": "1", "PointInfo": "23.90584,120.92683", "Photo": "", "StopType": "", "TdxId": "278840", "TdxOrder": 15}, {"RouteId": "SR0006", "StopId": "SBS000000000379", "StopName": "大雁(澀水社區)", "StopOrder": 8, "Direction": "1", "PointInfo": "23.91859,120.92558", "Photo": "", "StopType": "", "TdxId": "290024", "TdxOrder": 17}, {"RouteId": "SR0006", "StopId": "SBS000000000380", "StopName": "桃米坑(紙教堂)", "StopOrder": 9, "Direction": "1", "PointInfo": "23.94224,120.9296", "Photo": "", "StopType": "", "TdxId": "254674", "TdxOrder": 19}, {"RouteId": "SR0006", "StopId": "SBS000000000381", "StopName": "暨南大學(校內)", "StopOrder": 10, "Direction": "1", "PointInfo": "23.94906,120.93771", "Photo": "", "StopType": "", "TdxId": "292652", "TdxOrder": 21}, {"RouteId": "SR0006", "StopId": "SBS000000000388", "StopName": "牛耳石雕公園", "StopOrder": 11, "Direction": "1", "PointInfo": "23.96634676,120.9439983", "Photo": "", "StopType": "", "TdxId": "257859", "TdxOrder": 25}, {"RouteId": "SR0006", "StopId": "SBS000000000389", "StopName": "埔里遊客中心", "StopOrder": 12, "Direction": "1", "PointInfo": "23.969525,120.930441", "Photo": "", "StopType": "", "TdxId": "304580", "TdxOrder": 26}, {"RouteId": "SR0006", "StopId": "SBS000000000390", "StopName": "高鐵臺中站", "StopOrder": 13, "Direction": "1", "PointInfo": "24.11105,120.6165", "Photo": "", "StopType": "BAL0000076", "TdxId": "259015", "TdxOrder": 27}, {"RouteId": "SR0006", "StopId": "SBS000000000391", "StopName": "捷運大慶站", "StopOrder": 14, "Direction": "1", "PointInfo": "24.11925,120.64762", "Photo": "", "StopType": "", "TdxId": "289995", "TdxOrder": 28}, {"RouteId": "SR0006", "StopId": "SBS000000000392", "StopName": "五權車站", "StopOrder": 15, "Direction": "1", "PointInfo": "24.12901,120.66654", "Photo": "", "StopType": "BAL0000077", "TdxId": "304352", "TdxOrder": 29}, {"RouteId": "SR0006", "StopId": "SBS000000000393", "StopName": "臺中車站(民族路口)", "StopOrder": 16, "Direction": "1", "PointInfo": "24.136337,120.683035", "Photo": "", "StopType": "BAL0000077", "TdxId": "257741", "TdxOrder": 30}, {"RouteId": "SR0006", "StopId": "SBS000000000394", "StopName": "臺中干城站", "StopOrder": 17, "Direction": "1", "PointInfo": "24.1411,120.68561", "Photo": "", "StopType": "", "TdxId": "273174", "TdxOrder": 31}]}};
@@ -859,46 +910,89 @@
         });
 
         function drawRouteLines() {
-            const mainStops = RAW_STOPS["6670 日月潭線"]["去程"] || [];
-            const coords = mainStops.map(s => {
-                const parts = s.PointInfo.split(",");
-                return [parseFloat(parts[1]), parseFloat(parts[0])];
-            });
+            // 1. 6670 主線走廊 (台中車站 -> 高鐵台中 -> 台74/國3/國6 -> 埔里 -> 日月潭水社 -> 向山，共 2,133 個真實高精度 GPS 節點)
+            let mainLineCoords = [];
+            if (typeof REAL_6670_ROUTE_COORDS !== 'undefined' && REAL_6670_ROUTE_COORDS.length > 0) {
+                mainLineCoords = REAL_6670_ROUTE_COORDS;
+            } else {
+                const mainStops = RAW_STOPS["6670 日月潭線"]["去程"] || [];
+                mainLineCoords = mainStops.map(s => {
+                    const parts = s.PointInfo.split(",");
+                    return [parseFloat(parts[1]), parseFloat(parts[0])];
+                });
+            }
 
-            if (coords.length < 2) return;
+            if (mainLineCoords.length >= 2) {
+                map.addSource("route-line-source", {
+                    type: "geojson",
+                    data: {
+                        type: "Feature",
+                        geometry: { type: "LineString", coordinates: mainLineCoords }
+                    }
+                });
 
-            map.addSource("route-line-source", {
-                type: "geojson",
-                data: {
-                    type: "Feature",
-                    geometry: { type: "LineString", coordinates: coords }
-                }
-            });
+                map.addLayer({
+                    id: "route-glow",
+                    type: "line",
+                    source: "route-line-source",
+                    layout: { "line-join": "round", "line-cap": "round" },
+                    paint: {
+                        "line-color": "#00f0ff",
+                        "line-width": 8,
+                        "line-opacity": 0.45,
+                        "line-blur": 3
+                    }
+                });
 
-            map.addLayer({
-                id: "route-glow",
-                type: "line",
-                source: "route-line-source",
-                layout: { "line-join": "round", "line-cap": "round" },
-                paint: {
-                    "line-color": "#00f0ff",
-                    "line-width": 8,
-                    "line-opacity": 0.35,
-                    "line-blur": 3
-                }
-            });
+                map.addLayer({
+                    id: "route-core",
+                    type: "line",
+                    source: "route-line-source",
+                    layout: { "line-join": "round", "line-cap": "round" },
+                    paint: {
+                        "line-color": "#ffffff",
+                        "line-width": 3.2,
+                        "line-opacity": 0.95
+                    }
+                });
+            }
 
-            map.addLayer({
-                id: "route-core",
-                type: "line",
-                source: "route-line-source",
-                layout: { "line-join": "round", "line-cap": "round" },
-                paint: {
-                    "line-color": "#ffffff",
-                    "line-width": 3,
-                    "line-opacity": 0.9
-                }
-            });
+            // 2. 6670E 機場支線 (台中航空站 -> 國道3號沙鹿/龍井/大肚 -> 烏日高鐵站)
+            if (typeof ROUTE_6670E_AIRPORT_COORDS !== 'undefined' && ROUTE_6670E_AIRPORT_COORDS.length > 0) {
+                map.addSource("route-airport-source", {
+                    type: "geojson",
+                    data: {
+                        type: "Feature",
+                        geometry: { type: "LineString", coordinates: ROUTE_6670E_AIRPORT_COORDS }
+                    }
+                });
+
+                map.addLayer({
+                    id: "route-airport-glow",
+                    type: "line",
+                    source: "route-airport-source",
+                    layout: { "line-join": "round", "line-cap": "round" },
+                    paint: {
+                        "line-color": "#ff9d00",
+                        "line-width": 6,
+                        "line-opacity": 0.45,
+                        "line-blur": 2
+                    }
+                });
+
+                map.addLayer({
+                    id: "route-airport-core",
+                    type: "line",
+                    source: "route-airport-source",
+                    layout: { "line-join": "round", "line-cap": "round" },
+                    paint: {
+                        "line-color": "#ffe885",
+                        "line-width": 2.5,
+                        "line-opacity": 0.9,
+                        "line-dasharray": [2, 1]
+                    }
+                });
+            }
         }
 
         function renderStopsOnMap() {
@@ -944,25 +1038,32 @@
                 const lat = pos.PositionLat;
                 const plate = b.PlateNumb || "BUS";
                 const speed = b.Speed || 0;
+                const az = b.Azimuth || 0;
                 const subName = (b.SubRouteName && b.SubRouteName.Zh_tw) || "6670";
 
+                let speedClass = "speed-low";
+                if (speed > 80) speedClass = "speed-high";
+                else if (speed > 30) speedClass = "speed-med";
+
                 const el = document.createElement("div");
-                el.className = "bus-marker";
+                el.className = `bus-marker ${speedClass}`;
                 el.id = `bus-marker-${plate}`;
+
+                const iconHtml = speed > 0
+                    ? `<div class="bus-icon-inner" style="transform: rotate(${az}deg);"><i class="fa-solid fa-location-arrow" style="transform: rotate(-45deg);"></i></div>`
+                    : `<div class="bus-icon-inner"><i class="fa-solid fa-bus"></i></div>`;
 
                 el.innerHTML = `
                     <div class="bus-pulse"></div>
                     <div class="bus-label-tag">${plate} · ${speed}km/h</div>
-                    <div class="bus-icon-inner">
-                        <i class="fa-solid fa-bus"></i>
-                    </div>
+                    ${iconHtml}
                 `;
 
                 el.addEventListener("click", () => {
                     focusBus(plate, b);
                 });
 
-                const marker = new maplibregl.Marker({ element: el })
+                const marker = new maplibregl.Marker({ element: el, anchor: 'center' })
                     .setLngLat([lon, lat])
                     .addTo(map);
 
@@ -1037,12 +1138,22 @@
             const lat = pos.PositionLat;
             const subName = (busData.SubRouteName && busData.SubRouteName.Zh_tw) || "6670";
             const speed = busData.Speed || 0;
+            const az = busData.Azimuth || 0;
+
+            // 判斷目前行駛路段
+            let roadSegment = "南投公路巡航路段";
+            if (lat > 24.13) roadSegment = "臺中火車站核心區";
+            else if (lat > 24.10 && lon < 120.64) roadSegment = "高鐵臺中站特區 (烏日)";
+            else if (lat >= 23.98 && lat <= 24.03 && lon > 120.69 && lon < 120.86) roadSegment = "國道6號高架快速走廊";
+            else if (lat > 23.95 && lon > 120.93) roadSegment = "埔里高山盆地商圈";
+            else if (lat < 23.90 && lon > 120.90) roadSegment = "日月潭水社碼頭商圈";
+            else if (lon < 120.58) roadSegment = "國道3號沙鹿/龍井段 (機場線)";
 
             map.flyTo({
                 center: [lon, lat],
-                zoom: 15.5,
-                pitch: 65,
-                bearing: 45,
+                zoom: 16.5,
+                pitch: 68,
+                bearing: az || 45,
                 duration: 1800,
                 essential: true
             });
@@ -1050,17 +1161,29 @@
             new maplibregl.Popup({ offset: 18 })
                 .setLngLat([lon, lat])
                 .setHTML(`
-                    <div style="font-family:'Rajdhani',sans-serif; min-width:180px;">
-                        <div style="font-size:10px;color:#00f0ff;font-family:'Orbitron',sans-serif;">VEHICLE TELEMETRY LOCK</div>
-                        <h3 style="font-size:18px;margin:4px 0;letter-spacing:1px;color:#fff;">${plate} · ${subName}</h3>
-                        <div style="display:flex;justify-content:space-between;margin:6px 0;font-size:12px;font-family:'Share Tech Mono',monospace;">
-                            <span>即時車速:</span>
-                            <span style="color:#00ff88;font-weight:700;">${speed} km/h</span>
+                    <div style="font-family:'Rajdhani',sans-serif; min-width:210px; color:#fff;">
+                        <div style="font-size:10px;color:#00f0ff;font-family:'Orbitron',sans-serif;letter-spacing:1px;">VEHICLE TELEMETRY LOCK</div>
+                        <h3 style="font-size:18px;margin:3px 0 6px 0;letter-spacing:1px;color:#fff;">${plate} <span style="font-size:13px;color:#00f0ff;">[${subName}]</span></h3>
+                        <div style="font-size:12px;color:#ffea80;margin-bottom:6px;"><i class="fa-solid fa-road"></i> ${roadSegment}</div>
+                        <div style="display:flex;justify-content:space-between;margin:4px 0;font-size:12px;font-family:'Share Tech Mono',monospace;">
+                            <span style="color:#7d90b2;">即時車速:</span>
+                            <span style="color:${speed > 80 ? '#ff2a5f' : (speed > 30 ? '#00ff88' : '#00f0ff')};font-weight:700;">${speed} km/h ${speed > 80 ? '⚡ 極速' : ''}</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;margin:4px 0;font-size:11px;color:#7d90b2;font-family:'Share Tech Mono',monospace;">
+                            <span>航向角度:</span>
+                            <span style="color:#fff;">${az}° (方位角)</span>
                         </div>
                         <div style="display:flex;justify-content:space-between;font-size:11px;color:#7d90b2;font-family:'Share Tech Mono',monospace;">
+                            <span>真實 GPS:</span>
+                            <span style="color:#fff;">${lat.toFixed(5)}°N, ${lon.toFixed(5)}°E</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;margin:4px 0 8px 0;font-size:11px;color:#7d90b2;font-family:'Share Tech Mono',monospace;">
                             <span>行駛方向:</span>
                             <span style="color:#fff;">${busData.Direction === 0 ? "去程 (往日月潭)" : "回程 (往台中)"}</span>
                         </div>
+                        <button onclick="startBusFollow('${plate}')" style="width:100%;padding:6px 10px;background:linear-gradient(135deg,rgba(0,240,255,0.25),rgba(0,119,255,0.3));border:1px solid #00f0ff;color:#00f0ff;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+                            <i class="fa-solid fa-crosshairs"></i> 3D 環視跟隨此車
+                        </button>
                     </div>
                 `)
                 .addTo(map);
@@ -1150,27 +1273,186 @@
             });
         });
 
+        const TOUR_STAGES = [
+            {
+                name: "臺中火車站都會端 (起訖總站)",
+                desc: "6670 都會核心出發端 · 巡檢市區整隊出發公車 KKA-6725, KKA-6739",
+                center: [120.6865, 24.1418],
+                zoom: 15.5,
+                pitch: 62,
+                bearing: 215,
+                duration: 3500,
+                stayTime: 2800
+            },
+            {
+                name: "高鐵臺中站轉運特區 (烏日)",
+                desc: "高鐵5號月台聯絡客運走廊 · 巡檢高鐵接駁待發車 957-FX",
+                center: [120.6165, 24.1110],
+                zoom: 15.5,
+                pitch: 65,
+                bearing: 155,
+                duration: 3800,
+                stayTime: 2800
+            },
+            {
+                name: "國道6號南投高架段 (烏溪立交)",
+                desc: "進入國道高速巡航走廊 · 檢測快速巡航車隊 950-FX (89km/h) & 956-FX (94km/h)",
+                center: [120.7060, 24.0085],
+                zoom: 14.8,
+                pitch: 70,
+                bearing: 80,
+                duration: 4000,
+                stayTime: 3000
+            },
+            {
+                name: "國道6號 24K 國姓段 (全線極速)",
+                desc: "捕獲全線極速冠軍公車 · KKA-6715 實時速度 102 km/h ⚡ (全息深紅警戒光環)",
+                center: [120.7940, 23.9873],
+                zoom: 15.2,
+                pitch: 72,
+                bearing: 74,
+                duration: 3800,
+                stayTime: 3200
+            },
+            {
+                name: "埔里高山盆地轉運中心",
+                desc: "中繼補給轉運中樞 · 檢測埔里站整補公車 958-FX",
+                center: [120.9660, 23.9650],
+                zoom: 14.8,
+                pitch: 64,
+                bearing: 195,
+                duration: 4000,
+                stayTime: 2800
+            },
+            {
+                name: "台21線魚池群峰林蔭路段",
+                desc: "高山爬坡蜿蜒風景線 · 檢測爬坡巡航車輛 KKA-6767 (42 km/h) & 981-FX",
+                center: [120.9360, 23.9470],
+                zoom: 15.0,
+                pitch: 66,
+                bearing: 200,
+                duration: 3800,
+                stayTime: 2800
+            },
+            {
+                name: "日月潭水社碼頭商圈總站",
+                desc: "日月潭熱門樞紐 · 4 輛公車群聚交會靠站 (953-FX, 985-FX, KKA-6703, KKA-6738)",
+                center: [120.9113, 23.8667],
+                zoom: 16.0,
+                pitch: 70,
+                bearing: 285,
+                duration: 4000,
+                stayTime: 3200
+            },
+            {
+                name: "向山行政暨遊客中心 (環潭終點)",
+                desc: "6670F 延駛線終端 · 沿潭巡航公車 KKA-6761 (27 km/h)",
+                center: [120.9011, 23.8518],
+                zoom: 15.6,
+                pitch: 65,
+                bearing: 185,
+                duration: 3500,
+                stayTime: 3200
+            }
+        ];
+
+        let tourStageIdx = 0;
+        let tourTimeout = null;
+        let busFollowAnimFrame = null;
+
         function toggleCinematicTour() {
             const btn = document.getElementById("btn-cinematic-tour");
+            const hudBanner = document.getElementById("tour-hud-banner");
             isCinematicTour = !isCinematicTour;
 
             if (isCinematicTour) {
+                if (busFollowAnimFrame) cancelAnimationFrame(busFollowAnimFrame);
                 btn.classList.add("active");
+                btn.innerHTML = `<i class="fa-solid fa-pause"></i> 停止 3D 巡航`;
+                if (hudBanner) hudBanner.style.display = "flex";
                 playChime();
-                map.flyTo({ center: [120.915, 23.868], zoom: 13.5, pitch: 65, bearing: 0, duration: 2500 });
-
-                let angle = 0;
-                function rotateCamera() {
-                    if (!isCinematicTour) return;
-                    angle = (angle + 0.15) % 360;
-                    map.setBearing(angle);
-                    tourAnimFrame = requestAnimationFrame(rotateCamera);
-                }
-                setTimeout(() => { if (isCinematicTour) rotateCamera(); }, 2500);
+                tourStageIdx = 0;
+                runTourStage();
             } else {
                 btn.classList.remove("active");
-                if (tourAnimFrame) cancelAnimationFrame(tourAnimFrame);
+                btn.innerHTML = `<i class="fa-solid fa-helicopter"></i> 3D 巡航視角`;
+                if (hudBanner) hudBanner.style.display = "none";
+                if (tourTimeout) clearTimeout(tourTimeout);
+                if (busFollowAnimFrame) cancelAnimationFrame(busFollowAnimFrame);
+                map.flyTo({ center: [120.78, 23.98], zoom: 10.4, pitch: 55, bearing: 25, duration: 2000 });
             }
+        }
+
+        function runTourStage() {
+            if (!isCinematicTour) return;
+
+            const stage = TOUR_STAGES[tourStageIdx];
+            const titleElem = document.getElementById("tour-stage-title");
+            const descElem = document.getElementById("tour-stage-desc");
+            if (titleElem) titleElem.innerText = `3D 走廊智能巡航 [${tourStageIdx + 1}/${TOUR_STAGES.length}] · ${stage.name}`;
+            if (descElem) descElem.innerText = stage.desc;
+
+            playBeep(920 + tourStageIdx * 45, "triangle", 0.12);
+
+            map.flyTo({
+                center: stage.center,
+                zoom: stage.zoom,
+                pitch: stage.pitch,
+                bearing: stage.bearing,
+                duration: stage.duration,
+                essential: true
+            });
+
+            tourTimeout = setTimeout(() => {
+                if (!isCinematicTour) return;
+                tourStageIdx = (tourStageIdx + 1) % TOUR_STAGES.length;
+                runTourStage();
+            }, stage.duration + stage.stayTime);
+        }
+
+        function startBusFollow(plate) {
+            const bus = RAW_BUSES.find(b => b.PlateNumb === plate);
+            if (!bus || !bus.BusPosition) return;
+
+            if (isCinematicTour) toggleCinematicTour();
+
+            const pos = bus.BusPosition;
+            const az = bus.Azimuth || 0;
+            const speed = bus.Speed || 0;
+
+            const hudBanner = document.getElementById("tour-hud-banner");
+            if (hudBanner) {
+                hudBanner.style.display = "flex";
+                document.getElementById("tour-stage-title").innerText = `🚁 3D 實時跟隨巡檢中 · 車號 ${plate} [${(bus.SubRouteName && bus.SubRouteName.Zh_tw) || "6670"}]`;
+                document.getElementById("tour-stage-desc").innerText = `目前車速: ${speed} km/h · 方位角: ${az}° · GPS: ${pos.PositionLat.toFixed(4)}°N, ${pos.PositionLon.toFixed(4)}°E`;
+            }
+
+            playBeep(1150, "sine", 0.15);
+
+            map.flyTo({
+                center: [pos.PositionLon, pos.PositionLat],
+                zoom: 16.8,
+                pitch: 70,
+                bearing: az || 45,
+                duration: 2000,
+                essential: true
+            });
+
+            let rotateBearing = az || 45;
+            let followActive = true;
+
+            function orbitAroundBus() {
+                if (!followActive) return;
+                rotateBearing = (rotateBearing + 0.1) % 360;
+                map.setBearing(rotateBearing);
+                busFollowAnimFrame = requestAnimationFrame(orbitAroundBus);
+            }
+
+            setTimeout(() => {
+                if (hudBanner && hudBanner.style.display === "flex") {
+                    orbitAroundBus();
+                }
+            }, 2100);
         }
 
         document.getElementById("btn-cinematic-tour").addEventListener("click", toggleCinematicTour);

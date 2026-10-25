@@ -162,23 +162,18 @@ for r_name, rx, ry, rz, rr, rd, r_mat in ridges:
     m.data.materials.append(r_mat)
 
 # ========================================================
-# 3. 讀取真實 143 節點路網，建造無縫 3D 走廊
+# 3. 讀取真實 2,133 節點完整 GPS 路網，建造無縫 3D 走廊
 # ========================================================
 with open("/Users/chenchunchih/Documents/ChatGPT/黑客松-南投/6670_bus_data/6670_linestring.json") as f:
     line_data = json.load(f)
-puli_path = [(float(p['lat']), float(p['lng'])) for p in line_data['去程']['overlays'][0]['path']]
 
-with open("/Users/chenchunchih/Documents/ChatGPT/黑客松-南投/6670_bus_data/6670_all_stops.json") as f:
-    stops_d = json.load(f)
-stops_6670 = stops_d['6670 日月潭線']['去程']
+# 使用完整 2,133 節點的回程高精度路線 (臺中車站發車至向山遊客中心)
+full_raw_path = line_data['回程']['overlays'][0]['path']
+# 每 5 點均勻取樣一次 (~427 節點)，保持平滑且效能優化
+full_geo_nodes = [(float(p['lat']), float(p['lng'])) for i, p in enumerate(full_raw_path) if i % 5 == 0]
+if (float(full_raw_path[-1]['lat']), float(full_raw_path[-1]['lng'])) != full_geo_nodes[-1]:
+    full_geo_nodes.append((float(full_raw_path[-1]['lat']), float(full_raw_path[-1]['lng'])))
 
-# 串接埔里至日月潭真實公路節點
-sml_stops = []
-for s in stops_6670[16:]:
-    lat_str, lng_str = s['PointInfo'].split(',')
-    sml_stops.append((float(lat_str), float(lng_str)))
-
-full_geo_nodes = puli_path + sml_stops
 road_3d_pts = [geo_to_3d(lat, lon) for lat, lon in full_geo_nodes]
 
 # 生成真實道路 Mesh
