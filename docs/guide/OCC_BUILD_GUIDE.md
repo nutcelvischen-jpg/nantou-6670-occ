@@ -146,7 +146,7 @@ curl -s --compressed -H "Authorization: Bearer $TOKEN" \
    - 上面是寬 3.2 px 的實線核心層。
    - 機場線核心改成虛線，與主線區分。
 
-**站牌**（`renderStopsOnMap()`）：讀 `RAW_STOPS["6670 日月潭線"]["去程"]`，每站一個小圓點 Marker，點擊後跳出站序、站名、座標。
+**站牌**（`renderStopsOnMap()`）：讀 `RAW_STOPS["6670 日月潭線"]["去程"]`，每站一個白底深灰框的小圓點 Marker（與車輛的藍／綠／紅區分），點擊後跳出站序、站名、座標。地圖左下（手機為左上「圖例」按鈕）有圖例，說明站牌、三級車速、已收班、主線、機場線與點選的站牌。
 
 **視角按鈕**（`VIEW_PRESETS`）：全線鳥瞰、日月潭湖區、埔里、高鐵台中站，各有固定的 `center／zoom／pitch／bearing`，用 `flyTo` 平滑移動。
 
