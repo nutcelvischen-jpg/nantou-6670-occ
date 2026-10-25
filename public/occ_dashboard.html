@@ -562,26 +562,33 @@
 
         .bus-marker {
             cursor: pointer;
-            position: relative;
+            position: absolute !important;
+            width: 32px;
+            height: 32px;
+            user-select: none;
+            will-change: transform;
+            pointer-events: auto;
         }
 
         .bus-pulse {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 36px;
-            height: 36px;
+            top: -4px;
+            left: -4px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: rgba(0, 216, 246, 0.2);
             border: 1px solid var(--cyan);
             pointer-events: none;
+            box-sizing: border-box;
         }
 
         .bus-icon-inner {
-            position: relative;
-            width: 30px;
-            height: 30px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 32px;
+            height: 32px;
             background: #0b1a30;
             border: 2px solid var(--cyan);
             border-radius: 50%;
@@ -592,6 +599,8 @@
             font-size: 13px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             transition: transform 0.2s ease;
+            box-sizing: border-box;
+            transform-origin: center center;
         }
 
         .bus-marker.speed-high .bus-icon-inner {
@@ -607,7 +616,7 @@
 
         .bus-label-tag {
             position: absolute;
-            top: -24px;
+            bottom: 36px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(6, 10, 18, 0.95);
@@ -621,8 +630,9 @@
             white-space: nowrap;
             letter-spacing: 0.5px;
             pointer-events: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
             font-variant-numeric: tabular-nums;
+            z-index: 5;
         }
 
         .stop-marker-dot {
@@ -973,20 +983,21 @@
             setTimeout(() => playBeep(659.25, "sine", 0.18), 100);
         }
 
+        const isMobile = window.innerWidth <= 768;
         const map = new maplibregl.Map({
             container: "map",
             style: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
-            center: [120.78, 23.98],
-            zoom: 10.4,
-            pitch: 55,
-            bearing: 25,
+            center: isMobile ? [120.77, 24.01] : [120.78, 23.98],
+            zoom: isMobile ? 9.7 : 10.4,
+            pitch: isMobile ? 45 : 55,
+            bearing: isMobile ? 18 : 25,
             antialias: true
         });
 
         map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right");
 
         const VIEW_PRESETS = {
-            overview: { center: [120.78, 23.98], zoom: 10.4, pitch: 55, bearing: 25 },
+            overview: { center: isMobile ? [120.77, 24.01] : [120.78, 23.98], zoom: isMobile ? 9.7 : 10.4, pitch: isMobile ? 45 : 55, bearing: isMobile ? 18 : 25 },
             lake: { center: [120.915, 23.868], zoom: 13.8, pitch: 62, bearing: 40 },
             puli: { center: [120.965, 23.966], zoom: 14.5, pitch: 58, bearing: -15 },
             hsr: { center: [120.616, 24.111], zoom: 15.0, pitch: 60, bearing: 10 }
