@@ -378,47 +378,53 @@
         shadow-intensity="1.5"
         shadow-softness="0.8"
         exposure="1.0"
-        camera-orbit="0deg 60deg 105m"
+        camera-target="-4m 2m 4m"
+        camera-orbit="0deg 58deg 92m"
         field-of-view="32deg"
-        min-camera-orbit="auto auto 20m"
+        min-camera-orbit="auto auto 10m"
         max-camera-orbit="auto 85deg 180m"
         auto-rotate-delay="3000"
         rotation-per-second="4deg"
     >
         <!-- 3D 浮空互動熱點 -->
-        <button class="hotspot-pin" slot="hotspot-g6" data-position="-18 8.5 4.5" data-normal="0 0 1" onclick="showTelemetry('KKA-6715', '6670D 國道直達', '102 km/h', '國道6號 24K 東行', '正常高速巡航 (極速警示)')">
+        <button class="hotspot-pin" slot="hotspot-g6" data-position="7.6 2.5 5.5" data-normal="0 1 0" onclick="showTelemetry('KKA-6715', '6670D 國道直達', '102 km/h', '國道6號 24K 東行 (23.9873°N, 120.7940°E)', '極速巡航中 (全息警戒光環)')">
             <span class="pin-dot rose"></span>
             <span>國道6號 102 km/h (KKA-6715)</span>
         </button>
 
-        <button class="hotspot-pin" slot="hotspot-hsr" data-position="-41 -7 3" data-normal="0 0 1" onclick="showTelemetry('952-FX', '6670 主線', '0 km/h (發車準備)', '臺中高鐵站 5號月台', '依班表準點待發')">
+        <button class="hotspot-pin" slot="hotspot-hsr" data-position="-29.5 1.5 -24.1" data-normal="0 1 0" onclick="showTelemetry('957-FX', '6670 主線', '0 km/h (高鐵發車準備)', '臺中高鐵站 5號月台 (24.1088°N, 120.6276°E)', '待發班次準點巡檢')">
             <span class="pin-dot amber"></span>
             <span>臺中高鐵站</span>
         </button>
 
-        <button class="hotspot-pin" slot="hotspot-puli" data-position="8 0.5 3.5" data-normal="0 0 1" onclick="showTelemetry('KKA-6712', '6670B 直達車', '42 km/h', '埔里轉運站外圍', '進站減速中')">
+        <button class="hotspot-pin" slot="hotspot-tra" data-position="-16.3 1.5 -32.3" data-normal="0 1 0" onclick="showTelemetry('KKA-6725 / KKA-6739', '6670 幹道線', '0~22 km/h (市區出發)', '臺中火車站建國路端 (24.1425°N, 120.6871°E)', '雙車整隊發車，市區巡航')">
+            <span class="pin-dot"></span>
+            <span>臺中火車站</span>
+        </button>
+
+        <button class="hotspot-pin" slot="hotspot-puli" data-position="31.9 3.0 7.7" data-normal="0 1 0" onclick="showTelemetry('958-FX', '6670 經埔里', '0 km/h (進站整補)', '埔里轉運站 (23.9785°N, 120.9032°E)', '乘客上下車與站管通報')">
             <span class="pin-dot"></span>
             <span>埔里轉運中心</span>
         </button>
 
-        <button class="hotspot-pin" slot="hotspot-shuishe" data-position="36 -2 3.5" data-normal="0 0 1" onclick="showTelemetry('958-FX', '6670 經水社', '15 km/h', '水社綜合商場站', '抵達終點碼頭商圈')">
+        <button class="hotspot-pin" slot="hotspot-shuishe" data-position="33.7 5.0 35.0" data-normal="0 1 0" onclick="showTelemetry('953-FX / 985-FX / KKA-6703 / KKA-6738', '6670 水社終端', '0~11 km/h (終端群聚)', '日月潭水社商場站 (23.8667°N, 120.9112°E)', '4車群聚交會，防碰撞引導')">
             <span class="pin-dot emerald"></span>
-            <span>日月潭水社碼頭</span>
+            <span>日月潭水社碼頭 (4車群聚)</span>
         </button>
 
-        <button class="hotspot-pin" slot="hotspot-xiangshan" data-position="43.5 -7.5 3.5" data-normal="0 0 1" onclick="showTelemetry('953-FX', '6670F 向山延駛線', '28 km/h', '向山遊客中心前彎道', '沿湖巡航，終點靠站中')">
+        <button class="hotspot-pin" slot="hotspot-xiangshan" data-position="31.5 5.0 38.6" data-normal="0 1 0" onclick="showTelemetry('KKA-6761', '6670F 向山延駛線', '27 km/h (環潭巡航)', '向山遊客中心前彎道 (23.8518°N, 120.9011°E)', '沿潭景觀低速安全巡航')">
             <span class="pin-dot"></span>
-            <span>向山遊客中心</span>
+            <span>向山遊客中心 (KKA-6761)</span>
         </button>
     </model-viewer>
 
     <!-- 底部相機預設視角切換器 -->
     <div class="camera-dock">
-        <button class="cam-btn active" onclick="setCam('0deg 62deg 65m', this)"><i class="fa-solid fa-panorama"></i> 全景走廊</button>
-        <button class="cam-btn" onclick="setCam('-35deg 70deg 32m -18m 8m 3m', this)"><i class="fa-solid fa-bolt"></i> 國道飆速特寫</button>
-        <button class="cam-btn" onclick="setCam('38deg 65deg 36m 40m -3m 2m', this)"><i class="fa-solid fa-water"></i> 日月潭湖區</button>
-        <button class="cam-btn" onclick="setCam('-65deg 68deg 35m -40m -5m 2m', this)"><i class="fa-solid fa-train"></i> 臺中高鐵都會</button>
-        <button class="cam-btn" onclick="setCam('10deg 60deg 30m 8m 1m 2m', this)"><i class="fa-solid fa-mountain"></i> 埔里盆地</button>
+        <button class="cam-btn active" onclick="setCam('0deg 58deg 92m -4m 2m 4m', this)"><i class="fa-solid fa-panorama"></i> 全景走廊</button>
+        <button class="cam-btn" onclick="setCam('25deg 55deg 22m 7.6m 2.2m 5.5m', this)"><i class="fa-solid fa-bolt"></i> 國道飆速特寫 (102km/h)</button>
+        <button class="cam-btn" onclick="setCam('-38deg 52deg 26m 33.7m 4.5m 35.0m', this)"><i class="fa-solid fa-water"></i> 日月潭水社群</button>
+        <button class="cam-btn" onclick="setCam('135deg 58deg 32m -22m 1.5m -28m', this)"><i class="fa-solid fa-train"></i> 臺中都會端 (高鐵/火車站)</button>
+        <button class="cam-btn" onclick="setCam('-12deg 55deg 26m 35m 3m 12m', this)"><i class="fa-solid fa-mountain"></i> 埔里盆地</button>
     </div>
 
     <!-- 左下角操作手勢提示 -->
@@ -478,7 +484,7 @@
             if (parts.length === 6) {
                 mv.cameraTarget = `${parts[3]} ${parts[4]} ${parts[5]}`;
             } else {
-                mv.cameraTarget = "0m 0m 0m";
+                mv.cameraTarget = "-4m 2m 4m";
             }
             document.querySelectorAll('.cam-btn').forEach(b => b.classList.remove('active'));
             if (btnElem) btnElem.classList.add('active');
