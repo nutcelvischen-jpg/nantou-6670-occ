@@ -539,5 +539,35 @@
         </div>
     </footer>
 
+    <script>
+        async function updatePortalStatus() {
+            try {
+                const resp = await fetch("data/live_buses.json?t=" + Date.now());
+                if (!resp.ok) return;
+                const data = await resp.json();
+                const timeStr = (data.sync_time_str || "").slice(11, 16);
+                const tag = document.querySelector(".live-tag");
+                const tagText = document.querySelector(".live-text");
+                const countVal = document.querySelector(".live-ticker .ticker-item:nth-child(1) .value");
+                const speedVal = document.querySelector(".live-ticker .ticker-item:nth-child(2) .value");
+                const proofEl = document.querySelector(".hero-proof");
+
+                if (data.status === "off_duty" || (Array.isArray(data.buses) && data.buses.length === 0)) {
+                    if (tagText) tagText.innerText = `全線已收班 · 實時檢測 ${timeStr}`;
+                    if (tag) tag.style.background = "rgba(100, 116, 139, 0.15)";
+                    if (countVal) countVal.innerText = "0 / 0 輛（夜間已收班）";
+                    if (speedVal) speedVal.innerText = "—";
+                    if (proofEl) proofEl.innerHTML = `<span>全線收班中</span> · <span>${data.arrivals_count || 846} 個站已備便</span> · <span>實時檢測 ${data.sync_time_str || ''}</span>`;
+                } else if (Array.isArray(data.buses) && data.buses.length > 0) {
+                    if (tagText) tagText.innerText = `🟢 即時營運中 · 檢測時間 ${timeStr}`;
+                    if (countVal) countVal.innerText = `${data.bus_count} 輛在線營運中`;
+                    const maxSpeed = Math.max(...data.buses.map(b => b.Speed || 0));
+                    if (speedVal) speedVal.innerText = `${maxSpeed} km/h`;
+                    if (proofEl) proofEl.innerHTML = `<span>${data.bus_count} 輛車</span> · <span>${data.arrivals_count || 47} 個站有預估</span> · <span>即時連線 ${data.sync_time_str || ''}</span>`;
+                }
+            } catch (e) {}
+        }
+        updatePortalStatus();
+    </script>
 </body>
 </html>

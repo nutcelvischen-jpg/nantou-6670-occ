@@ -1171,10 +1171,63 @@
         refreshSnapTime(RAW_BUSES);
         let selectedEtaPlate = (RAW_BUSES.find(b => typeof RAW_BUS_ARRIVALS !== 'undefined' && RAW_BUS_ARRIVALS.by_plate && RAW_BUS_ARRIVALS.by_plate[b.PlateNumb]) || RAW_BUSES[0] || {}).PlateNumb;
 
+        async function loadLiveBusData(isManual = false) {
+            const ticker = document.getElementById("ticker-text");
+            try {
+                const resp = await fetch("data/live_buses.json?t=" + Date.now());
+                if (!resp.ok) throw new Error("HTTP " + resp.status);
+                const data = await resp.json();
+
+                if (data.status === "off_duty" || (Array.isArray(data.buses) && data.buses.length === 0)) {
+                    RAW_BUSES = [];
+                    liveFleetState = [];
+                    renderBusMarkers([]);
+                    renderBusCards([]);
+                    populateEtaBusDropdown();
+                    renderEtaView();
+                    updateCounts();
+                    const syncTime = (data.sync_time_str || "").slice(11, 16) || "深夜";
+                    if (ticker) ticker.innerText = `🌙 全線已收班（實時狀態：${syncTime} 無在線車輛）· 依南投客運班表明晨 07:00 發車`;
+                    const statTotal = document.getElementById("stat-total-buses");
+                    if (statTotal) statTotal.innerHTML = `0<small style="font-size:10px"> / 0</small>`;
+                    const statSpeed = document.getElementById("stat-active-speed");
+                    if (statSpeed) statSpeed.innerHTML = `0 <small style="font-size:10px">km/h</small>`;
+                    return true;
+                }
+
+                if (Array.isArray(data.buses) && data.buses.length > 0) {
+                    RAW_BUSES = data.buses;
+                    refreshSnapTime(RAW_BUSES);
+                    const shown = filterBuses(RAW_BUSES);
+                    renderBusMarkers(shown);
+                    renderBusCards(shown);
+                    populateEtaBusDropdown();
+                    renderEtaView();
+                    updateCounts();
+                    const syncTime = (data.sync_time_str || "").slice(11, 16);
+                    if (ticker) ticker.innerText = `🟢 實時同步完成（${syncTime}）· 線上 ${RAW_BUSES.length} 輛車營運中`;
+                    return true;
+                }
+            } catch (err) {
+                console.warn("無法取得 data/live_buses.json，保持目前資料狀態", err);
+                if (ticker && RAW_BUSES.length > 0) {
+                    ticker.innerText = `⚠️ 示範離線模式（顯示 10/25 示範快照，非實時車況）`;
+                }
+            }
+            return false;
+        }
+
         map.on("load", () => {
             drawRouteLines();
             renderStopsOnMap();
-            renderBusMarkers(RAW_BUSES);
+            loadLiveBusData().then(loaded => {
+                if (!loaded) {
+                    renderBusMarkers(RAW_BUSES);
+                    renderBusCards(RAW_BUSES);
+                    populateEtaBusDropdown();
+                    renderEtaView();
+                }
+            });
             setTimeout(playChime, 600);
 
             // 支援 URL 參數深度聯動（例如從 3D 沙盤直接跳轉鎖定車輛 ?focus=KKA-6715 或 ?tour=1）
@@ -2237,33 +2290,22 @@
             btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 同步中...`;
             playBeep(1100, "sine");
 
-            try {
-                const resp = await fetch("https://beta.taiwantrip.tad.gov.tw/Bustime/GetTDX", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: "source=Inter&type=Location&city=Other&routeId=6670"
-                });
-                const result = await resp.json();
-                if (!result.isSuccess) throw new Error("isSuccess=false");
-                const newBuses = typeof result.data === "string" ? JSON.parse(result.data) : result.data;
-                if (!Array.isArray(newBuses) || !newBuses.length) throw new Error("empty");
-                RAW_BUSES = newBuses;
-                refreshSnapTime(RAW_BUSES);
-                const shown = filterBuses(RAW_BUSES);
-                renderBusMarkers(shown);
-                renderBusCards(shown);
-                populateEtaBusDropdown(); renderEtaView(); updateCounts();
+            const success = await loadLiveBusData(true);
+            if (success) {
                 playChime();
-                document.getElementById("ticker-text").innerText = `已同步 ${newBuses.length} 輛車 · 資料時間 ${hhmm(snapTime)}（到站預估仍為快照）`;
-            } catch (err) {
+            } else {
                 playBeep(600, "triangle");
-                document.getElementById("ticker-text").innerText = `同步失敗（${err.message || "連線被拒，可能是跨網域限制"}）· 仍顯示 ${hhmm(snapTime)} 的快照`;
             }
 
             setTimeout(() => {
                 btn.innerHTML = `<i class="fa-solid fa-arrows-rotate"></i> 即時同步`;
             }, 1000);
         });
+
+        // 每 60 秒自動背景檢查更新一次
+        setInterval(() => {
+            loadLiveBusData(false);
+        }, 60000);
 
         document.getElementById("btn-audio-toggle").addEventListener("click", () => {
             audioEnabled = !audioEnabled;
