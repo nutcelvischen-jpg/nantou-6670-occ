@@ -84,5 +84,13 @@ def main():
     print(f"✓ 成功寫入 {out_file}")
     print(f"  狀態: {status} | 車輛數: {len(buses_6670)} | 預估站次: {len(arrivals_6670)}")
 
+    # 2. 自動編譯更新 RAG 結構化知識庫與即時快照 (Tier 2 Live Context)
+    try:
+        from scripts.update_rag_snapshot import build_snapshot
+        build_snapshot()
+        print("✓ 成功同步生成 RAG 即時情境知識庫 (data/rag/live_context.json & .md)")
+    except Exception as e:
+        print(f"Warning: RAG 快照更新異常: {e}")
+
 if __name__ == "__main__":
     main()
