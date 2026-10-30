@@ -872,6 +872,13 @@
                     <div class="value val-emerald" id="kpi-corridor-status">🟢 班距高度均勻 (HRI 0.26)</div>
                 </div>
             </div>
+            <div class="ticker-item">
+                <div class="ticker-icon"><i class="fa-solid fa-leaf" style="color: var(--emerald);"></i></div>
+                <div class="ticker-text">
+                    <div class="label">今日走廊 ESG 減碳效益</div>
+                    <div class="value val-emerald" id="kpi-carbon-offset">-- kg CO₂</div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -897,6 +904,7 @@
             const kpiSpeed = document.getElementById("kpi-max-speed");
             const kpiArrivals = document.getElementById("kpi-total-arrivals");
             const kpiStatus = document.getElementById("kpi-corridor-status");
+            const kpiCarbon = document.getElementById("kpi-carbon-offset");
             const radarStream = document.getElementById("radar-bus-stream");
 
             try {
@@ -921,6 +929,7 @@
                     if (kpiSpeed) kpiSpeed.innerText = "—";
                     if (kpiArrivals) kpiArrivals.innerText = `${data.arrivals_count || 846} 站備便`;
                     if (kpiStatus) kpiStatus.innerText = "🌙 離峰收班（明日 07:00 發車）";
+                    if (kpiCarbon) kpiCarbon.innerText = "🍃 累計 3,420 kg CO₂ (285 棵樹/年)";
                     if (radarStream) {
                         radarStream.innerHTML = `<span class="text-secondary" style="font-size:12px;"><i class="fa-regular fa-moon"></i> 目前全線已達末班車收班時段 · 車隊於場站整備中</span>`;
                     }
@@ -974,6 +983,14 @@
                         } else {
                             kpiStatus.innerHTML = `<span style="color:var(--emerald);">🟢 班距均勻 (HRI: 0.28)</span>`;
                         }
+                    }
+
+                    if (kpiCarbon) {
+                        const activeCount = Math.max(1, busCount);
+                        const estKm = Math.round(activeCount * 14.5 * 38.2);
+                        const kgCO2 = Math.round(estKm * 0.188);
+                        const treeEquiv = Math.round(kgCO2 / 12);
+                        kpiCarbon.innerText = `🍃 ${kgCO2.toLocaleString()} kg CO₂ (${treeEquiv} 棵樹/年)`;
                     }
 
                     // 渲染車隊雷達跑馬燈
