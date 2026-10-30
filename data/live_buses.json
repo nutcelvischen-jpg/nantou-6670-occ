@@ -1,79 +1,15 @@
 {
-  "sync_time": "2026-10-30T15:23:15.264667+08:00",
-  "sync_time_str": "2026-10-30 15:23:15",
+  "sync_time": "2026-10-30T17:30:15.981732+08:00",
+  "sync_time_str": "2026-10-30 17:30:15",
   "route_id": "6670",
   "route_name": "台灣好行日月潭線",
   "status": "operating",
   "is_operating": true,
-  "message": "即時營運中：全線共有 14 輛車在線",
-  "bus_count": 14,
+  "message": "即時營運中：全線共有 22 輛車在線",
+  "bus_count": 22,
   "buses": [
     {
-      "PlateNumb": "931-FX",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670F2",
-      "SubRouteID": "6670F2",
-      "SubRouteName": {
-        "Zh_tw": "6670F",
-        "En": "6670F"
-      },
-      "Direction": 1,
-      "BusPosition": {
-        "PositionLon": 120.728133333333,
-        "PositionLat": 24.00582,
-        "GeoHash": "wsmbe4ps1"
-      },
-      "Speed": 97,
-      "Azimuth": 288,
-      "DutyStatus": 1,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-10-30T14:48:58+08:00",
-      "SrcRecTime": "2026-10-30T15:23:09+08:00",
-      "SrcTransTime": "2026-10-30T15:23:10+08:00",
-      "UpdateTime": "2026-10-30T15:23:15+08:00"
-    },
-    {
-      "PlateNumb": "950-FX",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670F2",
-      "SubRouteID": "6670F2",
-      "SubRouteName": {
-        "Zh_tw": "6670F",
-        "En": "6670F"
-      },
-      "Direction": 1,
-      "BusPosition": {
-        "PositionLon": 120.611835,
-        "PositionLat": 24.1010283333333,
-        "GeoHash": "wsmc0e6ye"
-      },
-      "Speed": 76,
-      "Azimuth": 31,
-      "DutyStatus": 1,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-10-30T12:38:37+08:00",
-      "SrcRecTime": "2026-10-30T15:23:09+08:00",
-      "SrcTransTime": "2026-10-30T15:23:10+08:00",
-      "UpdateTime": "2026-10-30T15:23:15+08:00"
-    },
-    {
-      "PlateNumb": "951-FX",
+      "PlateNumb": "928-FX",
       "OperatorID": "64",
       "OperatorNo": "0902",
       "RouteUID": "THB6670",
@@ -90,22 +26,22 @@
       },
       "Direction": 0,
       "BusPosition": {
-        "PositionLon": 120.682481666667,
-        "PositionLat": 24.136065,
-        "GeoHash": "wsmc61y6c"
+        "PositionLon": 120.952451666667,
+        "PositionLat": 23.970075,
+        "GeoHash": "wsq027dgu"
       },
-      "Speed": 0,
-      "Azimuth": 243,
+      "Speed": 4,
+      "Azimuth": 102,
       "DutyStatus": 1,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-10-30T13:17:55+08:00",
-      "SrcRecTime": "2026-10-30T15:23:10+08:00",
-      "SrcTransTime": "2026-10-30T15:23:10+08:00",
-      "UpdateTime": "2026-10-30T15:23:15+08:00"
+      "GPSTime": "2026-10-30T17:30:12+08:00",
+      "SrcRecTime": "2026-10-30T17:30:12+08:00",
+      "SrcTransTime": "2026-10-30T17:30:12+08:00",
+      "UpdateTime": "2026-10-30T17:30:15+08:00"
     },
     {
-      "PlateNumb": "953-FX",
+      "PlateNumb": "KKA-6738",
       "OperatorID": "64",
       "OperatorNo": "0902",
       "RouteUID": "THB6670",
@@ -114,27 +50,59 @@
         "Zh_tw": "6670",
         "En": "6670"
       },
-      "SubRouteUID": "THB6670A1",
-      "SubRouteID": "6670A1",
+      "SubRouteUID": "THB667002",
+      "SubRouteID": "667002",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 1,
+      "BusPosition": {
+        "PositionLon": 120.958645,
+        "PositionLat": 23.9684733333333,
+        "GeoHash": "wsq027r6k"
+      },
+      "Speed": 15,
+      "Azimuth": 107,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T17:30:11+08:00",
+      "SrcRecTime": "2026-10-30T17:30:11+08:00",
+      "SrcTransTime": "2026-10-30T17:30:11+08:00",
+      "UpdateTime": "2026-10-30T17:30:15+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6758",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670A2",
+      "SubRouteID": "6670A2",
       "SubRouteName": {
         "Zh_tw": "6670A",
         "En": "6670A"
       },
-      "Direction": 0,
+      "Direction": 1,
       "BusPosition": {
-        "PositionLon": 120.901503333333,
-        "PositionLat": 23.855165,
-        "GeoHash": "wsjzxnty3"
+        "PositionLon": 120.79326,
+        "PositionLat": 23.987205,
+        "GeoHash": "wsmbkwwzw"
       },
-      "Speed": 0,
-      "Azimuth": 252,
-      "DutyStatus": 2,
+      "Speed": 84,
+      "Azimuth": 259,
+      "DutyStatus": 1,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-10-30T12:23:58+08:00",
-      "SrcRecTime": "2026-10-30T15:23:10+08:00",
-      "SrcTransTime": "2026-10-30T15:23:10+08:00",
-      "UpdateTime": "2026-10-30T15:23:15+08:00"
+      "GPSTime": "2026-10-30T17:30:13+08:00",
+      "SrcRecTime": "2026-10-30T17:30:13+08:00",
+      "SrcTransTime": "2026-10-30T17:30:13+08:00",
+      "UpdateTime": "2026-10-30T17:30:15+08:00"
     },
     {
       "PlateNumb": "957-FX",
@@ -146,158 +114,30 @@
         "Zh_tw": "6670",
         "En": "6670"
       },
-      "SubRouteUID": "THB6670D2",
-      "SubRouteID": "6670D2",
-      "SubRouteName": {
-        "Zh_tw": "6670D",
-        "En": "6670D"
-      },
-      "Direction": 1,
-      "BusPosition": {
-        "PositionLon": 120.617693333333,
-        "PositionLat": 24.1181833333333,
-        "GeoHash": "wsmc0wx4e"
-      },
-      "Speed": 18,
-      "Azimuth": 148,
-      "DutyStatus": 1,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-10-30T15:23:09+08:00",
-      "SrcRecTime": "2026-10-30T15:23:09+08:00",
-      "SrcTransTime": "2026-10-30T15:23:10+08:00",
-      "UpdateTime": "2026-10-30T15:23:15+08:00"
-    },
-    {
-      "PlateNumb": "977-FX",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670F1",
-      "SubRouteID": "6670F1",
-      "SubRouteName": {
-        "Zh_tw": "6670F",
-        "En": "6670F"
-      },
-      "Direction": 0,
-      "BusPosition": {
-        "PositionLon": 120.936035,
-        "PositionLat": 23.950435,
-        "GeoHash": "wsmbrbncm"
-      },
-      "Speed": 20,
-      "Azimuth": 31,
-      "DutyStatus": 1,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-10-30T12:35:10+08:00",
-      "SrcRecTime": "2026-10-30T15:23:10+08:00",
-      "SrcTransTime": "2026-10-30T15:23:10+08:00",
-      "UpdateTime": "2026-10-30T15:23:15+08:00"
-    },
-    {
-      "PlateNumb": "981-FX",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667001",
-      "SubRouteID": "667001",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 0,
-      "BusPosition": {
-        "PositionLon": 120.901808333333,
-        "PositionLat": 23.8552583333333,
-        "GeoHash": "wsjzxnwnb"
-      },
-      "Speed": 0,
-      "Azimuth": 246,
-      "DutyStatus": 2,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-10-30T12:45:59+08:00",
-      "SrcRecTime": "2026-10-30T15:23:10+08:00",
-      "SrcTransTime": "2026-10-30T15:23:10+08:00",
-      "UpdateTime": "2026-10-30T15:23:15+08:00"
-    },
-    {
-      "PlateNumb": "KKA-6712",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670D2",
-      "SubRouteID": "6670D2",
-      "SubRouteName": {
-        "Zh_tw": "6670D",
-        "En": "6670D"
-      },
-      "Direction": 1,
-      "BusPosition": {
-        "PositionLon": 120.96954,
-        "PositionLat": 23.9638283333333,
-        "GeoHash": "wsq02drr6"
-      },
-      "Speed": 6,
-      "Azimuth": 132,
-      "DutyStatus": 1,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-10-30T13:00:04+08:00",
-      "SrcRecTime": "2026-10-30T15:23:11+08:00",
-      "SrcTransTime": "2026-10-30T15:23:11+08:00",
-      "UpdateTime": "2026-10-30T15:23:15+08:00"
-    },
-    {
-      "PlateNumb": "KKA-6715",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670B2",
-      "SubRouteID": "6670B2",
+      "SubRouteUID": "THB6670B1",
+      "SubRouteID": "6670B1",
       "SubRouteName": {
         "Zh_tw": "6670B",
         "En": "6670B"
       },
-      "Direction": 1,
+      "Direction": 0,
       "BusPosition": {
-        "PositionLon": 120.68749,
-        "PositionLat": 24.1426916666667,
-        "GeoHash": "wsmc671cq"
+        "PositionLon": 120.94023,
+        "PositionLat": 23.9651716666667,
+        "GeoHash": "wsq0249zp"
       },
-      "Speed": 0,
-      "Azimuth": 0,
-      "DutyStatus": 2,
+      "Speed": 14,
+      "Azimuth": 92,
+      "DutyStatus": 1,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-10-30T12:48:24+08:00",
-      "SrcRecTime": "2026-10-30T15:23:09+08:00",
-      "SrcTransTime": "2026-10-30T15:23:10+08:00",
-      "UpdateTime": "2026-10-30T15:23:15+08:00"
+      "GPSTime": "2026-10-30T17:30:09+08:00",
+      "SrcRecTime": "2026-10-30T17:30:09+08:00",
+      "SrcTransTime": "2026-10-30T17:30:09+08:00",
+      "UpdateTime": "2026-10-30T17:30:10+08:00"
     },
     {
-      "PlateNumb": "KKA-6758",
+      "PlateNumb": "KKA-6703",
       "OperatorID": "64",
       "OperatorNo": "0902",
       "RouteUID": "THB6670",
@@ -314,22 +154,246 @@
       },
       "Direction": 0,
       "BusPosition": {
-        "PositionLon": 120.677793333333,
-        "PositionLat": 24.133995,
-        "GeoHash": "wsmc616ys"
+        "PositionLon": 120.608138333333,
+        "PositionLat": 24.0881216666667,
+        "GeoHash": "wsmc0905m"
       },
-      "Speed": 59,
-      "Azimuth": 245,
+      "Speed": 45,
+      "Azimuth": 133,
       "DutyStatus": 1,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-10-30T12:51:06+08:00",
-      "SrcRecTime": "2026-10-30T15:23:10+08:00",
-      "SrcTransTime": "2026-10-30T15:23:10+08:00",
-      "UpdateTime": "2026-10-30T15:23:15+08:00"
+      "GPSTime": "2026-10-30T17:30:07+08:00",
+      "SrcRecTime": "2026-10-30T17:30:07+08:00",
+      "SrcTransTime": "2026-10-30T17:30:07+08:00",
+      "UpdateTime": "2026-10-30T17:30:10+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6715",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670F2",
+      "SubRouteID": "6670F2",
+      "SubRouteName": {
+        "Zh_tw": "6670F",
+        "En": "6670F"
+      },
+      "Direction": 1,
+      "BusPosition": {
+        "PositionLon": 120.72935,
+        "PositionLat": 24.0054183333333,
+        "GeoHash": "wsmbe603t"
+      },
+      "Speed": 94,
+      "Azimuth": 290,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T17:30:06+08:00",
+      "SrcRecTime": "2026-10-30T17:30:06+08:00",
+      "SrcTransTime": "2026-10-30T17:30:06+08:00",
+      "UpdateTime": "2026-10-30T17:30:10+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6761",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H1",
+      "SubRouteID": "6670H1",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.648905,
+        "PositionLat": 24.1198883333333,
+        "GeoHash": "wsmc1qvue"
+      },
+      "Speed": 0,
+      "Azimuth": 238,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T17:30:09+08:00",
+      "SrcRecTime": "2026-10-30T17:30:09+08:00",
+      "SrcTransTime": "2026-10-30T17:30:09+08:00",
+      "UpdateTime": "2026-10-30T17:30:10+08:00"
+    },
+    {
+      "PlateNumb": "KKZ-8672",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670B2",
+      "SubRouteID": "6670B2",
+      "SubRouteName": {
+        "Zh_tw": "6670B",
+        "En": "6670B"
+      },
+      "Direction": 1,
+      "BusPosition": {
+        "PositionLon": 120.658713333333,
+        "PositionLat": 24.066825,
+        "GeoHash": "wsmbcthzr"
+      },
+      "Speed": 94,
+      "Azimuth": 285,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T17:30:09+08:00",
+      "SrcRecTime": "2026-10-30T17:30:09+08:00",
+      "SrcTransTime": "2026-10-30T17:30:09+08:00",
+      "UpdateTime": "2026-10-30T17:30:10+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6739",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670A2",
+      "SubRouteID": "6670A2",
+      "SubRouteName": {
+        "Zh_tw": "6670A",
+        "En": "6670A"
+      },
+      "Direction": 1,
+      "BusPosition": {
+        "PositionLon": 120.683583333333,
+        "PositionLat": 24.136475,
+        "GeoHash": "wsmc61zj5"
+      },
+      "Speed": 0,
+      "Azimuth": 66,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T17:30:04+08:00",
+      "SrcRecTime": "2026-10-30T17:30:03+08:00",
+      "SrcTransTime": "2026-10-30T17:30:03+08:00",
+      "UpdateTime": "2026-10-30T17:30:05+08:00"
     },
     {
       "PlateNumb": "KKA-6767",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670A2",
+      "SubRouteID": "6670A2",
+      "SubRouteName": {
+        "Zh_tw": "6670A",
+        "En": "6670A"
+      },
+      "Direction": 1,
+      "BusPosition": {
+        "PositionLon": 120.942745,
+        "PositionLat": 23.87841,
+        "GeoHash": "wsnpb4gvf"
+      },
+      "Speed": 37,
+      "Azimuth": 329,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T17:30:02+08:00",
+      "SrcRecTime": "2026-10-30T17:30:01+08:00",
+      "SrcTransTime": "2026-10-30T17:30:01+08:00",
+      "UpdateTime": "2026-10-30T17:30:05+08:00"
+    },
+    {
+      "PlateNumb": "931-FX",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670A1",
+      "SubRouteID": "6670A1",
+      "SubRouteName": {
+        "Zh_tw": "6670A",
+        "En": "6670A"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.94061,
+        "PositionLat": 23.955605,
+        "GeoHash": "wsq020fr8"
+      },
+      "Speed": 41,
+      "Azimuth": 234,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T17:29:59+08:00",
+      "SrcRecTime": "2026-10-30T17:29:59+08:00",
+      "SrcTransTime": "2026-10-30T17:29:59+08:00",
+      "UpdateTime": "2026-10-30T17:30:00+08:00"
+    },
+    {
+      "PlateNumb": "977-FX",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670F2",
+      "SubRouteID": "6670F2",
+      "SubRouteName": {
+        "Zh_tw": "6670F",
+        "En": "6670F"
+      },
+      "Direction": 1,
+      "BusPosition": {
+        "PositionLon": 120.686008333333,
+        "PositionLat": 24.1413333333333,
+        "GeoHash": "wsmc66bc7"
+      },
+      "Speed": 16,
+      "Azimuth": 357,
+      "DutyStatus": 2,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T17:22:50+08:00",
+      "SrcRecTime": "2026-10-30T17:22:50+08:00",
+      "SrcTransTime": "2026-10-30T17:22:50+08:00",
+      "UpdateTime": "2026-10-30T17:22:55+08:00"
+    },
+    {
+      "PlateNumb": "951-FX",
       "OperatorID": "64",
       "OperatorNo": "0902",
       "RouteUID": "THB6670",
@@ -346,19 +410,51 @@
       },
       "Direction": 1,
       "BusPosition": {
-        "PositionLon": 120.949668333333,
-        "PositionLat": 23.970905,
-        "GeoHash": "wsq027bbe"
+        "PositionLon": 120.962275,
+        "PositionLat": 23.9686066666667,
+        "GeoHash": "wsq02e653"
       },
-      "Speed": 23,
-      "Azimuth": 287,
+      "Speed": 0,
+      "Azimuth": 19,
       "DutyStatus": 1,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-10-30T12:15:01+08:00",
-      "SrcRecTime": "2026-10-30T15:23:10+08:00",
-      "SrcTransTime": "2026-10-30T15:23:10+08:00",
-      "UpdateTime": "2026-10-30T15:23:15+08:00"
+      "GPSTime": "2026-10-30T17:17:55+08:00",
+      "SrcRecTime": "2026-10-30T17:17:55+08:00",
+      "SrcTransTime": "2026-10-30T17:17:55+08:00",
+      "UpdateTime": "2026-10-30T17:18:00+08:00"
+    },
+    {
+      "PlateNumb": "981-FX",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D2",
+      "SubRouteID": "6670D2",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 1,
+      "BusPosition": {
+        "PositionLon": 120.96216,
+        "PositionLat": 23.9684183333333,
+        "GeoHash": "wsq02e3fn"
+      },
+      "Speed": 2,
+      "Azimuth": 105,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T17:14:40+08:00",
+      "SrcRecTime": "2026-10-30T17:14:40+08:00",
+      "SrcTransTime": "2026-10-30T17:14:40+08:00",
+      "UpdateTime": "2026-10-30T17:14:45+08:00"
     },
     {
       "PlateNumb": "KKA-6768",
@@ -378,22 +474,22 @@
       },
       "Direction": 1,
       "BusPosition": {
-        "PositionLon": 120.914851666667,
-        "PositionLat": 23.9790516666667,
-        "GeoHash": "wsmbrmr80"
+        "PositionLon": 120.901683333333,
+        "PositionLat": 23.8554533333333,
+        "GeoHash": "wsjzxnvbj"
       },
       "Speed": 0,
-      "Azimuth": 0,
-      "DutyStatus": 1,
+      "Azimuth": 259,
+      "DutyStatus": 2,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-10-30T13:14:23+08:00",
-      "SrcRecTime": "2026-10-30T15:23:10+08:00",
-      "SrcTransTime": "2026-10-30T15:23:10+08:00",
-      "UpdateTime": "2026-10-30T15:23:15+08:00"
+      "GPSTime": "2026-10-30T17:10:43+08:00",
+      "SrcRecTime": "2026-10-30T17:10:42+08:00",
+      "SrcTransTime": "2026-10-30T17:10:43+08:00",
+      "UpdateTime": "2026-10-30T17:10:45+08:00"
     },
     {
-      "PlateNumb": "KKA-6739",
+      "PlateNumb": "KKA-6706",
       "OperatorID": "64",
       "OperatorNo": "0902",
       "RouteUID": "THB6670",
@@ -402,27 +498,123 @@
         "Zh_tw": "6670",
         "En": "6670"
       },
-      "SubRouteUID": "THB6670A2",
-      "SubRouteID": "6670A2",
+      "SubRouteUID": "THB6670H1",
+      "SubRouteID": "6670H1",
       "SubRouteName": {
-        "Zh_tw": "6670A",
-        "En": "6670A"
+        "Zh_tw": "6670H",
+        "En": "6670H"
       },
-      "Direction": 1,
+      "Direction": 0,
       "BusPosition": {
-        "PositionLon": 120.939825,
-        "PositionLat": 23.88978,
-        "GeoHash": "wsnpbj18n"
+        "PositionLon": 120.685738333333,
+        "PositionLat": 24.1418683333333,
+        "GeoHash": "wsmc66bst"
       },
-      "Speed": 43,
-      "Azimuth": 199,
+      "Speed": 0,
+      "Azimuth": 183,
       "DutyStatus": 1,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-10-30T15:23:04+08:00",
-      "SrcRecTime": "2026-10-30T15:23:04+08:00",
-      "SrcTransTime": "2026-10-30T15:23:04+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
+      "GPSTime": "2026-10-30T17:02:43+08:00",
+      "SrcRecTime": "2026-10-30T17:02:42+08:00",
+      "SrcTransTime": "2026-10-30T17:02:42+08:00",
+      "UpdateTime": "2026-10-30T17:02:45+08:00"
+    },
+    {
+      "PlateNumb": "952-FX",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H1",
+      "SubRouteID": "6670H1",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.96929,
+        "PositionLat": 23.9639316666667,
+        "GeoHash": "wsq02dx0h"
+      },
+      "Speed": 0,
+      "Azimuth": 59,
+      "DutyStatus": 2,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T16:42:36+08:00",
+      "SrcRecTime": "2026-10-30T16:42:37+08:00",
+      "SrcTransTime": "2026-10-30T16:42:37+08:00",
+      "UpdateTime": "2026-10-30T16:42:40+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6712",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D1",
+      "SubRouteID": "6670D1",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.912043333333,
+        "PositionLat": 23.8658066666667,
+        "GeoHash": "wsjzz2tkq"
+      },
+      "Speed": 21,
+      "Azimuth": 167,
+      "DutyStatus": 2,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T16:42:14+08:00",
+      "SrcRecTime": "2026-10-30T16:42:13+08:00",
+      "SrcTransTime": "2026-10-30T16:42:13+08:00",
+      "UpdateTime": "2026-10-30T16:42:15+08:00"
+    },
+    {
+      "PlateNumb": "910-U7",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H1",
+      "SubRouteID": "6670H1",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.969451666667,
+        "PositionLat": 23.963825,
+        "GeoHash": "wsq02drr2"
+      },
+      "Speed": 5,
+      "Azimuth": 33,
+      "DutyStatus": 2,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T16:17:02+08:00",
+      "SrcRecTime": "2026-10-30T16:17:02+08:00",
+      "SrcTransTime": "2026-10-30T16:17:02+08:00",
+      "UpdateTime": "2026-10-30T16:17:05+08:00"
     },
     {
       "PlateNumb": "KKZ-8685",
@@ -442,30 +634,94 @@
       },
       "Direction": 0,
       "BusPosition": {
-        "PositionLon": 120.697508333333,
-        "PositionLat": 24.0123666666667,
-        "GeoHash": "wsmbde34p"
+        "PositionLon": 120.911058333333,
+        "PositionLat": 23.8667333333333,
+        "GeoHash": "wsjzz2u9z"
       },
-      "Speed": 97,
-      "Azimuth": 108,
-      "DutyStatus": 1,
+      "Speed": 0,
+      "Azimuth": 298,
+      "DutyStatus": 2,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-10-30T15:22:46+08:00",
-      "SrcRecTime": "2026-10-30T15:22:46+08:00",
-      "SrcTransTime": "2026-10-30T15:22:46+08:00",
-      "UpdateTime": "2026-10-30T15:22:50+08:00"
+      "GPSTime": "2026-10-30T16:12:06+08:00",
+      "SrcRecTime": "2026-10-30T16:12:06+08:00",
+      "SrcTransTime": "2026-10-30T16:12:06+08:00",
+      "UpdateTime": "2026-10-30T16:12:10+08:00"
+    },
+    {
+      "PlateNumb": "950-FX",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670B1",
+      "SubRouteID": "6670B1",
+      "SubRouteName": {
+        "Zh_tw": "6670B",
+        "En": "6670B"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.911411666667,
+        "PositionLat": 23.8666216666667,
+        "GeoHash": "wsjzz2v10"
+      },
+      "Speed": 0,
+      "Azimuth": 309,
+      "DutyStatus": 2,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T15:55:57+08:00",
+      "SrcRecTime": "2026-10-30T15:55:57+08:00",
+      "SrcTransTime": "2026-10-30T15:55:57+08:00",
+      "UpdateTime": "2026-10-30T15:56:00+08:00"
+    },
+    {
+      "PlateNumb": "982-FX",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H1",
+      "SubRouteID": "6670H1",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.969295,
+        "PositionLat": 23.9639683333333,
+        "GeoHash": "wsq02dx0h"
+      },
+      "Speed": 1,
+      "Azimuth": 49,
+      "DutyStatus": 2,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-10-30T15:30:53+08:00",
+      "SrcRecTime": "2026-10-30T15:30:53+08:00",
+      "SrcTransTime": "2026-10-30T15:30:53+08:00",
+      "UpdateTime": "2026-10-30T15:30:55+08:00"
     }
   ],
   "arrivals_count": 846,
   "arrivals": [
     {
-      "PlateNumb": "-1",
-      "StopUID": "THB249487",
-      "StopID": "249487",
+      "PlateNumb": "KKA-6738",
+      "StopUID": "THB247931",
+      "StopID": "247931",
       "StopName": {
-        "Zh_tw": "草屯農會倉庫",
-        "En": "Caotun Farmer Assc. Storehouse"
+        "Zh_tw": "大石村",
+        "En": "Dashi Village"
       },
       "RouteUID": "THB6670",
       "RouteID": "6670",
@@ -480,120 +736,25 @@
         "En": "6670"
       },
       "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 1926,
+      "StopCountDown": 27,
+      "CurrentStop": "278196",
       "DestinationStop": "261957",
-      "StopSequence": 78,
-      "StopStatus": 1,
+      "StopSequence": 53,
+      "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:27+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "-1",
-      "StopUID": "THB249513",
-      "StopID": "249513",
+      "PlateNumb": "KKA-6738",
+      "StopUID": "THB248026",
+      "StopID": "248026",
       "StopName": {
-        "Zh_tw": "頂獅子",
-        "En": "Dingshizi"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670C2",
-      "SubRouteID": "6670C2",
-      "SubRouteName": {
-        "Zh_tw": "6670C",
-        "En": "6670C"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 8,
-      "StopStatus": 4,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB249516",
-      "StopID": "249516",
-      "StopName": {
-        "Zh_tw": "魚池",
-        "En": "Yuchi Station"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670B2",
-      "SubRouteID": "6670B2",
-      "SubRouteName": {
-        "Zh_tw": "6670B",
-        "En": "6670B"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 10,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB249516",
-      "StopID": "249516",
-      "StopName": {
-        "Zh_tw": "魚池",
-        "En": "Yuchi Station"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670C2",
-      "SubRouteID": "6670C2",
-      "SubRouteName": {
-        "Zh_tw": "6670C",
-        "En": "6670C"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 10,
-      "StopStatus": 4,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB249801",
-      "StopID": "249801",
-      "StopName": {
-        "Zh_tw": "草屯",
-        "En": "Caotun"
+        "Zh_tw": "土城",
+        "En": "Tucheng"
       },
       "RouteUID": "THB6670",
       "RouteID": "6670",
@@ -608,1208 +769,25 @@
         "En": "6670"
       },
       "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 3367,
+      "StopCountDown": 50,
+      "CurrentStop": "278196",
       "DestinationStop": "261957",
-      "StopSequence": 91,
-      "StopStatus": 1,
+      "StopSequence": 76,
+      "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:27+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
-      "StopUID": "THB250187",
-      "StopID": "250187",
+      "StopUID": "THB248030",
+      "StopID": "248030",
       "StopName": {
-        "Zh_tw": "魚池國中",
-        "En": "Yuchi Junior High School"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670C2",
-      "SubRouteID": "6670C2",
-      "SubRouteName": {
-        "Zh_tw": "6670C",
-        "En": "6670C"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 9,
-      "StopStatus": 4,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB250628",
-      "StopID": "250628",
-      "StopName": {
-        "Zh_tw": "頂園仔",
-        "En": "Dingyuanzi"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 83,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB250650",
-      "StopID": "250650",
-      "StopName": {
-        "Zh_tw": "新城",
-        "En": "Xincheng"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670B2",
-      "SubRouteID": "6670B2",
-      "SubRouteName": {
-        "Zh_tw": "6670B",
-        "En": "6670B"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 14,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB250849",
-      "StopID": "250849",
-      "StopName": {
-        "Zh_tw": "南開科技大學",
-        "En": "Nan Kai University of Technology"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 85,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB250872",
-      "StopID": "250872",
-      "StopName": {
-        "Zh_tw": "苗圃",
-        "En": "Miaopu"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670B2",
-      "SubRouteID": "6670B2",
-      "SubRouteName": {
-        "Zh_tw": "6670B",
-        "En": "6670B"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 12,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB250872",
-      "StopID": "250872",
-      "StopName": {
-        "Zh_tw": "苗圃",
-        "En": "Miaopu"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670C2",
-      "SubRouteID": "6670C2",
-      "SubRouteName": {
-        "Zh_tw": "6670C",
-        "En": "6670C"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 12,
-      "StopStatus": 4,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB250898",
-      "StopID": "250898",
-      "StopName": {
-        "Zh_tw": "將軍廟",
-        "En": "Jiangjun Temple"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 81,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB251373",
-      "StopID": "251373",
-      "StopName": {
-        "Zh_tw": "隘寮",
-        "En": "Ailiao Village"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 82,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB257741",
-      "StopID": "257741",
-      "StopName": {
-        "Zh_tw": "臺中車站(民族路口)",
-        "En": "TRA Taichung Station(Minzu Rd)"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 103,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB259015",
-      "StopID": "259015",
-      "StopName": {
-        "Zh_tw": "高鐵臺中站",
-        "En": "HSR Taichung Station"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 100,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB259281",
-      "StopID": "259281",
-      "StopName": {
-        "Zh_tw": "臺中車站(民族路口)",
-        "En": "TRA Taichung Station(Minzu Rd. Intersection)"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670A1",
-      "SubRouteID": "6670A1",
-      "SubRouteName": {
-        "Zh_tw": "6670A",
-        "En": "6670A"
-      },
-      "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "252627",
-      "StopSequence": 2,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB261957",
-      "StopID": "261957",
-      "StopName": {
-        "Zh_tw": "干城站",
-        "En": "Taichung"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 104,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB266687",
-      "StopID": "266687",
-      "StopName": {
-        "Zh_tw": "成功路口",
-        "En": "Chenggong Road Intersection"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 96,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB267392",
-      "StopID": "267392",
-      "StopName": {
-        "Zh_tw": "炎峰國小",
-        "En": "Yanfeng Elementary School"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 90,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB267941",
-      "StopID": "267941",
-      "StopName": {
-        "Zh_tw": "林務局",
-        "En": "Forestry Bureau"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 97,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB273174",
-      "StopID": "273174",
-      "StopName": {
-        "Zh_tw": "干城站",
-        "En": "Taichung"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670A1",
-      "SubRouteID": "6670A1",
-      "SubRouteName": {
-        "Zh_tw": "6670A",
-        "En": "6670A"
-      },
-      "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "252627",
-      "StopSequence": 1,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB278840",
-      "StopID": "278840",
-      "StopName": {
-        "Zh_tw": "新城國小",
-        "En": "Sincheng Elementary School"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670B2",
-      "SubRouteID": "6670B2",
-      "SubRouteName": {
-        "Zh_tw": "6670B",
-        "En": "6670B"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 13,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB278841",
-      "StopID": "278841",
-      "StopName": {
-        "Zh_tw": "孔明廟",
-        "En": "Kongming Temple"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670C2",
-      "SubRouteID": "6670C2",
-      "SubRouteName": {
-        "Zh_tw": "6670C",
-        "En": "6670C"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 6,
-      "StopStatus": 4,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB279039",
-      "StopID": "279039",
-      "StopName": {
-        "Zh_tw": "旭光高中",
-        "En": "Shiukuang High School"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 86,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB279047",
-      "StopID": "279047",
-      "StopName": {
-        "Zh_tw": "富寮里",
-        "En": "Fuliao Village"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 84,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB279060",
-      "StopID": "279060",
-      "StopName": {
-        "Zh_tw": "頂南埔",
-        "En": "Dingnanpu"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 79,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB279122",
-      "StopID": "279122",
-      "StopName": {
-        "Zh_tw": "南埔",
-        "En": "Nanpu"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 80,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB282833",
-      "StopID": "282833",
-      "StopName": {
-        "Zh_tw": "頂茄荖",
-        "En": "Dingchielao"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 99,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB284788",
-      "StopID": "284788",
-      "StopName": {
-        "Zh_tw": "寶島時代村",
-        "En": "Taiwan times village"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 95,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB284791",
-      "StopID": "284791",
-      "StopName": {
-        "Zh_tw": "草屯公有市場",
-        "En": "Caotun Public market"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 92,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB289995",
-      "StopID": "289995",
-      "StopName": {
-        "Zh_tw": "捷運大慶站(建國北路)",
-        "En": "MRT Daqing Station(Jianguo N. Rd.)"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 101,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB290024",
-      "StopID": "290024",
-      "StopName": {
-        "Zh_tw": "大雁",
-        "En": "Dayan"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670B2",
-      "SubRouteID": "6670B2",
-      "SubRouteName": {
-        "Zh_tw": "6670B",
-        "En": "6670B"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 15,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB290028",
-      "StopID": "290028",
-      "StopName": {
-        "Zh_tw": "日月老茶廠",
-        "En": "Antique Assam tea Farm"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670C2",
-      "SubRouteID": "6670C2",
-      "SubRouteName": {
-        "Zh_tw": "6670C",
-        "En": "6670C"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 7,
-      "StopStatus": 4,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB290198",
-      "StopID": "290198",
-      "StopName": {
-        "Zh_tw": "育英街口",
-        "En": "Yuying Street Intersection"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 89,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB290274",
-      "StopID": "290274",
-      "StopName": {
-        "Zh_tw": "草屯商工",
-        "En": "National CaoTun Commercial and Industrial Vocation"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 98,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB290309",
-      "StopID": "290309",
-      "StopName": {
-        "Zh_tw": "大觀",
-        "En": "Daguan"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 93,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB290317",
-      "StopID": "290317",
-      "StopName": {
-        "Zh_tw": "中國附醫草屯分院",
-        "En": "China Medical University Hospital Caotun Branch"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 94,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB293517",
-      "StopID": "293517",
-      "StopName": {
-        "Zh_tw": "工藝中心",
-        "En": "National Taiwan Craft Research and Development Ins"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 87,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB293865",
-      "StopID": "293865",
-      "StopName": {
-        "Zh_tw": "天主教堂",
-        "En": "Catholic Church"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 88,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB303120",
-      "StopID": "303120",
-      "StopName": {
-        "Zh_tw": "三育神學院",
-        "En": "Adventist Colle"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670B2",
-      "SubRouteID": "6670B2",
-      "SubRouteName": {
-        "Zh_tw": "6670B",
-        "En": "6670B"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 11,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB303120",
-      "StopID": "303120",
-      "StopName": {
-        "Zh_tw": "三育神學院",
-        "En": "Adventist Colle"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670C2",
-      "SubRouteID": "6670C2",
-      "SubRouteName": {
-        "Zh_tw": "6670C",
-        "En": "6670C"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 11,
-      "StopStatus": 4,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB304352",
-      "StopID": "304352",
-      "StopName": {
-        "Zh_tw": "五權車站",
-        "En": "Wuquan Station"
-      },
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667002",
-      "SubRouteID": "667002",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
-      "DestinationStop": "261957",
-      "StopSequence": 102,
-      "StopStatus": 1,
-      "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:59+08:00",
-      "SrcTransTime": "2026-10-30T15:23:02+08:00",
-      "UpdateTime": "2026-10-30T15:23:05+08:00"
-    },
-    {
-      "PlateNumb": "-1",
-      "StopUID": "THB248010",
-      "StopID": "248010",
-      "StopName": {
-        "Zh_tw": "下土城",
-        "En": "Xiatucheng"
+        "Zh_tw": "大石村",
+        "En": "Dashi Village"
       },
       "RouteUID": "THB6670",
       "RouteID": "6670",
@@ -1827,16 +805,113 @@
       "StopCountDown": 0,
       "CurrentStop": "-1",
       "DestinationStop": "252627",
-      "StopSequence": 27,
+      "StopSequence": 52,
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "KKA-6739",
+      "PlateNumb": "-1",
+      "StopUID": "THB248059",
+      "StopID": "248059",
+      "StopName": {
+        "Zh_tw": "中華電信",
+        "En": "Chunghwa Telecom"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667001",
+      "SubRouteID": "667001",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 73,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6738",
+      "StopUID": "THB248059",
+      "StopID": "248059",
+      "StopName": {
+        "Zh_tw": "中華電信",
+        "En": "Chunghwa Telecom"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667002",
+      "SubRouteID": "667002",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 1,
+      "EstimateTime": 250,
+      "StopCountDown": 4,
+      "CurrentStop": "278196",
+      "DestinationStop": "261957",
+      "StopSequence": 30,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:26+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248059",
+      "StopID": "248059",
+      "StopName": {
+        "Zh_tw": "中華電信",
+        "En": "Chunghwa Telecom"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670A1",
+      "SubRouteID": "6670A1",
+      "SubRouteName": {
+        "Zh_tw": "6670A",
+        "En": "6670A"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 15,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6767",
       "StopUID": "THB248059",
       "StopID": "248059",
       "StopName": {
@@ -1856,17 +931,17 @@
         "En": "6670A"
       },
       "Direction": 1,
-      "EstimateTime": 2252,
-      "StopCountDown": 32,
-      "CurrentStop": "249516",
+      "EstimateTime": 1568,
+      "StopCountDown": 26,
+      "CurrentStop": "248511",
       "DestinationStop": "261957",
       "StopSequence": 42,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:21:14+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:34+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1896,12 +971,12 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "-1",
+      "PlateNumb": "KKA-6703",
       "StopUID": "THB248059",
       "StopID": "248059",
       "StopName": {
@@ -1921,16 +996,17 @@
         "En": "6670D"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 2886,
+      "StopCountDown": 10,
+      "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 15,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:27:56+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1960,9 +1036,42 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "928-FX",
+      "StopUID": "THB248059",
+      "StopID": "248059",
+      "StopName": {
+        "Zh_tw": "中華電信",
+        "En": "Chunghwa Telecom"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H1",
+      "SubRouteID": "6670H1",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 0,
+      "EstimateTime": 380,
+      "StopCountDown": 5,
+      "CurrentStop": "248144",
+      "DestinationStop": "283436",
+      "StopSequence": 15,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:33+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1992,17 +1101,17 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
-      "StopUID": "THB248139",
-      "StopID": "248139",
+      "StopUID": "THB248144",
+      "StopID": "248144",
       "StopName": {
-        "Zh_tw": "土城",
-        "En": "Tucheng"
+        "Zh_tw": "大成國小",
+        "En": "Dacheng Elementary School"
       },
       "RouteUID": "THB6670",
       "RouteID": "6670",
@@ -2020,16 +1129,80 @@
       "StopCountDown": 0,
       "CurrentStop": "-1",
       "DestinationStop": "252627",
-      "StopSequence": 28,
+      "StopSequence": 68,
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "KKA-6739",
+      "PlateNumb": "-1",
+      "StopUID": "THB248144",
+      "StopID": "248144",
+      "StopName": {
+        "Zh_tw": "大成國小",
+        "En": "Dacheng Elementary School"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667002",
+      "SubRouteID": "667002",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 1,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "261957",
+      "StopSequence": 25,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248144",
+      "StopID": "248144",
+      "StopName": {
+        "Zh_tw": "大成國小",
+        "En": "Dacheng Elementary School"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670A1",
+      "SubRouteID": "6670A1",
+      "SubRouteName": {
+        "Zh_tw": "6670A",
+        "En": "6670A"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 10,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6767",
       "StopUID": "THB248144",
       "StopID": "248144",
       "StopName": {
@@ -2049,17 +1222,17 @@
         "En": "6670A"
       },
       "Direction": 1,
-      "EstimateTime": 1891,
-      "StopCountDown": 27,
-      "CurrentStop": "249516",
+      "EstimateTime": 1223,
+      "StopCountDown": 21,
+      "CurrentStop": "248511",
       "DestinationStop": "261957",
       "StopSequence": 37,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:21:14+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:34+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2089,12 +1262,12 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "-1",
+      "PlateNumb": "KKA-6703",
       "StopUID": "THB248144",
       "StopID": "248144",
       "StopName": {
@@ -2114,16 +1287,17 @@
         "En": "6670D"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 2430,
+      "StopCountDown": 5,
+      "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 10,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:27:56+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2153,12 +1327,110 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "KKA-6768",
+      "PlateNumb": "KKA-6761",
+      "StopUID": "THB248144",
+      "StopID": "248144",
+      "StopName": {
+        "Zh_tw": "大成國小",
+        "En": "Dacheng Elementary School"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H1",
+      "SubRouteID": "6670H1",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 0,
+      "EstimateTime": 3668,
+      "StopCountDown": 7,
+      "CurrentStop": "304348",
+      "DestinationStop": "283436",
+      "StopSequence": 10,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:27:55+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248151",
+      "StopID": "248151",
+      "StopName": {
+        "Zh_tw": "大雁",
+        "En": "Dayan"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667001",
+      "SubRouteID": "667001",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 90,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "931-FX",
+      "StopUID": "THB248151",
+      "StopID": "248151",
+      "StopName": {
+        "Zh_tw": "大雁",
+        "En": "Dayan"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670A1",
+      "SubRouteID": "6670A1",
+      "SubRouteName": {
+        "Zh_tw": "6670A",
+        "En": "6670A"
+      },
+      "Direction": 0,
+      "EstimateTime": 502,
+      "StopCountDown": 7,
+      "CurrentStop": "249059",
+      "DestinationStop": "252627",
+      "StopSequence": 32,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:28:31+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "957-FX",
       "StopUID": "THB248151",
       "StopID": "248151",
       "StopName": {
@@ -2178,17 +1450,17 @@
         "En": "6670B"
       },
       "Direction": 0,
-      "EstimateTime": 5038,
-      "StopCountDown": 14,
-      "CurrentStop": "273174",
+      "EstimateTime": 1142,
+      "StopCountDown": 9,
+      "CurrentStop": "297174",
       "DestinationStop": "252627",
       "StopSequence": 15,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:21:05+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:28:37+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2218,9 +1490,42 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6703",
+      "StopUID": "THB248151",
+      "StopID": "248151",
+      "StopName": {
+        "Zh_tw": "大雁",
+        "En": "Dayan"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D1",
+      "SubRouteID": "6670D1",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 0,
+      "EstimateTime": 4372,
+      "StopCountDown": 27,
+      "CurrentStop": "259015",
+      "DestinationStop": "252627",
+      "StopSequence": 32,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": false,
+      "DataTime": "2026-10-30T17:27:56+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2250,9 +1555,9 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2282,12 +1587,44 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
+      "StopUID": "THB248185",
+      "StopID": "248185",
+      "StopName": {
+        "Zh_tw": "孔明廟",
+        "En": "Kongming Temple"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667001",
+      "SubRouteID": "667001",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 99,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "931-FX",
       "StopUID": "THB248185",
       "StopID": "248185",
       "StopName": {
@@ -2307,19 +1644,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 2010,
+      "StopCountDown": 28,
+      "CurrentStop": "249059",
       "DestinationStop": "252627",
       "StopSequence": 53,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:28:31+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "KKA-6768",
+      "PlateNumb": "957-FX",
       "StopUID": "THB248185",
       "StopID": "248185",
       "StopName": {
@@ -2339,17 +1677,17 @@
         "En": "6670B"
       },
       "Direction": 0,
-      "EstimateTime": 5550,
-      "StopCountDown": 23,
-      "CurrentStop": "273174",
+      "EstimateTime": 1661,
+      "StopCountDown": 18,
+      "CurrentStop": "297174",
       "DestinationStop": "252627",
       "StopSequence": 24,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:21:05+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:28:37+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2379,9 +1717,42 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6703",
+      "StopUID": "THB248185",
+      "StopID": "248185",
+      "StopName": {
+        "Zh_tw": "孔明廟",
+        "En": "Kongming Temple"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D1",
+      "SubRouteID": "6670D1",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 0,
+      "EstimateTime": 4892,
+      "StopCountDown": 36,
+      "CurrentStop": "259015",
+      "DestinationStop": "252627",
+      "StopSequence": 41,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": false,
+      "DataTime": "2026-10-30T17:27:56+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2411,9 +1782,9 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2443,12 +1814,44 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
+      "StopUID": "THB248188",
+      "StopID": "248188",
+      "StopName": {
+        "Zh_tw": "文化巷口",
+        "En": "Wenhua Lane Intersection"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667001",
+      "SubRouteID": "667001",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 100,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "931-FX",
       "StopUID": "THB248188",
       "StopID": "248188",
       "StopName": {
@@ -2468,19 +1871,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 2066,
+      "StopCountDown": 29,
+      "CurrentStop": "249059",
       "DestinationStop": "252627",
       "StopSequence": 54,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:28:31+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "KKA-6768",
+      "PlateNumb": "957-FX",
       "StopUID": "THB248188",
       "StopID": "248188",
       "StopName": {
@@ -2500,17 +1904,17 @@
         "En": "6670B"
       },
       "Direction": 0,
-      "EstimateTime": 5591,
-      "StopCountDown": 24,
-      "CurrentStop": "273174",
+      "EstimateTime": 1702,
+      "StopCountDown": 19,
+      "CurrentStop": "297174",
       "DestinationStop": "252627",
       "StopSequence": 25,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:21:05+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:28:37+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2540,9 +1944,42 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6703",
+      "StopUID": "THB248188",
+      "StopID": "248188",
+      "StopName": {
+        "Zh_tw": "文化巷口",
+        "En": "Wenhua Lane Intersection"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D1",
+      "SubRouteID": "6670D1",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 0,
+      "EstimateTime": 4926,
+      "StopCountDown": 37,
+      "CurrentStop": "259015",
+      "DestinationStop": "252627",
+      "StopSequence": 42,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": false,
+      "DataTime": "2026-10-30T17:27:56+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2572,9 +2009,9 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2604,9 +2041,41 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248189",
+      "StopID": "248189",
+      "StopName": {
+        "Zh_tw": "文化巷口",
+        "En": "Wenhua Lane Intersection"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667002",
+      "SubRouteID": "667002",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 1,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "261957",
+      "StopSequence": 5,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2633,12 +2102,44 @@
       "CurrentStop": "-1",
       "DestinationStop": "261957",
       "StopSequence": 5,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248189",
+      "StopID": "248189",
+      "StopName": {
+        "Zh_tw": "文化巷口",
+        "En": "Wenhua Lane Intersection"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670B2",
+      "SubRouteID": "6670B2",
+      "SubRouteName": {
+        "Zh_tw": "6670B",
+        "En": "6670B"
+      },
+      "Direction": 1,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "261957",
+      "StopSequence": 5,
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2668,9 +2169,41 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248189",
+      "StopID": "248189",
+      "StopName": {
+        "Zh_tw": "文化巷口",
+        "En": "Wenhua Lane Intersection"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D2",
+      "SubRouteID": "6670D2",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 1,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "261957",
+      "StopSequence": 5,
+      "StopStatus": 1,
+      "MessageType": 2,
+      "IsLastBus": false,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2700,9 +2233,9 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2729,12 +2262,44 @@
       "CurrentStop": "-1",
       "DestinationStop": "261957",
       "StopSequence": 7,
-      "StopStatus": 1,
+      "StopStatus": 3,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248192",
+      "StopID": "248192",
+      "StopName": {
+        "Zh_tw": "日月潭",
+        "En": "Sun Moon Lake"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667002",
+      "SubRouteID": "667002",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 1,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "261957",
+      "StopSequence": 1,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2761,12 +2326,44 @@
       "CurrentStop": "-1",
       "DestinationStop": "261957",
       "StopSequence": 1,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248192",
+      "StopID": "248192",
+      "StopName": {
+        "Zh_tw": "日月潭",
+        "En": "Sun Moon Lake"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670B2",
+      "SubRouteID": "6670B2",
+      "SubRouteName": {
+        "Zh_tw": "6670B",
+        "En": "6670B"
+      },
+      "Direction": 1,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "261957",
+      "StopSequence": 1,
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2796,9 +2393,41 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248192",
+      "StopID": "248192",
+      "StopName": {
+        "Zh_tw": "日月潭",
+        "En": "Sun Moon Lake"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D2",
+      "SubRouteID": "6670D2",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 1,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "261957",
+      "StopSequence": 1,
+      "StopStatus": 1,
+      "MessageType": 2,
+      "IsLastBus": false,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2828,9 +2457,9 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2857,15 +2486,112 @@
       "CurrentStop": "-1",
       "DestinationStop": "261957",
       "StopSequence": 3,
-      "StopStatus": 1,
+      "StopStatus": 3,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "KKA-6739",
+      "PlateNumb": "-1",
+      "StopUID": "THB248251",
+      "StopID": "248251",
+      "StopName": {
+        "Zh_tw": "大成國小",
+        "En": "Dacheng Elementary School"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667001",
+      "SubRouteID": "667001",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 80,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6738",
+      "StopUID": "THB248251",
+      "StopID": "248251",
+      "StopName": {
+        "Zh_tw": "大成國小",
+        "En": "Dacheng Elementary School"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667002",
+      "SubRouteID": "667002",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 1,
+      "EstimateTime": 934,
+      "StopCountDown": 11,
+      "CurrentStop": "278196",
+      "DestinationStop": "261957",
+      "StopSequence": 37,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:26+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248251",
+      "StopID": "248251",
+      "StopName": {
+        "Zh_tw": "大成國小",
+        "En": "Dacheng Elementary School"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670A1",
+      "SubRouteID": "6670A1",
+      "SubRouteName": {
+        "Zh_tw": "6670A",
+        "En": "6670A"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 22,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6767",
       "StopUID": "THB248251",
       "StopID": "248251",
       "StopName": {
@@ -2885,17 +2611,17 @@
         "En": "6670A"
       },
       "Direction": 1,
-      "EstimateTime": 3056,
-      "StopCountDown": 39,
-      "CurrentStop": "249516",
+      "EstimateTime": 2337,
+      "StopCountDown": 33,
+      "CurrentStop": "248511",
       "DestinationStop": "261957",
       "StopSequence": 49,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:21:14+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:34+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2925,9 +2651,42 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6703",
+      "StopUID": "THB248251",
+      "StopID": "248251",
+      "StopName": {
+        "Zh_tw": "大成國小",
+        "En": "Dacheng Elementary School"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D1",
+      "SubRouteID": "6670D1",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 0,
+      "EstimateTime": 3609,
+      "StopCountDown": 17,
+      "CurrentStop": "259015",
+      "DestinationStop": "252627",
+      "StopSequence": 22,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": false,
+      "DataTime": "2026-10-30T17:27:56+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2957,12 +2716,109 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "KKA-6768",
+      "PlateNumb": "-1",
+      "StopUID": "THB248251",
+      "StopID": "248251",
+      "StopName": {
+        "Zh_tw": "大成國小",
+        "En": "Dacheng Elementary School"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H2",
+      "SubRouteID": "6670H2",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 1,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "261957",
+      "StopSequence": 7,
+      "StopStatus": 1,
+      "MessageType": 2,
+      "IsLastBus": false,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248269",
+      "StopID": "248269",
+      "StopName": {
+        "Zh_tw": "中城",
+        "En": "Zhongcheng"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667001",
+      "SubRouteID": "667001",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 85,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "931-FX",
+      "StopUID": "THB248269",
+      "StopID": "248269",
+      "StopName": {
+        "Zh_tw": "中城",
+        "En": "Zhongcheng"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670A1",
+      "SubRouteID": "6670A1",
+      "SubRouteName": {
+        "Zh_tw": "6670A",
+        "En": "6670A"
+      },
+      "Direction": 0,
+      "EstimateTime": 97,
+      "StopCountDown": 2,
+      "CurrentStop": "249059",
+      "DestinationStop": "252627",
+      "StopSequence": 27,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:28:31+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "957-FX",
       "StopUID": "THB248269",
       "StopID": "248269",
       "StopName": {
@@ -2982,17 +2838,17 @@
         "En": "6670B"
       },
       "Direction": 0,
-      "EstimateTime": 4218,
-      "StopCountDown": 9,
-      "CurrentStop": "273174",
+      "EstimateTime": 291,
+      "StopCountDown": 4,
+      "CurrentStop": "297174",
       "DestinationStop": "252627",
       "StopSequence": 10,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:21:05+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:28:37+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3022,9 +2878,42 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6703",
+      "StopUID": "THB248269",
+      "StopID": "248269",
+      "StopName": {
+        "Zh_tw": "中城",
+        "En": "Zhongcheng"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D1",
+      "SubRouteID": "6670D1",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 0,
+      "EstimateTime": 4002,
+      "StopCountDown": 22,
+      "CurrentStop": "259015",
+      "DestinationStop": "252627",
+      "StopSequence": 27,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": false,
+      "DataTime": "2026-10-30T17:27:56+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3054,9 +2943,9 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3086,12 +2975,109 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "KKA-6739",
+      "PlateNumb": "-1",
+      "StopUID": "THB248287",
+      "StopID": "248287",
+      "StopName": {
+        "Zh_tw": "仁愛公園",
+        "En": "Ren-ai Park"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667001",
+      "SubRouteID": "667001",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 76,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6738",
+      "StopUID": "THB248287",
+      "StopID": "248287",
+      "StopName": {
+        "Zh_tw": "仁愛公園",
+        "En": "Ren-ai Park"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667002",
+      "SubRouteID": "667002",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 1,
+      "EstimateTime": 682,
+      "StopCountDown": 7,
+      "CurrentStop": "278196",
+      "DestinationStop": "261957",
+      "StopSequence": 33,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:26+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248287",
+      "StopID": "248287",
+      "StopName": {
+        "Zh_tw": "仁愛公園",
+        "En": "Ren-ai Park"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670A1",
+      "SubRouteID": "6670A1",
+      "SubRouteName": {
+        "Zh_tw": "6670A",
+        "En": "6670A"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 18,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6767",
       "StopUID": "THB248287",
       "StopID": "248287",
       "StopName": {
@@ -3111,20 +3097,52 @@
         "En": "6670A"
       },
       "Direction": 1,
-      "EstimateTime": 2828,
-      "StopCountDown": 35,
-      "CurrentStop": "249516",
+      "EstimateTime": 2097,
+      "StopCountDown": 29,
+      "CurrentStop": "248511",
       "DestinationStop": "261957",
       "StopSequence": 45,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:21:14+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:34+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
+      "StopUID": "THB248287",
+      "StopID": "248287",
+      "StopName": {
+        "Zh_tw": "仁愛公園",
+        "En": "Ren-ai Park"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670C1",
+      "SubRouteID": "6670C1",
+      "SubRouteName": {
+        "Zh_tw": "6670C",
+        "En": "6670C"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 11,
+      "StopStatus": 4,
+      "MessageType": 2,
+      "IsLastBus": false,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6703",
       "StopUID": "THB248287",
       "StopID": "248287",
       "StopName": {
@@ -3144,16 +3162,17 @@
         "En": "6670D"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 3366,
+      "StopCountDown": 13,
+      "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 18,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:27:56+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3183,12 +3202,44 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
+      "StopUID": "THB248287",
+      "StopID": "248287",
+      "StopName": {
+        "Zh_tw": "仁愛公園",
+        "En": "Ren-ai Park"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H2",
+      "SubRouteID": "6670H2",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 1,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "261957",
+      "StopSequence": 3,
+      "StopStatus": 1,
+      "MessageType": 2,
+      "IsLastBus": false,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "931-FX",
       "StopUID": "THB248294",
       "StopID": "248294",
       "StopName": {
@@ -3208,19 +3259,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 1241,
+      "StopCountDown": 18,
+      "CurrentStop": "249059",
       "DestinationStop": "252627",
       "StopSequence": 43,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:28:31+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "KKA-6739",
+      "PlateNumb": "-1",
       "StopUID": "THB248294",
       "StopID": "248294",
       "StopName": {
@@ -3240,17 +3292,16 @@
         "En": "6670A"
       },
       "Direction": 1,
-      "EstimateTime": 278,
-      "StopCountDown": 4,
-      "CurrentStop": "249516",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "261957",
       "StopSequence": 14,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:21:13+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3277,20 +3328,20 @@
       "CurrentStop": "-1",
       "DestinationStop": "261957",
       "StopSequence": 2,
-      "StopStatus": 1,
+      "StopStatus": 3,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
-      "StopUID": "THB248334",
-      "StopID": "248334",
+      "StopUID": "THB248384",
+      "StopID": "248384",
       "StopName": {
-        "Zh_tw": "十股",
-        "En": "Shigu"
+        "Zh_tw": "中明",
+        "En": "Zhongming"
       },
       "RouteUID": "THB6670",
       "RouteID": "6670",
@@ -3308,16 +3359,16 @@
       "StopCountDown": 0,
       "CurrentStop": "-1",
       "DestinationStop": "252627",
-      "StopSequence": 31,
+      "StopSequence": 101,
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "-1",
+      "PlateNumb": "931-FX",
       "StopUID": "THB248384",
       "StopID": "248384",
       "StopName": {
@@ -3337,19 +3388,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 2084,
+      "StopCountDown": 30,
+      "CurrentStop": "249059",
       "DestinationStop": "252627",
       "StopSequence": 55,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:28:31+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "KKA-6768",
+      "PlateNumb": "957-FX",
       "StopUID": "THB248384",
       "StopID": "248384",
       "StopName": {
@@ -3369,17 +3421,17 @@
         "En": "6670B"
       },
       "Direction": 0,
-      "EstimateTime": 5617,
-      "StopCountDown": 25,
-      "CurrentStop": "273174",
+      "EstimateTime": 1730,
+      "StopCountDown": 20,
+      "CurrentStop": "297174",
       "DestinationStop": "252627",
       "StopSequence": 26,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:21:05+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:28:37+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3409,9 +3461,42 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6703",
+      "StopUID": "THB248384",
+      "StopID": "248384",
+      "StopName": {
+        "Zh_tw": "中明",
+        "En": "Zhongming"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D1",
+      "SubRouteID": "6670D1",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 0,
+      "EstimateTime": 4972,
+      "StopCountDown": 38,
+      "CurrentStop": "259015",
+      "DestinationStop": "252627",
+      "StopSequence": 43,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": false,
+      "DataTime": "2026-10-30T17:27:56+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3441,9 +3526,9 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3473,12 +3558,109 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "KKA-6739",
+      "PlateNumb": "-1",
+      "StopUID": "THB248396",
+      "StopID": "248396",
+      "StopName": {
+        "Zh_tw": "仁愛公園",
+        "En": "Ren-ai Park"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667001",
+      "SubRouteID": "667001",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 72,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6738",
+      "StopUID": "THB248396",
+      "StopID": "248396",
+      "StopName": {
+        "Zh_tw": "仁愛公園",
+        "En": "Ren-ai Park"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667002",
+      "SubRouteID": "667002",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 1,
+      "EstimateTime": 135,
+      "StopCountDown": 3,
+      "CurrentStop": "278196",
+      "DestinationStop": "261957",
+      "StopSequence": 29,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:26+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248396",
+      "StopID": "248396",
+      "StopName": {
+        "Zh_tw": "仁愛公園",
+        "En": "Ren-ai Park"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670A1",
+      "SubRouteID": "6670A1",
+      "SubRouteName": {
+        "Zh_tw": "6670A",
+        "En": "6670A"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 14,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6767",
       "StopUID": "THB248396",
       "StopID": "248396",
       "StopName": {
@@ -3498,17 +3680,17 @@
         "En": "6670A"
       },
       "Direction": 1,
-      "EstimateTime": 2138,
-      "StopCountDown": 31,
-      "CurrentStop": "249516",
+      "EstimateTime": 1463,
+      "StopCountDown": 25,
+      "CurrentStop": "248511",
       "DestinationStop": "261957",
       "StopSequence": 41,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:21:14+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:34+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3538,12 +3720,12 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "-1",
+      "PlateNumb": "KKA-6703",
       "StopUID": "THB248396",
       "StopID": "248396",
       "StopName": {
@@ -3563,16 +3745,17 @@
         "En": "6670D"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 2767,
+      "StopCountDown": 9,
+      "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 14,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:27:56+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3602,12 +3785,110 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
-      "PlateNumb": "KKA-6768",
+      "PlateNumb": "928-FX",
+      "StopUID": "THB248396",
+      "StopID": "248396",
+      "StopName": {
+        "Zh_tw": "仁愛公園",
+        "En": "Ren-ai Park"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H1",
+      "SubRouteID": "6670H1",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 0,
+      "EstimateTime": 267,
+      "StopCountDown": 4,
+      "CurrentStop": "248144",
+      "DestinationStop": "283436",
+      "StopSequence": 14,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:33+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "-1",
+      "StopUID": "THB248458",
+      "StopID": "248458",
+      "StopName": {
+        "Zh_tw": "下城",
+        "En": "Xiacheng"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB667001",
+      "SubRouteID": "667001",
+      "SubRouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "Direction": 0,
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
+      "DestinationStop": "252627",
+      "StopSequence": 84,
+      "StopStatus": 3,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "931-FX",
+      "StopUID": "THB248458",
+      "StopID": "248458",
+      "StopName": {
+        "Zh_tw": "下城",
+        "En": "Xiacheng"
+      },
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670A1",
+      "SubRouteID": "6670A1",
+      "SubRouteName": {
+        "Zh_tw": "6670A",
+        "En": "6670A"
+      },
+      "Direction": 0,
+      "EstimateTime": 59,
+      "StopCountDown": 1,
+      "CurrentStop": "249059",
+      "DestinationStop": "252627",
+      "StopSequence": 26,
+      "StopStatus": 0,
+      "MessageType": 2,
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:28:31+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
+    },
+    {
+      "PlateNumb": "957-FX",
       "StopUID": "THB248458",
       "StopID": "248458",
       "StopName": {
@@ -3627,17 +3908,17 @@
         "En": "6670B"
       },
       "Direction": 0,
-      "EstimateTime": 4181,
-      "StopCountDown": 8,
-      "CurrentStop": "273174",
+      "EstimateTime": 253,
+      "StopCountDown": 3,
+      "CurrentStop": "297174",
       "DestinationStop": "252627",
       "StopSequence": 9,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-10-30T15:21:05+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-10-30T17:28:37+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3667,9 +3948,9 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-10-30T15:22:28+08:00",
-      "SrcTransTime": "2026-10-30T15:22:33+08:00",
-      "UpdateTime": "2026-10-30T15:22:35+08:00"
+      "DataTime": "2026-10-30T17:29:40+08:00",
+      "SrcTransTime": "2026-10-30T17:29:42+08:00",
+      "UpdateTime": "2026-10-30T17:29:45+08:00"
     }
   ]
 }

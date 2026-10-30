@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>台灣好行 6670 日月潭智慧行控中心 · 3D 數位孿生平台</title>
+    <title>台灣好行 6670 日月潭智慧行控中心 · 走廊數位孿生平台</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
@@ -13,15 +13,22 @@
         :root {
             --font-ui: "Noto Sans TC", system-ui, -apple-system, sans-serif;
             --font-num: "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
-            --bg-deep: #f1f5f9;
-            --panel-bg: rgba(241, 245, 250, 0.9);
-            --cyan: #0284c7;
-            --amber: #d97706;
-            --rose: #e11d48;
-            --emerald: #059669;
-            --border-line: rgba(2, 132, 199, 0.25);
-            --text-primary: #0f172a;
-            --text-secondary: #64748b;
+            --bg-deep: #0b1120;
+            --bg-canvas: #0f172a;
+            --panel-bg: rgba(15, 23, 42, 0.75);
+            --panel-card: rgba(30, 41, 59, 0.65);
+            --cyan: #38bdf8;
+            --cyan-glow: rgba(56, 189, 248, 0.25);
+            --amber: #f59e0b;
+            --amber-glow: rgba(245, 158, 11, 0.25);
+            --rose: #fb7185;
+            --emerald: #10b981;
+            --emerald-glow: rgba(16, 185, 129, 0.25);
+            --purple: #a855f7;
+            --border-line: rgba(148, 163, 184, 0.15);
+            --border-highlight: rgba(56, 189, 248, 0.35);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
             --text-muted: #64748b;
         }
 
@@ -40,19 +47,24 @@
             flex-direction: column;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(2, 132, 199, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(217, 119, 6, 0.04) 0%, transparent 40%);
+                radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 25%, rgba(245, 158, 11, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
         }
 
-        /* 頂部標題列 */
+        /* 頂部全域導航列 */
         header.portal-header {
-            padding: 20px 32px;
+            padding: 16px 32px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid var(--border-line);
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
+            background: rgba(11, 17, 32, 0.85);
+            backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
             flex-wrap: wrap;
             gap: 16px;
         }
@@ -60,47 +72,102 @@
         .brand-title {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
+            text-decoration: none;
+            color: inherit;
         }
 
         .brand-logo {
-            width: 46px;
-            height: 46px;
+            width: 44px;
+            height: 44px;
             background: linear-gradient(135deg, #0284c7, #2563eb);
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 20px;
             color: #ffffff;
-            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+            box-shadow: 0 4px 18px var(--cyan-glow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .brand-text h1 {
-            font-family: var(--font-ui);
-            font-size: 20px;
-            letter-spacing: 1px;
-            color: #0f172a;
+            font-size: 19px;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-text h1 span.badge-beta {
+            font-size: 11px;
             font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+            letter-spacing: 0.5px;
         }
 
         .brand-text p {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-secondary);
-            letter-spacing: 0.5px;
+            font-family: var(--font-num);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        /* 頂部快捷捷徑 */
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.04);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-link-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.09);
+            border-color: var(--border-line);
+            transform: translateY(-1px);
+        }
+
+        .nav-link-btn.active {
+            color: var(--cyan);
+            background: rgba(56, 189, 248, 0.12);
+            border-color: rgba(56, 189, 248, 0.3);
         }
 
         .live-tag {
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(5, 150, 105, 0.12);
-            border: 1px solid rgba(5, 150, 105, 0.4);
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.4);
             border-radius: 20px;
             padding: 6px 14px;
-            font-size: 13px;
+            font-size: 12.5px;
             color: var(--emerald);
             font-weight: 700;
+            font-family: var(--font-num);
+            letter-spacing: 0.3px;
         }
 
         .pulse-light {
@@ -108,125 +175,326 @@
             height: 8px;
             border-radius: 50%;
             background-color: var(--emerald);
-            opacity: 0.9;
+            box-shadow: 0 0 10px var(--emerald);
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
         }
 
         /* 主容器 */
         main.portal-content {
             flex: 1;
-            max-width: 1400px;
+            max-width: 1440px;
             margin: 0 auto;
-            padding: 40px 24px;
+            padding: 36px 24px 60px;
             display: flex;
             flex-direction: column;
-            gap: 36px;
+            gap: 32px;
             width: 100%;
         }
 
+        /* Hero 區域 */
         .hero-banner {
             text-align: center;
-            max-width: 840px;
+            max-width: 920px;
             margin: 0 auto;
+            padding: 10px 0 6px;
         }
 
-        .hero-banner h2 {
-            max-width: 680px; margin-left: auto; margin-right: auto; text-wrap: balance;
-            font-size: clamp(24px, 4vw, 36px); line-height: 1.25;
-            font-family: var(--font-ui);
+        .hero-banner .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 14px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 30px;
+            font-size: 13px;
             font-weight: 700;
-            margin-bottom: 12px;
-            color: #0f172a;
+            color: var(--cyan);
+            margin-bottom: 16px;
             letter-spacing: 0.5px;
         }
 
-        .hero-banner h2 span.highlight {
-            color: var(--cyan);
+        .hero-banner h2 {
+            font-size: clamp(26px, 4.2vw, 42px);
+            line-height: 1.25;
+            font-weight: 900;
+            margin-bottom: 16px;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            text-wrap: balance;
+        }
+
+        .hero-banner h2 span.gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #60a5fa 50%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero-banner p {
-            max-width: 680px; margin: 0 auto; text-wrap: pretty;
+            max-width: 760px;
+            margin: 0 auto;
             font-size: 16px;
             color: var(--text-secondary);
             line-height: 1.7;
-            letter-spacing: 0.02em;
+            text-wrap: balance;
         }
 
-        .hero-cta { display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 24px; }
-        .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 8px; background: var(--cyan); color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; transition: transform 0.2s cubic-bezier(0.32,0.72,0,1), background-color 0.2s cubic-bezier(0.32,0.72,0,1); }
-        .btn-primary:hover { background: #0369a1; transform: translateY(-1px); }
-        .btn-primary:active { transform: translateY(1px); }
-        .btn-secondary { display: inline-flex; align-items: center; padding: 12px 16px; border-radius: 8px; color: var(--cyan); font-size: 16px; font-weight: 500; text-decoration: none; border: 1px solid rgba(2, 132, 199, 0.35); background: #ffffff; transition: background-color 0.2s cubic-bezier(0.32,0.72,0,1); }
-        .btn-secondary:hover { background: rgba(2, 132, 199, 0.08); }
-        .hero-proof span { white-space: nowrap; }
-        .hero-banner p { text-wrap: balance; }
-        @media (max-width: 768px) { .brand-text p { display: none; } }
-        .hero-proof { margin-top: 16px; font-size: 14px; color: var(--text-secondary); font-family: var(--font-num); font-variant-numeric: tabular-nums; }
-        a.portal-card { text-decoration: none; color: inherit; display: block; }
-        .portal-card.is-primary { border-color: rgba(217, 119, 6, 0.45); }
-        a:focus-visible, button:focus-visible, .portal-card:focus-visible { outline: 3px solid rgba(2, 132, 199, 0.55); outline-offset: 3px; border-radius: 8px; }
-
-        /* 雙主卡片網格 */
-        .portal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 28px;
-        }
-
-        .portal-card {
-            background: var(--panel-bg);
-            border: 1px solid var(--border-line);
-            border-radius: 14px;
-            overflow: hidden;
+        .hero-cta {
             display: flex;
-            flex-direction: column;
-            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.135);
+            gap: 14px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 26px;
+        }
+
+        .btn-cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 28px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 20px var(--amber-glow);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(245, 158, 11, 0.45);
+        }
+
+        .btn-cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 13px 22px;
+            border-radius: 10px;
+            color: var(--cyan);
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            background: rgba(56, 189, 248, 0.08);
+            backdrop-filter: blur(8px);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-cta-secondary:hover {
+            background: rgba(56, 189, 248, 0.16);
+            border-color: var(--cyan);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .hero-proof {
+            margin-top: 20px;
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            font-family: var(--font-num);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-proof span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* 即時車隊雷達跑馬條 (Live Fleet Radar Ticker) */
+        .radar-ticker-container {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid var(--border-highlight);
+            border-radius: 14px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
             position: relative;
         }
 
+        .radar-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--cyan);
+            font-family: var(--font-num);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            padding-right: 14px;
+            border-right: 1px solid var(--border-line);
+        }
+
+        .radar-label i {
+            animation: radar-sweep 2.5s infinite linear;
+        }
+
+        @keyframes radar-sweep {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .radar-stream {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 2px 0;
+            white-space: nowrap;
+            flex: 1;
+        }
+
+        .radar-stream::-webkit-scrollbar {
+            display: none;
+        }
+
+        .bus-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 20px;
+            padding: 4px 11px;
+            font-size: 12px;
+            font-family: var(--font-num);
+            color: #ffffff;
+            transition: all 0.2s;
+        }
+
+        .bus-pill:hover {
+            border-color: var(--cyan);
+            background: rgba(56, 189, 248, 0.15);
+        }
+
+        .bus-pill .sub-route {
+            font-weight: 800;
+            color: var(--amber);
+        }
+
+        .bus-pill .speed-chip {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--emerald);
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .bus-pill .speed-chip.fast {
+            background: rgba(56, 189, 248, 0.25);
+            color: var(--cyan);
+        }
+
+        .bus-pill .speed-chip.stop {
+            background: rgba(148, 163, 184, 0.2);
+            color: var(--text-muted);
+        }
+
+        /* 四大核心模組卡片矩陣 */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .portal-card {
+            background: var(--panel-card);
+            border: 1px solid var(--border-line);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            backdrop-filter: blur(12px);
+        }
+
         .portal-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(2, 132, 199, 0.5);
-            box-shadow: 0 16px 36px rgba(15, 23, 42, 0.18);
+            transform: translateY(-5px);
+            border-color: var(--cyan);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45), 0 0 20px var(--cyan-glow);
+        }
+
+        .portal-card.is-primary:hover {
+            border-color: var(--amber);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45), 0 0 20px var(--amber-glow);
         }
 
         .card-img-wrap {
             position: relative;
-            height: 240px;
+            height: 220px;
             overflow: hidden;
-            background-color: #e2e8f0;
+            background-color: #1e293b;
         }
 
         .card-img-wrap img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 45%;
-            transition: transform 0.5s cubic-bezier(0.32,0.72,0,1);
+            object-position: center;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .portal-card:hover .card-img-wrap img {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
         .card-badge {
             position: absolute;
             top: 14px;
             left: 14px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(15, 23, 42, 0.85);
             border: 1px solid var(--cyan);
-            border-radius: 6px;
-            padding: 4px 10px;
-            font-size: 11px;
+            border-radius: 8px;
+            padding: 5px 12px;
+            font-size: 12px;
             font-weight: 700;
             color: var(--cyan);
             backdrop-filter: blur(8px);
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .card-badge.amber {
             border-color: var(--amber);
             color: var(--amber);
+        }
+
+        .card-badge.emerald {
+            border-color: var(--emerald);
+            color: var(--emerald);
+        }
+
+        .card-badge.purple {
+            border-color: var(--purple);
+            color: var(--purple);
         }
 
         .card-body {
@@ -238,9 +506,9 @@
         }
 
         .card-body h3 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #0f172a;
+            font-size: 21px;
+            font-weight: 800;
+            color: #ffffff;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -249,8 +517,7 @@
         .card-body p {
             font-size: 14px;
             color: var(--text-secondary);
-            line-height: 1.6;
-            letter-spacing: 0.02em;
+            line-height: 1.65;
             flex: 1;
         }
 
@@ -258,13 +525,13 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin: 6px 0;
+            gap: 9px;
+            margin: 4px 0 8px;
         }
 
         .features-list li {
             font-size: 13px;
-            color: #334155;
+            color: #cbd5e1;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -275,107 +542,114 @@
             font-size: 14px;
         }
 
-        .btn-entry {
+        .portal-card.is-primary .features-list li i {
+            color: var(--amber);
+        }
+
+        .btn-card-action {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 13px 20px;
+            gap: 9px;
+            padding: 12px 18px;
             border-radius: 8px;
-            font-family: var(--font-ui);
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
-            text-decoration: none;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             transition: all 0.2s ease;
-            cursor: pointer;
+            margin-top: auto;
         }
 
-        .btn-cyan {
-            background: rgba(2, 132, 199, 0.12);
-            border: 1px solid var(--cyan);
-            color: var(--cyan);
-        }
-
-        .btn-cyan:hover {
-            background: var(--cyan);
-            color: #ffffff;
-            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.135);
-        }
-
-        .btn-amber {
-            background: rgba(217, 119, 6, 0.12);
+        .btn-action-amber {
+            background: rgba(245, 158, 11, 0.15);
             border: 1px solid var(--amber);
             color: var(--amber);
         }
 
-        .btn-amber:hover {
+        .portal-card:hover .btn-action-amber {
             background: var(--amber);
             color: #ffffff;
-            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.135);
+            box-shadow: 0 4px 16px var(--amber-glow);
         }
 
-        /* 底部即時走廊數據快報 */
+        .btn-action-cyan {
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+        }
+
+        .portal-card:hover .btn-action-cyan {
+            background: var(--cyan);
+            color: #0b1120;
+            box-shadow: 0 4px 16px var(--cyan-glow);
+        }
+
+        /* 走廊營運即時 KPI 儀表 (Live Ticker) */
         .live-ticker {
-            background: rgba(241, 245, 250, 0.95);
+            background: var(--panel-bg);
             border: 1px solid var(--border-line);
-            border-radius: 12px;
-            padding: 18px 24px;
+            border-radius: 14px;
+            padding: 20px 24px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 18px;
-            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.105);
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(12px);
         }
 
         .ticker-item {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
 
         .ticker-icon {
-            font-size: 20px;
+            font-size: 22px;
             color: var(--cyan);
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: rgba(2, 132, 199, 0.08);
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
 
         .ticker-text .label {
             font-size: 11px;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.6px;
+            margin-bottom: 2px;
         }
 
         .ticker-text .value {
             font-family: var(--font-num);
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 700;
-            color: #0f172a;
+            color: #ffffff;
             font-variant-numeric: tabular-nums;
         }
 
         .val-rose { color: var(--rose); }
         .val-amber { color: var(--amber); }
         .val-emerald { color: var(--emerald); }
+        .val-cyan { color: var(--cyan); }
 
         /* 頁腳 */
         footer.portal-footer {
-            padding: 20px 32px;
+            padding: 24px 32px;
             font-size: 13px;
             color: var(--text-muted);
-            border-top: 1px solid rgba(15, 23, 42, 0.088);
-            background: rgba(255, 255, 255, 0.98);
+            border-top: 1px solid var(--border-line);
+            background: rgba(11, 17, 32, 0.95);
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 14px;
         }
 
         footer a {
@@ -385,145 +659,216 @@
         }
 
         footer a:hover {
-            color: #0f172a;
+            color: #ffffff;
+            text-decoration: underline;
         }
 
         /* 響應式優化 */
+        @media (max-width: 992px) {
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             header.portal-header {
-                padding: 16px 20px;
+                padding: 14px 18px;
             }
-            .brand-title {
-                gap: 12px;
-            }
-            .brand-logo {
-                width: 38px;
-                height: 38px;
-                font-size: 18px;
-            }
-            .brand-text h1 {
-                font-size: 17px;
-            }
-            .brand-text p {
-                font-size: 12px;
+            .header-nav {
+                display: none;
             }
             main.portal-content {
-                padding: 24px 16px;
+                padding: 24px 16px 40px;
                 gap: 24px;
             }
             .card-img-wrap {
-                height: 200px;
+                height: 180px;
             }
             .card-body {
                 padding: 20px;
             }
             footer.portal-footer {
-                padding: 16px 20px;
+                padding: 18px;
                 flex-direction: column;
                 text-align: center;
-                gap: 10px;
             }
         }
-            body { font-family: var(--font-ui); }
-        [style*="--font-num"], .capsule-val, .val, .speed-badge, .eta-badge { font-variant-numeric: tabular-nums; }
     </style>
 </head>
 <body>
 
     <!-- 頂部導航 -->
     <header class="portal-header">
-        <div class="brand-title">
+        <a href="index.html" class="brand-title">
             <div class="brand-logo"><i class="fa-solid fa-satellite-dish"></i></div>
             <div class="brand-text">
-                <h1>日月潭 6670 智慧行控調度中心</h1>
-                <p>SUN MOON LAKE 6670 DIGITAL TWIN OPERATIONS CONTROL CENTER</p>
+                <h1>日月潭 6670 智慧行控中心 <span class="badge-beta">TWIN PRO</span></h1>
+                <p>Sun Moon Lake 6670 Digital Twin Operations Command Center</p>
             </div>
-        </div>
+        </a>
 
-        <div class="live-tag">
+        <!-- 頂部捷徑選單 -->
+        <nav class="header-nav" aria-label="核心模組導航">
+            <a href="occ_dashboard.html" class="nav-link-btn active"><i class="fa-solid fa-map-location-dot"></i> 即時行控</a>
+            <a href="scenario-lab/" class="nav-link-btn"><i class="fa-solid fa-chart-line"></i> 決策實驗室</a>
+            <a href="3d_viewer.html" class="nav-link-btn"><i class="fa-solid fa-cube"></i> 3D 沙盤</a>
+            <a href="occ_lake_view.html" class="nav-link-btn"><i class="fa-solid fa-water"></i> 水社環湖</a>
+        </nav>
+
+        <div class="live-tag" id="main-live-tag">
             <span class="pulse-light"></span>
-            <span class="live-text">TDX 車輛動態快照 2026-10-25 13:35</span>
+            <span class="live-text" id="main-live-text">連線 TDX 即時車機流中...</span>
         </div>
     </header>
 
     <!-- 主展示區 -->
     <main class="portal-content">
+        <!-- Hero 總覽 -->
         <div class="hero-banner">
-            <h2>一眼看出 6670 每台車在哪<br>下一站幾分鐘到</h2>
-            <p>台灣好行日月潭線的行控畫面。TDX 車輛位置貼合在路線上，到站預估逐站列出，台中到日月潭整條走廊一張地圖看完。</p>
-            <div class="hero-cta">
-                <a href="occ_dashboard.html" class="btn-primary">進入行控中心 <i class="fa-solid fa-arrow-right"></i></a>
-                <a href="3d_viewer.html" class="btn-secondary">看 3D 地形沙盤</a>
+            <div class="hero-eyebrow">
+                <i class="fa-solid fa-route"></i> 台灣好行 · 南投公共運輸數位孿生平台
             </div>
-            <div class="hero-proof"><span>18 輛車</span> · <span>47 個站有到站預估</span> · <span>資料時間 2026-10-25 13:35（TDX 快照）</span></div>
+            <h2>南投客運走廊 <span class="gradient-text">智慧行控與數位孿生決策系統</span></h2>
+            <p>以 180 萬筆電子票證大數據、TDX 即時車機 GPS 軌跡與 Blender 3D 高程模型為核心，串聯「即時車隊監控 ⇄ 歷史客流重播 ⇄ 旅運需求 AI 預測 ⇄ 班次最佳化排班」的公共運輸閉環生態。</p>
+            <div class="hero-cta">
+                <a href="occ_dashboard.html" class="btn-cta-primary">
+                    <i class="fa-solid fa-tower-broadcast"></i> 進入即時行控中心
+                </a>
+                <a href="scenario-lab/" class="btn-cta-secondary">
+                    <i class="fa-solid fa-flask-vial"></i> 開啟決策與預測實驗室
+                </a>
+                <a href="3d_viewer.html" class="btn-cta-secondary">
+                    <i class="fa-solid fa-cube"></i> 檢視 3D 走廊沙盤
+                </a>
+            </div>
+            <div class="hero-proof" id="hero-proof-line">
+                <span><i class="fa-solid fa-bus text-cyan"></i> <strong id="proof-bus-count">--</strong> 輛在線公車</span> · 
+                <span><i class="fa-solid fa-signs-post text-emerald"></i> <strong id="proof-arrival-count">846</strong> 個站點預估中</span> · 
+                <span><i class="fa-regular fa-clock text-amber"></i> <span id="proof-sync-time">即時更新</span> (TDX RT-Feed)</span>
+            </div>
         </div>
 
+        <!-- 即時車隊雷達跑馬條 -->
+        <div class="radar-ticker-container" id="radar-container">
+            <div class="radar-label">
+                <i class="fa-solid fa-radar text-cyan"></i> Live Fleet Radar
+            </div>
+            <div class="radar-stream" id="radar-bus-stream">
+                <span class="text-secondary" style="font-size: 12px;">正在擷取 6670 線上即時車輛座標與車速...</span>
+            </div>
+        </div>
+
+        <!-- 四大核心功能卡片 -->
         <div class="portal-grid">
-            <!-- 行控中心（主要入口） -->
+            <!-- 1. 即時行控調度中心 -->
             <a href="occ_dashboard.html" class="portal-card is-primary">
                 <div class="card-img-wrap">
-                    <img src="occ_preview.jpg" loading="lazy" alt="行控中心畫面：地圖上的 6670 車輛與右側到站預估">
-                    <div class="card-badge amber"><i class="fa-solid fa-map-location-dot"></i> 行控中心</div>
+                    <img src="occ_preview.jpg" loading="lazy" alt="行控中心畫面：地圖上的 6670 車輛與即時到站預估">
+                    <div class="card-badge amber"><i class="fa-solid fa-satellite-dish"></i> 旗艦推薦 · 即時行控</div>
                 </div>
                 <div class="card-body">
-                    <h3>行控中心</h3>
-                    <p>看每台車的位置、車速和下一站，點站牌就能在全線鳥瞰上找到它。</p>
+                    <h3>即時行控調度中心</h3>
+                    <p>全線 6670 車隊即時雷達監控大屏。GPS 車機軌跡平滑貼合，車速與方位角向量即時呈現，到站倒數秒數精確推估。</p>
                     <ul class="features-list">
-                        <li><i class="fa-solid fa-check"></i> <strong>車輛位置</strong>：GPS 貼合路線，依回報車速推估最多 3 分鐘</li>
-                        <li><i class="fa-solid fa-check"></i> <strong>到站預估</strong>：每台車接下來各站幾分鐘，或每站最近一班</li>
-                        <li><i class="fa-solid fa-check"></i> <strong>手機可用</strong>：底部切換地圖、車隊與到站</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>車隊實時雷達</strong>：GPS 實時座標貼合，支援車牌聚焦與速度追蹤</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>逐站動態 ETA</strong>：預估到站時間逐站倒數與發車狀態判定</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>3D 巡航視角</strong>：由高鐵台中站至日月潭水社的一鍵俯瞰巡檢</li>
                     </ul>
-                    <span class="btn-entry btn-amber"><span>進入行控中心</span><i class="fa-solid fa-arrow-right"></i></span>
+                    <span class="btn-card-action btn-action-amber">
+                        <span>開啟行控大屏</span> <i class="fa-solid fa-arrow-right"></i>
+                    </span>
                 </div>
             </a>
 
-            <!-- 3D 沙盤（次要入口） -->
+            <!-- 2. 營運決策與預測實驗室 -->
+            <a href="scenario-lab/" class="portal-card">
+                <div class="card-img-wrap">
+                    <img src="portal_screenshot.png" loading="lazy" alt="情境實驗室：票證重播、預測模型與班次最佳化">
+                    <div class="card-badge purple"><i class="fa-solid fa-brain"></i> 核心研發 · Scenario Lab</div>
+                </div>
+                <div class="card-body">
+                    <h3>營運決策與需求預測實驗室</h3>
+                    <p>基於 2024–2025 歷史 180 萬筆電子票證大數據，支援 725 日客流全日時間軸重播、對數 Ridge 旅運預測與最佳化班次重排。</p>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>725 日歷史重播</strong>：隨意滑動時鐘演練特定連假真實客流動態</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>24 特徵 AI 預測</strong>：對數 Ridge 迴歸精確回測尖離峰運量基線</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>班次最佳化調度</strong>：最大二分匹配求解最小車輛配置與司機工時</li>
+                    </ul>
+                    <span class="btn-card-action btn-action-cyan">
+                        <span>進入決策實驗室</span> <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </div>
+            </a>
+
+            <!-- 3. 3D 走廊高程數位沙盤 -->
             <a href="3d_viewer.html" class="portal-card">
                 <div class="card-img-wrap">
                     <img src="sandbox_preview.jpg" loading="lazy" alt="3D 地形沙盤：台中到日月潭走廊模型">
-                    <div class="card-badge"><i class="fa-solid fa-cube"></i> 3D 沙盤</div>
+                    <div class="card-badge"><i class="fa-solid fa-cube"></i> 數位孿生 · 3D Sandbox</div>
                 </div>
                 <div class="card-body">
-                    <h3>3D 地形沙盤</h3>
-                    <p>依真實路線用 Blender 建出的台中到日月潭走廊模型，可以旋轉、縮放，看整條路線的位置關係。</p>
+                    <h3>3D 走廊高程數位沙盤</h3>
+                    <p>依真實 GIS 路網與 Blender 建立的台中至日月潭走廊 3D 模型，直觀展示國道 6 號與埔里盆地到魚池的真實爬坡高差。</p>
                     <ul class="features-list">
-                        <li><i class="fa-solid fa-check"></i> <strong>自由檢視</strong>：旋轉、平移、縮放</li>
-                        <li><i class="fa-solid fa-check"></i> <strong>區域熱點</strong>：顯示各區目前有幾台車</li>
-                        <li><i class="fa-solid fa-check"></i> <strong>快速視角</strong>：國道 6 號、埔里、日月潭一鍵切換</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>自由視角操作</strong>：三維軌道控制器支援 360° 旋轉、縮放與傾斜</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>高精度幾何模型</strong>：完整 18 輛車編組走廊 3D 動態模型</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>區域熱點快捷</strong>：國道 6 號、埔里、日月潭走廊樞紐一鍵跳轉</li>
                     </ul>
-                    <span class="btn-entry btn-cyan"><span>看 3D 沙盤</span><i class="fa-solid fa-arrow-right"></i></span>
+                    <span class="btn-card-action btn-action-cyan">
+                        <span>檢視 3D 沙盤</span> <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </div>
+            </a>
+
+            <!-- 4. 水社端點環湖即時視角 -->
+            <a href="occ_lake_view.html" class="portal-card">
+                <div class="card-img-wrap">
+                    <img src="occ_lake_screenshot.png" loading="lazy" alt="日月潭水社環湖視角">
+                    <div class="card-badge emerald"><i class="fa-solid fa-water"></i> 景點樞紐 · Lakeview</div>
+                </div>
+                <div class="card-body">
+                    <h3>水社端點環湖即時視角</h3>
+                    <p>聚焦日月潭水社樞紐與向山支線，支援前端直連觀光署 TAD API 實時刷新，精準掌握進出景區的車輛分布與旅客疏運。</p>
+                    <ul class="features-list">
+                        <li><i class="fa-solid fa-check"></i> <strong>景點樞紐專屬視角</strong>：水社、向山、伊達邵環湖動態監控</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>前端手動即時輪詢</strong>：支援即時點擊向 API 索取最新車隊 GPS</li>
+                        <li><i class="fa-solid fa-check"></i> <strong>行車倒數卡片</strong>：卡片化呈現各車輛時速、車牌與方位角</li>
+                    </ul>
+                    <span class="btn-card-action btn-action-cyan">
+                        <span>開啟環湖視角</span> <i class="fa-solid fa-arrow-right"></i>
+                    </span>
                 </div>
             </a>
         </div>
 
-        <!-- 底部即時快報 -->
+        <!-- 底部即時走廊健康度儀表 -->
         <div class="live-ticker">
             <div class="ticker-item">
                 <div class="ticker-icon"><i class="fa-solid fa-bus"></i></div>
                 <div class="ticker-text">
-                    <div class="label">車隊快照（營運中／總數）</div>
-                    <div class="value">12 / 18 輛</div>
+                    <div class="label">車隊即時營運率</div>
+                    <div class="value" id="kpi-fleet-status">-- / 18 輛</div>
                 </div>
             </div>
             <div class="ticker-item">
-                <div class="ticker-icon"><i class="fa-solid fa-gauge-high" style="color: var(--rose);"></i></div>
+                <div class="ticker-icon"><i class="fa-solid fa-gauge-high" style="color: var(--cyan);"></i></div>
                 <div class="ticker-text">
-                    <div class="label">國道6號最高回報車速（快照）</div>
-                    <div class="value val-rose">102 km/h (KKA-6715)</div>
+                    <div class="label">走廊最高行車速度</div>
+                    <div class="value val-cyan" id="kpi-max-speed">-- km/h</div>
                 </div>
             </div>
             <div class="ticker-item">
-                <div class="ticker-icon"><i class="fa-solid fa-signs-post" style="color: var(--cyan);"></i></div>
+                <div class="ticker-icon"><i class="fa-solid fa-signs-post" style="color: var(--emerald);"></i></div>
                 <div class="ticker-text">
-                    <div class="label">有到站預估的站</div>
-                    <div class="value val-emerald">47 站</div>
+                    <div class="label">全線預估覆蓋站數</div>
+                    <div class="value val-emerald" id="kpi-total-arrivals">-- 站次</div>
                 </div>
             </div>
             <div class="ticker-item">
-                <div class="ticker-icon"><i class="fa-solid fa-route" style="color: var(--amber);"></i></div>
+                <div class="ticker-icon"><i class="fa-solid fa-shield-halved" style="color: var(--amber);"></i></div>
                 <div class="ticker-text">
-                    <div class="label">路線範圍</div>
-                    <div class="value val-amber">台中 ⇄ 日月潭 ⇄ 向山</div>
+                    <div class="label">走廊路況與營運健康度</div>
+                    <div class="value val-amber" id="kpi-corridor-status">🟢 全線行車順暢</div>
                 </div>
             </div>
         </div>
@@ -531,43 +876,119 @@
 
     <!-- 頁腳 -->
     <footer class="portal-footer">
-        <div>© 2026 台灣好行 6670 智慧行控調度系統 · 南投公共運輸數位孿生</div>
-        <div>
+        <div>© 2026 台灣好行 6670 智慧行控調度系統 · 南投公共運輸數位孿生平台</div>
+        <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+            <a href="scenario-lab/" target="_blank"><i class="fa-solid fa-file-lines"></i> 規格與調度契約</a>
             <a href="https://github.com/nutcelvischen-jpg/nantou-6670-occ" target="_blank"><i class="fa-brands fa-github"></i> GitHub 專案庫</a>
-            &nbsp;·&nbsp;
-            <a href="6670_sunmoonlake_panorama.glb" download><i class="fa-solid fa-download"></i> 下載 3D 模型（GLB，約 19.5 MB）</a>
+            <a href="6670_sunmoonlake_panorama.glb" download><i class="fa-solid fa-download"></i> 下載走廊 3D 模型 (.GLB)</a>
         </div>
     </footer>
 
+    <!-- 即時數據更新腳本 -->
     <script>
-        async function updatePortalStatus() {
+        async function fetchAndUpdateLiveStatus() {
+            const liveTag = document.getElementById("main-live-tag");
+            const liveText = document.getElementById("main-live-text");
+            const proofBus = document.getElementById("proof-bus-count");
+            const proofArrival = document.getElementById("proof-arrival-count");
+            const proofTime = document.getElementById("proof-sync-time");
+            const kpiFleet = document.getElementById("kpi-fleet-status");
+            const kpiSpeed = document.getElementById("kpi-max-speed");
+            const kpiArrivals = document.getElementById("kpi-total-arrivals");
+            const kpiStatus = document.getElementById("kpi-corridor-status");
+            const radarStream = document.getElementById("radar-bus-stream");
+
             try {
                 const resp = await fetch("data/live_buses.json?t=" + Date.now());
-                if (!resp.ok) return;
+                if (!resp.ok) throw new Error("Fetch failed");
                 const data = await resp.json();
-                const timeStr = (data.sync_time_str || "").slice(11, 16);
-                const tag = document.querySelector(".live-tag");
-                const tagText = document.querySelector(".live-text");
-                const countVal = document.querySelector(".live-ticker .ticker-item:nth-child(1) .value");
-                const speedVal = document.querySelector(".live-ticker .ticker-item:nth-child(2) .value");
-                const proofEl = document.querySelector(".hero-proof");
 
-                if (data.status === "off_duty" || (Array.isArray(data.buses) && data.buses.length === 0)) {
-                    if (tagText) tagText.innerText = `全線已收班 · 實時檢測 ${timeStr}`;
-                    if (tag) tag.style.background = "rgba(100, 116, 139, 0.15)";
-                    if (countVal) countVal.innerText = "0 / 0 輛（夜間已收班）";
-                    if (speedVal) speedVal.innerText = "—";
-                    if (proofEl) proofEl.innerHTML = `<span>全線收班中</span> · <span>${data.arrivals_count || 846} 個站已備便</span> · <span>實時檢測 ${data.sync_time_str || ''}</span>`;
-                } else if (Array.isArray(data.buses) && data.buses.length > 0) {
-                    if (tagText) tagText.innerText = `🟢 即時營運中 · 檢測時間 ${timeStr}`;
-                    if (countVal) countVal.innerText = `${data.bus_count} 輛在線營運中`;
-                    const maxSpeed = Math.max(...data.buses.map(b => b.Speed || 0));
-                    if (speedVal) speedVal.innerText = `${maxSpeed} km/h`;
-                    if (proofEl) proofEl.innerHTML = `<span>${data.bus_count} 輛車</span> · <span>${data.arrivals_count || 47} 個站有預估</span> · <span>即時連線 ${data.sync_time_str || ''}</span>`;
+                const timeStr = (data.sync_time_str || "").slice(11, 16) || "實時";
+                const isOffDuty = data.status === "off_duty" || (!data.buses || data.buses.length === 0);
+
+                if (isOffDuty) {
+                    if (liveText) liveText.innerText = `全線已收班 · 檢測時間 ${timeStr}`;
+                    if (liveTag) {
+                        liveTag.style.background = "rgba(100, 116, 139, 0.2)";
+                        liveTag.style.borderColor = "rgba(100, 116, 139, 0.4)";
+                        liveTag.style.color = "#94a3b8";
+                    }
+                    if (proofBus) proofBus.innerText = "0";
+                    if (proofArrival) proofArrival.innerText = data.arrivals_count || "846";
+                    if (proofTime) proofTime.innerText = `${timeStr} (夜間收班)`;
+                    if (kpiFleet) kpiFleet.innerText = "0 / 18 輛（已收班）";
+                    if (kpiSpeed) kpiSpeed.innerText = "—";
+                    if (kpiArrivals) kpiArrivals.innerText = `${data.arrivals_count || 846} 站備便`;
+                    if (kpiStatus) kpiStatus.innerText = "🌙 離峰收班（明日 07:00 發車）";
+                    if (radarStream) {
+                        radarStream.innerHTML = `<span class="text-secondary" style="font-size:12px;"><i class="fa-regular fa-moon"></i> 目前全線已達末班車收班時段 · 車隊於場站整備中</span>`;
+                    }
+                } else {
+                    const busCount = data.bus_count || data.buses.length;
+                    if (liveText) liveText.innerText = `🟢 實時營運中 · ${busCount} 輛在線 (${timeStr})`;
+                    if (proofBus) proofBus.innerText = busCount;
+                    if (proofArrival) proofArrival.innerText = data.arrivals_count || "846";
+                    if (proofTime) proofTime.innerText = `${timeStr} (TDX)`;
+                    if (kpiFleet) kpiFleet.innerText = `${busCount} 輛在線 (${((busCount / 18) * 100).toFixed(0)}%)`;
+
+                    // 計算最高車速
+                    let maxSpeed = 0;
+                    let maxSpeedPlate = "";
+                    data.buses.forEach(b => {
+                        const s = Number(b.Speed || 0);
+                        if (s > maxSpeed) {
+                            maxSpeed = s;
+                            maxSpeedPlate = b.PlateNumb || "";
+                        }
+                    });
+
+                    if (kpiSpeed) {
+                        kpiSpeed.innerHTML = maxSpeed > 0 
+                            ? `${maxSpeed} km/h <small style="font-size:11px;color:var(--text-muted)">(${maxSpeedPlate})</small>` 
+                            : "停等中";
+                    }
+                    if (kpiArrivals) kpiArrivals.innerText = `${data.arrivals_count || 846} 站次`;
+                    if (kpiStatus) {
+                        kpiStatus.innerText = maxSpeed > 70 
+                            ? "🟢 國道6號暢通 · 車行良好" 
+                            : "🟡 車流穩定 · 正常巡航";
+                    }
+
+                    // 渲染車隊雷達跑馬燈
+                    if (radarStream && Array.isArray(data.buses)) {
+                        const pillsHtml = data.buses.map(b => {
+                            const plate = b.PlateNumb || "公車";
+                            const sub = (b.SubRouteName && b.SubRouteName.Zh_tw) || b.RouteID || "6670";
+                            const speed = Number(b.Speed || 0);
+                            const dir = b.Direction === 0 ? "去程" : "返程";
+                            let speedClass = "stop";
+                            if (speed > 60) speedClass = "fast";
+                            else if (speed > 0) speedClass = "normal";
+
+                            return `
+                                <div class="bus-pill" title="車牌: ${plate} · ${dir} · 時速: ${speed} km/h">
+                                    <i class="fa-solid fa-bus text-cyan"></i>
+                                    <span>${plate}</span>
+                                    <span class="sub-route">${sub}</span>
+                                    <span class="speed-chip ${speedClass}">${speed} km/h</span>
+                                </div>
+                            `;
+                        }).join("");
+
+                        radarStream.innerHTML = pillsHtml;
+                    }
                 }
-            } catch (e) {}
+            } catch (err) {
+                console.warn("即時更新異常，維持既有介面", err);
+                if (liveText) liveText.innerText = `示範模式 · 快照展示中`;
+            }
         }
-        updatePortalStatus();
+
+        // 頁面載入時執行，並設定每 30 秒自動輪詢一次
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchAndUpdateLiveStatus();
+            setInterval(fetchAndUpdateLiveStatus, 30000);
+        });
     </script>
 </body>
 </html>
