@@ -1,13 +1,78 @@
 {
-  "sync_time": "2026-11-01T02:59:00.342171+08:00",
-  "sync_time_str": "2026-11-01 02:59:00",
+  "sync_time": "2026-11-01T06:21:42.171492+08:00",
+  "sync_time_str": "2026-11-01 06:21:42",
   "route_id": "6670",
   "route_name": "台灣好行日月潭線",
-  "status": "off_duty",
-  "is_operating": false,
-  "message": "全線已收班（TDX 實時狀態：末班車已過，目前無營運車輛）",
-  "bus_count": 0,
-  "buses": [],
+  "status": "operating",
+  "is_operating": true,
+  "message": "即時營運中：全線共有 2 輛車在線",
+  "bus_count": 2,
+  "buses": [
+    {
+      "PlateNumb": "KKA-6768",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670G2",
+      "SubRouteID": "6670G2",
+      "SubRouteName": {
+        "Zh_tw": "6670G",
+        "En": "6670G"
+      },
+      "Direction": 1,
+      "BusPosition": {
+        "PositionLon": 120.857161666667,
+        "PositionLat": 23.99314,
+        "GeoHash": "wsmbqpv6p"
+      },
+      "Speed": 49,
+      "Azimuth": 306,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-01T06:21:32+08:00",
+      "SrcRecTime": "2026-11-01T06:21:32+08:00",
+      "SrcTransTime": "2026-11-01T06:21:32+08:00",
+      "UpdateTime": "2026-11-01T06:21:35+08:00"
+    },
+    {
+      "PlateNumb": "KKZ-8022",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670E2",
+      "SubRouteID": "6670E2",
+      "SubRouteName": {
+        "Zh_tw": "6670E",
+        "En": "6670E"
+      },
+      "Direction": 1,
+      "BusPosition": {
+        "PositionLon": 120.957261666667,
+        "PositionLat": 23.9688833333333,
+        "GeoHash": "wsq027qku"
+      },
+      "Speed": 47,
+      "Azimuth": 286,
+      "DutyStatus": 2,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-01T06:02:57+08:00",
+      "SrcRecTime": "2026-11-01T06:02:56+08:00",
+      "SrcTransTime": "2026-11-01T06:02:56+08:00",
+      "UpdateTime": "2026-11-01T06:03:00+08:00"
+    }
+  ],
   "arrivals_count": 842,
   "arrivals": [
     {
@@ -38,9 +103,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -70,9 +135,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -102,9 +167,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -134,9 +199,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -166,12 +231,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
-      "PlateNumb": "-1",
+      "PlateNumb": "KKA-6768",
       "StopUID": "THB248026",
       "StopID": "248026",
       "StopName": {
@@ -191,16 +256,17 @@
         "En": "6670G"
       },
       "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 1303,
+      "StopCountDown": 23,
+      "CurrentStop": "247931",
       "DestinationStop": "261957",
       "StopSequence": 46,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:20+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -230,9 +296,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -262,9 +328,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -294,9 +360,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -326,9 +392,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -358,9 +424,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -390,9 +456,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -422,9 +488,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -454,9 +520,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -486,9 +552,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -518,9 +584,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -550,9 +616,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -582,9 +648,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -614,9 +680,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -646,9 +712,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -678,9 +744,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -710,9 +776,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -742,9 +808,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -774,9 +840,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -806,9 +872,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -838,9 +904,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -870,9 +936,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -902,9 +968,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -934,9 +1000,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -966,9 +1032,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -998,9 +1064,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1030,9 +1096,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1062,9 +1128,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1094,9 +1160,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1126,9 +1192,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1158,9 +1224,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1190,9 +1256,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1222,9 +1288,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1254,9 +1320,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1286,9 +1352,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1318,9 +1384,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1350,9 +1416,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1382,9 +1448,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1414,9 +1480,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1446,9 +1512,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1478,9 +1544,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1510,9 +1576,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1542,9 +1608,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1574,9 +1640,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1606,9 +1672,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1638,9 +1704,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1670,9 +1736,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1702,9 +1768,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1734,9 +1800,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1766,9 +1832,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1798,9 +1864,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1830,9 +1896,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1862,9 +1928,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1894,9 +1960,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1926,9 +1992,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1958,9 +2024,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1990,9 +2056,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2022,9 +2088,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2054,9 +2120,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2086,9 +2152,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2118,9 +2184,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2150,9 +2216,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2182,9 +2248,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2214,9 +2280,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2246,9 +2312,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2278,9 +2344,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2310,9 +2376,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2342,9 +2408,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2374,9 +2440,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2406,9 +2472,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2438,9 +2504,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2470,9 +2536,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2502,9 +2568,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2534,9 +2600,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2566,9 +2632,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2598,9 +2664,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2630,9 +2696,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2662,9 +2728,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2694,9 +2760,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2726,9 +2792,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2758,9 +2824,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2790,9 +2856,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2822,9 +2888,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2854,9 +2920,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2886,9 +2952,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2918,9 +2984,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2950,9 +3016,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2982,9 +3048,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3014,9 +3080,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3046,9 +3112,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3078,9 +3144,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3110,9 +3176,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3142,9 +3208,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3174,9 +3240,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3206,9 +3272,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-01T02:58:47+08:00",
-      "SrcTransTime": "2026-11-01T02:58:50+08:00",
-      "UpdateTime": "2026-11-01T02:58:55+08:00"
+      "DataTime": "2026-11-01T06:20:37+08:00",
+      "SrcTransTime": "2026-11-01T06:20:39+08:00",
+      "UpdateTime": "2026-11-01T06:20:45+08:00"
     }
   ]
 }
