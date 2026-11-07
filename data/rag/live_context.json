@@ -1,56 +1,13 @@
 {
-  "snapshot_timestamp": "2026-11-07 22:21:59",
-  "is_operating": true,
+  "snapshot_timestamp": "2026-11-08 02:54:56",
+  "is_operating": false,
   "fleet": {
-    "total_active": 7,
-    "outbound_count": 4,
-    "inbound_count": 3,
-    "max_speed_kmh": 43.0,
-    "avg_speed_kmh": 13.1,
-    "buses": [
-      {
-        "plate": "KKA-6758",
-        "subroute": "6670G",
-        "speed_kmh": 26.0,
-        "direction": "去程 (往日月潭)"
-      },
-      {
-        "plate": "KKA-6761",
-        "subroute": "6670H",
-        "speed_kmh": 0.0,
-        "direction": "返程 (往台中高鐵)"
-      },
-      {
-        "plate": "937-FX",
-        "subroute": "6670G",
-        "speed_kmh": 8.0,
-        "direction": "去程 (往日月潭)"
-      },
-      {
-        "plate": "986-FX",
-        "subroute": "6670D",
-        "speed_kmh": 15.0,
-        "direction": "去程 (往日月潭)"
-      },
-      {
-        "plate": "KKA-6751",
-        "subroute": "6670H",
-        "speed_kmh": 0.0,
-        "direction": "返程 (往台中高鐵)"
-      },
-      {
-        "plate": "KKA-6712",
-        "subroute": "6670D",
-        "speed_kmh": 0.0,
-        "direction": "返程 (往台中高鐵)"
-      },
-      {
-        "plate": "KKA-6767",
-        "subroute": "6670D",
-        "speed_kmh": 43.0,
-        "direction": "去程 (往日月潭)"
-      }
-    ]
+    "total_active": 0,
+    "outbound_count": 0,
+    "inbound_count": 0,
+    "max_speed_kmh": 0,
+    "avg_speed_kmh": 0,
+    "buses": []
   },
   "dispatch_status": {
     "hri_index": 0.28,
@@ -64,9 +21,9 @@
     "shuishe": []
   },
   "esg_carbon": {
-    "offset_kg_co2": 1488,
-    "tree_annual_equiv": 124,
-    "replaced_car_km": 7915
+    "offset_kg_co2": 3422,
+    "tree_annual_equiv": 285,
+    "replaced_car_km": 18200
   },
-  "executive_narrative": "走廊目前處於實時營運中，共 7 輛車在線 (去程 4 輛 / 返程 3 輛)，走廊最高車速 43.0 km/h。班距變異係數 HRI 為 0.28 (表現優良，全線車距均勻)。今日累計已協助減碳 1,488 kg CO₂。"
+  "executive_narrative": "全線目前已達末班車收班時段 (2026-11-08 02:54:56)。今日 18 輛車隊累計行駛約 18,200 公里，替代自小客車碳排放約 3,422 kg CO₂ (相當種植 285 棵樹)。車輛全數於埔里與干城場站妥善整備，預計明日 07:00 發出首班車。"
 }
