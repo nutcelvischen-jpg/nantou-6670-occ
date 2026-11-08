@@ -1,19 +1,95 @@
 {
-  "snapshot_timestamp": "2026-11-09 03:16:56",
-  "is_operating": false,
+  "snapshot_timestamp": "2026-11-09 06:59:25",
+  "is_operating": true,
   "fleet": {
-    "total_active": 0,
-    "outbound_count": 0,
-    "inbound_count": 0,
-    "max_speed_kmh": 0,
-    "avg_speed_kmh": 0,
-    "buses": []
+    "total_active": 9,
+    "outbound_count": 2,
+    "inbound_count": 7,
+    "max_speed_kmh": 46.0,
+    "avg_speed_kmh": 13.1,
+    "buses": [
+      {
+        "plate": "931-FX",
+        "subroute": "6670G",
+        "speed_kmh": 36.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKA-6758",
+        "subroute": "6670G",
+        "speed_kmh": 36.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKZ-8025",
+        "subroute": "6670E",
+        "speed_kmh": 0.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKA-6761",
+        "subroute": "6670B",
+        "speed_kmh": 0.0,
+        "direction": "去程 (往日月潭)"
+      },
+      {
+        "plate": "933-FX",
+        "subroute": "6670",
+        "speed_kmh": 46.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKA-6703",
+        "subroute": "6670D",
+        "speed_kmh": 0.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKA-6723",
+        "subroute": "6670G",
+        "speed_kmh": 0.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKA-6760",
+        "subroute": "6670H",
+        "speed_kmh": 0.0,
+        "direction": "去程 (往日月潭)"
+      },
+      {
+        "plate": "KKA-6725",
+        "subroute": "6670D",
+        "speed_kmh": 0.0,
+        "direction": "返程 (往台中高鐵)"
+      }
+    ]
   },
   "dispatch_status": {
-    "hri_index": 0.28,
-    "hri_rating": "穩定 (平峰時段)",
-    "bunching_incident_count": 0,
-    "bunching_incidents": []
+    "hri_index": 0.42,
+    "hri_rating": "警戒 (班距受串車擾動)",
+    "bunching_incident_count": 2,
+    "bunching_incidents": [
+      {
+        "direction": "返程 (往台中高鐵)",
+        "lead_bus": "933-FX",
+        "trail_bus": "KKA-6723",
+        "lead_speed_kmh": 46.0,
+        "trail_speed_kmh": 0.0,
+        "distance_km": 1.49,
+        "headway_min": 2.6,
+        "sop_advice": "令後車【KKA-6723】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【933-FX】於非主要招呼站只下不上維持巡航。"
+      },
+      {
+        "direction": "返程 (往台中高鐵)",
+        "lead_bus": "933-FX",
+        "trail_bus": "KKA-6725",
+        "lead_speed_kmh": 46.0,
+        "trail_speed_kmh": 0.0,
+        "distance_km": 2.32,
+        "headway_min": 4.0,
+        "sop_advice": "令後車【KKA-6725】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【933-FX】於非主要招呼站只下不上維持巡航。"
+      }
+    ]
   },
   "hub_arrivals": {
     "hsr_taichung": [],
@@ -21,9 +97,9 @@
     "shuishe": []
   },
   "esg_carbon": {
-    "offset_kg_co2": 3422,
-    "tree_annual_equiv": 285,
-    "replaced_car_km": 18200
+    "offset_kg_co2": 1488,
+    "tree_annual_equiv": 124,
+    "replaced_car_km": 7915
   },
-  "executive_narrative": "全線目前已達末班車收班時段 (2026-11-09 03:16:56)。今日 18 輛車隊累計行駛約 18,200 公里，替代自小客車碳排放約 3,422 kg CO₂ (相當種植 285 棵樹)。車輛全數於埔里與干城場站妥善整備，預計明日 07:00 發出首班車。"
+  "executive_narrative": "走廊目前處於實時營運中，共 9 輛車在線。偵測到 2 起串車警報（KKA-6723 逼近 933-FX，距離僅 1.49 km）。行控系統已建議啟動 SOP，令後車在埔里轉運站延長停等 3~5 分鐘以拉開車距。全線 HRI 班距變異指數為 0.42。"
 }
