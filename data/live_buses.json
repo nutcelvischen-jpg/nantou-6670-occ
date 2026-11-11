@@ -1,15 +1,15 @@
 {
-  "sync_time": "2026-11-11T09:41:22.111605+08:00",
-  "sync_time_str": "2026-11-11 09:41:22",
+  "sync_time": "2026-11-11T16:24:22.519899+08:00",
+  "sync_time_str": "2026-11-11 16:24:22",
   "route_id": "6670",
   "route_name": "台灣好行日月潭線",
   "status": "operating",
   "is_operating": true,
-  "message": "即時營運中：全線共有 18 輛車在線",
-  "bus_count": 18,
+  "message": "即時營運中：全線共有 20 輛車在線",
+  "bus_count": 20,
   "buses": [
     {
-      "PlateNumb": "910-U7",
+      "PlateNumb": "957-FX",
       "OperatorID": "64",
       "OperatorNo": "0902",
       "RouteUID": "THB6670",
@@ -18,62 +18,126 @@
         "Zh_tw": "6670",
         "En": "6670"
       },
-      "SubRouteUID": "THB6670F1",
-      "SubRouteID": "6670F1",
+      "SubRouteUID": "THB6670B1",
+      "SubRouteID": "6670B1",
+      "SubRouteName": {
+        "Zh_tw": "6670B",
+        "En": "6670B"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.683055,
+        "PositionLat": 24.13642,
+        "GeoHash": "wsmc61ysz"
+      },
+      "Speed": 10,
+      "Azimuth": 249,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-11T16:24:17+08:00",
+      "SrcRecTime": "2026-11-11T16:24:17+08:00",
+      "SrcTransTime": "2026-11-11T16:24:17+08:00",
+      "UpdateTime": "2026-11-11T16:24:20+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6712",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H1",
+      "SubRouteID": "6670H1",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.671595,
+        "PositionLat": 24.1312733333333,
+        "GeoHash": "wsmc3byqg"
+      },
+      "Speed": 43,
+      "Azimuth": 245,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-11T16:24:18+08:00",
+      "SrcRecTime": "2026-11-11T16:24:18+08:00",
+      "SrcTransTime": "2026-11-11T16:24:18+08:00",
+      "UpdateTime": "2026-11-11T16:24:20+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6761",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670A2",
+      "SubRouteID": "6670A2",
+      "SubRouteName": {
+        "Zh_tw": "6670A",
+        "En": "6670A"
+      },
+      "Direction": 1,
+      "BusPosition": {
+        "PositionLon": 120.939888333333,
+        "PositionLat": 23.88207,
+        "GeoHash": "wsnpb59ep"
+      },
+      "Speed": 36,
+      "Azimuth": 137,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-11T16:24:18+08:00",
+      "SrcRecTime": "2026-11-11T16:24:18+08:00",
+      "SrcTransTime": "2026-11-11T16:24:18+08:00",
+      "UpdateTime": "2026-11-11T16:24:20+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6703",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670F2",
+      "SubRouteID": "6670F2",
       "SubRouteName": {
         "Zh_tw": "6670F",
         "En": "6670F"
       },
-      "Direction": 0,
+      "Direction": 1,
       "BusPosition": {
-        "PositionLon": 120.926911666667,
-        "PositionLat": 23.9174616666667,
-        "GeoHash": "wsmbpf033"
+        "PositionLon": 120.9146,
+        "PositionLat": 23.9790566666667,
+        "GeoHash": "wsmbrmr24"
       },
-      "Speed": 48,
-      "Azimuth": 167,
+      "Speed": 0,
+      "Azimuth": 0,
       "DutyStatus": 1,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-11-11T09:41:17+08:00",
-      "SrcRecTime": "2026-11-11T09:41:16+08:00",
-      "SrcTransTime": "2026-11-11T09:41:16+08:00",
-      "UpdateTime": "2026-11-11T09:41:20+08:00"
+      "GPSTime": "2026-11-11T16:24:12+08:00",
+      "SrcRecTime": "2026-11-11T16:24:11+08:00",
+      "SrcTransTime": "2026-11-11T16:24:11+08:00",
+      "UpdateTime": "2026-11-11T16:24:15+08:00"
     },
     {
-      "PlateNumb": "933-FX",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670D1",
-      "SubRouteID": "6670D1",
-      "SubRouteName": {
-        "Zh_tw": "6670D",
-        "En": "6670D"
-      },
-      "Direction": 0,
-      "BusPosition": {
-        "PositionLon": 120.966778333333,
-        "PositionLat": 23.9657566666667,
-        "GeoHash": "wsq02dv6d"
-      },
-      "Speed": 2,
-      "Azimuth": 318,
-      "DutyStatus": 1,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-11-11T09:41:19+08:00",
-      "SrcRecTime": "2026-11-11T09:41:18+08:00",
-      "SrcTransTime": "2026-11-11T09:41:18+08:00",
-      "UpdateTime": "2026-11-11T09:41:20+08:00"
-    },
-    {
-      "PlateNumb": "978-FX",
+      "PlateNumb": "KKA-6739",
       "OperatorID": "64",
       "OperatorNo": "0902",
       "RouteUID": "THB6670",
@@ -90,51 +154,19 @@
       },
       "Direction": 0,
       "BusPosition": {
-        "PositionLon": 120.9423,
-        "PositionLat": 23.8790483333333,
-        "GeoHash": "wsnpb553x"
+        "PositionLon": 120.677776666667,
+        "PositionLat": 24.04098,
+        "GeoHash": "wsmbf0dbu"
       },
-      "Speed": 20,
-      "Azimuth": 330,
+      "Speed": 90,
+      "Azimuth": 200,
       "DutyStatus": 1,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-11-11T09:41:16+08:00",
-      "SrcRecTime": "2026-11-11T09:41:16+08:00",
-      "SrcTransTime": "2026-11-11T09:41:16+08:00",
-      "UpdateTime": "2026-11-11T09:41:20+08:00"
-    },
-    {
-      "PlateNumb": "KKA-6738",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670B2",
-      "SubRouteID": "6670B2",
-      "SubRouteName": {
-        "Zh_tw": "6670B",
-        "En": "6670B"
-      },
-      "Direction": 1,
-      "BusPosition": {
-        "PositionLon": 120.911171666667,
-        "PositionLat": 23.8666216666667,
-        "GeoHash": "wsjzz2uc4"
-      },
-      "Speed": 0,
-      "Azimuth": 121,
-      "DutyStatus": 1,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-11-11T09:41:18+08:00",
-      "SrcRecTime": "2026-11-11T09:41:18+08:00",
-      "SrcTransTime": "2026-11-11T09:41:18+08:00",
-      "UpdateTime": "2026-11-11T09:41:20+08:00"
+      "GPSTime": "2026-11-11T16:24:11+08:00",
+      "SrcRecTime": "2026-11-11T16:24:10+08:00",
+      "SrcTransTime": "2026-11-11T16:24:11+08:00",
+      "UpdateTime": "2026-11-11T16:24:15+08:00"
     },
     {
       "PlateNumb": "KKZ-8022",
@@ -154,182 +186,22 @@
       },
       "Direction": 0,
       "BusPosition": {
-        "PositionLon": 120.61477,
-        "PositionLat": 24.24223,
-        "GeoHash": "wsmcbthvp"
+        "PositionLon": 120.864223333333,
+        "PositionLat": 23.9819183333333,
+        "GeoHash": "wsmbqmf8u"
       },
-      "Speed": 8,
-      "Azimuth": 187,
+      "Speed": 105,
+      "Azimuth": 136,
       "DutyStatus": 1,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-11-11T09:41:12+08:00",
-      "SrcRecTime": "2026-11-11T09:41:11+08:00",
-      "SrcTransTime": "2026-11-11T09:41:11+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "GPSTime": "2026-11-11T16:24:15+08:00",
+      "SrcRecTime": "2026-11-11T16:24:14+08:00",
+      "SrcTransTime": "2026-11-11T16:24:14+08:00",
+      "UpdateTime": "2026-11-11T16:24:15+08:00"
     },
     {
       "PlateNumb": "911-U7",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670D2",
-      "SubRouteID": "6670D2",
-      "SubRouteName": {
-        "Zh_tw": "6670D",
-        "En": "6670D"
-      },
-      "Direction": 1,
-      "BusPosition": {
-        "PositionLon": 120.6257,
-        "PositionLat": 24.0823416666667,
-        "GeoHash": "wsmc0bhcy"
-      },
-      "Speed": 99,
-      "Azimuth": 287,
-      "DutyStatus": 1,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-11-11T09:41:06+08:00",
-      "SrcRecTime": "2026-11-11T09:41:06+08:00",
-      "SrcTransTime": "2026-11-11T09:41:06+08:00",
-      "UpdateTime": "2026-11-11T09:41:10+08:00"
-    },
-    {
-      "PlateNumb": "935-FX",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670H2",
-      "SubRouteID": "6670H2",
-      "SubRouteName": {
-        "Zh_tw": "6670H",
-        "En": "6670H"
-      },
-      "Direction": 1,
-      "BusPosition": {
-        "PositionLon": 120.940793333333,
-        "PositionLat": 23.965275,
-        "GeoHash": "wsq024dru"
-      },
-      "Speed": 16,
-      "Azimuth": 267,
-      "DutyStatus": 1,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-11-11T09:41:09+08:00",
-      "SrcRecTime": "2026-11-11T09:41:09+08:00",
-      "SrcTransTime": "2026-11-11T09:41:09+08:00",
-      "UpdateTime": "2026-11-11T09:41:10+08:00"
-    },
-    {
-      "PlateNumb": "956-FX",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670A1",
-      "SubRouteID": "6670A1",
-      "SubRouteName": {
-        "Zh_tw": "6670A",
-        "En": "6670A"
-      },
-      "Direction": 0,
-      "BusPosition": {
-        "PositionLon": 120.847648333333,
-        "PositionLat": 23.9975983333333,
-        "GeoHash": "wsmbtbws4"
-      },
-      "Speed": 91,
-      "Azimuth": 123,
-      "DutyStatus": 1,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-11-11T09:41:07+08:00",
-      "SrcRecTime": "2026-11-11T09:41:07+08:00",
-      "SrcTransTime": "2026-11-11T09:41:07+08:00",
-      "UpdateTime": "2026-11-11T09:41:10+08:00"
-    },
-    {
-      "PlateNumb": "KKA-6706",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670H2",
-      "SubRouteID": "6670H2",
-      "SubRouteName": {
-        "Zh_tw": "6670H",
-        "En": "6670H"
-      },
-      "Direction": 1,
-      "BusPosition": {
-        "PositionLon": 120.671463333333,
-        "PositionLat": 24.1310766666667,
-        "GeoHash": "wsmc3bym8"
-      },
-      "Speed": 50,
-      "Azimuth": 66,
-      "DutyStatus": 1,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-11-11T09:41:05+08:00",
-      "SrcRecTime": "2026-11-11T09:41:04+08:00",
-      "SrcTransTime": "2026-11-11T09:41:05+08:00",
-      "UpdateTime": "2026-11-11T09:41:10+08:00"
-    },
-    {
-      "PlateNumb": "955-FX",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB667001",
-      "SubRouteID": "667001",
-      "SubRouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "Direction": 0,
-      "BusPosition": {
-        "PositionLon": 120.664596666667,
-        "PositionLat": 24.0219833333333,
-        "GeoHash": "wsmb9v160"
-      },
-      "Speed": 92,
-      "Azimuth": 212,
-      "DutyStatus": 1,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-11-11T09:41:01+08:00",
-      "SrcRecTime": "2026-11-11T09:41:01+08:00",
-      "SrcTransTime": "2026-11-11T09:41:01+08:00",
-      "UpdateTime": "2026-11-11T09:41:05+08:00"
-    },
-    {
-      "PlateNumb": "KKA-6715",
       "OperatorID": "64",
       "OperatorNo": "0902",
       "RouteUID": "THB6670",
@@ -346,22 +218,22 @@
       },
       "Direction": 1,
       "BusPosition": {
-        "PositionLon": 120.931691666667,
-        "PositionLat": 23.9442483333333,
-        "GeoHash": "wsmbpygv2"
+        "PositionLon": 120.885596666667,
+        "PositionLat": 23.980945,
+        "GeoHash": "wsmbqvd5n"
       },
-      "Speed": 60,
-      "Azimuth": 63,
+      "Speed": 97,
+      "Azimuth": 253,
       "DutyStatus": 1,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-11-11T09:41:04+08:00",
-      "SrcRecTime": "2026-11-11T09:41:04+08:00",
-      "SrcTransTime": "2026-11-11T09:41:04+08:00",
-      "UpdateTime": "2026-11-11T09:41:05+08:00"
+      "GPSTime": "2026-11-11T16:24:06+08:00",
+      "SrcRecTime": "2026-11-11T16:24:06+08:00",
+      "SrcTransTime": "2026-11-11T16:24:06+08:00",
+      "UpdateTime": "2026-11-11T16:24:10+08:00"
     },
     {
-      "PlateNumb": "KKA-6739",
+      "PlateNumb": "KKA-6715",
       "OperatorID": "64",
       "OperatorNo": "0902",
       "RouteUID": "THB6670",
@@ -370,27 +242,91 @@
         "Zh_tw": "6670",
         "En": "6670"
       },
-      "SubRouteUID": "THB6670F1",
-      "SubRouteID": "6670F1",
+      "SubRouteUID": "THB6670B2",
+      "SubRouteID": "6670B2",
       "SubRouteName": {
-        "Zh_tw": "6670F",
-        "En": "6670F"
+        "Zh_tw": "6670B",
+        "En": "6670B"
       },
-      "Direction": 0,
+      "Direction": 1,
       "BusPosition": {
-        "PositionLon": 120.616296666667,
-        "PositionLat": 24.1116633333333,
-        "GeoHash": "wsmc0tqhe"
+        "PositionLon": 120.673461666667,
+        "PositionLat": 24.0335583333333,
+        "GeoHash": "wsmb9zptx"
       },
-      "Speed": 0,
-      "Azimuth": 0,
+      "Speed": 83,
+      "Azimuth": 33,
       "DutyStatus": 1,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-11-11T09:41:03+08:00",
-      "SrcRecTime": "2026-11-11T09:41:03+08:00",
-      "SrcTransTime": "2026-11-11T09:41:03+08:00",
-      "UpdateTime": "2026-11-11T09:41:05+08:00"
+      "GPSTime": "2026-11-11T16:24:05+08:00",
+      "SrcRecTime": "2026-11-11T16:24:05+08:00",
+      "SrcTransTime": "2026-11-11T16:24:05+08:00",
+      "UpdateTime": "2026-11-11T16:24:10+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6755",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H1",
+      "SubRouteID": "6670H1",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.947715,
+        "PositionLat": 23.9708466666667,
+        "GeoHash": "wsq025z2q"
+      },
+      "Speed": 4,
+      "Azimuth": 14,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-11T16:24:06+08:00",
+      "SrcRecTime": "2026-11-11T16:24:06+08:00",
+      "SrcTransTime": "2026-11-11T16:24:06+08:00",
+      "UpdateTime": "2026-11-11T16:24:10+08:00"
+    },
+    {
+      "PlateNumb": "956-FX",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D1",
+      "SubRouteID": "6670D1",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.923656666667,
+        "PositionLat": 23.9331916666667,
+        "GeoHash": "wsmbpsvuv"
+      },
+      "Speed": 52,
+      "Azimuth": 256,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-11T16:24:02+08:00",
+      "SrcRecTime": "2026-11-11T16:24:02+08:00",
+      "SrcTransTime": "2026-11-11T16:24:02+08:00",
+      "UpdateTime": "2026-11-11T16:24:05+08:00"
     },
     {
       "PlateNumb": "KKZ-8672",
@@ -402,91 +338,27 @@
         "Zh_tw": "6670",
         "En": "6670"
       },
-      "SubRouteUID": "THB6670B1",
-      "SubRouteID": "6670B1",
+      "SubRouteUID": "THB6670B2",
+      "SubRouteID": "6670B2",
       "SubRouteName": {
         "Zh_tw": "6670B",
         "En": "6670B"
       },
-      "Direction": 0,
-      "BusPosition": {
-        "PositionLon": 120.909666666667,
-        "PositionLat": 23.8673666666667,
-        "GeoHash": "wsjzz2gtr"
-      },
-      "Speed": 38,
-      "Azimuth": 295,
-      "DutyStatus": 2,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-11-11T09:34:17+08:00",
-      "SrcRecTime": "2026-11-11T09:34:17+08:00",
-      "SrcTransTime": "2026-11-11T09:34:17+08:00",
-      "UpdateTime": "2026-11-11T09:34:20+08:00"
-    },
-    {
-      "PlateNumb": "999-FX",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670G2",
-      "SubRouteID": "6670G2",
-      "SubRouteName": {
-        "Zh_tw": "6670G",
-        "En": "6670G"
-      },
       "Direction": 1,
       "BusPosition": {
-        "PositionLon": 120.686115,
-        "PositionLat": 24.1396666666667,
-        "GeoHash": "wsmc662zy"
+        "PositionLon": 120.911248333333,
+        "PositionLat": 23.8665716666667,
+        "GeoHash": "wsjzz2ubu"
       },
       "Speed": 0,
-      "Azimuth": 0,
+      "Azimuth": 119,
       "DutyStatus": 2,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-11-11T09:31:56+08:00",
-      "SrcRecTime": "2026-11-11T09:31:56+08:00",
-      "SrcTransTime": "2026-11-11T09:31:56+08:00",
-      "UpdateTime": "2026-11-11T09:32:00+08:00"
-    },
-    {
-      "PlateNumb": "957-FX",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670H2",
-      "SubRouteID": "6670H2",
-      "SubRouteName": {
-        "Zh_tw": "6670H",
-        "En": "6670H"
-      },
-      "Direction": 1,
-      "BusPosition": {
-        "PositionLon": 120.686101666667,
-        "PositionLat": 24.1395866666667,
-        "GeoHash": "wsmc662zm"
-      },
-      "Speed": 0,
-      "Azimuth": 0,
-      "DutyStatus": 2,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-11-11T09:30:12+08:00",
-      "SrcRecTime": "2026-11-11T09:30:12+08:00",
-      "SrcTransTime": "2026-11-11T09:30:12+08:00",
-      "UpdateTime": "2026-11-11T09:30:15+08:00"
+      "GPSTime": "2026-11-11T16:21:05+08:00",
+      "SrcRecTime": "2026-11-11T16:21:05+08:00",
+      "SrcTransTime": "2026-11-11T16:21:05+08:00",
+      "UpdateTime": "2026-11-11T16:21:10+08:00"
     },
     {
       "PlateNumb": "932-FX",
@@ -506,22 +378,86 @@
       },
       "Direction": 1,
       "BusPosition": {
-        "PositionLon": 120.687383333333,
-        "PositionLat": 24.141515,
-        "GeoHash": "wsmc66cfe"
+        "PositionLon": 120.686158333333,
+        "PositionLat": 24.139705,
+        "GeoHash": "wsmc662zz"
       },
-      "Speed": 15,
-      "Azimuth": 87,
+      "Speed": 12,
+      "Azimuth": 341,
       "DutyStatus": 2,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-11-11T09:16:52+08:00",
-      "SrcRecTime": "2026-11-11T09:16:52+08:00",
-      "SrcTransTime": "2026-11-11T09:16:52+08:00",
-      "UpdateTime": "2026-11-11T09:16:55+08:00"
+      "GPSTime": "2026-11-11T16:18:32+08:00",
+      "SrcRecTime": "2026-11-11T16:18:32+08:00",
+      "SrcTransTime": "2026-11-11T16:18:32+08:00",
+      "UpdateTime": "2026-11-11T16:18:35+08:00"
     },
     {
-      "PlateNumb": "KKA-6760",
+      "PlateNumb": "985-FX",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D1",
+      "SubRouteID": "6670D1",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.686708333333,
+        "PositionLat": 24.1401783333333,
+        "GeoHash": "wsmc6696s"
+      },
+      "Speed": 0,
+      "Azimuth": 109,
+      "DutyStatus": 2,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-11T16:08:49+08:00",
+      "SrcRecTime": "2026-11-11T16:08:49+08:00",
+      "SrcTransTime": "2026-11-11T16:08:49+08:00",
+      "UpdateTime": "2026-11-11T16:08:50+08:00"
+    },
+    {
+      "PlateNumb": "955-FX",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H1",
+      "SubRouteID": "6670H1",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.68595,
+        "PositionLat": 24.1400516666667,
+        "GeoHash": "wsmc668cf"
+      },
+      "Speed": 0,
+      "Azimuth": 272,
+      "DutyStatus": 1,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-11T15:59:00+08:00",
+      "SrcRecTime": "2026-11-11T15:59:00+08:00",
+      "SrcTransTime": "2026-11-11T15:59:00+08:00",
+      "UpdateTime": "2026-11-11T15:59:05+08:00"
+    },
+    {
+      "PlateNumb": "910-U7",
       "OperatorID": "64",
       "OperatorNo": "0902",
       "RouteUID": "THB6670",
@@ -538,51 +474,179 @@
       },
       "Direction": 0,
       "BusPosition": {
-        "PositionLon": 120.91002,
-        "PositionLat": 23.8671683333333,
-        "GeoHash": "wsjzz2gur"
+        "PositionLon": 120.90976,
+        "PositionLat": 23.8674866666667,
+        "GeoHash": "wsjzz2gy1"
       },
-      "Speed": 37,
-      "Azimuth": 296,
-      "DutyStatus": 2,
-      "BusStatus": 0,
-      "MessageType": 1,
-      "GPSTime": "2026-11-11T09:09:04+08:00",
-      "SrcRecTime": "2026-11-11T09:09:04+08:00",
-      "SrcTransTime": "2026-11-11T09:09:04+08:00",
-      "UpdateTime": "2026-11-11T09:09:05+08:00"
-    },
-    {
-      "PlateNumb": "KKA-6703",
-      "OperatorID": "64",
-      "OperatorNo": "0902",
-      "RouteUID": "THB6670",
-      "RouteID": "6670",
-      "RouteName": {
-        "Zh_tw": "6670",
-        "En": "6670"
-      },
-      "SubRouteUID": "THB6670B1",
-      "SubRouteID": "6670B1",
-      "SubRouteName": {
-        "Zh_tw": "6670B",
-        "En": "6670B"
-      },
-      "Direction": 0,
-      "BusPosition": {
-        "PositionLon": 120.910341666667,
-        "PositionLat": 23.8670333333333,
-        "GeoHash": "wsjzz2u5x"
-      },
-      "Speed": 26,
+      "Speed": 34,
       "Azimuth": 297,
       "DutyStatus": 2,
       "BusStatus": 0,
       "MessageType": 1,
-      "GPSTime": "2026-11-11T09:04:43+08:00",
-      "SrcRecTime": "2026-11-11T09:04:42+08:00",
-      "SrcTransTime": "2026-11-11T09:04:42+08:00",
-      "UpdateTime": "2026-11-11T09:04:45+08:00"
+      "GPSTime": "2026-11-11T15:54:17+08:00",
+      "SrcRecTime": "2026-11-11T15:54:16+08:00",
+      "SrcTransTime": "2026-11-11T15:54:17+08:00",
+      "UpdateTime": "2026-11-11T15:54:20+08:00"
+    },
+    {
+      "PlateNumb": "982-FX",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H2",
+      "SubRouteID": "6670H2",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 1,
+      "BusPosition": {
+        "PositionLon": 120.966521666667,
+        "PositionLat": 23.96596,
+        "GeoHash": "wsq02dv5u"
+      },
+      "Speed": 0,
+      "Azimuth": 322,
+      "DutyStatus": 2,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-11T15:43:31+08:00",
+      "SrcRecTime": "2026-11-11T15:43:31+08:00",
+      "SrcTransTime": "2026-11-11T15:43:31+08:00",
+      "UpdateTime": "2026-11-11T15:43:35+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6711",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D1",
+      "SubRouteID": "6670D1",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.911435,
+        "PositionLat": 23.866615,
+        "GeoHash": "wsjzz2v10"
+      },
+      "Speed": 0,
+      "Azimuth": 307,
+      "DutyStatus": 2,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-11T15:36:56+08:00",
+      "SrcRecTime": "2026-11-11T15:36:56+08:00",
+      "SrcTransTime": "2026-11-11T15:36:56+08:00",
+      "UpdateTime": "2026-11-11T15:37:00+08:00"
+    },
+    {
+      "PlateNumb": "933-FX",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670B1",
+      "SubRouteID": "6670B1",
+      "SubRouteName": {
+        "Zh_tw": "6670B",
+        "En": "6670B"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.91142,
+        "PositionLat": 23.8666316666667,
+        "GeoHash": "wsjzz2v10"
+      },
+      "Speed": 0,
+      "Azimuth": 308,
+      "DutyStatus": 2,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-11T14:59:39+08:00",
+      "SrcRecTime": "2026-11-11T14:59:38+08:00",
+      "SrcTransTime": "2026-11-11T14:59:39+08:00",
+      "UpdateTime": "2026-11-11T14:59:40+08:00"
+    },
+    {
+      "PlateNumb": "KKA-6738",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670D1",
+      "SubRouteID": "6670D1",
+      "SubRouteName": {
+        "Zh_tw": "6670D",
+        "En": "6670D"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.91067,
+        "PositionLat": 23.8668133333333,
+        "GeoHash": "wsjzz2u6q"
+      },
+      "Speed": 11,
+      "Azimuth": 294,
+      "DutyStatus": 2,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-11T14:36:38+08:00",
+      "SrcRecTime": "2026-11-11T14:36:38+08:00",
+      "SrcTransTime": "2026-11-11T14:36:38+08:00",
+      "UpdateTime": "2026-11-11T14:36:40+08:00"
+    },
+    {
+      "PlateNumb": "952-FX",
+      "OperatorID": "64",
+      "OperatorNo": "0902",
+      "RouteUID": "THB6670",
+      "RouteID": "6670",
+      "RouteName": {
+        "Zh_tw": "6670",
+        "En": "6670"
+      },
+      "SubRouteUID": "THB6670H1",
+      "SubRouteID": "6670H1",
+      "SubRouteName": {
+        "Zh_tw": "6670H",
+        "En": "6670H"
+      },
+      "Direction": 0,
+      "BusPosition": {
+        "PositionLon": 120.969221666667,
+        "PositionLat": 23.9638633333333,
+        "GeoHash": "wsq02drpe"
+      },
+      "Speed": 0,
+      "Azimuth": 126,
+      "DutyStatus": 2,
+      "BusStatus": 0,
+      "MessageType": 1,
+      "GPSTime": "2026-11-11T14:35:09+08:00",
+      "SrcRecTime": "2026-11-11T14:35:09+08:00",
+      "SrcTransTime": "2026-11-11T14:35:09+08:00",
+      "UpdateTime": "2026-11-11T14:35:10+08:00"
     }
   ],
   "arrivals_count": 850,
@@ -615,9 +679,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -647,9 +711,9 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -679,12 +743,12 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "955-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248010",
       "StopID": "248010",
       "StopName": {
@@ -704,17 +768,16 @@
         "En": "6670"
       },
       "Direction": 0,
-      "EstimateTime": 1775,
-      "StopCountDown": 22,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 27,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:39:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -744,9 +807,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -776,9 +839,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -808,12 +871,12 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "955-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248030",
       "StopID": "248030",
       "StopName": {
@@ -833,17 +896,16 @@
         "En": "6670"
       },
       "Direction": 0,
-      "EstimateTime": 3288,
-      "StopCountDown": 47,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 52,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:39:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -873,12 +935,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "955-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248059",
       "StopID": "248059",
       "StopName": {
@@ -898,17 +960,16 @@
         "En": "6670"
       },
       "Direction": 0,
-      "EstimateTime": 4551,
-      "StopCountDown": 68,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 73,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:39:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -938,12 +999,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "956-FX",
+      "PlateNumb": "KKA-6739",
       "StopUID": "THB248059",
       "StopID": "248059",
       "StopName": {
@@ -963,20 +1024,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "EstimateTime": 991,
+      "EstimateTime": 2010,
       "StopCountDown": 10,
       "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 15,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "KKA-6715",
+      "PlateNumb": "KKA-6761",
       "StopUID": "THB248059",
       "StopID": "248059",
       "StopName": {
@@ -996,17 +1057,17 @@
         "En": "6670A"
       },
       "Direction": 1,
-      "EstimateTime": 720,
-      "StopCountDown": 13,
-      "CurrentStop": "254674",
+      "EstimateTime": 2168,
+      "StopCountDown": 30,
+      "CurrentStop": "293577",
       "DestinationStop": "312548",
       "StopSequence": 42,
       "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:50+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:06+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1036,9 +1097,9 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1068,9 +1129,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1100,9 +1161,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1132,12 +1193,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "-1",
+      "PlateNumb": "KKA-6755",
       "StopUID": "THB248059",
       "StopID": "248059",
       "StopName": {
@@ -1157,19 +1218,20 @@
         "En": "6670H"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 510,
+      "StopCountDown": 7,
+      "CurrentStop": "250644",
       "DestinationStop": "283436",
       "StopSequence": 15,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:35+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "910-U7",
+      "PlateNumb": "-1",
       "StopUID": "THB248090",
       "StopID": "248090",
       "StopName": {
@@ -1189,20 +1251,19 @@
         "En": "6670F"
       },
       "Direction": 0,
-      "EstimateTime": 1140,
-      "StopCountDown": 16,
-      "CurrentStop": "249411",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "291919",
       "StopSequence": 30,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:39:38+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "955-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248139",
       "StopID": "248139",
       "StopName": {
@@ -1222,17 +1283,16 @@
         "En": "6670"
       },
       "Direction": 0,
-      "EstimateTime": 1811,
-      "StopCountDown": 23,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 28,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:39:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1262,12 +1322,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "955-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248144",
       "StopID": "248144",
       "StopName": {
@@ -1287,17 +1347,16 @@
         "En": "6670"
       },
       "Direction": 0,
-      "EstimateTime": 4206,
-      "StopCountDown": 63,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 68,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:39:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1327,12 +1386,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "956-FX",
+      "PlateNumb": "KKA-6739",
       "StopUID": "THB248144",
       "StopID": "248144",
       "StopName": {
@@ -1352,20 +1411,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "EstimateTime": 642,
+      "EstimateTime": 1619,
       "StopCountDown": 5,
       "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 10,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "KKA-6715",
+      "PlateNumb": "KKA-6761",
       "StopUID": "THB248144",
       "StopID": "248144",
       "StopName": {
@@ -1385,17 +1444,17 @@
         "En": "6670A"
       },
       "Direction": 1,
-      "EstimateTime": 367,
-      "StopCountDown": 8,
-      "CurrentStop": "254674",
+      "EstimateTime": 1823,
+      "StopCountDown": 25,
+      "CurrentStop": "293577",
       "DestinationStop": "312548",
       "StopSequence": 37,
       "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:50+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:06+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1425,9 +1484,9 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1457,9 +1516,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1489,9 +1548,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1521,12 +1580,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "-1",
+      "PlateNumb": "KKA-6755",
       "StopUID": "THB248144",
       "StopID": "248144",
       "StopName": {
@@ -1546,19 +1605,20 @@
         "En": "6670H"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 119,
+      "StopCountDown": 2,
+      "CurrentStop": "250644",
       "DestinationStop": "283436",
       "StopSequence": 10,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:35+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "955-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248151",
       "StopID": "248151",
       "StopName": {
@@ -1578,20 +1638,19 @@
         "En": "6670"
       },
       "Direction": 0,
-      "EstimateTime": 5917,
-      "StopCountDown": 85,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 90,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:39:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "956-FX",
+      "PlateNumb": "KKA-6739",
       "StopUID": "THB248151",
       "StopID": "248151",
       "StopName": {
@@ -1611,20 +1670,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "EstimateTime": 2357,
+      "EstimateTime": 3480,
       "StopCountDown": 27,
       "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 32,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "-1",
+      "PlateNumb": "957-FX",
       "StopUID": "THB248151",
       "StopID": "248151",
       "StopName": {
@@ -1644,16 +1703,17 @@
         "En": "6670B"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 4982,
+      "StopCountDown": 14,
+      "CurrentStop": "312548",
       "DestinationStop": "252627",
       "StopSequence": 15,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:21:33+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1683,12 +1743,12 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "933-FX",
+      "PlateNumb": "956-FX",
       "StopUID": "THB248151",
       "StopID": "248151",
       "StopName": {
@@ -1708,17 +1768,17 @@
         "En": "6670D"
       },
       "Direction": 0,
-      "EstimateTime": 1148,
-      "StopCountDown": 16,
-      "CurrentStop": "283436",
+      "EstimateTime": 195,
+      "StopCountDown": 2,
+      "CurrentStop": "258114",
       "DestinationStop": "252627",
       "StopSequence": 32,
       "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:37:09+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:22:19+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "KKZ-8022",
@@ -1741,20 +1801,20 @@
         "En": "6670E"
       },
       "Direction": 0,
-      "EstimateTime": 5617,
-      "StopCountDown": 12,
-      "CurrentStop": "294744",
+      "EstimateTime": 1607,
+      "StopCountDown": 10,
+      "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 13,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "910-U7",
+      "PlateNumb": "-1",
       "StopUID": "THB248151",
       "StopID": "248151",
       "StopName": {
@@ -1774,20 +1834,19 @@
         "En": "6670F"
       },
       "Direction": 0,
-      "EstimateTime": 59,
-      "StopCountDown": 1,
-      "CurrentStop": "249411",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "291919",
       "StopSequence": 15,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:39:38+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "955-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248185",
       "StopID": "248185",
       "StopName": {
@@ -1807,20 +1866,19 @@
         "En": "6670"
       },
       "Direction": 0,
-      "EstimateTime": 6436,
-      "StopCountDown": 94,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 99,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:39:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "978-FX",
+      "PlateNumb": "KKA-6739",
       "StopUID": "THB248185",
       "StopID": "248185",
       "StopName": {
@@ -1840,20 +1898,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "EstimateTime": 433,
-      "StopCountDown": 8,
-      "CurrentStop": "248511",
+      "EstimateTime": 4966,
+      "StopCountDown": 48,
+      "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 53,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:46+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "-1",
+      "PlateNumb": "957-FX",
       "StopUID": "THB248185",
       "StopID": "248185",
       "StopName": {
@@ -1873,16 +1931,17 @@
         "En": "6670B"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 5500,
+      "StopCountDown": 23,
+      "CurrentStop": "312548",
       "DestinationStop": "252627",
       "StopSequence": 24,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:21:33+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -1912,12 +1971,12 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "933-FX",
+      "PlateNumb": "956-FX",
       "StopUID": "THB248185",
       "StopID": "248185",
       "StopName": {
@@ -1937,17 +1996,17 @@
         "En": "6670D"
       },
       "Direction": 0,
-      "EstimateTime": 1657,
-      "StopCountDown": 25,
-      "CurrentStop": "283436",
+      "EstimateTime": 724,
+      "StopCountDown": 11,
+      "CurrentStop": "258114",
       "DestinationStop": "252627",
       "StopSequence": 41,
       "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:37:09+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:22:19+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "KKZ-8022",
@@ -1970,20 +2029,20 @@
         "En": "6670E"
       },
       "Direction": 0,
-      "EstimateTime": 6107,
-      "StopCountDown": 21,
-      "CurrentStop": "294744",
+      "EstimateTime": 2085,
+      "StopCountDown": 19,
+      "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 22,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "910-U7",
+      "PlateNumb": "-1",
       "StopUID": "THB248185",
       "StopID": "248185",
       "StopName": {
@@ -2003,20 +2062,19 @@
         "En": "6670F"
       },
       "Direction": 0,
-      "EstimateTime": 532,
-      "StopCountDown": 10,
-      "CurrentStop": "249411",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "291919",
       "StopSequence": 24,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:39:38+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "955-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248188",
       "StopID": "248188",
       "StopName": {
@@ -2036,20 +2094,19 @@
         "En": "6670"
       },
       "Direction": 0,
-      "EstimateTime": 6476,
-      "StopCountDown": 95,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 100,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:39:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "978-FX",
+      "PlateNumb": "KKA-6739",
       "StopUID": "THB248188",
       "StopID": "248188",
       "StopName": {
@@ -2069,20 +2126,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "EstimateTime": 478,
-      "StopCountDown": 9,
-      "CurrentStop": "248511",
+      "EstimateTime": 5004,
+      "StopCountDown": 49,
+      "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 54,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:46+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "-1",
+      "PlateNumb": "957-FX",
       "StopUID": "THB248188",
       "StopID": "248188",
       "StopName": {
@@ -2102,16 +2159,17 @@
         "En": "6670B"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 5534,
+      "StopCountDown": 24,
+      "CurrentStop": "312548",
       "DestinationStop": "252627",
       "StopSequence": 25,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:21:33+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2141,12 +2199,12 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "933-FX",
+      "PlateNumb": "956-FX",
       "StopUID": "THB248188",
       "StopID": "248188",
       "StopName": {
@@ -2166,17 +2224,17 @@
         "En": "6670D"
       },
       "Direction": 0,
-      "EstimateTime": 1695,
-      "StopCountDown": 26,
-      "CurrentStop": "283436",
+      "EstimateTime": 758,
+      "StopCountDown": 12,
+      "CurrentStop": "258114",
       "DestinationStop": "252627",
       "StopSequence": 42,
       "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:37:09+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:22:19+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "KKZ-8022",
@@ -2199,20 +2257,20 @@
         "En": "6670E"
       },
       "Direction": 0,
-      "EstimateTime": 6139,
-      "StopCountDown": 22,
-      "CurrentStop": "294744",
+      "EstimateTime": 2133,
+      "StopCountDown": 20,
+      "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 23,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "910-U7",
+      "PlateNumb": "-1",
       "StopUID": "THB248188",
       "StopID": "248188",
       "StopName": {
@@ -2232,17 +2290,16 @@
         "En": "6670F"
       },
       "Direction": 0,
-      "EstimateTime": 576,
-      "StopCountDown": 11,
-      "CurrentStop": "249411",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "291919",
       "StopSequence": 25,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:39:38+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2272,9 +2329,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2304,9 +2361,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2336,9 +2393,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2368,9 +2425,9 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2400,9 +2457,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2429,12 +2486,12 @@
       "CurrentStop": "-1",
       "DestinationStop": "294744",
       "StopSequence": 5,
-      "StopStatus": 1,
+      "StopStatus": 3,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2464,9 +2521,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2496,9 +2553,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2528,9 +2585,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2560,9 +2617,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2592,9 +2649,9 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2624,9 +2681,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2653,12 +2710,12 @@
       "CurrentStop": "-1",
       "DestinationStop": "294744",
       "StopSequence": 1,
-      "StopStatus": 1,
+      "StopStatus": 3,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2688,12 +2745,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "955-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248251",
       "StopID": "248251",
       "StopName": {
@@ -2713,17 +2770,16 @@
         "En": "6670"
       },
       "Direction": 0,
-      "EstimateTime": 5196,
-      "StopCountDown": 75,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 80,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:39:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2753,12 +2809,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "956-FX",
+      "PlateNumb": "KKA-6739",
       "StopUID": "THB248251",
       "StopID": "248251",
       "StopName": {
@@ -2778,20 +2834,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "EstimateTime": 1575,
+      "EstimateTime": 2686,
       "StopCountDown": 17,
       "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 22,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "KKA-6715",
+      "PlateNumb": "KKA-6761",
       "StopUID": "THB248251",
       "StopID": "248251",
       "StopName": {
@@ -2811,17 +2867,17 @@
         "En": "6670A"
       },
       "Direction": 1,
-      "EstimateTime": 1585,
-      "StopCountDown": 20,
-      "CurrentStop": "254674",
+      "EstimateTime": 2935,
+      "StopCountDown": 37,
+      "CurrentStop": "293577",
       "DestinationStop": "312548",
       "StopSequence": 49,
       "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:50+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:06+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2851,12 +2907,12 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "933-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248251",
       "StopID": "248251",
       "StopName": {
@@ -2876,17 +2932,16 @@
         "En": "6670D"
       },
       "Direction": 0,
-      "EstimateTime": 425,
-      "StopCountDown": 6,
-      "CurrentStop": "283436",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 22,
-      "StopStatus": 0,
+      "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:37:09+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2916,9 +2971,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2948,9 +3003,9 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -2980,12 +3035,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "955-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248269",
       "StopID": "248269",
       "StopName": {
@@ -3005,20 +3060,19 @@
         "En": "6670"
       },
       "Direction": 0,
-      "EstimateTime": 5566,
-      "StopCountDown": 80,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 85,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:39:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "956-FX",
+      "PlateNumb": "KKA-6739",
       "StopUID": "THB248269",
       "StopID": "248269",
       "StopName": {
@@ -3038,20 +3092,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "EstimateTime": 1993,
+      "EstimateTime": 3090,
       "StopCountDown": 22,
       "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 27,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "-1",
+      "PlateNumb": "957-FX",
       "StopUID": "THB248269",
       "StopID": "248269",
       "StopName": {
@@ -3071,16 +3125,17 @@
         "En": "6670B"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 4125,
+      "StopCountDown": 9,
+      "CurrentStop": "312548",
       "DestinationStop": "252627",
       "StopSequence": 10,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:21:33+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3110,12 +3165,12 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "933-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248269",
       "StopID": "248269",
       "StopName": {
@@ -3135,17 +3190,16 @@
         "En": "6670D"
       },
       "Direction": 0,
-      "EstimateTime": 780,
-      "StopCountDown": 11,
-      "CurrentStop": "283436",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 27,
-      "StopStatus": 0,
+      "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:37:09+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "KKZ-8022",
@@ -3168,20 +3222,20 @@
         "En": "6670E"
       },
       "Direction": 0,
-      "EstimateTime": 4888,
-      "StopCountDown": 7,
-      "CurrentStop": "294744",
+      "EstimateTime": 878,
+      "StopCountDown": 5,
+      "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 8,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "KKA-6739",
+      "PlateNumb": "-1",
       "StopUID": "THB248269",
       "StopID": "248269",
       "StopName": {
@@ -3201,20 +3255,19 @@
         "En": "6670F"
       },
       "Direction": 0,
-      "EstimateTime": 2846,
-      "StopCountDown": 5,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "291919",
       "StopSequence": 10,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:25+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "955-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248287",
       "StopID": "248287",
       "StopName": {
@@ -3234,17 +3287,16 @@
         "En": "6670"
       },
       "Direction": 0,
-      "EstimateTime": 4960,
-      "StopCountDown": 71,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 76,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:39:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3274,12 +3326,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "956-FX",
+      "PlateNumb": "KKA-6739",
       "StopUID": "THB248287",
       "StopID": "248287",
       "StopName": {
@@ -3299,20 +3351,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "EstimateTime": 1334,
+      "EstimateTime": 2448,
       "StopCountDown": 13,
       "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 18,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "KKA-6715",
+      "PlateNumb": "KKA-6761",
       "StopUID": "THB248287",
       "StopID": "248287",
       "StopName": {
@@ -3332,17 +3384,17 @@
         "En": "6670A"
       },
       "Direction": 1,
-      "EstimateTime": 1329,
-      "StopCountDown": 16,
-      "CurrentStop": "254674",
+      "EstimateTime": 2696,
+      "StopCountDown": 33,
+      "CurrentStop": "293577",
       "DestinationStop": "312548",
       "StopSequence": 45,
       "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:50+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:06+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3372,12 +3424,12 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "933-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248287",
       "StopID": "248287",
       "StopName": {
@@ -3397,17 +3449,16 @@
         "En": "6670D"
       },
       "Direction": 0,
-      "EstimateTime": 210,
-      "StopCountDown": 2,
-      "CurrentStop": "283436",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 18,
-      "StopStatus": 0,
+      "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:37:09+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3437,9 +3488,9 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3469,9 +3520,9 @@
       "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3501,12 +3552,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "956-FX",
+      "PlateNumb": "KKA-6739",
       "StopUID": "THB248294",
       "StopID": "248294",
       "StopName": {
@@ -3526,20 +3577,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "EstimateTime": 2995,
+      "EstimateTime": 4206,
       "StopCountDown": 38,
       "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 43,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "-1",
+      "PlateNumb": "KKA-6761",
       "StopUID": "THB248294",
       "StopID": "248294",
       "StopName": {
@@ -3559,16 +3610,17 @@
         "En": "6670A"
       },
       "Direction": 1,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 171,
+      "StopCountDown": 2,
+      "CurrentStop": "293577",
       "DestinationStop": "312548",
       "StopSequence": 14,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:06+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3598,12 +3650,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "955-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248334",
       "StopID": "248334",
       "StopName": {
@@ -3623,17 +3675,16 @@
         "En": "6670"
       },
       "Direction": 0,
-      "EstimateTime": 2062,
-      "StopCountDown": 26,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 31,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:39:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3663,12 +3714,12 @@
       "StopStatus": 1,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "955-FX",
+      "PlateNumb": "-1",
       "StopUID": "THB248384",
       "StopID": "248384",
       "StopName": {
@@ -3688,20 +3739,19 @@
         "En": "6670"
       },
       "Direction": 0,
-      "EstimateTime": 6503,
-      "StopCountDown": 96,
-      "CurrentStop": "259015",
+      "StopCountDown": 0,
+      "CurrentStop": "-1",
       "DestinationStop": "252627",
       "StopSequence": 101,
-      "StopStatus": 0,
+      "StopStatus": 3,
       "MessageType": 2,
       "IsLastBus": true,
-      "DataTime": "2026-11-11T09:39:59+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "978-FX",
+      "PlateNumb": "KKA-6739",
       "StopUID": "THB248384",
       "StopID": "248384",
       "StopName": {
@@ -3721,20 +3771,20 @@
         "En": "6670A"
       },
       "Direction": 0,
-      "EstimateTime": 505,
-      "StopCountDown": 10,
-      "CurrentStop": "248511",
+      "EstimateTime": 5034,
+      "StopCountDown": 50,
+      "CurrentStop": "259015",
       "DestinationStop": "252627",
       "StopSequence": 55,
       "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:40:46+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:23:04+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "-1",
+      "PlateNumb": "957-FX",
       "StopUID": "THB248384",
       "StopID": "248384",
       "StopName": {
@@ -3754,16 +3804,17 @@
         "En": "6670B"
       },
       "Direction": 0,
-      "StopCountDown": 0,
-      "CurrentStop": "-1",
+      "EstimateTime": 5562,
+      "StopCountDown": 25,
+      "CurrentStop": "312548",
       "DestinationStop": "252627",
       "StopSequence": 26,
-      "StopStatus": 1,
+      "StopStatus": 0,
       "MessageType": 2,
-      "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "IsLastBus": true,
+      "DataTime": "2026-11-11T16:21:33+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
       "PlateNumb": "-1",
@@ -3793,12 +3844,12 @@
       "StopStatus": 4,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:41:08+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:23:49+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     },
     {
-      "PlateNumb": "933-FX",
+      "PlateNumb": "956-FX",
       "StopUID": "THB248384",
       "StopID": "248384",
       "StopName": {
@@ -3818,17 +3869,17 @@
         "En": "6670D"
       },
       "Direction": 0,
-      "EstimateTime": 1727,
-      "StopCountDown": 27,
-      "CurrentStop": "283436",
+      "EstimateTime": 785,
+      "StopCountDown": 13,
+      "CurrentStop": "258114",
       "DestinationStop": "252627",
       "StopSequence": 43,
       "StopStatus": 0,
       "MessageType": 2,
       "IsLastBus": false,
-      "DataTime": "2026-11-11T09:37:09+08:00",
-      "SrcTransTime": "2026-11-11T09:41:10+08:00",
-      "UpdateTime": "2026-11-11T09:41:15+08:00"
+      "DataTime": "2026-11-11T16:22:19+08:00",
+      "SrcTransTime": "2026-11-11T16:23:51+08:00",
+      "UpdateTime": "2026-11-11T16:23:55+08:00"
     }
   ]
 }
