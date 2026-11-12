@@ -1,13 +1,20 @@
 {
-  "snapshot_timestamp": "2026-11-13 02:26:35",
-  "is_operating": false,
+  "snapshot_timestamp": "2026-11-13 05:40:45",
+  "is_operating": true,
   "fleet": {
-    "total_active": 0,
+    "total_active": 1,
     "outbound_count": 0,
-    "inbound_count": 0,
-    "max_speed_kmh": 0,
-    "avg_speed_kmh": 0,
-    "buses": []
+    "inbound_count": 1,
+    "max_speed_kmh": 0.0,
+    "avg_speed_kmh": 0.0,
+    "buses": [
+      {
+        "plate": "KKA-6706",
+        "subroute": "6670G",
+        "speed_kmh": 0.0,
+        "direction": "返程 (往台中高鐵)"
+      }
+    ]
   },
   "dispatch_status": {
     "hri_index": 0.28,
@@ -21,9 +28,9 @@
     "shuishe": []
   },
   "esg_carbon": {
-    "offset_kg_co2": 3422,
-    "tree_annual_equiv": 285,
-    "replaced_car_km": 18200
+    "offset_kg_co2": 1488,
+    "tree_annual_equiv": 124,
+    "replaced_car_km": 7915
   },
-  "executive_narrative": "全線目前已達末班車收班時段 (2026-11-13 02:26:35)。今日 18 輛車隊累計行駛約 18,200 公里，替代自小客車碳排放約 3,422 kg CO₂ (相當種植 285 棵樹)。車輛全數於埔里與干城場站妥善整備，預計明日 07:00 發出首班車。"
+  "executive_narrative": "走廊目前處於實時營運中，共 1 輛車在線 (去程 0 輛 / 返程 1 輛)，走廊最高車速 0.0 km/h。班距變異係數 HRI 為 0.28 (表現優良，全線車距均勻)。今日累計已協助減碳 1,488 kg CO₂。"
 }
