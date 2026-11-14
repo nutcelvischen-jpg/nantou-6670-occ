@@ -1,47 +1,41 @@
 {
-  "snapshot_timestamp": "2026-11-14 09:32:44",
+  "snapshot_timestamp": "2026-11-14 09:57:19",
   "is_operating": true,
   "fleet": {
     "total_active": 21,
-    "outbound_count": 13,
-    "inbound_count": 8,
-    "max_speed_kmh": 94.0,
-    "avg_speed_kmh": 20.4,
+    "outbound_count": 10,
+    "inbound_count": 11,
+    "max_speed_kmh": 98.0,
+    "avg_speed_kmh": 33.1,
     "buses": [
-      {
-        "plate": "KKA-6739",
-        "subroute": "6670F",
-        "speed_kmh": 40.0,
-        "direction": "去程 (往日月潭)"
-      },
       {
         "plate": "953-FX",
         "subroute": "6670D",
-        "speed_kmh": 0.0,
+        "speed_kmh": 43.0,
         "direction": "返程 (往台中高鐵)"
       },
       {
         "plate": "957-FX",
         "subroute": "6670B",
-        "speed_kmh": 0.0,
+        "speed_kmh": 55.0,
         "direction": "返程 (往台中高鐵)"
       },
       {
-        "plate": "993-FX",
-        "subroute": "6670H",
-        "speed_kmh": 36.0,
-        "direction": "返程 (往台中高鐵)"
+        "plate": "985-FX",
+        "subroute": "6670A",
+        "speed_kmh": 0.0,
+        "direction": "去程 (往日月潭)"
       },
       {
         "plate": "KKA-6766",
         "subroute": "6670H",
-        "speed_kmh": 13.0,
+        "speed_kmh": 98.0,
         "direction": "返程 (往台中高鐵)"
       },
       {
         "plate": "KKZ-8685",
         "subroute": "6670E",
-        "speed_kmh": 0.0,
+        "speed_kmh": 1.0,
         "direction": "去程 (往日月潭)"
       },
       {
@@ -53,50 +47,68 @@
       {
         "plate": "912-U7",
         "subroute": "6670H",
-        "speed_kmh": 0.0,
-        "direction": "去程 (往日月潭)"
+        "speed_kmh": 94.0,
+        "direction": "返程 (往台中高鐵)"
       },
       {
         "plate": "931-FX",
         "subroute": "6670",
-        "speed_kmh": 94.0,
+        "speed_kmh": 26.0,
         "direction": "去程 (往日月潭)"
       },
       {
         "plate": "KKA-6760",
         "subroute": "6670C",
-        "speed_kmh": 28.0,
+        "speed_kmh": 75.0,
         "direction": "去程 (往日月潭)"
-      },
-      {
-        "plate": "KKA-6767",
-        "subroute": "6670A",
-        "speed_kmh": 12.0,
-        "direction": "返程 (往台中高鐵)"
       },
       {
         "plate": "955-FX",
         "subroute": "6670F",
-        "speed_kmh": 15.0,
+        "speed_kmh": 78.0,
         "direction": "去程 (往日月潭)"
       },
       {
         "plate": "956-FX",
         "subroute": "6670A",
-        "speed_kmh": 35.0,
+        "speed_kmh": 91.0,
         "direction": "去程 (往日月潭)"
       },
       {
         "plate": "983-FX",
         "subroute": "6670A",
-        "speed_kmh": 22.0,
+        "speed_kmh": 47.0,
+        "direction": "去程 (往日月潭)"
+      },
+      {
+        "plate": "KKA-6767",
+        "subroute": "6670A",
+        "speed_kmh": 0.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKA-6739",
+        "subroute": "6670F",
+        "speed_kmh": 0.0,
         "direction": "去程 (往日月潭)"
       },
       {
         "plate": "KKZ-8671",
         "subroute": "6670B",
-        "speed_kmh": 22.0,
-        "direction": "去程 (往日月潭)"
+        "speed_kmh": 0.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "993-FX",
+        "subroute": "6670H",
+        "speed_kmh": 0.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKA-6761",
+        "subroute": "6670B",
+        "speed_kmh": 0.0,
+        "direction": "返程 (往台中高鐵)"
       },
       {
         "plate": "KKA-6711",
@@ -109,18 +121,6 @@
         "subroute": "6670G",
         "speed_kmh": 23.0,
         "direction": "返程 (往台中高鐵)"
-      },
-      {
-        "plate": "985-FX",
-        "subroute": "6670A",
-        "speed_kmh": 3.0,
-        "direction": "去程 (往日月潭)"
-      },
-      {
-        "plate": "KKA-6761",
-        "subroute": "6670B",
-        "speed_kmh": 20.0,
-        "direction": "去程 (往日月潭)"
       },
       {
         "plate": "KKA-6706",
@@ -139,27 +139,117 @@
   "dispatch_status": {
     "hri_index": 0.42,
     "hri_rating": "警戒 (班距受串車擾動)",
-    "bunching_incident_count": 2,
+    "bunching_incident_count": 11,
     "bunching_incidents": [
       {
-        "direction": "去程 (往日月潭)",
-        "lead_bus": "KKZ-8671",
-        "trail_bus": "KKA-6706",
-        "lead_speed_kmh": 22.0,
-        "trail_speed_kmh": 38.0,
-        "distance_km": 0.65,
-        "headway_min": 1.1,
-        "sop_advice": "令後車【KKA-6706】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【KKZ-8671】於非主要招呼站只下不上維持巡航。"
+        "direction": "返程 (往台中高鐵)",
+        "lead_bus": "912-U7",
+        "trail_bus": "KKA-6766",
+        "lead_speed_kmh": 94.0,
+        "trail_speed_kmh": 98.0,
+        "distance_km": 1.29,
+        "headway_min": 2.2,
+        "sop_advice": "令後車【KKA-6766】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【912-U7】於非主要招呼站只下不上維持巡航。"
       },
       {
         "direction": "去程 (往日月潭)",
-        "lead_bus": "KKA-6761",
+        "lead_bus": "955-FX",
+        "trail_bus": "KKZ-8685",
+        "lead_speed_kmh": 78.0,
+        "trail_speed_kmh": 1.0,
+        "distance_km": 2.81,
+        "headway_min": 4.8,
+        "sop_advice": "令後車【KKZ-8685】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【955-FX】於非主要招呼站只下不上維持巡航。"
+      },
+      {
+        "direction": "去程 (往日月潭)",
+        "lead_bus": "KKA-6760",
+        "trail_bus": "910-U7",
+        "lead_speed_kmh": 75.0,
+        "trail_speed_kmh": 0.0,
+        "distance_km": 1.61,
+        "headway_min": 2.8,
+        "sop_advice": "令後車【910-U7】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【KKA-6760】於非主要招呼站只下不上維持巡航。"
+      },
+      {
+        "direction": "去程 (往日月潭)",
+        "lead_bus": "983-FX",
+        "trail_bus": "910-U7",
+        "lead_speed_kmh": 47.0,
+        "trail_speed_kmh": 0.0,
+        "distance_km": 1.92,
+        "headway_min": 3.3,
+        "sop_advice": "令後車【910-U7】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【983-FX】於非主要招呼站只下不上維持巡航。"
+      },
+      {
+        "direction": "去程 (往日月潭)",
+        "lead_bus": "983-FX",
+        "trail_bus": "KKA-6760",
+        "lead_speed_kmh": 47.0,
+        "trail_speed_kmh": 75.0,
+        "distance_km": 0.35,
+        "headway_min": 0.6,
+        "sop_advice": "令後車【KKA-6760】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【983-FX】於非主要招呼站只下不上維持巡航。"
+      },
+      {
+        "direction": "去程 (往日月潭)",
+        "lead_bus": "KKA-6739",
+        "trail_bus": "KKA-6760",
+        "lead_speed_kmh": 0.0,
+        "trail_speed_kmh": 75.0,
+        "distance_km": 2.41,
+        "headway_min": 4.1,
+        "sop_advice": "令後車【KKA-6760】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【KKA-6739】於非主要招呼站只下不上維持巡航。"
+      },
+      {
+        "direction": "去程 (往日月潭)",
+        "lead_bus": "KKA-6706",
+        "trail_bus": "KKA-6760",
+        "lead_speed_kmh": 38.0,
+        "trail_speed_kmh": 75.0,
+        "distance_km": 2.76,
+        "headway_min": 4.7,
+        "sop_advice": "令後車【KKA-6760】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【KKA-6706】於非主要招呼站只下不上維持巡航。"
+      },
+      {
+        "direction": "去程 (往日月潭)",
+        "lead_bus": "KKA-6739",
+        "trail_bus": "983-FX",
+        "lead_speed_kmh": 0.0,
+        "trail_speed_kmh": 47.0,
+        "distance_km": 2.07,
+        "headway_min": 3.5,
+        "sop_advice": "令後車【983-FX】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【KKA-6739】於非主要招呼站只下不上維持巡航。"
+      },
+      {
+        "direction": "去程 (往日月潭)",
+        "lead_bus": "KKA-6706",
+        "trail_bus": "983-FX",
+        "lead_speed_kmh": 38.0,
+        "trail_speed_kmh": 47.0,
+        "distance_km": 2.44,
+        "headway_min": 4.2,
+        "sop_advice": "令後車【983-FX】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【KKA-6706】於非主要招呼站只下不上維持巡航。"
+      },
+      {
+        "direction": "去程 (往日月潭)",
+        "lead_bus": "KKA-6739",
         "trail_bus": "KKA-6706",
-        "lead_speed_kmh": 20.0,
+        "lead_speed_kmh": 0.0,
         "trail_speed_kmh": 38.0,
-        "distance_km": 0.63,
+        "distance_km": 0.67,
         "headway_min": 1.1,
-        "sop_advice": "令後車【KKA-6706】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【KKA-6761】於非主要招呼站只下不上維持巡航。"
+        "sop_advice": "令後車【KKA-6706】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【KKA-6739】於非主要招呼站只下不上維持巡航。"
+      },
+      {
+        "direction": "返程 (往台中高鐵)",
+        "lead_bus": "KKA-6755",
+        "trail_bus": "993-FX",
+        "lead_speed_kmh": 23.0,
+        "trail_speed_kmh": 0.0,
+        "distance_km": 0.24,
+        "headway_min": 0.4,
+        "sop_advice": "令後車【993-FX】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【KKA-6755】於非主要招呼站只下不上維持巡航。"
       }
     ]
   },
@@ -170,7 +260,7 @@
       {
         "plate": "KKA-6739",
         "subroute": "6670F",
-        "minutes": 32,
+        "minutes": 6,
         "direction": "去程"
       }
     ]
@@ -180,5 +270,5 @@
     "tree_annual_equiv": 186,
     "replaced_car_km": 11873
   },
-  "executive_narrative": "走廊目前處於實時營運中，共 21 輛車在線。偵測到 2 起串車警報（KKA-6706 逼近 KKZ-8671，距離僅 0.65 km）。行控系統已建議啟動 SOP，令後車在埔里轉運站延長停等 3~5 分鐘以拉開車距。全線 HRI 班距變異指數為 0.42。"
+  "executive_narrative": "走廊目前處於實時營運中，共 21 輛車在線。偵測到 11 起串車警報（KKA-6766 逼近 912-U7，距離僅 1.29 km）。行控系統已建議啟動 SOP，令後車在埔里轉運站延長停等 3~5 分鐘以拉開車距。全線 HRI 班距變異指數為 0.42。"
 }
