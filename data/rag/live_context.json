@@ -1,18 +1,48 @@
 {
-  "snapshot_timestamp": "2026-11-18 05:54:27",
+  "snapshot_timestamp": "2026-11-18 06:44:46",
   "is_operating": true,
   "fleet": {
-    "total_active": 1,
-    "outbound_count": 0,
-    "inbound_count": 1,
-    "max_speed_kmh": 23.0,
-    "avg_speed_kmh": 23.0,
+    "total_active": 6,
+    "outbound_count": 2,
+    "inbound_count": 4,
+    "max_speed_kmh": 45.0,
+    "avg_speed_kmh": 11.0,
     "buses": [
+      {
+        "plate": "932-FX",
+        "subroute": "6670D",
+        "speed_kmh": 45.0,
+        "direction": "去程 (往日月潭)"
+      },
+      {
+        "plate": "935-FX",
+        "subroute": "6670G",
+        "speed_kmh": 21.0,
+        "direction": "返程 (往台中高鐵)"
+      },
       {
         "plate": "KKA-6723",
         "subroute": "6670G",
-        "speed_kmh": 23.0,
+        "speed_kmh": 0.0,
         "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "937-FX",
+        "subroute": "6670",
+        "speed_kmh": 0.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKZ-8685",
+        "subroute": "6670E",
+        "speed_kmh": 0.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "983-FX",
+        "subroute": "6670H",
+        "speed_kmh": 0.0,
+        "direction": "去程 (往日月潭)"
       }
     ]
   },
@@ -32,5 +62,5 @@
     "tree_annual_equiv": 124,
     "replaced_car_km": 7915
   },
-  "executive_narrative": "走廊目前處於實時營運中，共 1 輛車在線 (去程 0 輛 / 返程 1 輛)，走廊最高車速 23.0 km/h。班距變異係數 HRI 為 0.28 (表現優良，全線車距均勻)。今日累計已協助減碳 1,488 kg CO₂。"
+  "executive_narrative": "走廊目前處於實時營運中，共 6 輛車在線 (去程 2 輛 / 返程 4 輛)，走廊最高車速 45.0 km/h。班距變異係數 HRI 為 0.28 (表現優良，全線車距均勻)。今日累計已協助減碳 1,488 kg CO₂。"
 }
