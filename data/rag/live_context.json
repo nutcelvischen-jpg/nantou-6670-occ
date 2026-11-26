@@ -1,61 +1,117 @@
 {
-  "snapshot_timestamp": "2026-11-27 06:31:12",
+  "snapshot_timestamp": "2026-11-27 07:26:06",
   "is_operating": true,
   "fleet": {
-    "total_active": 5,
-    "outbound_count": 2,
-    "inbound_count": 3,
-    "max_speed_kmh": 15.0,
-    "avg_speed_kmh": 6.6,
+    "total_active": 12,
+    "outbound_count": 4,
+    "inbound_count": 8,
+    "max_speed_kmh": 89.0,
+    "avg_speed_kmh": 15.2,
     "buses": [
       {
-        "plate": "957-FX",
-        "subroute": "6670H",
-        "speed_kmh": 12.0,
-        "direction": "返程 (往台中高鐵)"
-      },
-      {
-        "plate": "975-FX",
-        "subroute": "6670D",
-        "speed_kmh": 15.0,
-        "direction": "去程 (往日月潭)"
-      },
-      {
-        "plate": "KKA-6755",
+        "plate": "951-FX",
         "subroute": "6670G",
         "speed_kmh": 0.0,
         "direction": "返程 (往台中高鐵)"
       },
       {
-        "plate": "KKA-6715",
-        "subroute": "6670",
-        "speed_kmh": 6.0,
+        "plate": "KKA-6755",
+        "subroute": "6670G",
+        "speed_kmh": 89.0,
         "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKA-6765",
+        "subroute": "6670B",
+        "speed_kmh": 0.0,
+        "direction": "去程 (往日月潭)"
       },
       {
         "plate": "977-FX",
         "subroute": "6670H",
         "speed_kmh": 0.0,
         "direction": "去程 (往日月潭)"
+      },
+      {
+        "plate": "981-FX",
+        "subroute": "6670G",
+        "speed_kmh": 53.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKA-6715",
+        "subroute": "6670",
+        "speed_kmh": 12.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKA-6751",
+        "subroute": "6670B",
+        "speed_kmh": 1.0,
+        "direction": "去程 (往日月潭)"
+      },
+      {
+        "plate": "KKA-6768",
+        "subroute": "6670D",
+        "speed_kmh": 2.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKZ-8686",
+        "subroute": "6670E",
+        "speed_kmh": 0.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "KKA-6733",
+        "subroute": "6670H",
+        "speed_kmh": 0.0,
+        "direction": "返程 (往台中高鐵)"
+      },
+      {
+        "plate": "983-FX",
+        "subroute": "6670A",
+        "speed_kmh": 0.0,
+        "direction": "去程 (往日月潭)"
+      },
+      {
+        "plate": "957-FX",
+        "subroute": "6670H",
+        "speed_kmh": 26.0,
+        "direction": "返程 (往台中高鐵)"
       }
     ]
   },
   "dispatch_status": {
-    "hri_index": 0.28,
-    "hri_rating": "穩定 (平峰時段)",
-    "bunching_incident_count": 0,
-    "bunching_incidents": []
+    "hri_index": 0.42,
+    "hri_rating": "警戒 (班距受串車擾動)",
+    "bunching_incident_count": 2,
+    "bunching_incidents": [
+      {
+        "direction": "返程 (往台中高鐵)",
+        "lead_bus": "951-FX",
+        "trail_bus": "957-FX",
+        "lead_speed_kmh": 0.0,
+        "trail_speed_kmh": 26.0,
+        "distance_km": 1.08,
+        "headway_min": 1.8,
+        "sop_advice": "令後車【957-FX】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【951-FX】於非主要招呼站只下不上維持巡航。"
+      },
+      {
+        "direction": "返程 (往台中高鐵)",
+        "lead_bus": "KKA-6733",
+        "trail_bus": "957-FX",
+        "lead_speed_kmh": 0.0,
+        "trail_speed_kmh": 26.0,
+        "distance_km": 1.61,
+        "headway_min": 2.8,
+        "sop_advice": "令後車【957-FX】於中繼『埔里轉運站』延長停等 3~5 分鐘調節時距；前車【KKA-6733】於非主要招呼站只下不上維持巡航。"
+      }
+    ]
   },
   "hub_arrivals": {
     "hsr_taichung": [],
-    "puli": [
-      {
-        "plate": "957-FX",
-        "subroute": "6670H",
-        "minutes": 3,
-        "direction": "返程"
-      }
-    ],
+    "puli": [],
     "shuishe": []
   },
   "esg_carbon": {
@@ -63,5 +119,5 @@
     "tree_annual_equiv": 124,
     "replaced_car_km": 7915
   },
-  "executive_narrative": "走廊目前處於實時營運中，共 5 輛車在線 (去程 2 輛 / 返程 3 輛)，走廊最高車速 15.0 km/h。班距變異係數 HRI 為 0.28 (表現優良，全線車距均勻)。今日累計已協助減碳 1,488 kg CO₂。"
+  "executive_narrative": "走廊目前處於實時營運中，共 12 輛車在線。偵測到 2 起串車警報（957-FX 逼近 951-FX，距離僅 1.08 km）。行控系統已建議啟動 SOP，令後車在埔里轉運站延長停等 3~5 分鐘以拉開車距。全線 HRI 班距變異指數為 0.42。"
 }
